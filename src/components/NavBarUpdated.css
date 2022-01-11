@@ -1,0 +1,109 @@
+.navbar {
+    height: 110px;
+    background-image: linear-gradient(to right, gray, gray, #555, #444);
+}
+
+.imgLogo {
+    height: 80px;
+    width: 160px;
+    padding: 10px;
+    margin-left: 1.5rem;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 3px 3px 10px #000;
+}
+
+.imgLogo2 {
+    height: 80px;
+    width: 160px;
+    padding: 10px;
+    border-radius: 6px;
+    margin-left: 1520px;
+    margin-top: -90px;
+    background-color: #444;
+    opacity: 0.9px;
+    box-shadow: 3px 3px 10px #000;
+    float: right;
+}
+
+.textAtlas {
+    color: #fff;
+    text-shadow: 4px 4px 5px #000;
+    margin-right: 1270px;
+}
+
+.nav-menu.active {
+    left: 0;
+    transition: 350ms;
+}
+
+.nav-menu {
+    margin-top: 100px;
+    background-color: gray;
+    width: 220px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+    /*Só o transition sozinho ñ faz nada*/
+}
+
+.sidebarImg {
+    height: 70px;
+    width: 70px;
+    margin: 10px 0px 10px 0px;
+    border-radius: 6px;
+    margin-left: 3rem;
+}
+
+.nav-menu-items {
+    list-style: none;
+    width: 100%;
+    margin-left: -1rem;
+}
+
+.sidebarBar1,
+.sidebarBar2 {
+    margin-top: 10px;
+    height: 1px;
+    width: 160px;
+    background-color: #fff;
+}
+
+.sidebarBar2 {
+    margin-bottom: 1rem;
+}
+
+.nav-text {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 4px 0px;
+    list-style: none;
+    height: 50px;
+    width: 100%;
+}
+
+.nav-text a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 6px;
+    margin-left: -1rem;
+}
+
+.nav-text a:hover {
+    background-color: #333;
+    width: 110%;
+}
+
+span {
+    margin-left: 8px;
+}

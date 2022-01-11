@@ -1,0 +1,7 @@
+.backgroundContainer {
+    width: 1000px;
+    height: 400px;
+    background-color: rgb(220, 220, 220);
+    border-radius: 40px;
+    margin: auto;
+}
