@@ -15,7 +15,23 @@ h4 {
     padding: 0 !important;
 }
 
+/*Textos Titulo*/
+.tituloInterno{
+    padding-bottom: 20px;
+}
+
+/*Tabelas*/
 .textTable tr td{
     font-size: 14px;
     
+}
+.table>thead {
+    vertical-align: middle!important;
+}
+
+/*Botões*/
+button.btn{
+    padding: 5px 30px;
+    border-radius: 12px;
+    border: 1px solid #000;
 }
