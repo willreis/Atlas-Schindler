@@ -56,7 +56,7 @@ function ImportacaoOrdemProducao() {
             <IconContext.Provider value={{ color: '#3cde3c', size: '1.6rem' }}>
                 <div Style='background-color: #f8f8f8; margin: 4rem; padding: 2rem; border-radius: 2rem;'>
                     <div Style='display: flex; justify-content: space-between; margin: 2rem 3rem 0 3rem'>
-                        <div>
+                        <div className='tituloInterno'>
                             <h2 Style='color:#555;'>Importação de Ordem Produção</h2>
                         </div>
                         <div>

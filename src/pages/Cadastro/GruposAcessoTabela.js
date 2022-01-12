@@ -48,7 +48,7 @@ function GruposAcessoTabela() {
             <IconContext.Provider value={{ color: '#3cde3c', size: '1.6rem' }}>
                 <div Style='background-color: #f8f8f8; margin: 4rem; padding: 2rem; border-radius: 2rem;'>
                     <div Style='display: flex; justify-content: space-between;'>
-                        <div>
+                        <div className='tituloInterno'>
                             <h2 Style='color:#555;'>Grupo de Acesso</h2>
                         </div>
                         <div>

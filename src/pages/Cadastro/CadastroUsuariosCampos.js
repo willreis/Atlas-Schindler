@@ -7,7 +7,7 @@ import InputShort from '../../components/InputShort'
 function CadastroUsuariosCampos() {
     return (
         <div Style='display:flex; justify-content:center; align-items: center'>
-            <div>
+            <div className='tituloInterno'>
                 <h3 Style='color:#555; margin-left: 400px'>Cadastro de usuários</h3>
                 <Background />
                 <div Style='display: flex; justify-content:space-evenly'>

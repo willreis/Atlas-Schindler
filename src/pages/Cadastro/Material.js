@@ -57,7 +57,7 @@ function Material() {
             <IconContext.Provider value={{ color: '#3cde3c', size: '1.6rem' }}>
                 <div Style='background-color: #f8f8f8; margin-top: 4rem; padding: 2rem; border-radius: 2rem;'>
                     <div Style='display: flex; justify-content: space-between;'>
-                        <div>
+                        <div className='tituloInterno'>
                             <h2 Style='color:#555;'>Material</h2>
                         </div>
                         <div>
