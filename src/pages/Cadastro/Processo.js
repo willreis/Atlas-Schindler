@@ -41,7 +41,7 @@ function Processo() {
                     <BootstrapTable keyField='matricula' hover striped data={products} columns={columns} />
                 </div>
                 <div Style='display:flex;width: 100%; justify-content: space-between; padding: 0 3rem;'>
-                    <Button variant="primary">Voltar</Button>
+                    <Button variant="secondary">Voltar</Button>
                     <Button variant="success">Salvar</Button>
                 </div>
             </div>

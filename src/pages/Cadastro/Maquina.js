@@ -9,9 +9,9 @@ import { Button } from 'react-bootstrap';
 
 function Maquina() {
     const products = [
-        {nome: 'D1', processo: "Dobradeira", status: "Ativo", ordenacao: 1, tempoMedioProducao: 12, opcoes:<IoOptionsSharp /> },
-        {nome: 'L1', processo: "Laser", status: "Ativo", ordenacao: 3, tempoMedioProducao: 15, opcoes:<IoOptionsSharp /> },
-        {nome: 'D1', processo: "Dobradeira", status: "Ativo", ordenacao: 1, tempoMedioProducao: 12, opcoes:<IoOptionsSharp /> }
+        { nome: 'D1', processo: "Dobradeira", status: "Ativo", ordenacao: 1, tempoMedioProducao: 12, opcoes: <IoOptionsSharp /> },
+        { nome: 'L1', processo: "Laser", status: "Ativo", ordenacao: 3, tempoMedioProducao: 15, opcoes: <IoOptionsSharp /> },
+        { nome: 'D1', processo: "Dobradeira", status: "Ativo", ordenacao: 1, tempoMedioProducao: 12, opcoes: <IoOptionsSharp /> }
 
     ];
 
@@ -30,7 +30,7 @@ function Maquina() {
         },
         {
             dataField: 'ordenacao',
-            text : 'Ordenação'
+            text: 'Ordenação'
         },
         {
             dataField: 'tempoMedioProducao',
@@ -51,13 +51,16 @@ function Maquina() {
                             <h2 Style='color:#555;'>Maquina</h2>
                         </div>
                         <div>
-                        <Button variant="success">Salvar</Button>
+                            <Button variant="success">Salvar</Button>
                         </div>
                     </div>
                     <div className="textTable" Style='margin: 1rem 3rem 3rem 3rem; text-align: center' >
                         <BootstrapTable keyField='matricula' hover striped data={products} columns={columns} />
                     </div>
-                   
+                    <div Style='display:flex;width: 100%; justify-content: space-between; padding: 0 3rem;'>
+                        <Button variant="secondary">Voltar</Button>
+                        <Button variant="success">Salvar</Button>
+                    </div>
                 </div>
             </IconContext.Provider>
         </>

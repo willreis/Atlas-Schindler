@@ -14,7 +14,7 @@ function Impressora() {
         { nome: "Impressora 2", marca: "Zebra", endereco: "//servidor/impressora", area: 2, opcoes: <IoOptionsSharp /> },
         { nome: "Impressora 3", marca: "Zebra", endereco: "//servidor/impressora", area: 3, opcoes: <IoOptionsSharp /> },
         { nome: "Impressora 4", marca: "Zebra", endereco: "//servidor/impressora", area: 4, opcoes: <IoOptionsSharp /> },
-        
+
     ];
 
     const columns = [
@@ -36,32 +36,31 @@ function Impressora() {
         }
     ];
     return (
-       
-    
-        
-            <>
-                <IconContext.Provider value={{ color: '#3cde3c', size: '1.6rem' }}>
-                    <div Style='background-color: #f8f8f8; margin: 4rem; padding: 2rem; border-radius: 2rem;'>
-                        <div Style='display: flex; justify-content: space-between;'>
-                            <div>
-                                <h2 Style='color:#555;'>Impressora</h2>
-                            </div>
-                            <div>
-                            <Button variant="success">Cadastrar</Button>
-                            </div>
-                        </div>
-                        <div Style='text-align: center' className="textTable">
-                            <BootstrapTable keyField='nomeGrupo' hover striped data={products} columns={columns} />
+
+
+
+        <>
+            <IconContext.Provider value={{ color: '#3cde3c', size: '1.6rem' }}>
+                <div Style='background-color: #f8f8f8; margin: 4rem; padding: 2rem; border-radius: 2rem;'>
+                    <div Style='display: flex; justify-content: space-between;'>
+                        <div>
+                            <h2 Style='color:#555;'>Impressora</h2>
                         </div>
                         <div>
-                        <Button variant="secondary">Voltar</Button>
-                        <Button variant="success">Salvar</Button>
-
+                            <Button variant="success">Cadastrar</Button>
                         </div>
                     </div>
-                </IconContext.Provider>
-            </>
-        
+                    <div Style='text-align: center' className="textTable">
+                        <BootstrapTable keyField='nomeGrupo' hover striped data={products} columns={columns} />
+                    </div>
+                    <div Style='display:flex;width: 100%; justify-content: space-between; padding: 0 3rem;'>
+                        <Button variant="secondary">Voltar</Button>
+                        <Button variant="success">Salvar</Button>
+                    </div>
+                </div>
+            </IconContext.Provider>
+        </>
+
     )
 }
 
