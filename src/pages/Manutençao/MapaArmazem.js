@@ -29,8 +29,8 @@ function MapaArmazem() {
             text: 'X/Y'
         },
         {
-            dataField: '1',                              //dataField é oq vai estar por trás de cada Coluna. Ele pega as propriedades do Array de objetos 'products' mas só no Código.
-            text: '1'                                    //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela. 
+            dataField: '1',                                                  //dataField é oq vai estar por trás de cada Coluna. Ele pega as propriedades do Array de objetos 'products' mas só no Código.
+            text: '1'                                                        //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela. 
         },
         {
             dataField: '2',

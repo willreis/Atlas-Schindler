@@ -9,46 +9,80 @@ import { Button } from 'react-bootstrap';
 function InformacoesGondola() {
 
     const products = [
-        { 0: 'X=1', 1: <IoOptionsSharp />, 2: <IoOptionsSharp />, 3: <IoOptionsSharp />, 4: <IoOptionsSharp />, 5: <IoOptionsSharp />, 6: <IoOptionsSharp />, 7: <IoOptionsSharp />, 8: <IoOptionsSharp />, 9: <IoOptionsSharp />, 10: <IoOptionsSharp />, 11: <IoOptionsSharp />, 12: <IoOptionsSharp />, 13: <IoOptionsSharp />, 14: <IoOptionsSharp />, 15: <IoOptionsSharp />, 16: <IoOptionsSharp />, 17: <IoOptionsSharp />, 18: <IoOptionsSharp />, 19: <IoOptionsSharp />, 20: <IoOptionsSharp />, 21: <IoOptionsSharp />, 22: <IoOptionsSharp />, 23: <IoOptionsSharp />, 24: <IoOptionsSharp />, 25: <IoOptionsSharp />, 26: <IoOptionsSharp />, },
-        { 0: 'X=2', 1: <IoOptionsSharp />, 2: <IoOptionsSharp />, 3: <IoOptionsSharp />, 4: <IoOptionsSharp />, 5: <IoOptionsSharp />, 6: <IoOptionsSharp />, 7: <IoOptionsSharp />, 8: <IoOptionsSharp />, 9: <IoOptionsSharp />, 10: <IoOptionsSharp />, 11: <IoOptionsSharp />, 12: <IoOptionsSharp />, 13: <IoOptionsSharp />, 14: <IoOptionsSharp />, 15: <IoOptionsSharp />, 16: <IoOptionsSharp />, 17: <IoOptionsSharp />, 18: <IoOptionsSharp />, 19: <IoOptionsSharp />, 20: <IoOptionsSharp />, 21: <IoOptionsSharp />, 22: <IoOptionsSharp />, 23: <IoOptionsSharp />, 24: <IoOptionsSharp />, 25: <IoOptionsSharp />, 26: <IoOptionsSharp />, },
+        { numeroGondola: 123456, codigoMaterial: 123, ordem: 1212, localizacao: 4321, quantidadePç: 9999, quantidadeKg: 8888, vg: 9898, statusGondola: 9090, opcoes: <IoOptionsSharp /> },
+        { numeroGondola: 123456, codigoMaterial: 123, ordem: 1212, localizacao: 4321, quantidadePç: 9999, quantidadeKg: 8888, vg: 9898, statusGondola: 9090, opcoes: <IoOptionsSharp /> },
+        { numeroGondola: 123456, codigoMaterial: 123, ordem: 1212, localizacao: 4321, quantidadePç: 9999, quantidadeKg: 8888, vg: 9898, statusGondola: 9090, opcoes: <IoOptionsSharp /> },
+        { numeroGondola: 123456, codigoMaterial: 123, ordem: 1212, localizacao: 4321, quantidadePç: 9999, quantidadeKg: 8888, vg: 9898, statusGondola: 9090, opcoes: <IoOptionsSharp /> },
+        { numeroGondola: 123456, codigoMaterial: 123, ordem: 1212, localizacao: 4321, quantidadePç: 9999, quantidadeKg: 8888, vg: 9898, statusGondola: 9090, opcoes: <IoOptionsSharp /> },
     ];
 
     const columns = [
         {
-            dataField: '0',
-            text: 'X/Y'
+            dataField: 'numeroGondola',
+            text: 'Número da Gôndola'
         },
         {
-            dataField: '1',                              //dataField é oq vai estar por trás de cada Coluna. Ele pega as propriedades do Array de objetos 'products' mas só no Código.
-            text: '1'                                    //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela. 
+            dataField: 'codigoMaterial',                                  //dataField é oq vai estar por trás de cada Coluna. Ele pega as propriedades do Array de objetos 'products' mas só no Código.
+            text: 'Código do Material'                                    //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela. 
         },
         {
-            dataField: '2',
-            text: '2'
+            dataField: 'ordem',
+            text: 'Ordem'
+        },
+        {
+            dataField: 'localizacao',
+            text: 'Localização'
+        },
+        {
+            dataField: 'quantidadePç',
+            text: 'Quantidade (Pç)'
+        },
+        {
+            dataField: 'quantidadeKg',
+            text: 'Quantidade (Kg)'
+        },
+        {
+            dataField: 'vg',
+            text: 'VG'
+        },
+        {
+            dataField: 'statusGondola',
+            text: 'Status da Gôndola'
+        },
+        {
+            dataField: 'opcoes',
+            text: 'Opções (Editar)'
         },
     ]
 
     return (
         <>
-            <IconContext.Provider value={{ color: '#555', size: '1.4rem' }}>
-                <div Style='background-color: #f8f8f8; margin: 4rem; padding: 2rem; border-radius: 2rem;'>
-                    <div className='tituloInterno'>
-                        <h2 Style='color:#555;'>Informações da Gôndola</h2>
-                    </div>
+            <IconContext.Provider value={{ color: 'green', size: '1.4rem' }}>
+                <div className='tituloInterno' Style='margin: 1rem 4rem 1rem 4rem; padding: 1rem; margin-top: 3rem'>
+                    <h2 Style='color:#555;'>Informações da Gôndola</h2>
+                </div>
 
-                    <div Style='display: flex;'>
+                <div Style='background-color: #f8f8f8; margin: 1rem 4rem 1rem 4rem; padding: 2rem 2rem 1rem 2rem; border-radius: 2rem;'>
+                    <div Style='display: flex; justify-content: space-between; align-items: flex-end;  margin-bottom: 2rem;'>
                         <div>
-                            <input type='text' Style='background-color: #ddd; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 5px;' />
+                            <h5>Número da Gôndola</h5>
+                            <input type='text' Style='background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px ' />
                         </div>
                         <div>
-                            <input type='text' Style='background-color: #ddd; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 5px;' />
+                            <h5>Código do Material</h5>
+                            <input type='text' Style='background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px' />
                         </div>
                         <div>
-                            <input type='text' Style='background-color: #ddd; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 5px;' />
+                            <h5>Ordem</h5>
+                            <input type='text' Style='background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px' />
                         </div>
-                        <Button variant="success">Estados</Button>
+                        <div>
+                            <Button variant="success">Pesquisar</Button>
+                        </div>
                     </div>
+                </div>
 
+                <div Style='background-color: #f8f8f8; margin: 1rem 4rem 1rem 4rem; padding: 2rem; border-radius: 2rem;'>
                     <div Style='text-align: center' className="textTable">
                         <BootstrapTable keyField='nomeGrupo' hover striped data={products} columns={columns} />
                     </div>
