@@ -61,7 +61,7 @@ function Material() {
                             <h2 Style='color:#555;'>Material</h2>
                         </div>
                         <div>
-                        <Button variant="success">Salvar</Button>
+                        <Button variant="success">Cadastrar</Button>
 
                         </div>
                     </div>

@@ -51,7 +51,7 @@ function Maquina() {
                             <h2 Style='color:#555;'>Maquina</h2>
                         </div>
                         <div>
-                            <Button variant="success">Salvar</Button>
+                            <Button variant="success">Cadastrar</Button>
                         </div>
                     </div>
                     <div className="textTable" Style='margin: 1rem 3rem 3rem 3rem; text-align: center' >
