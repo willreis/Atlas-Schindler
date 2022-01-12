@@ -53,7 +53,7 @@ function Maquina() {
                             <ButtonComponentBootstrap/>
                         </div>
                     </div>
-                    <div Style='margin: 1rem 3rem 3rem 3rem; text-align: center' >
+                    <div className="textTable" Style='margin: 1rem 3rem 3rem 3rem; text-align: center' >
                         <BootstrapTable keyField='matricula' hover striped data={products} columns={columns} />
                     </div>
                    
