@@ -62,13 +62,11 @@ function Material() {
                         </div>
                         <div>
                         <Button variant="success">Cadastrar</Button>
-
                         </div>
                     </div>
                     <div Style='text-align: center'  className="textTable">
                         <BootstrapTable keyField='matricula' hover striped data={products} columns={columns} />
                     </div>
-                   
                 </div>
             </IconContext.Provider>
         </>
