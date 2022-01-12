@@ -2,9 +2,10 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ButtonComponentBootstrap from '../../components/ButtonComponentBootstrap'
 import { IconContext } from 'react-icons/lib'
 import { IoOptionsSharp } from "react-icons/io5";
+import { Button } from 'react-bootstrap';
+
 
 function Maquina() {
     const products = [
@@ -50,7 +51,7 @@ function Maquina() {
                             <h2 Style='color:#555;'>Maquina</h2>
                         </div>
                         <div>
-                            <ButtonComponentBootstrap/>
+                        <Button variant="success">Salvar</Button>
                         </div>
                     </div>
                     <div className="textTable" Style='margin: 1rem 3rem 3rem 3rem; text-align: center' >

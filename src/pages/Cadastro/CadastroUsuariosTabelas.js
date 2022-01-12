@@ -2,16 +2,16 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
-import ButtonComponentBootstrap from '../../components/ButtonComponentBootstrap'
 import { IconContext } from 'react-icons/lib'
 import { IoOptionsSharp } from "react-icons/io5";
+import { Button } from 'react-bootstrap';
 
 
 
 
 
 function CadastroUsuariosTabelas() {
-         
+
     const products = [
         { matricula: 1212, nome: 'José', cargo: 1100, gruposAcesso: 1100, opcoes: <IoOptionsSharp /> },
         { matricula: 3434, nome: "José", cargo: 2200, gruposAcesso: 2200, opcoes: <IoOptionsSharp /> },
@@ -37,8 +37,8 @@ function CadastroUsuariosTabelas() {
             text: 'Opções'
         }
     ];
-    
-    
+
+
 
     return (
         <>
@@ -49,7 +49,7 @@ function CadastroUsuariosTabelas() {
                             <h2 Style='color:#555;'>Cadastro de usuários</h2>
                         </div>
                         <div>
-                            <ButtonComponentBootstrap/>
+                            <Button variant="success">Cadastrar</Button>
                         </div>
                     </div>
                     <div Style='margin: 1rem 3rem 3rem 3rem; text-align: center' >
