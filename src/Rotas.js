@@ -7,7 +7,7 @@ import Impressora from './pages/Cadastro/Impressora'
 import Processo from './pages/Cadastro/Processo'
 import Maquina from './pages/Cadastro/Maquina'
 import Material from './pages/Cadastro/Material'
-//Páginas Secundárias cadastro
+//Páginas Internas cadastro
 import CadastroUsuariosCampos from './pages/Cadastro/CadastroUsuariosCampos'
 import GruposAcessoCampos from './pages/Cadastro/GruposAcessoCampos'
 import GruposAcessoTabelaCampos from './pages/Cadastro/GruposAcessoTabelaCampos'
@@ -18,7 +18,7 @@ import ImportacaoOrdemProducao from './pages/Planejamento/ImportacaoOrdemProduca
 import OrdensProducao from './pages/Planejamento/OrdensProducao'
 import OrdensParaProducao from './pages/Planejamento/OrdensParaProducao'
 import ProblemasProducao from './pages/Planejamento/ProblemasProducao'
-//Páginas Secundárias Planejamento
+//Páginas Internas Planejamento
 import DetalhesItemProducao from './pages/Planejamento/DetalhesItemProducao'
 import DetalhesVgs from './pages/Planejamento/DetalhesVgs'
 import GerenciamentoKanban from './pages/Planejamento/GerenciamentoKanban'
@@ -27,7 +27,7 @@ import MapaDePosicoes from './pages/Manutençao/MapaArmazem'
 import InformacoesGondola from './pages/Manutençao/InformacoesGondola'
 import OcupacaoArmazem from './pages/Manutençao/OcupacaoArmazem'
 import InformacoesTranselevador from './pages/Manutençao/InformacoesTranselevador'
-//Páginas Secundárias Manutencao
+//Páginas Internas Manutencao
 import Alarmes from './pages/Manutençao/Alarmes'
 import GerenciamentoKanbanManutencao from './pages/Manutençao/GerenciamentoKanbanManutencao'
 import InformacoesLocalizacao from './pages/Manutençao/InformacoesLocalizacao'
@@ -37,7 +37,7 @@ import TesteTranslacao from './pages/Manutençao/TesteTranslacao'
 import Producao from './pages/Operacao/Producao'
 import RecebimentoArmazem from './pages/Operacao/RecebimentoArmazem'
 import ConfiguracaoEstacaoTrabalho from './pages/Operacao/ConfiguracaoEstacaoTrabalho'
-//Páginas Secundárias Operacao
+//Páginas Internas Operacao
 import DetalhesProdPuncionadeira from './pages/Operacao/DetalhesProdPuncionadeira'
 import DetalhesProducao from './pages/Operacao/DetalhesProducao'
 
@@ -73,7 +73,7 @@ function Rotas(props) {
                     <Route path='/cadastro/processo' exact element={<Processo />}></Route>
                     <Route path='/cadastro/maquina' exact element={<Maquina />}></Route>
                     <Route path='/cadastro/produto' exact element={<Material />}></Route>
-                    {/*Esses Route path='' abaixo ñ tem o Link to='' ainda*/}
+                    {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
                     <Route path='/cadastro/cadastrousuariocampos' exact element={<CadastroUsuariosCampos />}></Route>
                     <Route path='/cadastro/grupoacessocampos' exact element={<GruposAcessoCampos />}></Route>
                     <Route path='/cadastro/gruposacessotabelacampos' exact element={<GruposAcessoTabelaCampos />}></Route>
@@ -84,7 +84,7 @@ function Rotas(props) {
                     <Route path='/planejamento/ordensproducao' exact element={<OrdensProducao />}></Route>
                     <Route path='/planejamento/ordensdeproducaokanban' exact element={<OrdensParaProducao />}></Route>
                     <Route path='/planejamento/problemasproducao' exact element={<ProblemasProducao />}></Route>
-                    {/*Esses Route path='' abaixo ñ tem o Link to='' ainda*/}
+                    {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
                     <Route path='/planejamento/detalhesitemproducao' exact element={<DetalhesItemProducao />}></Route>
                     <Route path='/planejamento/detalhesvgs' exact element={<DetalhesVgs />}></Route>
                     <Route path='/planejamento/gerenciamentokanban' exact element={<GerenciamentoKanban />}></Route>
@@ -93,7 +93,7 @@ function Rotas(props) {
                     <Route path='/manutencao/informacoesgondola' exact element={<InformacoesGondola />}></Route>
                     <Route path='/manutencao/ocupacaodoarmazem' exact element={<OcupacaoArmazem />}></Route>
                     <Route path='/manutencao/informacoesdotranselevador' exact element={<InformacoesTranselevador />}></Route>
-                    {/*Esses Route path='' abaixo ñ tem o Link to='' ainda*/}
+                    {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
                     <Route path='/manutencao/alarmes' exact element={<Alarmes />}></Route>
                     <Route path='/manutencao/gerenciamentokanbanmanutencao' exact element={<GerenciamentoKanbanManutencao />}></Route>
                     <Route path='/manutencao/informacoeslocalizacao' exact element={<InformacoesLocalizacao />}></Route>
@@ -103,7 +103,7 @@ function Rotas(props) {
                     <Route path='/operacao/producao' exact element={<Producao />}></Route>
                     <Route path='/operacao/recebimentoarmazem' exact element={<RecebimentoArmazem />}></Route>
                     <Route path='/operacao/configuracao' exact element={<ConfiguracaoEstacaoTrabalho />}></Route>
-                    {/*Esses Route path='' abaixo ñ tem o Link to='' ainda*/}
+                    {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
                     <Route path='/operacao/detalhesprodpuncionadeira' exact element={<DetalhesProdPuncionadeira />}></Route>
                     <Route path='/operacao/detalhesproducao' exact element={<DetalhesProducao />}></Route>
 
