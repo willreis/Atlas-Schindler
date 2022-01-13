@@ -16,22 +16,85 @@ h4 {
 }
 
 /*Textos Titulo*/
-.tituloInterno{
+.tituloInterno {
     padding-bottom: 20px;
 }
 
 /*Tabelas*/
-.textTable tr td{
+.textTable tr td {
     font-size: 14px;
-    
+
 }
+
 .table>thead {
-    vertical-align: middle!important;
+    vertical-align: middle !important;
 }
 
 /*Botões*/
-button.btn{
+button.btn {
     padding: 5px 30px;
     border-radius: 12px;
     border: 1px solid #000;
 }
+
+/*Menu*/
+.logoAtlas {
+    width: 60%;
+    background: #fff;
+    padding: 10px;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+
+.logotext {
+    text-align: center;
+}
+
+.pro-sidebar>.pro-sidebar-inner {
+    background: #999 !important;
+}
+
+li.pro-menu-item.pro-sub-menu:hover {
+    background-color: #000;
+}
+
+span.pro-item-content {
+    color: #fff;
+    font-weight: 500;
+}
+
+.pro-sidebar .pro-menu.shaped .pro-menu-item>.pro-inner-item>.pro-icon-wrapper {
+    background: none!important;
+}
+
+.pro-sidebar>.pro-sidebar-inner>.pro-sidebar-layout .pro-sidebar-footer {
+    border-top: 1px solid rgb(0 0 0 / 20%);
+}
+
+.pro-sidebar>.pro-sidebar-inner>.pro-sidebar-layout .pro-sidebar-header {
+    border-bottom: 1px solid rgb(0 0 0 / 20%);
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item {
+    padding: 10px 0px;
+}
+
+.react-slidedown.pro-inner-list-item li {
+    font-size: 14px !important;
+}
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-item-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: unset;
+}
+
+.closemenu {
+    cursor: pointer;
+    margin: 10px;
+    text-align: right;
+}
+
+/* .pro-sidebar {
+    width: 220px!important;
+    min-width: 220px!important;
+} */

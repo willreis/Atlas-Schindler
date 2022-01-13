@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Rotas from './Rotas';
-
+import SidebarNew from './components/SidebarNew'
 
 
 //2ª grid-template-areas.
@@ -24,9 +24,11 @@ function App() {
     <IconContext.Provider value={{ color: '#fff', size: '1.2rem' }}>
       <Router>
         <Container>
-          <Header Style={"grid-area: header;"} />                                        {/*1ª grid-area no elemento*/}
-          <Sidebar Style={"grid-area: sidebar;"} />
+          <Header Style={"grid-area: header;"} /> 
+          <Sidebar Style={"grid-area: sidebar; display:none "} /> 
+          <SidebarNew></SidebarNew>
           <Rotas Style={"grid-area: content"} />
+          
         </Container>
       </Router>
     </IconContext.Provider>
@@ -34,3 +36,7 @@ function App() {
 }
 
 export default App;
+
+
+
+
