@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar';
 import Rotas from './Rotas';
 
 
+
 //2ª grid-template-areas.
 const Container = styled.div` 
     display: grid;                                                                        
