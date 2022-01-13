@@ -6,7 +6,8 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import { BsArrowsMove } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
 import { GoReport } from "react-icons/go";
-import { AiOutlineArrowDown } from "react-icons/ai";                               //Os 2 Arrows.
+//Os 2 Arrows.
+import { AiOutlineArrowDown } from "react-icons/ai";
 import { AiOutlineArrowUp } from "react-icons/ai";
 //Ícones do SubMenu:
 import { AiOutlineUser } from "react-icons/ai";
