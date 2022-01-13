@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import atlasLogo from "../assets/img/atlas_logo.png"; //Na img tem css inline
+import atlasLogo from "../assets/img/atlas_logo.png"; 
+import { Link } from 'react-router-dom';
+
 
 //react pro sidebar components
 import {
@@ -78,7 +80,7 @@ const SidebarNew = () => {
   };
   return (
     <>
-      <div id="sideBar">
+      <div Style="grid-area:sidebar">
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
             <div className="logotext">
@@ -92,13 +94,13 @@ const SidebarNew = () => {
             <Menu iconShape="square">
               <SubMenu title="Cadastro" icon={<FiHome />}>
                 <MenuItem title="Usuario" icon={<FaUser />}>
-                  Usuario
+                <Link className="link" to="/cadastro/usuario" >Usuario</Link>
                 </MenuItem>
                 <MenuItem title="Grupo de Acesso" icon={<FaUsers />}>
-                  Grupo de Acesso
+                <Link className="link" to="/cadastro/gruposdeacesso" >Grupo de Acesso</Link>
                 </MenuItem>
                 <MenuItem title="Impressora" icon={<BsPrinterFill />}>
-                  Impressora
+                <Link className="link" to="/cadastro/impressora" >Impressora</Link>
                 </MenuItem>
                 <MenuItem
                   title="Processo"

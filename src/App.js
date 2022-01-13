@@ -25,10 +25,11 @@ function App() {
       <Router>
         <Container>
           <Header Style={"grid-area: header;"} /> 
-          <Sidebar Style={"grid-area: sidebar; display:none "} /> 
-          <SidebarNew></SidebarNew>
-          <Rotas Style={"grid-area: content"} />
           
+          <SidebarNew Style={"grid-area: sidebar"}/>
+          <Rotas Style={"grid-area: content"} />
+
+          <Sidebar Style={""} />
         </Container>
       </Router>
     </IconContext.Provider>
