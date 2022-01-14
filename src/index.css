@@ -15,6 +15,14 @@ h4 {
     padding: 0 !important;
 }
 
+.paddingTop30{
+    padding-top: 30px;
+}
+
+.paddingContainer{
+    padding:30px!important;
+}
+
 /*Home*/
 .logoAtlasHome{
     text-align: center;
@@ -73,6 +81,14 @@ button.btnVoltarHome {
 
 .logotext {
     text-align: center;
+}
+
+.pro-sidebar .pro-menu {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+}
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item {
+    padding: 8px 35px 8px 0px!important;
 }
 
 .pro-sidebar>.pro-sidebar-inner {
