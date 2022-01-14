@@ -62,6 +62,8 @@ import HistoricoEntradaMaterial from './pages/Relatorios/HistoricoEntradaMateria
 import ProducaoMaquina from './pages/Relatorios/ProducaoMaquina'
 import AnaliseFalhas from './pages/Relatorios/AnaliseFalhas'
 
+import Pagina404 from './pages/404/404';
+
 function Rotas(props) {
     return (
         <div {...props}>
@@ -127,6 +129,9 @@ function Rotas(props) {
                     <Route path='/relatorios/historicodeentradaproduto' exact element={<HistoricoEntradaMaterial />}></Route>
                     <Route path='/relatorios/producaopormaquina' exact element={<ProducaoMaquina />}></Route>
                     <Route path='/relatorios/analisedefalhas' exact element={<AnaliseFalhas />}></Route>
+
+
+                    <Route path='*' exact element={<Pagina404 />}></Route>
                 </Routes>
             </div>
         </div>

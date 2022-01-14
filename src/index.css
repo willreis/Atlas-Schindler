@@ -94,7 +94,28 @@ span.pro-item-content {
     text-align: right;
 }
 
-/* .pro-sidebar {
-    width: 220px!important;
-    min-width: 220px!important;
-} */
+/*Pagina 404*/
+.boxTextNotFound{
+    padding: 3rem;
+    text-align: center;
+}
+
+.text404 {
+    font-size: 110px;
+    text-align: center;
+    font-weight: bold;
+}
+.textNotFound{
+    font-size: 22px;
+}
+
+.textNotFound:first-child{
+    font-size: 29px;
+    font-weight: bold;
+    color: #ec0000;
+}
+
+.logoAtlasArea{
+    padding: 3rem;
+    text-align: center;
+}
