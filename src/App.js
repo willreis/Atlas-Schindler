@@ -6,7 +6,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Rotas from './Rotas';
 import SidebarNew from './components/SidebarNew'
-
+import Login from './pages/Login/Login';
 
 //2ª grid-template-areas.
 const Container = styled.div` 
@@ -23,13 +23,16 @@ function App() {
   return (
     <IconContext.Provider value={{ color: '#fff', size: '1.2rem' }}>
       <Router>
+        <Login />
         <Container>
-          <Header Style={"grid-area: header;"} /> 
-          
-          <SidebarNew Style={"grid-area: sidebar"}/>
+          <Header Style={"grid-area: header;"} />
+
+          <SidebarNew Style={"grid-area: sidebar"} />
           <Rotas Style={"grid-area: content"} />
 
+
           <Sidebar Style={""}  />
+
         </Container>
       </Router>
     </IconContext.Provider>
