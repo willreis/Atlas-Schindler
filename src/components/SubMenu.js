@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'                          //react-router-dom
 import styled from 'styled-components'                           //styled-components faz com que o CSS vire um Componente.
 
-//Como é um Link do react-router-dom, se chama entre Parêteses.
+//Como é um Link do react-router-dom, se chama entre Parênteses.
 //Hover se chama com &.
 const SidebarLink = styled(Link)`                      
     color: #fff;

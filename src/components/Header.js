@@ -12,9 +12,9 @@ const Nav = styled.div`
 `
 
 const DivP = styled.p`
+    background-color: #999;
     color: #fff; 
     font-size: 2rem;
-    background-color: #999;
 `
 
 function Header(props) {

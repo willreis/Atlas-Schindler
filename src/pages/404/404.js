@@ -11,6 +11,7 @@ function Pagina404() {
         <div className="row">
           <div className="col-md-6">
             <div className="boxTextNotFound">
+
                 <p className="text404">404</p>
                 <p className="textNotFoundTitle">
                     Pagina não encontrada 
@@ -20,8 +21,10 @@ function Pagina404() {
                    <Button variant="primary" className="btnVoltarHome"><FaHome/>  Voltar para Home</Button>
                    </Link>
                 </p>
+
             </div>
           </div>
+
           <div className="col-md-6">
             <div className="logoAtlasArea">
               <img src={atlasLogo} alt="atlas-logo" Style="width:70%" />
