@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import atlasLogo from "../assets/img/atlas_logo.png"; 
+import atlasLogo from "../assets/img/atlas_logo.png";
 import { Link } from 'react-router-dom';
-
 
 //react pro sidebar components
 import {
@@ -13,12 +12,12 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
+
 //icons from react icons
-import {FaRegClock } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa";
 import {
   FiHome,
   FiLogOut,
-
 } from "react-icons/fi";
 
 import {
@@ -47,6 +46,7 @@ import { HiOutlineClock } from "react-icons/hi";
 import { VscGitPullRequestClosed } from "react-icons/vsc";
 
 import { BiImport, BiUserCheck } from "react-icons/bi";
+
 import {
   RiStoreFill,
   RiStore2Line,
@@ -54,12 +54,15 @@ import {
   RiChatFollowUpLine,
   RiUserFollowLine,
 } from "react-icons/ri";
+
 import { FiArrowDownLeft } from "react-icons/fi";
+
 import {
   MdOutlineSendToMobile,
   MdFollowTheSigns,
   MdHistoryToggleOff,
 } from "react-icons/md";
+
 import {
   AiFillInfoCircle,
   AiOutlineDashboard,
@@ -74,10 +77,11 @@ import "react-pro-sidebar/dist/css/styles.css";
 
 const SidebarNew = () => {
   const [menuCollapse, setMenuCollapse] = useState(false);
-  
+
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
+
   return (
     <>
       <div Style="grid-area:sidebar">
@@ -91,16 +95,16 @@ const SidebarNew = () => {
             </div>
           </SidebarHeader>
           <SidebarContent>
-            <Menu iconShape="square">
+            <Menu>
               <SubMenu title="Cadastro" icon={<FiHome />}>
                 <MenuItem title="Usuario" icon={<FaUser />}>
-                <Link className="link" to="/cadastro/usuario" >Usuario</Link>
+                  <Link className="link" to="/cadastro/usuario" >Usuario</Link>
                 </MenuItem>
                 <MenuItem title="Grupo de Acesso" icon={<FaUsers />}>
-                <Link className="link" to="/cadastro/gruposdeacesso" >Grupo de Acesso</Link>
+                  <Link className="link" to="/cadastro/gruposdeacesso" >Grupo de Acesso</Link>
                 </MenuItem>
                 <MenuItem title="Impressora" icon={<BsPrinterFill />}>
-                <Link className="link" to="/cadastro/impressora" >Impressora</Link>
+                  <Link className="link" to="/cadastro/impressora" >Impressora</Link>
                 </MenuItem>
                 <MenuItem
                   title="Processo"
@@ -117,7 +121,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu iconShape="square">
+            <Menu >
               <SubMenu title="Planejamento" icon={<BsGraphUp />}>
                 <MenuItem
                   title="Importação de Ordem Produção"
@@ -140,7 +144,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu iconShape="square">
+            <Menu >
               <SubMenu title="Manutenção" icon={<BsFillGearFill />}>
                 <MenuItem title="Mapa de Posições" icon={<FaMap />}>
                   Mapa de Posições
@@ -163,7 +167,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu iconShape="square">
+            <Menu >
               <SubMenu title="Operação" icon={<FaUserCog />}>
                 <MenuItem title="Produção" icon={<FaUsers />}>
                   Produção
@@ -180,7 +184,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu iconShape="square">
+            <Menu >
               <SubMenu title="Movimentos" icon={<BsArrowsMove />}>
                 <MenuItem
                   title="Fila de Movimentos"
@@ -209,7 +213,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu iconShape="square">
+            <Menu >
               <SubMenu title="Dashboard" icon={<AiOutlineDashboard />}>
                 <MenuItem
                   title="Acompanhamento de Produção"
@@ -244,7 +248,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu iconShape="square">
+            <Menu >
               <SubMenu title="Relatórios" icon={<AiOutlineFileExclamation />}>
                 <MenuItem
                   title="Acompanhamento de Produção"
@@ -298,7 +302,7 @@ const SidebarNew = () => {
             </Menu>
           </SidebarContent>
           <SidebarFooter>
-            <Menu iconShape="square">
+            <Menu >
               <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
             </Menu>
           </SidebarFooter>

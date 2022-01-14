@@ -18,12 +18,6 @@ const SidebarNav = styled.nav`
     // z-index: 10;
 `
 
-const SidebarWrap = styled.div`
-    width: 100%;
-    // overflow-y: scroll;
-    // flex-grow: 1; 
-`
-
 const UserContainer = styled.div`
     border-top: 1px solid #fff;
     border-bottom: 1px solid #fff;
@@ -33,6 +27,13 @@ const UserContainer = styled.div`
     justify-content: center;
 `
 
+const SidebarWrap = styled.div`
+    width: 100%;
+    // overflow-y: scroll;
+    // flex-grow: 1; 
+`
+
+
 function Sidebar(props) {
     const [sidebar, setSidebar] = useState(true)
 
@@ -41,9 +42,9 @@ function Sidebar(props) {
     return (
         <div {...props}>
             <SidebarNav sidebar={sidebar} >
-                <img src={atlasLogo} alt='atlas-logo' Style='width: 155px; height: 76px; margin-left: 2rem; background-color: #fff; padding: 10px; border-radius: 8px' />
+                <img src={atlasLogo} alt='atlas-logo' Style='width: 155px; margin-left: 2rem; background-color: #fff; padding: 10px; border-radius: 8px' />
                 <UserContainer>
-                    <img src={userLogo} alt='user-logo' Style='width: 80px; height: 76px; border-radius: 8px;' />
+                    <img src={userLogo} alt='user-logo' Style='width: 80px; border-radius: 8px;' />
                 </UserContainer>
                 <SidebarWrap>
                     {SidebarData.map((item, index) => {
