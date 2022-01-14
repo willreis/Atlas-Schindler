@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import atlasLogo from "../assets/img/atlas_logo.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 //react pro sidebar components
 import {
@@ -15,10 +15,7 @@ import {
 
 //icons from react icons
 import { FaRegClock } from "react-icons/fa";
-import {
-  FiHome,
-  FiLogOut,
-} from "react-icons/fi";
+import { FiHome, FiLogOut } from "react-icons/fi";
 
 import {
   FaUser,
@@ -98,61 +95,89 @@ const SidebarNew = () => {
             <Menu>
               <SubMenu title="Cadastro" icon={<FiHome />}>
                 <MenuItem title="Usuario" icon={<FaUser />}>
-                  <Link className="link" to="/cadastro/usuario" >Usuario</Link>
+                  <Link className="link" to="/cadastro/usuario">
+                    Usuario
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Grupo de Acesso" icon={<FaUsers />}>
-                  <Link className="link" to="/cadastro/gruposdeacesso" >Grupo de Acesso</Link>
+                  <Link className="link" to="/cadastro/gruposdeacesso">
+                    Grupo de Acesso
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Impressora" icon={<BsPrinterFill />}>
-                  <Link className="link" to="/cadastro/impressora" >Impressora</Link>
+                  <Link className="link" to="/cadastro/impressora">
+                    Impressora
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   title="Processo"
                   icon={<BsFillPatchExclamationFill />}
                 >
-                  Processo
+                  <Link className="link" to="/cadastro/processo">
+                    Processo
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Maquina" icon={<IoIosPaper />}>
-                  Maquina
+                  <Link className="link" to="/cadastro/maquina">
+                    Maquina
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Produto" icon={<FaProductHunt />}>
-                  Produto
+                  <Link className="link" to="/cadastro/produto">
+                    Produto
+                  </Link>
                 </MenuItem>
               </SubMenu>
             </Menu>
 
-
             <Menu>
-
               <SubMenu title="Planejamento" icon={<BsGraphUp />}>
                 <MenuItem
                   title="Importação de Ordem Produção"
                   icon={<BiImport />}
                 >
-                  Importação de Ordem Produção
+                  <Link
+                    className="link"
+                    to="planejamento/importacaoordemproducao"
+                  >
+                    Importação de Ordem Produção
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Grupo de Acesso" icon={<IoIosPaper />}>
-                  Ordens de Produção
+                  <Link className="link" to="/planejamento/ordensproducao">
+                    Ordens de Produção
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Impressora" icon={<BsPrinterFill />}>
-                  Ordens de Produção KANBAN
+                  <Link
+                    className="link"
+                    to="/planejamento/ordensproducaokanban"
+                  >
+                    Ordens de Produção KANBAN
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   title="Problema de Produção"
                   icon={<AiFillInfoCircle />}
                 >
-                  Problema de Produção
+                  <Link className="link" to="/planejamento/problemasproducao">
+                    Problema de Produção
+                  </Link>
                 </MenuItem>
               </SubMenu>
             </Menu>
 
-            <Menu >
+            <Menu>
               <SubMenu title="Manutenção" icon={<BsFillGearFill />}>
                 <MenuItem title="Mapa de Posições" icon={<FaMap />}>
-                  Mapa de Posições
+                  <Link className="link" to="/manutencao/mapadeposicoes">
+                    Mapa de Posições
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Informações de Gôndola" icon={<IoIosPaper />}>
-                  Informações de Gôndola
+                  <Link className="link" to="/manutencao/informacoesgondola">
+                    Informações de Gôndola
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   title="Ocupação do Armazém"
@@ -169,7 +194,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu >
+            <Menu>
               <SubMenu title="Operação" icon={<FaUserCog />}>
                 <MenuItem title="Produção" icon={<FaUsers />}>
                   Produção
@@ -186,7 +211,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu >
+            <Menu>
               <SubMenu title="Movimentos" icon={<BsArrowsMove />}>
                 <MenuItem
                   title="Fila de Movimentos"
@@ -215,7 +240,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu >
+            <Menu>
               <SubMenu title="Dashboard" icon={<AiOutlineDashboard />}>
                 <MenuItem
                   title="Acompanhamento de Produção"
@@ -250,7 +275,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu >
+            <Menu>
               <SubMenu title="Relatórios" icon={<AiOutlineFileExclamation />}>
                 <MenuItem
                   title="Acompanhamento de Produção"
@@ -304,7 +329,7 @@ const SidebarNew = () => {
             </Menu>
           </SidebarContent>
           <SidebarFooter>
-            <Menu >
+            <Menu>
               <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
             </Menu>
           </SidebarFooter>

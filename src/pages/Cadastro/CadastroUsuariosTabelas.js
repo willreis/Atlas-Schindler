@@ -72,7 +72,7 @@ function CadastroUsuariosTabelas() {
               </div>
             </div>
             <div className="col-md-6 col-sm-12">
-              <div Style="text-align: right">
+              <div className="alignButtons">
                 <Button variant="success">Cadastrar</Button>
               </div>
             </div>
