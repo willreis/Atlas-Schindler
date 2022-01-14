@@ -15,6 +15,25 @@ h4 {
     padding: 0 !important;
 }
 
+/*Home*/
+.logoAtlasHome{
+    text-align: center;
+}
+
+.logoAtlasHome img{
+    margin-top: 8rem;
+}
+
+.textAtlasHome {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.textAtlasHome p{
+    font-size: 40px;
+    font-weight: bold;
+}
+
 /*Textos Titulo*/
 .tituloInterno {
     padding-bottom: 20px;
@@ -128,4 +147,19 @@ span.pro-item-content {
     text-align: center;
 }
 
+/*Login*/
+.loginBox{
+    margin-top: 3rem;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.3)
+}
+.logoAtlaslogin{
+    width: 100%;
+    background: #fff;
+    padding: 10px;
+    margin-top: 5rem;
+    border-radius: 10px;
+    text-align: center;
+    border-radius: 5px
+}
 

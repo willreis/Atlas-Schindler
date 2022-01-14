@@ -63,6 +63,8 @@ import ProducaoMaquina from './pages/Relatorios/ProducaoMaquina'
 import AnaliseFalhas from './pages/Relatorios/AnaliseFalhas'
 
 import Pagina404 from './pages/404/404';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
 
 function Rotas(props) {
     return (
@@ -132,6 +134,8 @@ function Rotas(props) {
 
 
                     <Route path='*' exact element={<Pagina404 />}></Route>
+                    <Route path='/home' exact element={<Home />}></Route>
+                    <Route path='/' exact element={<Login />}></Route>
                 </Routes>
             </div>
         </div>

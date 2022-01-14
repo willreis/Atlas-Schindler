@@ -17,7 +17,7 @@ function Pagina404() {
                     Pagina não encontrada 
                 </p>
                 <p className="textNotFound">
-                   <Link to="/cadastro/usuario">
+                   <Link to="/home">
                    <Button variant="primary" className="btnVoltarHome"><FaHome/>  Voltar para Home</Button>
                    </Link>
                 </p>
