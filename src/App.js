@@ -29,7 +29,7 @@ function App() {
           <SidebarNew Style={"grid-area: sidebar"}/>
           <Rotas Style={"grid-area: content"} />
 
-          <Sidebar Style={""} />
+          <Sidebar Style={"display:none"}  />
         </Container>
       </Router>
     </IconContext.Provider>

@@ -117,7 +117,7 @@ const SidebarNew = () => {
               </SubMenu>
             </Menu>
 
-            <Menu iconShape="square">
+            <Menu>
               <SubMenu title="Planejamento" icon={<BsGraphUp />}>
                 <MenuItem
                   title="Importação de Ordem Produção"

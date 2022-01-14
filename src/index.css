@@ -37,6 +37,12 @@ button.btn {
     border: 1px solid #000;
 }
 
+button.btnVoltarHome {
+    border: none;
+    margin-top: 25px;
+    padding: 15px 50px;
+}
+
 /*Menu*/
 .logoAtlas {
     width: 60%;
@@ -96,7 +102,7 @@ span.pro-item-content {
 
 /*Pagina 404*/
 .boxTextNotFound{
-    padding: 3rem;
+    padding: 8rem 3rem 3rem 3rem;
     text-align: center;
 }
 
@@ -105,17 +111,21 @@ span.pro-item-content {
     text-align: center;
     font-weight: bold;
 }
-.textNotFound{
-    font-size: 22px;
-}
 
-.textNotFound:first-child{
+
+.textNotFoundTitle{
     font-size: 29px;
     font-weight: bold;
     color: #ec0000;
 }
 
+.textNotFound{
+    font-size: 22px;
+}
+
 .logoAtlasArea{
-    padding: 3rem;
+    padding: 11rem 3rem 3rem 3rem;
     text-align: center;
 }
+
+
