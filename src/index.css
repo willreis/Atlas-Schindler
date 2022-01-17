@@ -15,33 +15,57 @@ h4 {
     padding: 0 !important;
 }
 
-.paddingTop30{
+.paddingTop30 {
     padding-top: 30px;
 }
 
-.alignButtons{
+.alignButtons {
     text-align: right;
-    
+
 }
+
 @media (max-width: 767px) {
-    .alignButtons{
+    .alignButtons {
         text-align: left;
     }
-    .paddingTop20Mobile{
+
+    .paddingTop20Mobile {
         padding-top: 20px;
     }
 }
 
-.paddingContainer{
-    padding:30px!important;
+.paddingContainer {
+    padding: 30px !important;
 }
 
+.formPadrao input {
+    padding: 3px 5px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    width: 100%;
+}
+
+.formPadrao label {
+    font-weight: bold;
+}
+
+.formPadrao .btnCol {
+    position: relative
+}
+
+.formPadrao .btnCol button {
+    position: absolute;
+    bottom: 0;
+}
+
+
+
 /*Home*/
-.logoAtlasHome{
+.logoAtlasHome {
     text-align: center;
 }
 
-.logoAtlasHome img{
+.logoAtlasHome img {
     margin-top: 8rem;
 }
 
@@ -50,7 +74,7 @@ h4 {
     margin-top: 30px;
 }
 
-.textAtlasHome p{
+.textAtlasHome p {
     font-size: 40px;
     font-weight: bold;
 }
@@ -71,13 +95,13 @@ h4 {
 }
 
 .react-bootstrap-table table {
-    table-layout: unset!important;
+    table-layout: unset !important;
 }
 
 /*Botões*/
 button.btn {
-    padding: 5px 30px;
-    border-radius: 12px;
+    padding: 3px 30px;
+    border-radius: 5px;
     border: 1px solid #000;
 }
 
@@ -101,11 +125,12 @@ button.btnVoltarHome {
 }
 
 .pro-sidebar .pro-menu {
-    padding-top: 0!important;
-    padding-bottom: 0!important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
-.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item {
-    padding: 8px 35px 8px 0px!important;
+
+.pro-sidebar .pro-menu .pro-menu-item>.pro-inner-item {
+    padding: 8px 35px 8px 0px !important;
 }
 
 .pro-sidebar>.pro-sidebar-inner {
@@ -122,7 +147,7 @@ span.pro-item-content {
 }
 
 .pro-sidebar .pro-menu.shaped .pro-menu-item>.pro-inner-item>.pro-icon-wrapper {
-    background: none!important;
+    background: none !important;
 }
 
 .pro-sidebar>.pro-sidebar-inner>.pro-sidebar-layout .pro-sidebar-footer {
@@ -140,7 +165,8 @@ span.pro-item-content {
 .react-slidedown.pro-inner-list-item li {
     font-size: 14px !important;
 }
-.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-item-content {
+
+.pro-sidebar .pro-menu .pro-menu-item>.pro-inner-item>.pro-item-content {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: unset;
@@ -153,7 +179,7 @@ span.pro-item-content {
 }
 
 /*Pagina 404*/
-.boxTextNotFound{
+.boxTextNotFound {
     padding: 8rem 3rem 3rem 3rem;
     text-align: center;
 }
@@ -165,28 +191,29 @@ span.pro-item-content {
 }
 
 
-.textNotFoundTitle{
+.textNotFoundTitle {
     font-size: 29px;
     font-weight: bold;
     color: #ec0000;
 }
 
-.textNotFound{
+.textNotFound {
     font-size: 22px;
 }
 
-.logoAtlasArea{
+.logoAtlasArea {
     padding: 11rem 3rem 3rem 3rem;
     text-align: center;
 }
 
 /*Login*/
-.loginBox{
+.loginBox {
     margin-top: 3rem;
     padding: 30px;
     background: rgba(0, 0, 0, 0.3)
 }
-.logoAtlaslogin{
+
+.logoAtlaslogin {
     width: 100%;
     background: #fff;
     padding: 10px;
@@ -195,4 +222,3 @@ span.pro-item-content {
     text-align: center;
     border-radius: 5px
 }
-

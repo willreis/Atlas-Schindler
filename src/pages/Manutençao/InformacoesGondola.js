@@ -115,64 +115,40 @@ function InformacoesGondola() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <form action="">
-            <div className="col-md-6 col-sm-12">
-            <input
-                type="text"
-                Style="background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px "
-              />
+          <form className="row g-3 formPadrao" action="">
+            <div className="col-md-3 col-sm-6">
+              <label>Número da Gôndola</label>
+              <input type="text" />
             </div>
-            <div className="col-md-6 col-sm-12">
-                 <input
-                type="text"
-                Style="background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px"
-              />
+            <div className="col-md-3 col-sm-6">
+              <label>Código do Material</label>
+              <input type="text" />
+            </div>
+            <div className="col-md-3 col-sm-6">
+              <label>Código do Material</label>
+              <input type="text" />
+            </div>
+            <div className="col-md-3 col-sm-6 btnCol">
+              <Button variant="success" className="align-self-baseline">
+                Pesquisar
+              </Button>
             </div>
           </form>
-        </div>
-
-        <div Style="background-color: #f8f8f8; margin: 1rem 4rem 1rem 4rem; padding: 2rem 2rem 1rem 2rem; border-radius: 2rem;">
-          <div Style="display: flex; justify-content: space-between; align-items: flex-end;  margin-bottom: 2rem;">
-            <div>
-              <h5>Número da Gôndola</h5>
-              <input
-                type="text"
-                Style="background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px "
-              />
-            </div>
-            <div>
-              <h5>Código do Material</h5>
-              <input
-                type="text"
-                Style="background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px"
-              />
-            </div>
-            <div>
-              <h5>Ordem</h5>
-              <input
-                type="text"
-                Style="background-color: #fff; border: 1px solid #555; border-radius: 1rem; outline:none; padding: 6px"
-              />
-            </div>
-            <div>
-              <Button variant="success">Pesquisar</Button>
+          <div className="row">
+            <div className="col-md-12 col-sm-12">
+              <div Style="text-align: center" className="textTable mt-3">
+                <BootstrapTable
+                  keyField="nomeGrupo"
+                  hover
+                  striped
+                  data={products}
+                  columns={columns}
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div Style="background-color: #f8f8f8; margin: 1rem 4rem 1rem 4rem; padding: 2rem; border-radius: 2rem;">
-          <div Style="text-align: center" className="textTable">
-            <BootstrapTable
-              keyField="nomeGrupo"
-              hover
-              striped
-              data={products}
-              columns={columns}
-            />
-          </div>
-        </div>
       </IconContext.Provider>
     </>
   );

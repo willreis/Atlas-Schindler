@@ -183,13 +183,20 @@ const SidebarNew = () => {
                   title="Ocupação do Armazém"
                   icon={<BsMenuButtonFill />}
                 >
-                  Ocupação do Armazém
+                  <Link className="link" to="/manutencao/ocupacaodoarmazem">
+                    Ocupação do Armazém
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   title="Informações do Transelevador"
                   icon={<BsFillPatchExclamationFill />}
                 >
-                  Informações do Transelevador
+                  <Link
+                    className="link"
+                    to="/manutencao/informacoesdotranselevador"
+                  >
+                    Informações do Transelevador
+                  </Link>
                 </MenuItem>
               </SubMenu>
             </Menu>
