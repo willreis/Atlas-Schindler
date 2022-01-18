@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Api from "../../services/Api"
 
 export default class Processo extends React.Component {
@@ -31,7 +32,7 @@ export default class Processo extends React.Component {
               </div>
               <div className="col-md-6 col-sm-12">
                 <div className="alignButtons">
-                  <Button variant="success">Cadastrar</Button>
+                  <Link to="/cadastro/cadastroprocesso"><Button variant="success">Cadastrar</Button></Link>
                 </div>
               </div>
             </div>
