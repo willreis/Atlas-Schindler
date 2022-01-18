@@ -5,6 +5,7 @@ import CadastroUsuariosTabelas from './pages/Cadastro/CadastroUsuariosTabelas'
 import GruposAcessoTabela from './pages/Cadastro/GruposAcessoTabela'
 import Impressora from './pages/Cadastro/Impressora'
 import Processo from './pages/Cadastro/Processo'
+import CadastroProcesso from './pages/Cadastro/CadastroProcesso'
 import Maquina from './pages/Cadastro/Maquina'
 import Material from './pages/Cadastro/Material'
 //Páginas Internas cadastro
@@ -75,6 +76,7 @@ function Rotas(props) {
                     <Route path='/cadastro/gruposdeacesso' exact element={<GruposAcessoTabela />}></Route>
                     <Route path='/cadastro/impressora' exact element={<Impressora />}></Route>
                     <Route path='/cadastro/processo' exact element={<Processo />}></Route>
+                    <Route path='/cadastro/cadastroprocesso' exact element={<CadastroProcesso />}></Route>
                     <Route path='/cadastro/maquina' exact element={<Maquina />}></Route>
                     <Route path='/cadastro/produto' exact element={<Material />}></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
