@@ -5,9 +5,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { IconContext } from "react-icons/lib";
 import { IoOptionsSharp } from "react-icons/io5";
 import { Button } from "react-bootstrap";
-
 import axios from "axios";
-
 export default class Processo extends React.Component {
   state = {
     processos: [],

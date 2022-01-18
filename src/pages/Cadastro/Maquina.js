@@ -1,65 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import BootstrapTable from "react-bootstrap-table-next";
 import { IconContext } from "react-icons/lib";
-import { IoOptionsSharp } from "react-icons/io5";
 import { Button } from "react-bootstrap";
+import { GrEdit } from "react-icons/gr";
+import axios from 'axios';
 
-function Maquina() {
-  const products = [
-    {
-      nome: "D1",
-      processo: "Dobradeira",
-      status: "Ativo",
-      ordenacao: 1,
-      tempoMedioProducao: 12,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      nome: "L1",
-      processo: "Laser",
-      status: "Ativo",
-      ordenacao: 3,
-      tempoMedioProducao: 15,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      nome: "D1",
-      processo: "Dobradeira",
-      status: "Ativo",
-      ordenacao: 1,
-      tempoMedioProducao: 12,
-      opcoes: <IoOptionsSharp />,
-    },
-  ];
+export default function Maquina() {
 
-  const columns = [
-    {
-      dataField: "nome",
-      text: "Nome",
-    },
-    {
-      dataField: "processo",
-      text: "Processo",
-    },
-    {
-      dataField: "status",
-      text: "Status",
-    },
-    {
-      dataField: "ordenacao",
-      text: "Ordenação",
-    },
-    {
-      dataField: "tempoMedioProducao",
-      text: "Tempo Médio de Produção",
-    },
-    {
-      dataField: "opcoes",
-      text: "Opções/Editar",
-    },
-  ];
+  const [maquina, setMaquina] = useState([])
+
+  const url = 'http://192.168.11.58:90/api/Maquina'
+
+  useEffect(() => {
+    axios.get(url)
+      .then((response) => setMaquina(response.data))
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
 
   return (
     <>
@@ -77,19 +36,34 @@ function Maquina() {
               </div>
             </div>
           </div>
+
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
               <div Style="text-align: center" className="textTable">
-                <BootstrapTable
-                  keyField="nomeGrupo"
-                  hover
-                  striped
-                  data={products}
-                  columns={columns}
-                />
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Ordenação</th>
+                      <th scope="col">Opções</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td Style='display: none'>{maquina?.maquinaId}</td>
+                      <td>{maquina?.nome}</td>
+                      <td>{maquina?.processo}</td>
+                      <td>{maquina?.status}</td>
+                      <td>{maquina?.ordenacao}</td>
+                      <td>{maquina?.tempoMedioProducao}</td>
+                      <td><span><GrEdit /></span></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+
           <div className="row paddingTop30">
             <div className="col-md-6">
               <Button variant="secondary">Voltar</Button>
@@ -105,5 +79,3 @@ function Maquina() {
     </>
   );
 }
-
-export default Maquina;
