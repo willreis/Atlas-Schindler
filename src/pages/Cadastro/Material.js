@@ -1,140 +1,80 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import BootstrapTable from "react-bootstrap-table-next";
 import { IconContext } from "react-icons/lib";
-import { IoOptionsSharp } from "react-icons/io5";
+import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
+import Api from '../../services/Api';
+export default class Material extends React.Component {
 
-function Material() {
-  const products = [
-    {
-      codMaterial: "10102",
-      nomeMaterial: "Chapa 100 x 200",
-      armazenamento: "Armazém",
-      comprimento: "18m",
-      largura: "17cm",
-      espessura: "5cm",
-      unidadeMedida: "Kg",
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      codMaterial: "10102",
-      nomeMaterial: "Chapa 100 x 200",
-      armazenamento: "Armazém",
-      comprimento: "18m",
-      largura: "17cm",
-      espessura: "5cm",
-      unidadeMedida: "Kg",
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      codMaterial: "10102",
-      nomeMaterial: "Chapa 100 x 200",
-      armazenamento: "Armazém",
-      comprimento: "18m",
-      largura: "17cm",
-      espessura: "5cm",
-      unidadeMedida: "Kg",
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      codMaterial: "10102",
-      nomeMaterial: "Chapa 100 x 200",
-      armazenamento: "Armazém",
-      comprimento: "18m",
-      largura: "17cm",
-      espessura: "5cm",
-      unidadeMedida: "Kg",
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      codMaterial: "10102",
-      nomeMaterial: "Chapa 100 x 200",
-      armazenamento: "Armazém",
-      comprimento: "18m",
-      largura: "17cm",
-      espessura: "5cm",
-      unidadeMedida: "Kg",
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      codMaterial: "10102",
-      nomeMaterial: "Chapa 100 x 200",
-      armazenamento: "Armazém",
-      comprimento: "18m",
-      largura: "17cm",
-      espessura: "5cm",
-      unidadeMedida: "Kg",
-      opcoes: <IoOptionsSharp />,
-    },
-  ];
+  state = {
+    materiais: [],
+  };
 
-  const columns = [
-    {
-      dataField: "codMaterial",
-      text: "Código Material",
-    },
-    {
-      dataField: "nomeMaterial",
-      text: "Nome Material",
-    },
-    {
-      dataField: "armazenamento",
-      text: "Armazenamento",
-    },
-    {
-      dataField: "comprimento",
-      text: "Comprimento",
-    },
-    {
-      dataField: "largura",
-      text: "Largura",
-    },
-    {
-      dataField: "espessura",
-      text: "Espessura",
-    },
-    {
-      dataField: "unidadeMedida",
-      text: "Unidade de Medida",
-    },
-    {
-      dataField: "opcoes",
-      text: "Opções/Editar",
-    },
-  ];
-  return (
-    <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
-        <div className="container paddingContainer">
-          <div className="row">
-            <div className="col-md-6 col-sm-12">
-              <div className="tituloInterno">
-                <h2 Style="color:#555;">Material</h2>
+  componentDidMount() {
+    Api.get('/Material').then((res) => {
+      const materiais = res.data;
+      this.setState({ materiais });
+    });
+  }
+
+  render() {
+
+    return (
+      <>
+        <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+          <div className="container paddingContainer">
+            <div className="row">
+              <div className="col-md-6 col-sm-12">
+                <div className="tituloInterno">
+                  <h2 Style="color:#555;">Material</h2>
+                </div>
+              </div>
+              <div className="col-md-6 col-sm-12">
+                <div className="alignButtons">
+                  <Button variant="success">Cadastrar</Button>
+                </div>
               </div>
             </div>
-            <div className="col-md-6 col-sm-12">
-              <div className="alignButtons">
-                <Button variant="success">Cadastrar</Button>
+            <div className="row">
+              <div className="col-md-12 col-sm-12 paddingTop20Mobile">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Código Material</th>
+                      <th scope="col">Nome Material</th>
+                      <th scope="col">Armazenamento</th>
+                      <th scope="col">Comprimento</th>
+                      <th scope="col">Largura</th>
+                      <th scope="col">Espessura</th>
+                      <th scope="col">Unidade de Medida</th>
+                      <th scope="col">Opções/Editar</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {this.state.materiais.map((material) => (
+                      <tr>
+                        <td Style='display: none'>{material.materialId}</td>
+                        <td>{material.codigo}</td>
+                        <td>{material.nome}</td>
+                        <td>{material.localizacao}</td>
+                        <td>{material.comprimento}</td>
+                        <td>{material.largura}</td>
+                        <td>{material.espessura}</td>
+                        <td>{material.unidade}</td>
+                        <td>{material.minimoDeEstoque}</td>
+                        <td>{material.maximoDeEstoque}</td>
+                        <td><span><GrEdit /></span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <BootstrapTable
-                keyField="matricula"
-                hover
-                striped
-                data={products}
-                columns={columns}
-              />
-            </div>
-          </div>
-        </div>
-      </IconContext.Provider>
-    </>
-  );
+        </IconContext.Provider>
+      </>
+    );
+  }
 }
-
-export default Material;

@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 import { GrEdit } from "react-icons/gr";
 import Api from "../../services/Api";
 export default class Processo extends React.Component {
+
   state = {
     maquinas: [],
   };
@@ -50,6 +51,7 @@ export default class Processo extends React.Component {
                         <th scope="col">Opções/Editar</th>
                       </tr>
                     </thead>
+
                     <tbody>
                       {this.state.maquinas.map((maquina) => (
                         <tr>
