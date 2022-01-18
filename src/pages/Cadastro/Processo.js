@@ -8,90 +8,101 @@ import { Button } from "react-bootstrap";
 
 import axios from "axios";
 
-export default function Processo()  {
-  const [nome, setNome] = useState();
+export default class Processo extends React.Component {
+  state = {
+    processos: [],
+  };
 
-  useEffect(() => {
-    axios
-      .get("http://192.168.11.58:90/api/Processo")
-      .then(console.log('Deu tudo certo'))
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  }, []);
-
-  return (
-    <div className="App">
-      <p>Usuário: {nome?.nome}</p>
-      <p>Biografia: {nome?.processoId}</p>
-    </div>
-  );
+  componentDidMount() {
+    axios.get(`http://192.168.11.58:90/api/Processo`).then((res) => {
+      const processos = res.data;
+      this.setState({ processos });
+    });
   }
-  
 
-// function Processo() {
-//   const products = [
-//     { nome: "Puncionadeira", ordenacao: 1, opcoes: <IoOptionsSharp /> },
-//     { nome: "Dobradeira", ordenacao: 2, opcoes: <IoOptionsSharp /> },
-//   ];
+  render() {
+    const products = [
+      {
+        nome: "Puncionadeira",
+        ordenacao: 1,
+        opcoes: <IoOptionsSharp />,
+      },
+    ];
+    const columns = [
+      {
+        dataField: "nome",
+        text: "Nome",
+      },
+      {
+        dataField: "ordenacao",
+        text: "Ordenação",
+      },
+      {
+        dataField: "opcoes",
+        text: "Opções/Editar",
+      },
+    ];
 
-//   const columns = [
-//     {
-//       dataField: "nome", //dataField é cada Coluna. São as propriedade do Array de objetos 'products' mas só no Código.
-//       text: "Nome", //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela.
-//     },
-//     {
-//       dataField: "ordenacao",
-//       text: "Ordenação",
-//     },
-//     {
-//       dataField: "opcoes",
-//       text: "Opções/Editar",
-//     },
-//   ];
+    return (
+      <>
+        <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+          <div className="container paddingContainer">
+            <div className="row">
+              <div className="col-md-6 col-sm-12">
+                <div className="tituloInterno">
+                  <h2 Style="color:#555;">Processo</h2>
+                </div>
+              </div>
+              <div className="col-md-6 col-sm-12">
+                <div className="alignButtons">
+                  <Button variant="success">Cadastrar</Button>
+                </div>
+              </div>
+            </div>
 
-//   return (
-//     <>
-//       <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
-//         <div className="container paddingContainer">
-//           <div className="row">
-//             <div className="col-md-6 col-sm-12">
-//               <div className="tituloInterno">
-//                 <h2 Style="color:#555;">Processo</h2>
-//               </div>
-//             </div>
-//             <div className="col-md-6 col-sm-12">
-//               <div className="alignButtons">
-//                 <Button variant="success">Cadastrar</Button>
-//               </div>
-//             </div>
-//           </div>
+            <div className="row">
+              <div className="col-md-12 col-sm-12 paddingTop20Mobile">
+                {/* <BootstrapTable
+                  keyField="processoId"
+                  hover
+                  striped
+                  data={products}
+                  columns={columns}
+                /> */}
 
-//           <div className="row">
-//             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-//               <BootstrapTable
-//                 keyField="matricula"
-//                 hover
-//                 striped
-//                 data={products}
-//                 columns={columns}
-//               />
-//             </div>
-//           </div>
-//           <div className="row paddingTop30">
-//             <div className="col-md-6 col-sm-12">
-//               <Button variant="secondary">Voltar</Button>
-//             </div>
-//             <div className="col-md-6 col-sm-12 paddingTop20Mobile">
-//               <div className="alignButtons">
-//                 <Button variant="success">Salvar</Button>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </IconContext.Provider>
-//     </>
-//   );
-// }
-
-// export default Processo;
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Ordenação</th>
+                      <th scope="col">Opções</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.processos.map((processo) => (
+                      <tr>
+                        <td>{processo.nome}</td>
+                        <td>{processo.processoId}</td>
+                        <td>{processo.ordenacao}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="row paddingTop30">
+              <div className="col-md-6 col-sm-12">
+                <Button variant="secondary">Voltar</Button>
+              </div>
+              <div className="col-md-6 col-sm-12 paddingTop20Mobile">
+                <div className="alignButtons">
+                  <Button variant="success">Salvar</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </IconContext.Provider>
+      </>
+    );
+  }
+}
