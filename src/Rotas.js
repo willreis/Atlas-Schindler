@@ -140,7 +140,7 @@ function Rotas(props) {
                     <Route path='/' exact element={<Login />}></Route>
                 </Routes>
             </div>
-        </div>
+        </div >
     )
 }
 

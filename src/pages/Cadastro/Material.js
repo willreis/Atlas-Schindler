@@ -48,6 +48,8 @@ export default class Material extends React.Component {
                       <th scope="col">Largura</th>
                       <th scope="col">Espessura</th>
                       <th scope="col">Unidade de Medida</th>
+                      <th scope="col">Mínimo Estoque</th>
+                      <th scope="col">Máximo</th>
                       <th scope="col">Opções/Editar</th>
                     </tr>
                   </thead>
