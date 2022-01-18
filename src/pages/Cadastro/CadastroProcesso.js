@@ -31,11 +31,11 @@ export default class CadastroProcesso extends React.Component {
             </div>
             <form className="row g-3 formPadrao" action="">
               <div className="col-md-3 col-sm-6">
-                <label>Número da Gôndola</label>
+                <label>Nome</label>
                 <input type="text" />
               </div>
               <div className="col-md-3 col-sm-6">
-                <label>Código do Material</label>
+                <label>Ordenação</label>
                 <input type="text" />
               </div>
               <div className="col-md-3 col-sm-6">
