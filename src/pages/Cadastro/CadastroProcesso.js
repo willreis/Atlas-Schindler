@@ -3,18 +3,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 
-import axios from "axios";
+import Api from '../../services/Api';
 
 export default class CadastroProcesso extends React.Component {
   state = {
-    processos: [],
+    nome: [],
+    ordenacao: []
   };
 
-  componentDidMount() {
-    axios.get(`http://192.168.11.58:90/api/Processo`).then((res) => {
-      const processos = res.data;
-      this.setState({ processos });
-    });
+  handleSubmit = event => {
+    event.preventDefault();
+
+    const processoCadastro = {
+      name: this.state.name,
+      ordenacao: this.state.ordenacao
+    };
+
+    Api.post('/Processo', { processoCadastro })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
   }
 
   render() {
@@ -29,7 +38,7 @@ export default class CadastroProcesso extends React.Component {
                 </div>
               </div>
             </div>
-            <form className="row g-3 formPadrao" action="">
+            <form className="row g-3 formPadrao" action="" onSubmit={this.handleSubmit}>
               <div className="col-md-3 col-sm-6">
                 <label>Nome</label>
                 <input type="text" />
@@ -38,13 +47,10 @@ export default class CadastroProcesso extends React.Component {
                 <label>Ordenação</label>
                 <input type="text" />
               </div>
-              <div className="col-md-3 col-sm-6">
-                <label>Código do Material</label>
-                <input type="text" />
-              </div>
+              
               <div className="col-md-3 col-sm-6 btnCol">
-                <Button variant="success" className="align-self-baseline">
-                  Pesquisar
+                <Button type="submit" variant="success" className="align-self-baseline">
+                  Cadastrar
                 </Button>
               </div>
             </form>
