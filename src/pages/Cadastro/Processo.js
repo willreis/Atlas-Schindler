@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
-import { IoOptionsSharp } from "react-icons/io5";
 import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
-
 import Api from "../../services/Api"
-
 
 export default class Processo extends React.Component {
   state = {
