@@ -24,6 +24,8 @@ export default class CadastroProcesso extends React.Component {
         console.log(res);
         console.log(res.data);
       })
+
+      console.log(processoCadastro);
   }
 
   render() {
@@ -41,11 +43,11 @@ export default class CadastroProcesso extends React.Component {
             <form className="row g-3 formPadrao" action="" onSubmit={this.handleSubmit}>
               <div className="col-md-3 col-sm-6">
                 <label>Nome</label>
-                <input type="text" />
+                <input type="text" name="nome"/>
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Ordenação</label>
-                <input type="text" />
+                <input type="text" name="ordenacao" />
               </div>
               
               <div className="col-md-3 col-sm-6 btnCol">

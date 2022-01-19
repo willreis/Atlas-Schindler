@@ -38,7 +38,8 @@ h4 {
     padding: 30px !important;
 }
 
-.formPadrao input {
+.formPadrao input,
+.formPadrao select {
     padding: 3px 5px;
     border-radius: 5px;
     border: 1px solid #999;
@@ -222,4 +223,23 @@ span.pro-item-content {
     border-radius: 10px;
     text-align: center;
     border-radius: 5px
+}
+
+/*Cadastro Usuario*/
+.cadUsuarioBtnBox button{
+    width: 100%;
+}
+
+.statusBtnBox{
+    position: absolute;
+    bottom: 0;
+}
+
+.statusBtnBox label.form-check-label {
+    margin: 8px 0 0 10px;
+}
+
+.statusBtn {
+    width: 60px!important;
+    height: 30px!important;   
 }

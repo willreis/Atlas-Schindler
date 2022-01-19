@@ -1,66 +1,27 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import BootstrapTable from "react-bootstrap-table-next";
 import { IconContext } from "react-icons/lib";
-import { IoOptionsSharp } from "react-icons/io5";
 import { Button } from "react-bootstrap";
+import { GrEdit } from "react-icons/gr";
 
-function CadastroUsuariosTabelas() {
-  const products = [
-    {
-      matricula: 1212,
-      nome: "José",
-      cargo: 1100,
-      gruposAcesso: 1100,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      matricula: 3434,
-      nome: "José",
-      cargo: 2200,
-      gruposAcesso: 2200,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      matricula: 5656,
-      nome: "João",
-      cargo: 3300,
-      gruposAcesso: 3300,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      matricula: 7878,
-      nome: "João",
-      cargo: 4400,
-      gruposAcesso: 4400,
-      opcoes: <IoOptionsSharp />,
-    },
-  ];
+import { Link, unstable_HistoryRouter } from "react-router-dom";
+import Api from "../../services/Api"
 
-  const columns = [
-    {
-      dataField: "matricula", //dataField é cada Coluna. São as propriedade do Array de objetos 'products' mas só no Código.
-      text: "Matrícula", //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela.
-    },
-    {
-      dataField: "nome",
-      text: "Nome",
-    },
-    {
-      dataField: "cargo",
-      text: "Cargo",
-    },
-    {
-      dataField: "gruposAcesso",
-      text: "Grupo de Acesso",
-    },
-    {
-      dataField: "opcoes",
-      text: "Opções",
-    },
-  ];
+export default class CadastroUsuariosTabelas extends React.Component {
+  state = {
+    usuarios: [],
+  };
 
+  componentDidMount() {
+    Api.get('/Usuario').then((res) => {
+      const usuarios = res.data;
+      this.setState({ usuarios });
+    });
+  }
+
+
+render () {
+  
   return (
     <>
       <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
@@ -73,19 +34,35 @@ function CadastroUsuariosTabelas() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button variant="success">Cadastrar</Button>
+                <Link to="/cadastro/cadastrousuariocampos"></Link><Button variant="success">Cadastrar</Button>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-md-12">
-              <BootstrapTable
-                keyField="matricula"
-                hover
-                striped
-                data={products}
-                columns={columns}
-              />
+            <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Matricula</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Cargo</th>
+                      <th scope="col">Grupo de Acesso</th>
+                      <th scope="col">Opções/Editar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.usuarios.map((usuario) => (
+                      <tr>
+                        <td Style="display:none">{usuario.usuarioId}</td>
+                        <td>{usuario.matricula}</td>
+                        <td>{usuario.nome}</td>
+                        <td>{usuario.cargo}</td>
+                        <td>{usuario.nomeDoGrupo}</td>
+                        <td><span><GrEdit/></span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
             </div>
           </div>
         </div>
@@ -94,4 +71,4 @@ function CadastroUsuariosTabelas() {
   );
 }
 
-export default CadastroUsuariosTabelas;
+}
