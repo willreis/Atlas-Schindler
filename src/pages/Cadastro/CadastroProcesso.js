@@ -19,13 +19,13 @@ export default class CadastroProcesso extends React.Component {
       ordenacao: this.state.ordenacao
     };
 
-    Api.post('/Processo', { processoCadastro })
+    Api.post('/cadastroprocesso', { processoCadastro })
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
 
-      console.log(processoCadastro);
+    console.log(processoCadastro);
   }
 
   render() {
@@ -40,16 +40,17 @@ export default class CadastroProcesso extends React.Component {
                 </div>
               </div>
             </div>
+
             <form className="row g-3 formPadrao" action="" onSubmit={this.handleSubmit}>
               <div className="col-md-3 col-sm-6">
                 <label>Nome</label>
-                <input type="text" name="nome"/>
+                <input type="text" name="nome" onChange={(e) => e.target.value} />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Ordenação</label>
-                <input type="text" name="ordenacao" />
+                <input type="text" name="ordenacao" onChange={(e) => e.target.value} />
               </div>
-              
+
               <div className="col-md-3 col-sm-6 btnCol">
                 <Button type="submit" variant="success" className="align-self-baseline">
                   Cadastrar
