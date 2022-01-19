@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useHistory } from 'react-router-dom';
 
 import CadastroUsuariosTabelas from './pages/Cadastro/CadastroUsuariosTabelas'
 import GruposAcessoTabela from './pages/Cadastro/GruposAcessoTabela'

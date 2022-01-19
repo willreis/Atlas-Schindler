@@ -6,88 +6,93 @@ import { Button } from "react-bootstrap";
 import { GrEdit } from "react-icons/gr";
 import Api from "../../services/Api";
 
-export default function Processo() {
+export default class Maquina extends React.Component {
+  // const [nome, setNome] = useState([])
+  // const [processo, setProcesso] = useState([])
+  // const [status, setStatus] = useState([])
+  // const [ordenacao, setOrdenacao] = useState([])
+  // const [tempoMedioProducao, setTempoMedioProducao] = useState([])
 
-  const [nome, setNome] = useState([])
-  const [processo, setProcesso] = useState([])
-  const [status, setStatus] = useState([])
-  const [ordenacao, setOrdenacao] = useState([])
-  const [tempoMedioProducao, setTempoMedioProducao] = useState([])
+  state = {
+    maquinas: [],
+  };
 
-
-  // state = {
-  //   maquinas: [],
-  // };
-
-  // componentDidMount() {
-  //   Api.get('/Maquina').then((res) => {
-  //     const maquinas = res.data;
-  //     this.setState({ maquinas });
-  //   });
-  // }
-
-  return (
-    <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
-        <div className="container paddingContainer">
-          <div className="row">
-            <div className="col-md-6 col-sm-12">
-              <div className="tituloInterno">
-                <h2 Style="color:#555;">Maquina</h2>
+  componentDidMount() {
+    Api.get("/Maquina").then((res) => {
+      const maquinas = res.data;
+      this.setState({ maquinas });
+    });
+  }
+  render() {
+    return (
+      <>
+        <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+          <div className="container paddingContainer">
+            <div className="row">
+              <div className="col-md-6 col-sm-12">
+                <div className="tituloInterno">
+                  <h2 Style="color:#555;">Maquina</h2>
+                </div>
+              </div>
+              <div className="col-md-6 col-sm-12">
+                <div className="alignButtons">
+                  <Button variant="success">Cadastrar</Button>
+                </div>
               </div>
             </div>
-            <div className="col-md-6 col-sm-12">
-              <div className="alignButtons">
-                <Button variant="success">Cadastrar</Button>
-              </div>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div Style="text-align: center" className="textTable">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nome</th>
-                      <th scope="col">Processo</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Ordenação</th>
-                      <th scope="col">Tempo Médio Produção</th>
-                      <th scope="col">Opções/Editar</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {this.state.maquinas.map((maquina) => (
+            <div className="row">
+              <div className="col-md-12 col-sm-12 paddingTop20Mobile">
+                <div Style="text-align: center" className="textTable">
+                  <table class="table table-striped">
+                    <thead>
                       <tr>
-                        <td Style='display: none'>{maquina.maquinaId}</td>
-                        <td>{maquina.nome} <input type='text' value={maquina.nome} onChange={(e) => setNome(e.target.value)} /></td>
-                        <td>{maquina.processoId}</td>
-                        <td>{maquina.status ? 'Ativo' : 'Inativo'}</td>
-                        <td>{maquina.ordenacao}</td>
-                        <td>{maquina.tempoMedioProducao}</td>
-                        <td><span><GrEdit /></span></td>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Processo</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ordenação</th>
+                        <th scope="col">Tempo Médio Produção</th>
+                        <th scope="col">Opções/Editar</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+                    </thead>
 
-          <div className="row paddingTop30">
-            <div className="col-md-6">
-              <Button variant="secondary">Voltar</Button>
+                    <tbody>
+                      {this.state.maquinas.map((maquina) => (
+                        <tr>
+                          <td Style="display: none">{maquina.maquinaId}</td>
+                          <td>
+                            <input value={maquina.nome}></input>
+                          </td>
+                          <td>{maquina.processoId}</td>
+                          <td>{maquina.status ? "Ativo" : "Inativo"}</td>
+                          <td>{maquina.ordenacao}</td>
+                          <td>{maquina.tempoMedioProducao}</td>
+                          <td>
+                            <span>
+                              <GrEdit />
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-            <div className="col-md-6 paddingTop20Mobile">
-              <div className="alignButtons">
-                <Button variant="success">Salvar</Button>
+
+            <div className="row paddingTop30">
+              <div className="col-md-6">
+                <Button variant="secondary">Voltar</Button>
+              </div>
+              <div className="col-md-6 paddingTop20Mobile">
+                <div className="alignButtons">
+                  <Button variant="success">Salvar</Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </IconContext.Provider>
-    </>
-  );
+        </IconContext.Provider>
+      </>
+    );
+  }
 }
