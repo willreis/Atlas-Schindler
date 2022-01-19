@@ -9,7 +9,7 @@ export default function CadastroProcesso() {
   const [nome, setNome] = useState('');
   const [ordenacao, setOrdenacao] = useState('')
 
-  async function handleRegister(e) {
+  function handleRegister(e) {
     e.preventDefault();
 
     const data = {
