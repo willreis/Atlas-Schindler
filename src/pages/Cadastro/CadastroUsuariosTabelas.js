@@ -4,7 +4,7 @@ import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import { GrEdit } from "react-icons/gr";
 
-import { Link, unstable_HistoryRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Api from "../../services/Api"
 
 export default class CadastroUsuariosTabelas extends React.Component {

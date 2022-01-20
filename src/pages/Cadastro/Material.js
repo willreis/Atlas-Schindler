@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { IconContext } from "react-icons/lib";
 import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
-import Api from '../../services/Api';
+// import Api from '../../services/Api';
 
 export default function Material() {
 
-  const [codigoMaterial, setCodigoMaterial] = useState([])
-  const [nomeMaterial, setNomeMaterial] = useState([])
-  const [armazenamento, setArmazenamento] = useState([])
-  const [comprimento, setComprimento] = useState([])
-  const [largura, setLargura] = useState([])
-  const [espessura, setEspessura] = useState([])
-  const [unidadeMedida, setUnidadeMedida] = useState([])
-  const [minimoEstoque, setMinimoEstoque] = useState([])
-  const [maximo, setMaximo] = useState([])
+  // const [codigoMaterial, setCodigoMaterial] = useState([])
+  // const [nomeMaterial, setNomeMaterial] = useState([])
+  // const [armazenamento, setArmazenamento] = useState([])
+  // const [comprimento, setComprimento] = useState([])
+  // const [largura, setLargura] = useState([])
+  // const [espessura, setEspessura] = useState([])
+  // const [unidadeMedida, setUnidadeMedida] = useState([])
+  // const [minimoEstoque, setMinimoEstoque] = useState([])
+  // const [maximo, setMaximo] = useState([])
 
   // state = {
   //   materiais: [],
