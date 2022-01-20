@@ -12,12 +12,15 @@ export default function Processo() {
 
   useEffect(() => {
     Api.get('/Processo')
-      .then((response) => setUser(response.data))
-      .catch((error) => {
-        console.log(error)
-        alert(error)
+      .then((response) => {
+        console.log(response)
+        setUser(response.data)
       })
-  }, [user])
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error)
+        alert("Ops! Ocorreu um erro:", error)
+      })
+  }, [])
 
   return (
     <>
@@ -48,9 +51,9 @@ export default function Processo() {
                   </tr>
                 </thead>
                 <tbody>
-                  {user.map((processo) => (
+                  {user.map(processo => (
                     <tr>
-                      <td Style="display:none">{processo.processoId}</td>
+                      <td key={processo.processoId} Style="display:none">{processo.processoId}</td>
                       <td>{processo.nome}</td>
                       <td>{processo.ordenacao}</td>
                       <td><span><GrEdit /></span></td>
