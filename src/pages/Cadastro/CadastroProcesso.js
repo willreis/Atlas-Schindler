@@ -11,27 +11,21 @@ export default function CadastroProcesso() {
 
   function handleRegister(e) {
     e.preventDefault();
-
   }
 
-  const data = {
-    nome,
-    ordenacao
-  }
-
-
-  useEffect(() => {
-    Api.post('/Processo', data)
+  function createPost() {
+    Api.post('/Processo', {
+      nome, ordenacao
+    })
       .then((response) => {
-        console.log(response)
         setNome(response.data)
         setOrdenacao(response.data)
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error)
-        alert("Ops! Ocorreu um erro:", error)
+        console.log("Ops! Ocorreu um erro!!!:", error)
+        alert("Ops! Ocorreu um erro!!!:", error)
       })
-  }, [])
+  }
 
   return (
     <>
@@ -70,6 +64,7 @@ export default function CadastroProcesso() {
                 type="submit"
                 variant="success"
                 className="align-self-baseline"
+                onClick={createPost}
               >
                 Cadastrar
               </Button>
