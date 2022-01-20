@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
@@ -10,8 +9,6 @@ export default function CadastroProcesso() {
 
   const [nome, setNome] = useState('');
   const [ordenacao, setOrdenacao] = useState('');
-
-  const navigate = useNavigate();
 
   async function handleRegister(e) {
     e.preventDefault();
@@ -25,9 +22,9 @@ export default function CadastroProcesso() {
       await Api.post('/Processo', data);
 
       alert('Cadastro realizado com sucesso');
-      navigate.push('/');
     } catch (err) {
-      alert('Erro no cadastro, tente novamente');
+      alert('Erro no cadastro, tente novamente', err);
+      console.log(err)
     }
   }
 
