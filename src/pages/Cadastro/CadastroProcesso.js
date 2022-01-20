@@ -1,49 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect ,useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
-import axios from "axios";
+
 
 export default function CadastroProcesso() {
-  const [data, setData] = useState({
-    nome: "",
-    ordenacao: "",
-  });
+  
+  const [nome, setNome] = useState('');
+  const [ordenacao, setOrdenacao] = useState('');
+  
+  const navigate = useNavigate();
+  
+  async function handleRegister(e){
+      e.preventDefault();
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setData({
-      ...data,
-      [e.target.name]: value,
-    });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const userData = {
-      nome: data.nome,
-      ordenacao: data.ordenacao
-    };
-    axios.post("http://192.168.11.58:90/api/Processo", userData).then((response) => {
-      console.log(response.status);
-      console.log(response.data.token);
-    });
-  // const [nome, setNome] = useState("");
-  // const [ordenacao, setOrdenacao] = useState("");
+      const data = {
+          nome,
+          ordenacao,
+      };
 
-  // const navigate = useNavigate();
+      try{
+        const response = await Api.post('/Processo/', data);
 
-  // async function handleRegister(e) {
-  //   e.preventDefault();
-
-  //   console.log(nome, ordenacao);
-
-  //   axios.post("http://192.168.11.58:90/api/Processo", { nome, ordenacao })
-  //   .then((response) => console.log(response))
-  //   .catch((error) => console.log(error));
-
-  // }
+        alert( 'Cadastro realizado com sucesso');
+        navigate.push('/');
+    } catch (err) {
+        alert('Erro no cadastro, tente novamente');
+    }
+  }
 
   return (
     <>
@@ -57,23 +43,23 @@ export default function CadastroProcesso() {
             </div>
           </div>
 
-          <form className="row g-3 formPadrao" onSubmit={handleSubmit}>
+          <form className="row g-3 formPadrao" onSubmit={handleRegister}>
             <div className="col-md-3 col-sm-6">
               <label>Nome</label>
               <input
                 type="text"
                 name="nome"
-                value={data.nome}
-                onChange={handleChange}
+                value={nome}
+                onChange={e => setNome(e.target.value)}
               />
             </div>
             <div className="col-md-3 col-sm-6">
               <label>Ordenação</label>
               <input
-                type="text"
+                type="number"
                 name="ordenacao"
-                value={data.ordenacao}
-                onChange={handleChange}
+                value={ordenacao}
+                onChange={e => setOrdenacao(e.target.value)}
               />
             </div>
 
@@ -91,5 +77,4 @@ export default function CadastroProcesso() {
       </IconContext.Provider>
     </>
   );
-}
 }
