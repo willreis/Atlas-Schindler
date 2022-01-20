@@ -1,32 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
-
 export default function CadastroProcesso() {
 
-  const [nome, setNome] = useState('');
-  const [ordenacao, setOrdenacao] = useState('');
+  const [nome, setNome] = useState([]);
+  const [ordenacao, setOrdenacao] = useState([]);
 
-  async function handleRegister(e) {
+  function handleRegister(e) {
     e.preventDefault();
 
-    const data = {
-      nome,
-      ordenacao,
-    };
-
-    try {
-      await Api.post('/Processo', data);
-
-      alert('Cadastro realizado com sucesso');
-    } catch (err) {
-      alert('Erro no cadastro, tente novamente', err);
-      console.log(err)
-    }
   }
+
+  const data = {
+    nome,
+    ordenacao
+  }
+
+
+  useEffect(() => {
+    Api.post('/Processo', data)
+      .then((response) => {
+        console.log(response)
+        setNome(response.data)
+        setOrdenacao(response.data)
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error)
+        alert("Ops! Ocorreu um erro:", error)
+      })
+  }, [])
 
   return (
     <>
@@ -73,5 +78,5 @@ export default function CadastroProcesso() {
         </div>
       </IconContext.Provider>
     </>
-  );
+  )
 }

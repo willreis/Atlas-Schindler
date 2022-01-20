@@ -8,7 +8,7 @@ import Api from "../../services/Api"
 
 export default function Processo() {
 
-  const [user, setUser] = useState()
+  const [user, setUser] = useState([])
 
   useEffect(() => {
     Api.get('/Processo')
