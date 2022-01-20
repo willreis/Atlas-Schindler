@@ -1,4 +1,4 @@
-import React, { useEffect ,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
@@ -7,27 +7,27 @@ import Api from "../../services/Api";
 
 
 export default function CadastroProcesso() {
-  
+
   const [nome, setNome] = useState('');
   const [ordenacao, setOrdenacao] = useState('');
-  
+
   const navigate = useNavigate();
-  
-  async function handleRegister(e){
-      e.preventDefault();
 
-      const data = {
-          nome,
-          ordenacao,
-      };
+  async function handleRegister(e) {
+    e.preventDefault();
 
-      try{
-        const response = await Api.post('/Processo/', data);
+    const data = {
+      nome,
+      ordenacao,
+    };
 
-        alert( 'Cadastro realizado com sucesso');
-        navigate.push('/');
+    try {
+      await Api.post('/Processo', data);
+
+      alert('Cadastro realizado com sucesso');
+      navigate.push('/');
     } catch (err) {
-        alert('Erro no cadastro, tente novamente');
+      alert('Erro no cadastro, tente novamente');
     }
   }
 
@@ -59,7 +59,7 @@ export default function CadastroProcesso() {
                 type="number"
                 name="ordenacao"
                 value={ordenacao}
-                onChange={e => setOrdenacao(e.target.value)}
+                onChange={e => setOrdenacao(parseInt(e.target.value))}
               />
             </div>
 
