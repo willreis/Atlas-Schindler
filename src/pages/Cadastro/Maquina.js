@@ -163,7 +163,7 @@ function createPost() {
                 type="boolean"
                 name="status"
                 value={statusCad}
-                onChange={e => setStatusCad(e.target.value)}
+                onChange={e => setStatusCad(e.target.value) }
               />
             </div>
             <div className="col-md-4 col-sm-6">
@@ -172,7 +172,7 @@ function createPost() {
                 type="number"
                 name="ordenacao"
                 value={ordenacao}
-                onChange={e => setOrdenacao(parseInt(e.target.value))}
+                onChange={e => setOrdenacao(parseFloat(e.target.value))}
               />
             </div>
             <div className="col-md-4 col-sm-6">
@@ -181,7 +181,7 @@ function createPost() {
                 type="number"
                 name="tempoMedio"
                 value={tempoMedio}
-                onChange={e => setStatusCad(parseInt(e.target.value))}
+                onChange={e => setStatusCad(parseFloat(e.target.value))}
               />
             </div>
 
