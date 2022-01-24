@@ -1,34 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import { Link } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
-// import Api from '../../services/Api';
+import Api from '../../services/Api';
 
 export default function Material() {
 
-  // const [codigoMaterial, setCodigoMaterial] = useState([])
-  // const [nomeMaterial, setNomeMaterial] = useState([])
-  // const [armazenamento, setArmazenamento] = useState([])
-  // const [comprimento, setComprimento] = useState([])
-  // const [largura, setLargura] = useState([])
-  // const [espessura, setEspessura] = useState([])
-  // const [unidadeMedida, setUnidadeMedida] = useState([])
-  // const [minimoEstoque, setMinimoEstoque] = useState([])
-  // const [maximo, setMaximo] = useState([])
+  const [user, setUser] = useState([])
 
-  // state = {
-  //   materiais: [],
-  // };
+  useEffect(() => {
+    Api.get('/Material')
+      .then((response) => {
+        console.log(response)
+        setUser(response.data)
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error)
+        alert("Ops! Ocorreu um erro:", error)
+      })
+  }, [])
 
-  // componentDidMount() {
-  //   Api.get('/Material').then((res) => {
-  //     const materiais = res.data;
-  //     this.setState({ materiais });
-  //   });
-  // }
-
+  
   return (
     <>
       <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
@@ -41,7 +35,7 @@ export default function Material() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button variant="success">Cadastrar</Button>
+                <Link to='/Cadastro/CadastroProduto'><Button variant="success">Cadastrar</Button></Link>
               </div>
             </div>
           </div>
@@ -64,7 +58,7 @@ export default function Material() {
                 </thead>
 
                 <tbody>
-                  {this.state.materiais.map((material) => (
+                  {user.map((material) => (
                     <tr>
                       <td Style='display: none'>{material.materialId}</td>
                       <td>{material.codigo}</td>

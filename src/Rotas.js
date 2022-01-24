@@ -1,17 +1,16 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import CadastroUsuariosTabelas from './pages/Cadastro/CadastroUsuariosTabelas'
-import GruposAcessoTabela from './pages/Cadastro/GruposAcessoTabela'
+import Usuarios from './pages/Cadastro/Usuarios'
+import GruposAcesso from './pages/Cadastro/GruposAcesso'
 import Impressora from './pages/Cadastro/Impressora'
 import Processo from './pages/Cadastro/Processo'
-import CadastroProcesso from './pages/Cadastro/CadastroProcesso'
 import Maquina from './pages/Cadastro/Maquina'
+import CadastroMaquina from './pages/Cadastro/CadastroMaquina'
 import Material from './pages/Cadastro/Material'
+import CadastroMaterial from './pages/Cadastro/CadastroMaterial'
 //Páginas Internas cadastro
-import CadastroUsuariosCampos from './pages/Cadastro/CadastroUsuariosCampos'
-import GruposAcessoCampos from './pages/Cadastro/GruposAcessoCampos'
-import GruposAcessoTabelaCampos from './pages/Cadastro/GruposAcessoTabelaCampos'
+
 import MotivoProblema from './pages/Cadastro/MotivoProblema'
 import NovoEditarMaterial from './pages/Cadastro/NovoEditarMaterial'
 
@@ -72,17 +71,16 @@ function Rotas(props) {
         <div {...props}>
             <div>
                 <Routes >
-                    <Route path='/cadastro/usuario' exact element={<CadastroUsuariosTabelas />}></Route>
-                    <Route path='/cadastro/gruposdeacesso' exact element={<GruposAcessoTabela />}></Route>
+                    <Route path='/cadastro/usuarios' exact element={<Usuarios />}></Route>
+                    <Route path='/cadastro/gruposdeacesso' exact element={<GruposAcesso />}></Route>
                     <Route path='/cadastro/impressora' exact element={<Impressora />}></Route>
                     <Route path='/cadastro/processo' exact element={<Processo />}></Route>
-                    <Route path='/cadastro/cadastroprocesso' exact element={<CadastroProcesso />}></Route>
                     <Route path='/cadastro/maquina' exact element={<Maquina />}></Route>
+                    <Route path='/cadastro/cadastromaquina' exact element={<CadastroMaquina />}></Route>
                     <Route path='/cadastro/produto' exact element={<Material />}></Route>
+                    <Route path='/cadastro/cadastroproduto' exact element={<CadastroMaterial />}></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
-                    <Route path='/cadastro/cadastrousuariocampos' exact element={<CadastroUsuariosCampos />}></Route>
-                    <Route path='/cadastro/grupoacessocampos' exact element={<GruposAcessoCampos />}></Route>
-                    <Route path='/cadastro/gruposacessotabelacampos' exact element={<GruposAcessoTabelaCampos />}></Route>
+
                     <Route path='/cadastro/motivoproblema' exact element={<MotivoProblema />}></Route>
                     <Route path='/cadastro/novoeditarmaterial' exact element={<NovoEditarMaterial />}></Route>
 

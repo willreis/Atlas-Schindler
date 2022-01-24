@@ -60,11 +60,15 @@ h4 {
     bottom: 0;
 }
 
+.formCadastro {
+    transition: all 2s linear;
+}
 
 
 /*Home*/
 .logoAtlasHome {
     text-align: center;
+   
 }
 
 .logoAtlasHome img {
@@ -114,6 +118,32 @@ button.btnVoltarHome {
 }
 
 /*Menu*/
+.fotoPerfilBox {
+    text-align: center;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.fotoPerfilBox img {
+    width: 55%;
+    border-radius: 50%;
+}
+
+ul.dadosPessoais {
+    margin-top: 10px !important;
+}
+
+ul.dadosPessoais li {
+    color: #fff;
+    line-height: 1.5;
+}
+
+.fotoPerfilBox img {
+    width: 45%;
+    border-radius: 50%;
+    border: 4px solid #7a7474;
+}
+
 .logoAtlas {
     width: 60%;
     background: #fff;
@@ -122,8 +152,13 @@ button.btnVoltarHome {
     border-radius: 10px;
 }
 
+
 .logotext {
     text-align: center;
+}
+
+.pro-sidebar-content {
+    border-top: 2px solid;
 }
 
 .pro-sidebar .pro-menu {
@@ -176,7 +211,7 @@ span.pro-item-content {
 
 .closemenu {
     cursor: pointer;
-    margin: 10px;
+    margin: 0 10px;
     text-align: right;
 }
 
@@ -212,7 +247,8 @@ span.pro-item-content {
 .loginBox {
     margin-top: 3rem;
     padding: 30px;
-    background: rgba(0, 0, 0, 0.3)
+    background: rgba(0, 0, 0, 0.3);
+    min-width: 230px;
 }
 
 .logoAtlaslogin {
@@ -226,11 +262,11 @@ span.pro-item-content {
 }
 
 /*Cadastro Usuario*/
-.cadUsuarioBtnBox button{
+.cadUsuarioBtnBox button {
     width: 100%;
 }
 
-.statusBtnBox{
+.statusBtnBox {
     position: absolute;
     bottom: 0;
 }
@@ -240,6 +276,6 @@ span.pro-item-content {
 }
 
 .statusBtn {
-    width: 60px!important;
-    height: 30px!important;   
+    width: 60px !important;
+    height: 30px !important;
 }

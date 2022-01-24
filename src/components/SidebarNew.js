@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import fotoPerfil from "../assets/img/userimg.png";
 import atlasLogo from "../assets/img/atlas_logo.png";
 import { Link } from "react-router-dom";
+import spiLogo from '../assets/img/spi_logo.jpg' 
 
 //react pro sidebar components
 import {
@@ -40,9 +42,11 @@ import {
 
 import { IoIosPaper } from "react-icons/io";
 import { HiOutlineClock } from "react-icons/hi";
+import { RiLockPasswordLine } from "react-icons/ri";
 import { VscGitPullRequestClosed } from "react-icons/vsc";
 
 import { BiImport, BiUserCheck } from "react-icons/bi";
+import { HiOutlineIdentification } from "react-icons/hi";
 
 import {
   RiStoreFill,
@@ -87,15 +91,35 @@ const SidebarNew = () => {
             <div className="logotext">
               <img src={atlasLogo} alt="atlas-logo" className="logoAtlas" />
             </div>
+
+            <hr />
             <div className="closemenu" onClick={menuIconClick} alt="Menu">
               {menuCollapse ? <AiOutlineMenuUnfold /> : <AiOutlineMenuFold />}
             </div>
+            <div className="fotoPerfilBox">
+              <img src={fotoPerfil} alt="fotoPerfil" className="fotoUsuario" />
+              <ul className="dadosPessoais">
+                <li>Ayrton Senna</li>
+                <li>Operador de Máquinas</li>
+              </ul>
+            </div>
+            <Menu>
+              <SubMenu
+                title="Dados Pessoais"
+                icon={<HiOutlineIdentification />}
+              >
+                <MenuItem title="Dados Pessoais" icon={<RiLockPasswordLine />}>
+                  Alterar Senha
+                </MenuItem>
+                <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+              </SubMenu>
+            </Menu>
           </SidebarHeader>
           <SidebarContent>
             <Menu>
               <SubMenu title="Cadastro" icon={<FiHome />}>
                 <MenuItem title="Usuario" icon={<FaUser />}>
-                  <Link className="link" to="/cadastro/usuario">
+                  <Link className="link" to="/cadastro/usuarios">
                     Usuario
                   </Link>
                 </MenuItem>
@@ -336,9 +360,9 @@ const SidebarNew = () => {
             </Menu>
           </SidebarContent>
           <SidebarFooter>
-            <Menu>
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-            </Menu>
+            <div Style="text-align:center; padding:30px 0">
+                <img src={spiLogo} alt='spi-logo' Style='height: 60px; border-radius: 6px;' />
+            </div>
           </SidebarFooter>
         </ProSidebar>
       </div>

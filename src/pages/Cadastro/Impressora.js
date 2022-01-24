@@ -1,65 +1,60 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
-import { IoOptionsSharp } from "react-icons/io5";
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
+import Api from "../../services/Api";
 
-function Impressora() {
-  const products = [
-    {
-      nome: "Impressora 1",
-      marca: "Zebra",
-      endereco: "//servidor/impressora",
-      area: 1,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      nome: "Impressora 2",
-      marca: "Zebra",
-      endereco: "//servidor/impressora",
-      area: 2,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      nome: "Impressora 3",
-      marca: "Zebra",
-      endereco: "//servidor/impressora",
-      area: 3,
-      opcoes: <IoOptionsSharp />,
-    },
-    {
-      nome: "Impressora 4",
-      marca: "Zebra",
-      endereco: "//servidor/impressora",
-      area: 4,
-      opcoes: <IoOptionsSharp />,
-    },
-  ];
+export default function Impressora() {
+  //Modal const
+  const [show, setShow] = useState(false);
 
-  const columns = [
-    {
-      dataField: "nome", //dataField é cada Coluna. São as propriedade do Array de objetos 'products' mas só no Código.
-      text: "Nome", //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela.
-    },
-    {
-      dataField: "marca",
-      text: "Marca",
-    },
-    {
-      dataField: "endereco",
-      text: "Endereço",
-    },
-    {
-      dataField: "area",
-      text: "Área",
-    },
-    {
-      dataField: "opcoes",
-      text: "Opções/Editar",
-    },
-  ];
+  //POST
+  const [nome, setNome] = useState([]);
+  const [marca, setMarca] = useState([]);
+  const [endereco, setEndereco] = useState([]);
+  const [area, setArea] = useState([]);
+
+  function handleRegister(e) {
+    e.preventDefault();
+  }
+
+  function createPost() {
+    Api.post("/Impressora", {
+      nome,
+      marca,
+      endereco,
+      area,
+    })
+      .then((response) => {
+        setNome(response.data);
+        setMarca(response.data);
+        setEndereco(response.data);
+        setArea(response.data);
+        alert("Impressora cadastrada com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro!!!:", error);
+        alert("Ops! Ocorreu um erro!!!:", error);
+      });
+  }
+
+  //GET
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    Api.get("/Impressora")
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }, []);
+
   return (
     <>
       <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
@@ -72,20 +67,42 @@ function Impressora() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button variant="success">Cadastrar</Button>
+                <Button variant="success" onClick={() => setShow(true)}>Cadastrar</Button>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
               <div Style="text-align: center" className="textTable">
-                <BootstrapTable
-                  keyField="nomeGrupo"
-                  hover
-                  striped
-                  data={products}
-                  columns={columns}
-                />
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Marca</th>
+                      <th scope="col">Endereço</th>
+                      <th scope="col">Area</th>
+                      <th scope="col">Opções/Editar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {user.map((impressora) => (
+                      <tr>
+                        <td key={impressora.impressoraId} Style="display:none">
+                          {impressora.impressoraId}
+                        </td>
+                        <td>{impressora.nome}</td>
+                        <td>{impressora.marca}</td>
+                        <td>{impressora.endereco}</td>
+                        <td>{impressora.area}</td>
+                        <td>
+                          <span>
+                            <GrEdit />
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -100,9 +117,80 @@ function Impressora() {
             </div>
           </div>
         </div>
+
+        {/* Modal */}
+        {/* Modal */}
+        <Modal
+          size="lg"
+          show={show}
+          onHide={() => setShow(false)}
+          dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title">
+              Cadastro de Impressora
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className="formCadastro"
+              id="formCadastro"
+              Style="margin-bottom: 30px"
+            >
+              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                <div className="col-md-3 col-sm-6">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Marca</label>
+                  <input
+                    type="text"
+                    name="marca"
+                    value={marca}
+                    onChange={(e) => setMarca(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Endereço</label>
+                  <input
+                    type="text"
+                    name="endereco"
+                    value={endereco}
+                    onChange={(e) => setEndereco(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Área</label>
+                  <input
+                    type="text"
+                    name="area"
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-md-12 col-sm-6" Style="text-align:right">
+                  <Button
+                    type="submit"
+                    variant="success"
+                    className="align-self-baseline"
+                    onClick={createPost}
+                  >
+                    Cadastrar
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
       </IconContext.Provider>
     </>
   );
 }
-
-export default Impressora;

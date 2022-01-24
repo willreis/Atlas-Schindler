@@ -1,26 +1,52 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Api from "../../services/Api"
+import Api from "../../services/Api";
 
 export default function Processo() {
-
-  const [user, setUser] = useState([])
+  //Modal const
+  const [show, setShow] = useState(false);
+  //Get
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Api.get('/Processo')
+    Api.get("/Processo")
       .then((response) => {
-        console.log(response)
-        setUser(response.data)
+        console.log(response);
+        setUser(response.data);
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error)
-        alert("Ops! Ocorreu um erro:", error)
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }, []);
+
+  // POST
+  const [nome, setNome] = useState([]);
+  const [ordenacao, setOrdenacao] = useState([]);
+
+  function handleRegister(e) {
+    // e.preventDefault();
+    handleRegister(user);
+  }
+
+  function createPost() {
+    Api.post("/Processo", {
+      nome,
+      ordenacao,
+    })
+      .then((response) => {
+        setNome(response.data);
+        setOrdenacao(response.data);
       })
-  }, [])
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro!!!:", error);
+        alert("Ops! Ocorreu um erro!!!:", error);
+      });
+  }
 
   return (
     <>
@@ -34,14 +60,15 @@ export default function Processo() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Link to="/cadastro/cadastroprocesso"><Button variant="success">Cadastrar</Button></Link>
+                <Button variant="success" onClick={() => setShow(true)}>
+                  Cadastrar
+                </Button>
               </div>
             </div>
           </div>
 
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
@@ -51,12 +78,18 @@ export default function Processo() {
                   </tr>
                 </thead>
                 <tbody>
-                  {user.map(processo => (
+                  {user.map((processo) => (
                     <tr>
-                      <td key={processo.processoId} Style="display:none">{processo.processoId}</td>
+                      <td key={processo.processoId} Style="display:none">
+                        {processo.processoId}
+                      </td>
                       <td>{processo.nome}</td>
                       <td>{processo.ordenacao}</td>
-                      <td><span><GrEdit /></span></td>
+                      <td>
+                        <span>
+                          <GrEdit />
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -74,7 +107,61 @@ export default function Processo() {
             </div>
           </div>
         </div>
+
+        {/* Modal */}
+        <Modal
+          size="lg"
+          show={show}
+          onHide={() => setShow(false)}
+          dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title">
+              Cadastro de Processo
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className="formCadastro"
+              id="formCadastro"
+              Style="margin-bottom: 30px"
+            >
+              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                <div className="col-md-5 col-sm-6">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-5 col-sm-6">
+                  <label>Ordenação</label>
+                  <input
+                    type="number"
+                    name="ordenacao"
+                    value={ordenacao}
+                    onChange={(e) => setOrdenacao(parseInt(e.target.value))}
+                  />
+                </div>
+
+                <div className="col-md-2 col-sm-6 btnCol">
+                  <Button
+                    type="submit"
+                    variant="success"
+                    className="align-self-baseline"
+                    onClick={createPost}
+                  >
+                    Salvar
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
       </IconContext.Provider>
     </>
-  )
+  );
 }
