@@ -28,40 +28,41 @@ export default function Material() {
   //POST
   const [codigo, setCodigo] = useState([]);
   const [nome, setNome] = useState([]);
-  const [armazenamento, setArmazenamento] = useState([]);
+  const [localizacao, setLocalizacao] = useState([]);
   const [comprimento, setComprimento] = useState([]);
   const [largura, setLargura] = useState([]);
   const [espessura, setEspessura] = useState([]);
-  const [uniMedida, setUniMedida] = useState([]);
-  const [minEstoque, setMinEstoque] = useState([]);
-  const [maxEstoque, setMaxEstoque] = useState([]);
+  const [unidade, setUnidade] = useState([]);
+  const [minimoDeEstoque, setMinimoDeEstoque] = useState([]);
+  const [maximoDeEstoque, setMaximoDeEstoque] = useState([]);
 
   function handleRegister(e) {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log(createPost)
   }
 
   function createPost() {
     Api.post("/Material", {
       codigo,
       nome,
-      armazenamento,
+      localizacao,
       comprimento,
       largura,
       espessura,
-      uniMedida,
-      minEstoque,
-      maxEstoque,
+      unidade,
+      minimoDeEstoque,
+      maximoDeEstoque,
     })
       .then((response) => {
         setCodigo(response.data);
         setNome(response.data);
-        setArmazenamento(response.data);
+        setLocalizacao(response.data);
         setComprimento(response.data);
         setLargura(response.data);
         setEspessura(response.data);
-        setUniMedida(response.data);
-        setMinEstoque(response.data);
-        setMaxEstoque(response.data);
+        setUnidade(response.data);
+        setMinimoDeEstoque(response.data);
+        setMaximoDeEstoque(response.data);
         console.log("Cadastro efetuado com sucesso");
       })
       .catch((error) => {
@@ -95,7 +96,7 @@ export default function Material() {
                   <tr>
                     <th scope="col">Código Material</th>
                     <th scope="col">Nome Material</th>
-                    <th scope="col">Armazenamento</th>
+                    <th scope="col">Localização</th>
                     <th scope="col">Comprimento</th>
                     <th scope="col">Largura</th>
                     <th scope="col">Espessura</th>
@@ -109,7 +110,7 @@ export default function Material() {
                 <tbody>
                   {user.map((material) => (
                     <tr>
-                      <td Style="display: none">{material.materialId}</td>
+                      <td Style="display: none" key={material.materialId}>{material.materialId}</td>
                       <td>{material.codigo}</td>
                       <td>{material.nome}</td>
                       <td>{material.localizacao}</td>
@@ -170,12 +171,12 @@ export default function Material() {
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Armazenamento</label>
+                  <label>Localizacao</label>
                   <input
                     type="text"
-                    name="armazenamento"
-                    value={armazenamento}
-                    onChange={(e) => setArmazenamento(e.target.value)}
+                    name="localizacao"
+                    value={localizacao}
+                    onChange={(e) => setLocalizacao(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -209,27 +210,27 @@ export default function Material() {
                   <label>Unidade de Medida</label>
                   <input
                     type="text"
-                    name="uniMedida"
-                    value={uniMedida}
-                    onChange={(e) => setUniMedida(e.target.value)}
+                    name="unidade"
+                    value={unidade}
+                    onChange={(e) => setUnidade(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <label>Mínimo Estoque</label>
                   <input
                     type="number"
-                    name="minEstoque"
-                    value={minEstoque}
-                    onChange={(e) => setMinEstoque(parseInt(e.target.value))}
+                    name="minimoDeEstoque"
+                    value={minimoDeEstoque}
+                    onChange={(e) => setMinimoDeEstoque(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <label>Máximo Estoque</label>
                   <input
                     type="number"
-                    name="maxEstoque"
-                    value={maxEstoque}
-                    onChange={(e) => setMaxEstoque(e.target.value)}
+                    name="maximoDeEstoque"
+                    value={maximoDeEstoque}
+                    onChange={(e) => setMaximoDeEstoque(parseInt(e.target.value))}
                   />
                 </div>
 

@@ -119,7 +119,6 @@ export default function Impressora() {
         </div>
 
         {/* Modal */}
-        {/* Modal */}
         <Modal
           size="lg"
           show={show}

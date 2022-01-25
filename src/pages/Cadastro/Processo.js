@@ -72,6 +72,7 @@ export default function Processo() {
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
+                  <th scope="col">ID</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Ordenação</th>
                     <th scope="col">Opções/Editar</th>
@@ -80,7 +81,7 @@ export default function Processo() {
                 <tbody>
                   {user.map((processo) => (
                     <tr>
-                      <td key={processo.processoId} Style="display:none">
+                      <td key={processo.processoId} >
                         {processo.processoId}
                       </td>
                       <td>{processo.nome}</td>
