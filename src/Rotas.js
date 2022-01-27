@@ -77,7 +77,7 @@ function Rotas(props) {
                     <Route path='/cadastro/processo' exact element={<Processo />}></Route>
                     <Route path='/cadastro/maquina' exact element={<Maquina />}></Route>
                     <Route path='/cadastro/cadastromaquina' exact element={<CadastroMaquina />}></Route>
-                    <Route path='/cadastro/produto' exact element={<Material />}></Route>
+                    <Route path='/cadastro/material' exact element={<Material />}></Route>
                     <Route path='/cadastro/cadastroproduto' exact element={<CadastroMaterial />}></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
 

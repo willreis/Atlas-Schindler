@@ -38,6 +38,7 @@ import {
   BsCalendar2EventFill,
   BsCalendar2RangeFill,
   BsFillExclamationOctagonFill,
+  BsInboxesFill,
 } from "react-icons/bs";
 
 import { IoIosPaper } from "react-icons/io";
@@ -146,9 +147,9 @@ const SidebarNew = () => {
                     Maquina
                   </Link>
                 </MenuItem>
-                <MenuItem title="Produto" icon={<FaProductHunt />}>
-                  <Link className="link" to="/cadastro/produto">
-                    Produto
+                <MenuItem title="Material" icon={<BsInboxesFill />}>
+                  <Link className="link" to="/cadastro/material">
+                    Material
                   </Link>
                 </MenuItem>
               </SubMenu>

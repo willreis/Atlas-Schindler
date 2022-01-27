@@ -24,33 +24,39 @@ export default function Maquina() {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
-      Api.get("/Processo")
+    Api.get("/Processo")
       .then((response) => {
         console.log(response);
         setUser2(response.data);
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
+        console.log("Não foi possivel carregar a lista", error);
+        alert("Não foi possivel carregar a lista", error);
       });
   }, []);
 
-
   //POST
-  const [nome, setNome] = useState([]);
-  const [processoId, setProcessoId] = useState([]);
-  const [processo, setProcesso] = useState(null);
-  const [status, setStatus] = useState([]);
-  const [ordenacao, setOrdenacao] = useState([]);
-  const [tempoMedioProducao, setTempoMedioProducao] = useState([]);
+  const [nome, setNome] = useState();
+  const [processoId, setProcessoId] = useState();
+  const [processo, setProcesso] = useState([processoId, nome]);
+  const [status, setStatus] = useState();
+  const [ordenacao, setOrdenacao] = useState();
+  const [tempoMedioProducao, setTempoMedioProducao] = useState();
 
+  
   function handleRegister(e) {
-    // e.preventDefault();
+    e.preventDefault();
   }
 
   function createPost() {
-
-    console.log(nome, processoId, processo, status, ordenacao, tempoMedioProducao)
+    // console.log(
+    //   nome,
+    //   processoId,
+    //   processo,
+    //   status,
+    //   ordenacao,
+    //   tempoMedioProducao
+    // );
     Api.post("/Maquina", {
       nome,
       processoId,
@@ -66,7 +72,6 @@ export default function Maquina() {
         setStatus(response.data);
         setOrdenacao(response.data);
         setTempoMedioProducao(response.data);
-
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
@@ -109,12 +114,13 @@ export default function Maquina() {
                   </thead>
 
                   <tbody>
+                    
                     {user.map((maquina) => (
+                      
                       <tr>
                         <td key={maquina.maquinaId} Style="display:none"></td>
                         <td>{maquina.nome}</td>
                         <td>{maquina.processoId}</td>
-                        <td >{maquina.status ? "Ativo" : "Inativo"}</td>
                         <td>{maquina.ordenacao}</td>
                         <td>{maquina.tempoMedioProducao}</td>
                         <td>
@@ -177,21 +183,30 @@ export default function Maquina() {
 
                     <select
                       type="text"
-                      name="processo"
+                      id="processos"
+                      name={processo}
                       value={processoId}
-                      onChange={(e) => setProcessoId(parseInt(e.target.value))}
+                      onChange={(e) => {
+                        var select = document.getElementById("processos")
+                        setProcessoId(parseInt(e.target.value));
+                        setProcesso(select.options[select.selectedIndex].text);
+                        //console.log(select.options[select.selectedIndex].text);
+                      }}
                     >
                       <option>Escolha uma opção</option>
                       {user2.map((processo) => (
-                        
-                        <option name={processo.processoId} value={processo.processoId}>
+                        <option
+                          name={processo.nome}
+                          value={processo.processoId}
+                         
+                        >
                           {processo.nome}
                         </option>
                       ))}
                       ;
                     </select>
                   </div>
-                  
+
                   <div className="col-md-4 col-sm-6">
                     <label>Status</label>
                     <select
@@ -199,10 +214,14 @@ export default function Maquina() {
                       name="status"
                       value={status}
                       onChange={(e) => setStatus(Boolean(e.target.value))}
-                    > 
+                    >
                       <option>Escolha</option>
-                      <option name="ativo" value="true">Ativo</option>
-                      <option name="inativo" value="false">Inativo</option>
+                      <option name="ativo" value="true">
+                        Ativo
+                      </option>
+                      <option name="inativo" value="false">
+                        Inativo
+                      </option>
                     </select>
                   </div>
                   <div className="col-md-4 col-sm-6">
