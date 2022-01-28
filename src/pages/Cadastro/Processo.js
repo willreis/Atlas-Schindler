@@ -71,8 +71,7 @@ export default function Processo() {
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
               <table class="table table-striped table-bordered">
                 <thead>
-                  <tr>
-                  <th scope="col">ID</th>
+                  <tr className="text-center">
                     <th scope="col">Nome</th>
                     <th scope="col">Ordenação</th>
                     <th scope="col">Opções/Editar</th>
@@ -81,12 +80,12 @@ export default function Processo() {
                 <tbody>
                   {user.map((processo) => (
                     <tr>
-                      <td key={processo.processoId} >
+                      <td Style="display:none" key={processo.processoId} >
                         {processo.processoId}
                       </td>
                       <td>{processo.nome}</td>
                       <td>{processo.ordenacao}</td>
-                      <td>
+                      <td className="text-center">
                         <span>
                           <GrEdit />
                         </span>

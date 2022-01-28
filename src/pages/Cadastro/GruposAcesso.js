@@ -78,10 +78,10 @@ export default function GruposAcesso() {
           </div>
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div Style="text-align: center" className="textTable">
+              <div className="textTable">
                 <table class="table table-striped table-bordered">
                   <thead>
-                    <tr>
+                    <tr className="text-center">
                       <th scope="col">Nome</th>
                       <th scope="col">Descrição</th>
                       <th scope="col">Qtd Telas Permitidas</th>
@@ -99,7 +99,7 @@ export default function GruposAcesso() {
                         <td>{grupo.descricaoDoGrupo}</td>
                         <td>{grupo.quantidadeTelasPermitidas}</td>
                         <td>{grupo.quantidadeDeUsuarios}</td>
-                        <td>
+                        <td className="text-center">
                           <span>
                             <GrEdit />
                           </span>

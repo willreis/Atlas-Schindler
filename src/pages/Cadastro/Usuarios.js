@@ -92,7 +92,7 @@ export default function Usuarios() {
             <div className="col-md-12">
               <table className="table table-striped table-bordered">
                 <thead>
-                  <tr>
+                  <tr className="text-center">
                     <th scope="col">Matricula</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Cargo</th>
@@ -116,9 +116,9 @@ export default function Usuarios() {
                       <td>{usuario.grupoDeAcesso}</td>
                       <td>{usuario.status ? "Ativo" : "Inativo"}</td>
                       <td>{usuario.dataDeCadastro}</td>
-                      <td>
+                      <td Style="text-align: center">
                         <span>
-                          <GrEdit />
+                          <GrEdit/>
                         </span>
                       </td>
                     </tr>
@@ -195,19 +195,12 @@ export default function Usuarios() {
                     onChange={(e) => setSenha(e.target.value)}
                   />
                 </div>
-                {/* <div className="col-md-5 col-sm-6">
-                  <label>Grupo de Acesso</label>
-                  <input
-                    type="text"
-                    name="grupoDeAcesso"
-                    value={grupoDeAcesso}
-                    onChange={(e) => setGrupoDeAcesso(e.target.value)}
-                  />
-                </div> */}
                 <div className="col-md-5 col-sm-6">
                   <label>Status</label>
                   
                   <select
+                  type="text"
+                  id="processos"
                     name="status"
                     value={status}
                     onChange={(e) => setStatus(Boolean(e.target.value))}

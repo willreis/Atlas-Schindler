@@ -24,6 +24,7 @@ export default function Maquina() {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
+
     Api.get("/Processo")
       .then((response) => {
         console.log(response);
@@ -49,14 +50,7 @@ export default function Maquina() {
   }
 
   function createPost() {
-    // console.log(
-    //   nome,
-    //   processoId,
-    //   processo,
-    //   status,
-    //   ordenacao,
-    //   tempoMedioProducao
-    // );
+    
     Api.post("/Maquina", {
       nome,
       processoId,
@@ -100,10 +94,10 @@ export default function Maquina() {
 
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div Style="text-align: center" className="textTable">
-                <table class="table table-striped">
+              <div className="textTable">
+                <table class="table table-striped table-bordered">
                   <thead>
-                    <tr>
+                    <tr className="text-center">
                       <th scope="col">Nome</th>
                       <th scope="col">Processo</th>
                       <th scope="col">Status</th>
@@ -121,15 +115,18 @@ export default function Maquina() {
                         <td key={maquina.maquinaId} Style="display:none"></td>
                         <td>{maquina.nome}</td>
                         <td>{maquina.processoId}</td>
+                        <td>{maquina.status ? "Ativo" : "Inativo"}</td>
                         <td>{maquina.ordenacao}</td>
                         <td>{maquina.tempoMedioProducao}</td>
-                        <td>
+                        <td className="text-center">
                           <span>
                             <GrEdit />
                           </span>
                         </td>
                       </tr>
+
                     ))}
+
                   </tbody>
                 </table>
               </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 import atlasLogo from "../../assets/img/atlas_logo.png";
 
@@ -38,7 +39,11 @@ function Login() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password" Style="margin-top: 10px;">
+                <Form.Group
+                  size="lg"
+                  controlId="password"
+                  Style="margin-top: 10px;"
+                >
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
@@ -46,20 +51,22 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </Form.Group>
-                <Button Style="margin-top: 20px"
-                  block
-                  size="lg"
-                  type="submit"
-                  disabled={!validateForm()}
-                >
-                  Login
-                </Button>
+                <Link to="/Home">
+                  <Button
+                    Style="margin-top: 20px"
+                    block
+                    size="lg"
+                    type="submit"
+                    disabled={!validateForm()}
+                  >
+                    Login
+                  </Button>
+                </Link>
               </Form>
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
 }

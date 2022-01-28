@@ -73,10 +73,10 @@ export default function Impressora() {
           </div>
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div Style="text-align: center" className="textTable">
+              <div className="textTable">
                 <table class="table table-striped table-bordered">
                   <thead>
-                    <tr>
+                    <tr className="text-center">
                       <th scope="col">Nome</th>
                       <th scope="col">Marca</th>
                       <th scope="col">Endereço</th>
@@ -94,7 +94,7 @@ export default function Impressora() {
                         <td>{impressora.marca}</td>
                         <td>{impressora.endereco}</td>
                         <td>{impressora.area}</td>
-                        <td>
+                        <td className="text-center">
                           <span>
                             <GrEdit />
                           </span>

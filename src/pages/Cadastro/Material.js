@@ -91,9 +91,9 @@ export default function Material() {
           </div>
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <table class="table table-striped">
+              <table class="table table-striped table-bordered">
                 <thead>
-                  <tr>
+                  <tr className="text-center">
                     <th scope="col">Código Material</th>
                     <th scope="col">Nome Material</th>
                     <th scope="col">Localização</th>
@@ -120,7 +120,7 @@ export default function Material() {
                       <td>{material.unidade}</td>
                       <td>{material.minimoDeEstoque}</td>
                       <td>{material.maximoDeEstoque}</td>
-                      <td>
+                      <td className="text-center">
                         <span>
                           <GrEdit />
                         </span>

@@ -68,7 +68,7 @@ h4 {
 /*Home*/
 .logoAtlasHome {
     text-align: center;
-   
+
 }
 
 .logoAtlasHome img {
@@ -94,6 +94,10 @@ h4 {
 .textTable tr td {
     font-size: 14px;
 
+}
+
+td span svg {
+    width: 20px;
 }
 
 .table>thead {
@@ -152,13 +156,17 @@ ul.dadosPessoais li {
     border-radius: 10px;
 }
 
-
 .logotext {
     text-align: center;
 }
 
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-item-content {
+   white-space: unset!important;
+}
+
 .pro-sidebar-content {
     border-top: 2px solid;
+    border-bottom: 2px solid;
 }
 
 .pro-sidebar .pro-menu {
