@@ -3,21 +3,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import { GrEdit } from "react-icons/gr";
-import { RiDeleteBin6Fill } from 'react-icons/ri'
+import { MdDelete } from "react-icons/md";
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
 /*Material UI*/
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import Button2 from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
-
-
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+import Button2 from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Usuarios() {
-
   /*Material UI*/
   const [open, setOpen] = React.useState(true);
 
@@ -25,7 +22,6 @@ export default function Usuarios() {
   const [show, setShow] = useState(false);
 
   const [show2, setShow2] = useState(false);
-
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -92,14 +88,10 @@ export default function Usuarios() {
 
   //TESTE
 
-  
-
-  
-
   return (
     <>
       <IconContext.Provider value={{ color: "#fff", size: "1.6rem" }}>
-        <div id='divPai'>
+        <div id="divPai">
           <div className="container paddingContainer">
             <div className="row">
               <div className="col-md-6 col-sm-12">
@@ -129,13 +121,14 @@ export default function Usuarios() {
                       <th scope="col">Status</th>
                       <th scope="col">Data de Cadastro</th>
                       <th scope="col">Opções/Editar</th>
-
                     </tr>
                   </thead>
                   <tbody>
                     {user.map((usuario) => (
                       <tr>
-                        <td Style="display:none" key={usuario.usuarioId}>{usuario.usuarioId}</td>
+                        <td Style="display:none" key={usuario.usuarioId}>
+                          {usuario.usuarioId}
+                        </td>
                         <td>{usuario.matricula}</td>
                         <td>{usuario.nome}</td>
                         <td>{usuario.cargo}</td>
@@ -145,7 +138,11 @@ export default function Usuarios() {
                         <td>{usuario.status ? "Ativo" : "Inativo"}</td>
                         <td>{usuario.dataDeCadastro}</td>
                         <td Style="text-align: center">
-                          <span id='spanId' Style='cursor:pointer' onClick={() => setShow2(true)}>
+                          <span
+                            id="spanId"
+                            Style="cursor:pointer"
+                            onClick={() => setShow2(true)}
+                          >
                             <GrEdit />
                           </span>
                         </td>
@@ -271,12 +268,13 @@ export default function Usuarios() {
           size="lg"
           show={show2}
           onHide={() => setShow2(false)}
+          className="modalEditar"
 
-        /*false possibilita fechar. True ñ deixa fechar*/
+          /*false possibilita fechar. True ñ deixa fechar*/
         >
-          <Modal.Body>
+          <Modal.Body >
             {/*Material UI*/}
-            <Box sx={{ margin: 'auto' }}>
+            <Box sx={{ margin: "auto" }}>
               <Collapse in={open}>
                 <Alert
                   action={
@@ -293,14 +291,12 @@ export default function Usuarios() {
                   }
                   sx={{ mb: 2 }}
                 >
-                  <div className='row'>
-                    <div className='col-md-6'>
-                      <Button variant='primary'><GrEdit /> Editar</Button>
-                    </div>
-                    <div className='col-md-6'>
-                      <Button variant='danger'><RiDeleteBin6Fill /> Excluir</Button>
-                    </div>
-                  </div>
+                  <Button Style="margin-left: 160px;" className="btnActions" variant="success" onClick={() => setShow(true)}>
+                    <GrEdit /> Editar
+                  </Button>
+                  <Button Style="margin-left: 140px;" className="btnActions" variant="danger" onClick={() => setShow(true)}>
+                    <MdDelete /> Deletar
+                  </Button>
                 </Alert>
               </Collapse>
             </Box>

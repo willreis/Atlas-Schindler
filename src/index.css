@@ -121,6 +121,29 @@ button.btnVoltarHome {
     padding: 15px 50px;
 }
 
+.btnActions{
+    line-height: 2!important;
+}
+
+button.btnActions {
+    position: relative;
+}
+
+button.btnActions svg{
+    width: 18px;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+button.btnActions svg path {
+    color: #fff!important;
+    stroke: #fff!important;
+}
+
+.MuiAlert-icon.css-1ytlwq5-MuiAlert-icon {
+    display: none;
+}
+
 /*Menu*/
 .fotoPerfilBox {
     text-align: center;
@@ -286,4 +309,21 @@ span.pro-item-content {
 .statusBtn {
     width: 60px !important;
     height: 30px !important;
+}
+
+
+/*MODAL*/
+.MuiAlert-action.css-ki1hdl-MuiAlert-action {
+    margin: 0;
+}
+
+.MuiAlert-action.css-ki1hdl-MuiAlert-action {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+.modalEditar .modal-content {
+    background: none!important;
+    border: 0!important
 }
