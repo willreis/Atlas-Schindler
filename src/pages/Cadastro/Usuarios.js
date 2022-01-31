@@ -3,15 +3,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import { GrEdit } from "react-icons/gr";
+import { RiDeleteBin6Fill } from 'react-icons/ri'
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
+/*Material UI*/
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import Button2 from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
 export default function Usuarios() {
+
+  /*Material UI*/
+  const [open, setOpen] = React.useState(true);
+
   //Modal const
   const [show, setShow] = useState(false);
-  
+
+  const [show2, setShow2] = useState(false);
+
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -31,9 +45,6 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
-
-  /*Função do ícone de Opções/Editar*/
-  function handleEdit() {}
 
   // POST
   const [senha, setSenha] = useState();
@@ -87,62 +98,62 @@ export default function Usuarios() {
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
-        <div className="container paddingContainer">
-          <div className="row">
-            <div className="col-md-6 col-sm-12">
-              <div className="tituloInterno">
-                <h2 Style="color:#555;">Cadastro de usuários</h2>
+      <IconContext.Provider value={{ color: "#fff", size: "1.6rem" }}>
+        <div id='divPai'>
+          <div className="container paddingContainer">
+            <div className="row">
+              <div className="col-md-6 col-sm-12">
+                <div className="tituloInterno">
+                  <h2 Style="color:#555;">Cadastro de usuários</h2>
+                </div>
+              </div>
+              <div className="col-md-6 col-sm-12">
+                <div className="alignButtons">
+                  <Button variant="success" onClick={() => setShow(true)}>
+                    Cadastrar
+                  </Button>
+                </div>
               </div>
             </div>
-            <div className="col-md-6 col-sm-12">
-              <div className="alignButtons">
-                <Button variant="success" onClick={() => setShow(true)}>
-                  Cadastrar
-                </Button>
-              </div>
-            </div>
-          </div>
-         
-          <div className="row">
-            <div className="col-md-12">
-              <table className="table table-striped table-bordered">
-                <thead>
-                  <tr className="text-center">
-                    <th scope="col">Matricula</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Cargo</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Senha</th>
-                    <th scope="col">Grupo de Acesso</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Data de Cadastro</th>
-                    <th scope="col">Opções/Editar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {user.map((usuario) => (
-                    <tr>
-                      <td Style="display:none" key={usuario.usuarioId}>
-                        {usuario.usuarioId}
-                      </td>
-                      <td>{usuario.matricula}</td>
-                      <td>{usuario.nome}</td>
-                      <td>{usuario.cargo}</td>
-                      <td>{usuario.eMail}</td>
-                      <td>{usuario.senha}</td>
-                      <td>{usuario.grupoDeAcesso}</td>
-                      <td>{usuario.status ? "Ativo" : "Inativo"}</td>
-                      <td>{usuario.dataDeCadastro}</td>
-                      <td Style="text-align: center">
-                        <span>
-                          <GrEdit onClick={handleEdit()} />
-                        </span>
-                      </td>
+            <div className="row">
+              <div className="col-md-12">
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr className="text-center">
+                      <th scope="col">Matricula</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Cargo</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Senha</th>
+                      <th scope="col">Grupo de Acesso</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Data de Cadastro</th>
+                      <th scope="col">Opções/Editar</th>
+
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {user.map((usuario) => (
+                      <tr>
+                        <td Style="display:none" key={usuario.usuarioId}>{usuario.usuarioId}</td>
+                        <td>{usuario.matricula}</td>
+                        <td>{usuario.nome}</td>
+                        <td>{usuario.cargo}</td>
+                        <td>{usuario.eMail}</td>
+                        <td>{usuario.senha}</td>
+                        <td>{usuario.grupoDeAcesso}</td>
+                        <td>{usuario.status ? "Ativo" : "Inativo"}</td>
+                        <td>{usuario.dataDeCadastro}</td>
+                        <td Style="text-align: center">
+                          <span id='spanId' Style='cursor:pointer' onClick={() => setShow2(true)}>
+                            <GrEdit />
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -214,7 +225,6 @@ export default function Usuarios() {
 
                 <div className="col-md-6 col-sm-6">
                   <label>Status</label>
-                  {/**********************************/}
                   <select
                     type="text"
                     id="ativoInativo"
@@ -253,6 +263,47 @@ export default function Usuarios() {
                 </div>
               </form>
             </div>
+          </Modal.Body>
+        </Modal>
+
+        {/*Modal Editar */}
+        <Modal
+          size="lg"
+          show={show2}
+          onHide={() => setShow2(false)}
+
+        /*false possibilita fechar. True ñ deixa fechar*/
+        >
+          <Modal.Body>
+            {/*Material UI*/}
+            <Box sx={{ margin: 'auto' }}>
+              <Collapse in={open}>
+                <Alert
+                  action={
+                    <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="small"
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  }
+                  sx={{ mb: 2 }}
+                >
+                  <div className='row'>
+                    <div className='col-md-6'>
+                      <Button variant='primary'><GrEdit /> Editar</Button>
+                    </div>
+                    <div className='col-md-6'>
+                      <Button variant='danger'><RiDeleteBin6Fill /> Excluir</Button>
+                    </div>
+                  </div>
+                </Alert>
+              </Collapse>
+            </Box>
           </Modal.Body>
         </Modal>
       </IconContext.Provider>
