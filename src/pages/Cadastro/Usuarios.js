@@ -204,7 +204,7 @@ export default function Usuarios() {
                   id="processos"
                     name="status"
                     value={status}
-                    onChange={(e) => setStatus(Boolean(e.target.value))}
+                    onChange={(e) => setStatus(e.target.value)}
                   >
                     <option>Escolha uma opção</option>
                     <option name='ativo' value='true'>Ativo</option>
