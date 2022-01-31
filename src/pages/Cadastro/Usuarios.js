@@ -29,6 +29,10 @@ export default function Usuarios() {
       });
   }, []);
 
+  /*Função do ícone de Opções/Editar*/
+  function handleEdit() {
+  }
+
   // POST
   const [senha, setSenha] = useState();
   const [matricula, setMatricula] = useState();
@@ -121,7 +125,7 @@ export default function Usuarios() {
                       <td>{usuario.dataDeCadastro}</td>
                       <td Style="text-align: center">
                         <span>
-                          <GrEdit />
+                          <GrEdit onClick={handleEdit()} />
                         </span>
                       </td>
                     </tr>
