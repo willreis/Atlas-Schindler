@@ -6,7 +6,6 @@ import { GrEdit } from "react-icons/gr";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
-
 export default function Processo() {
   //Modal const
   const [show, setShow] = useState(false);
@@ -18,7 +17,7 @@ export default function Processo() {
       .then((response) => {
         console.log(response);
         setUser(response.data);
-        
+
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
