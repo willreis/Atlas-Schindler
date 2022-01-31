@@ -10,8 +10,10 @@ export default function Usuarios() {
   //Modal const
   const [show, setShow] = useState(false);
 
-  var testeData = Date();
-  console.log(testeData);
+  var dataAtual = new Date().toLocaleDateString();
+  var horaAtual = new Date().toLocaleTimeString();
+  // let varAtivoInativo = document.getElementById('ativoInativo')
+
   //*GET
   const [user, setUser] = useState([]);
 
@@ -23,9 +25,13 @@ export default function Usuarios() {
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
-        // alert("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
+
+  /*Função do ícone de Opções/Editar*/
+  function handleEdit() {
+  }
 
   // POST
   const [senha, setSenha] = useState();
@@ -119,7 +125,7 @@ export default function Usuarios() {
                       <td>{usuario.dataDeCadastro}</td>
                       <td Style="text-align: center">
                         <span>
-                          <GrEdit/>
+                          <GrEdit onClick={handleEdit()} />
                         </span>
                       </td>
                     </tr>
@@ -130,16 +136,14 @@ export default function Usuarios() {
           </div>
         </div>
 
-        {/* Modal */}
+        {/* Modal do Bootstrap*/}
         <Modal
           size="lg"
           show={show}
-          onHide={() => setShow(false)}
-          dialogClassName="modal-90w"
-          aria-labelledby="example-custom-modal-styling-title"
+          onHide={() => setShow(false)} /*false possibilita fechar. True ñ deixa fechar*/
         >
           <Modal.Header closeButton>
-            <Modal.Title id="example-custom-modal-styling-title">
+            <Modal.Title>
               Cadastro de Usuarios
             </Modal.Title>
           </Modal.Header>
@@ -150,7 +154,7 @@ export default function Usuarios() {
               Style="margin-bottom: 30px"
             >
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                <div className="col-md-5 col-sm-6">
+                <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
                     type="text"
@@ -159,7 +163,7 @@ export default function Usuarios() {
                     onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
-                <div className="col-md-5 col-sm-6">
+                <div className="col-md-6 col-sm-6">
                   <label>Nome</label>
                   <input
                     type="text"
@@ -169,7 +173,7 @@ export default function Usuarios() {
                     required
                   />
                 </div>
-                <div className="col-md-5 col-sm-6">
+                <div className="col-md-6 col-sm-6">
                   <label>Cargo</label>
                   <input
                     type="text"
@@ -178,7 +182,7 @@ export default function Usuarios() {
                     onChange={(e) => setCargo(e.target.value)}
                   />
                 </div>
-                <div className="col-md-5 col-sm-6">
+                <div className="col-md-6 col-sm-6">
                   <label>Email</label>
                   <input
                     type="email"
@@ -187,7 +191,7 @@ export default function Usuarios() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="col-md-5 col-sm-6">
+                <div className="col-md-6 col-sm-6">
                   <label>Senha</label>
                   <input
                     type="text"
@@ -196,12 +200,13 @@ export default function Usuarios() {
                     onChange={(e) => setSenha(e.target.value)}
                   />
                 </div>
-                <div className="col-md-5 col-sm-6">
+
+                <div className="col-md-6 col-sm-6">
                   <label>Status</label>
-                  
+                  {/**********************************/}
                   <select
-                  type="text"
-                  id="processos"
+                    type="text"
+                    id="ativoInativo"
                     name="status"
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
@@ -211,14 +216,13 @@ export default function Usuarios() {
                     <option name='inativo' value='false'>Inativo</option>
                   </select>
 
-                  
                 </div>
-                <div className="col-md-5 col-sm-6">
+                <div className="col-md-6 col-sm-6">
                   <label>Data Cadastro</label>
                   <input
                     type="text"
                     name="dataDeCadastro"
-                    value={testeData}
+                    value={dataAtual + ' ' + horaAtual}
                     onChange={(e) => setDataDeCadastro(e.target.value)}
                   />
                 </div>

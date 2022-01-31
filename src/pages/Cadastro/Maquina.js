@@ -44,13 +44,13 @@ export default function Maquina() {
   const [ordenacao, setOrdenacao] = useState();
   const [tempoMedioProducao, setTempoMedioProducao] = useState();
 
-  
+
   function handleRegister(e) {
     e.preventDefault();
   }
 
   function createPost() {
-    
+
     Api.post("/Maquina", {
       nome,
       processoId,
@@ -108,9 +108,9 @@ export default function Maquina() {
                   </thead>
 
                   <tbody>
-                    
+
                     {user.map((maquina) => (
-                      
+
                       <tr>
                         <td key={maquina.maquinaId} Style="display:none"></td>
                         <td>{maquina.nome}</td>
@@ -195,7 +195,7 @@ export default function Maquina() {
                         <option
                           name={processo.nome}
                           value={processo.processoId}
-                         
+
                         >
                           {processo.nome}
                         </option>

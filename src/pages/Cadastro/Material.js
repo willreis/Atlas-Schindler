@@ -63,7 +63,7 @@ export default function Material() {
         setUnidade(response.data);
         setMinimoDeEstoque(response.data);
         setMaximoDeEstoque(response.data);
-       alert("Cadastro efetuado com sucesso");
+        alert("Cadastro efetuado com sucesso");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
