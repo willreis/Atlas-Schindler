@@ -40,7 +40,7 @@ export default function Usuarios() {
   const [dataDeCadastro, setDataDeCadastro] = useState();
 
   function handleRegister(e) {
-    e.preventDefault();
+    //e.preventDefault();
     handleRegister(user);
   }
 
@@ -65,6 +65,7 @@ export default function Usuarios() {
         setStatus(response.data);
         setDataDeCadastro(response.data);
         console.log(response.data)
+        alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
