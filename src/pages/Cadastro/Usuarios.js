@@ -6,9 +6,12 @@ import { GrEdit } from "react-icons/gr";
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
 
+
+
 export default function Usuarios() {
   //Modal const
   const [show, setShow] = useState(false);
+  
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -30,8 +33,7 @@ export default function Usuarios() {
   }, []);
 
   /*Função do ícone de Opções/Editar*/
-  function handleEdit() {
-  }
+  function handleEdit() {}
 
   // POST
   const [senha, setSenha] = useState();
@@ -68,7 +70,7 @@ export default function Usuarios() {
         setGrupoDeAcesso(response.data);
         setStatus(response.data);
         setDataDeCadastro(response.data);
-        console.log(response.data)
+        console.log(response.data);
         alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
@@ -76,6 +78,12 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro!!!:", error);
       });
   }
+
+  //TESTE
+
+  
+
+  
 
   return (
     <>
@@ -95,6 +103,7 @@ export default function Usuarios() {
               </div>
             </div>
           </div>
+         
           <div className="row">
             <div className="col-md-12">
               <table className="table table-striped table-bordered">
@@ -114,7 +123,9 @@ export default function Usuarios() {
                 <tbody>
                   {user.map((usuario) => (
                     <tr>
-                      <td Style="display:none" key={usuario.usuarioId}>{usuario.usuarioId}</td>
+                      <td Style="display:none" key={usuario.usuarioId}>
+                        {usuario.usuarioId}
+                      </td>
                       <td>{usuario.matricula}</td>
                       <td>{usuario.nome}</td>
                       <td>{usuario.cargo}</td>
@@ -140,12 +151,12 @@ export default function Usuarios() {
         <Modal
           size="lg"
           show={show}
-          onHide={() => setShow(false)} /*false possibilita fechar. True ñ deixa fechar*/
+          onHide={() =>
+            setShow(false)
+          } /*false possibilita fechar. True ñ deixa fechar*/
         >
           <Modal.Header closeButton>
-            <Modal.Title>
-              Cadastro de Usuarios
-            </Modal.Title>
+            <Modal.Title>Cadastro de Usuarios</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div
@@ -212,17 +223,20 @@ export default function Usuarios() {
                     onChange={(e) => setStatus(e.target.value)}
                   >
                     <option>Escolha uma opção</option>
-                    <option name='ativo' value='true'>Ativo</option>
-                    <option name='inativo' value='false'>Inativo</option>
+                    <option name="ativo" value="true">
+                      Ativo
+                    </option>
+                    <option name="inativo" value="false">
+                      Inativo
+                    </option>
                   </select>
-
                 </div>
                 <div className="col-md-6 col-sm-6">
                   <label>Data Cadastro</label>
                   <input
                     type="text"
                     name="dataDeCadastro"
-                    value={dataAtual + ' ' + horaAtual}
+                    value={dataAtual + " " + horaAtual}
                     onChange={(e) => setDataDeCadastro(e.target.value)}
                   />
                 </div>
