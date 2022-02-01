@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { GrEdit } from "react-icons/gr";
+import { VscEdit } from "react-icons/vsc";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
@@ -17,7 +18,7 @@ export default function Impressora() {
   const [area, setArea] = useState([]);
 
   function handleRegister(e) {
-    e.preventDefault();
+    // e.preventDefault();
   }
 
   function createPost() {
@@ -55,9 +56,22 @@ export default function Impressora() {
       });
   }, []);
 
+  //Delete
+  async function handleDeleteImpressora(impressoraId) {
+    try {
+      await Api.delete(`/Impressora/${impressoraId}`, {});
+      setUser(user.filter((impressora) => impressora.impressoraId !== impressoraId));
+      alert("Deletado com sucesso")
+      
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+
+
   return (
     <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+      <IconContext.Provider value={{ color: "#000", size: "1.6rem" }}>
         <div className="container paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
@@ -94,11 +108,23 @@ export default function Impressora() {
                         <td>{impressora.marca}</td>
                         <td>{impressora.endereco}</td>
                         <td>{impressora.area}</td>
-                        <td className="text-center">
-                          <span>
-                            <GrEdit />
-                          </span>
-                        </td>
+                        <td className="text-center icons-table">
+                        <span
+                          Style="cursor:pointer"
+                          // onClick={() => pegarId(impressora.impressoraId)}
+                        >
+                          <VscEdit />
+                        </span>
+
+                        <span
+                          Style="cursor:pointer"
+                          onClick={() =>
+                            handleDeleteImpressora(impressora.impressoraId)
+                          }
+                        >
+                          <RiDeleteBinFill />
+                        </span>
+                      </td>
                       </tr>
                     ))}
                   </tbody>

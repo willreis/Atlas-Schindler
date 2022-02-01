@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
-import { GrEdit } from "react-icons/gr";
+import { VscEdit } from "react-icons/vsc";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
@@ -71,9 +72,21 @@ export default function Material() {
       });
   }
 
+  //Delete
+  async function handleDeleteMaterial(materialId) {
+    try {
+      await Api.delete(`/Material/${materialId}`, {});
+      setUser(user.filter((material) => material.materialId !== materialId));
+      alert("Deletado com sucesso")
+      
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+
   return (
     <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+      <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div className="container paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
@@ -120,10 +133,22 @@ export default function Material() {
                       <td>{material.unidade}</td>
                       <td>{material.minimoDeEstoque}</td>
                       <td>{material.maximoDeEstoque}</td>
-                      <td className="text-center">
-                        <span>
-                          <GrEdit />
+                      <td className="text-center icons-table">
+                      <span
+                          Style="cursor:pointer"
+                          // onClick={() => pegarId(impressora.impressoraId)}
+                        >
+                          <VscEdit />
                         </span>
+                        <span
+                          Style="cursor:pointer"
+                          onClick={() =>
+                            handleDeleteMaterial(material.materialId)
+                          }
+                        >
+                          <RiDeleteBinFill />
+                        </span>
+                        
                       </td>
                     </tr>
                   ))}

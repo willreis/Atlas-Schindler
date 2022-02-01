@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
+import { VscEdit } from "react-icons/vsc";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
-import { GrEdit } from "react-icons/gr";
 import Api from "../../services/Api";
 
 export default function Maquina() {
@@ -39,14 +40,14 @@ export default function Maquina() {
   //POST
   const [nome, setNome] = useState();
   const [processoId, setProcessoId] = useState();
-  const [processo, setProcesso] = useState([processoId, nome]);
-  const [status, setStatus] = useState();
+  const [processo, setProcesso] = useState();
+  const [status, setStatus] = useState(true);
   const [ordenacao, setOrdenacao] = useState();
   const [tempoMedioProducao, setTempoMedioProducao] = useState();
 
 
   function handleRegister(e) {
-    e.preventDefault();
+    // e.preventDefault();
   }
 
   function createPost() {
@@ -73,9 +74,21 @@ export default function Maquina() {
       });
   }
 
+  //Delete
+  async function handleDeleteMaquina(maquinaId) {
+    try {
+      await Api.delete(`/Maquina/${maquinaId}`, {});
+      setUser(user.filter((maquina) => maquina.processoId !== maquinaId));
+      alert("Deletado com sucesso")
+      
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+
   return (
     <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+      <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div className="container paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
@@ -118,10 +131,22 @@ export default function Maquina() {
                         <td>{maquina.status ? "Ativo" : "Inativo"}</td>
                         <td>{maquina.ordenacao}</td>
                         <td>{maquina.tempoMedioProducao}</td>
-                        <td className="text-center">
-                          <span>
-                            <GrEdit />
-                          </span>
+                        <td className="text-center icons-table">
+                        <span
+                          Style="cursor:pointer"
+                          // onClick={() => pegarId(maquina.maquinaId)}
+                        alt="Editar">
+                          <VscEdit />
+                        </span>
+
+                        <span
+                          Style="cursor:pointer"
+                          onClick={() =>
+                            handleDeleteMaquina(maquina.maquinaId)
+                          }
+                        alt="Deletar">
+                          <RiDeleteBinFill />
+                        </span>
                         </td>
                       </tr>
 
@@ -179,15 +204,14 @@ export default function Maquina() {
                     <label>Processo</label>
 
                     <select
-                      type="text"
+                      type="number"
                       id="processos"
                       name={processo}
                       value={processoId}
                       onChange={(e) => {
-                        var select = document.getElementById("processos")
+                        
                         setProcessoId(parseInt(e.target.value));
-                        setProcesso(select.options[select.selectedIndex].text);
-                        //console.log(select.options[select.selectedIndex].text);
+                        
                       }}
                     >
                       <option>Escolha uma opção</option>
@@ -207,7 +231,6 @@ export default function Maquina() {
                   <div className="col-md-4 col-sm-6">
                     <label>Status</label>
                     <select
-                      type="text"
                       name="status"
                       value={status}
                       onChange={(e) => setStatus(Boolean(e.target.value))}

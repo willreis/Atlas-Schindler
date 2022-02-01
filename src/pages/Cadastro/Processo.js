@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
-import { GrEdit } from "react-icons/gr";
-import { MdDelete } from "react-icons/md";
+import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
@@ -42,6 +41,8 @@ export default function Processo() {
     try {
       await Api.delete(`/Processo/${processoId}`, {});
       setUser(user.filter((processo) => processo.processoId !== processoId));
+      alert("Deletado com sucesso")
+      
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
@@ -114,7 +115,7 @@ export default function Processo() {
                           Style="cursor:pointer"
                           onClick={() => pegarId(processo.processoId)}
                         >
-                          <GrEdit />
+                          <VscEdit />
                         </span>
 
                         <span

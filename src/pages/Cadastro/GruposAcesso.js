@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
-import { GrEdit } from "react-icons/gr";
+import { VscEdit } from "react-icons/vsc";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
@@ -57,10 +58,21 @@ export default function GruposAcesso() {
         alert("Ops! Ocorreu um erro!!!:", error);
       });
   }
+  //Delete
+  async function handleDeleteMaquina(grupoDeAcessoId) {
+    try {
+      await Api.delete(`/Maquina/${grupoDeAcessoId}`, {});
+      setUser(user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId));
+      alert("Deletado com sucesso")
+      
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+      <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div className="container paddingContainer">
           <div className="row">
             <div className="col-md-6">
@@ -99,9 +111,23 @@ export default function GruposAcesso() {
                         <td>{grupo.descricaoDoGrupo}</td>
                         <td>{grupo.quantidadeTelasPermitidas}</td>
                         <td>{grupo.quantidadeDeUsuarios}</td>
-                        <td className="text-center">
-                          <span>
-                            <GrEdit />
+                        <td className="text-center icons-table">
+                          <span
+                            Style="cursor:pointer"
+                            // onClick={() => pegarId(maquina.maquinaId)}
+                            alt="Editar"
+                          >
+                            <VscEdit />
+                          </span>
+
+                          <span
+                            Style="cursor:pointer"
+                            onClick={() =>
+                              handleDeleteMaquina(grupo.grupoDeAcessoId)
+                            }
+                            alt="Deletar"
+                          >
+                            <RiDeleteBinFill />
                           </span>
                         </td>
                       </tr>

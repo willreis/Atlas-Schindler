@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
-import { GrEdit } from "react-icons/gr";
+import { VscEdit } from "react-icons/vsc";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
@@ -14,13 +15,12 @@ import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default function Usuarios() {
-  /*Material UI*/
-  const [open, setOpen] = React.useState(true);
 
   //Modal const
   const [show, setShow] = useState(false);
-
   const [show2, setShow2] = useState(false);
+
+  
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -85,11 +85,21 @@ export default function Usuarios() {
       });
   }
 
-  //TESTE
+  //Delete
+  async function handleDeleteUsuario(usuarioId) {
+    try {
+      await Api.delete(`/Usuario/${usuarioId}`, {});
+      setUser(user.filter((usuario) => usuario.usuarioId !== usuarioId));
+      alert("Deletado com sucesso")
+      
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#fff", size: "1.6rem" }}>
+      <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div id="divPai">
           <div className="container paddingContainer">
             <div className="row">
@@ -136,14 +146,22 @@ export default function Usuarios() {
                         <td>{usuario.grupoDeAcesso}</td>
                         <td>{usuario.status ? "Ativo" : "Inativo"}</td>
                         <td>{usuario.dataDeCadastro}</td>
-                        <td Style="text-align: center">
+                        <td className="text-center icons-table">
                           <span
                             id="spanId"
                             Style="cursor:pointer"
                             onClick={() => setShow2(true)}
                           >
-                            <GrEdit />
+                            <VscEdit />
                           </span>
+                           <span
+                          Style="cursor:pointer"
+                          onClick={() =>
+                            handleDeleteUsuario(usuario.usuarioId)
+                          }
+                        >
+                          <RiDeleteBinFill />
+                        </span>
                         </td>
                       </tr>
                     ))}
@@ -259,46 +277,6 @@ export default function Usuarios() {
                 </div>
               </form>
             </div>
-          </Modal.Body>
-        </Modal>
-
-        {/*Modal Editar */}
-        <Modal
-          size="lg"
-          show={show2}
-          onHide={() => setShow2(false)}
-          className="modalEditar"
-
-          /*false possibilita fechar. True ñ deixa fechar*/
-        >
-          <Modal.Body >
-            {/*Material UI*/}
-            <Box sx={{ margin: "auto" }}>
-              <Collapse in={open}>
-                <Alert
-                  action={
-                    <IconButton
-                      aria-label="close"
-                      color="inherit"
-                      size="small"
-                      onClick={() => {
-                        setOpen(false);
-                      }}
-                    >
-                      <CloseIcon fontSize="inherit" />
-                    </IconButton>
-                  }
-                  sx={{ mb: 2 }}
-                >
-                  <Button Style="margin-left: 160px;" className="btnActions" variant="success" onClick={() => setShow(true)}>
-                    <GrEdit /> Editar
-                  </Button>
-                  <Button Style="margin-left: 140px;" className="btnActions" variant="danger" onClick={() => setShow(true)}>
-                    <MdDelete /> Deletar
-                  </Button>
-                </Alert>
-              </Collapse>
-            </Box>
           </Modal.Body>
         </Modal>
       </IconContext.Provider>

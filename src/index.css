@@ -148,6 +148,12 @@ button.btnActions svg path {
     display: none;
 }
 
+
+td.text-center.icons-table span svg:hover {
+    color: rgba(22, 19, 19, 0.541)!important;
+    animation: myAnim 2s ease 0s 1 normal forwards!important;
+}
+
 /*Menu*/
 .fotoPerfilBox {
     text-align: center;
