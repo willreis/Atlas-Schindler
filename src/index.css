@@ -108,6 +108,10 @@ td span svg {
     table-layout: unset !important;
 }
 
+.icons-table span {
+    margin-left: 15px;
+}
+
 /*Botões*/
 button.btn {
     padding: 3px 30px;

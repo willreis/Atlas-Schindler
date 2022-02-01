@@ -3,27 +3,49 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { GrEdit } from "react-icons/gr";
+import { MdDelete } from "react-icons/md";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Processo() {
   //Modal const
   const [show, setShow] = useState(false);
+  // const [show2, setShow2] = useState(false);
+  const [showPut, setShowPut] = useState(false);
   //Get
   const [user, setUser] = useState([]);
+
+  var pegarId = editarDados;
+
+  function editarDados(idPego) {
+    // var idElemento = idPego;
+    console.log(idPego);
+
+    setShowPut(true);
+  }
 
   useEffect(() => {
     Api.get("/Processo")
       .then((response) => {
         console.log(response);
         setUser(response.data);
-
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
+
+  //Delete
+  async function handleDeleteProcesso(processoId) {
+    try {
+      await Api.delete(`/Processo/${processoId}`, {});
+      setUser(user.filter((processo) => processo.processoId !== processoId));
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
 
   // POST
   const [nome, setNome] = useState([]);
@@ -52,7 +74,7 @@ export default function Processo() {
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#3cde3c", size: "1.6rem" }}>
+      <IconContext.Provider value={{ color: "#000", size: "1.6rem" }}>
         <div className="container paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
@@ -82,14 +104,26 @@ export default function Processo() {
                 <tbody>
                   {user.map((processo) => (
                     <tr>
-                      <td Style="display:none" key={processo.processoId} >
+                      <td Style="display:none" key={processo.processoId}>
                         {processo.processoId}
                       </td>
                       <td>{processo.nome}</td>
                       <td>{processo.ordenacao}</td>
-                      <td className="text-center">
-                        <span>
+                      <td className="text-center icons-table">
+                        <span
+                          Style="cursor:pointer"
+                          onClick={() => pegarId(processo.processoId)}
+                        >
                           <GrEdit />
+                        </span>
+
+                        <span
+                          Style="cursor:pointer"
+                          onClick={() =>
+                            handleDeleteProcesso(processo.processoId)
+                          }
+                        >
+                          <RiDeleteBinFill />
                         </span>
                       </td>
                     </tr>
@@ -121,6 +155,61 @@ export default function Processo() {
           <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
               Cadastro de Processo
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className="formCadastro"
+              id="formCadastro"
+              Style="margin-bottom: 30px"
+            >
+              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                <div className="col-md-5 col-sm-6">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-5 col-sm-6">
+                  <label>Ordenação</label>
+                  <input
+                    type="number"
+                    name="ordenacao"
+                    value={ordenacao}
+                    onChange={(e) => setOrdenacao(parseInt(e.target.value))}
+                  />
+                </div>
+
+                <div className="col-md-2 col-sm-6 btnCol">
+                  <Button
+                    type="submit"
+                    variant="success"
+                    className="align-self-baseline"
+                    onClick={createPost}
+                  >
+                    Salvar
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal Put */}
+
+        <Modal
+          size="lg"
+          show={showPut}
+          onHide={() => setShowPut(false)}
+          dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title">
+              Editar Dados id: {pegarId}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
