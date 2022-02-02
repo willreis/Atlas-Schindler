@@ -13,8 +13,20 @@ import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
+// import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
 
-export default function Usuarios() {
+
+export default function Usuarios(props) {
+
+  var url = 'Usuario';
+
+  const [showPassword, setShowPassword] = useState(false);            //Estado showPassword começa como false.
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword)            //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
+  }
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -30,7 +42,7 @@ export default function Usuarios() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Api.get("/Usuario")
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -57,7 +69,7 @@ export default function Usuarios() {
   }
 
   function createPost() {
-    Api.post("/Usuario", {
+    Api.post(`/${url}`, {
       senha,
       matricula,
       nome,
@@ -86,8 +98,6 @@ export default function Usuarios() {
   }
 
   //Delete
-  var url = 'Usuario';
-
   async function handleDeleteUsuario(usuarioId) {
     try {
       await Api.delete(`/${url}/${usuarioId}`);
@@ -228,13 +238,15 @@ export default function Usuarios() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
+
                 <div className="col-md-6 col-sm-6">
                   <label>Senha</label>
                   <input
-                    type="text"
+                    type={showPassword ? "text" : 'password'}
                     name="senha"
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
+                    icon={faEye}
                   />
                 </div>
 

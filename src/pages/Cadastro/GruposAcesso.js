@@ -5,10 +5,13 @@ import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
-import makeAnimated from 'react-select/animated';
+// import makeAnimated from 'react-select/animated';
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
+
+  var url = 'GrupoDeAcesso';
+
   //Modal const
   const [show, setShow] = useState(false);
 
@@ -16,17 +19,7 @@ export default function GruposAcesso() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Api.get("/GrupoDeAcesso")
-      .then((response) => {
-        console.log(response);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
-      });
-
-      Api.get("/Usuario")
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -51,7 +44,7 @@ export default function GruposAcesso() {
   }
 
   function createPost() {
-    Api.post("/GrupoDeAcesso", {
+    Api.post(`/${url}`, {
       nomeDoGrupo,
       descricaoDoGrupo,
       usuarios,
@@ -66,6 +59,7 @@ export default function GruposAcesso() {
         setTelas(response.data);
         setQuantidadeTelasPermitidas(response.data);
         setQuantidadeDeUsuarios(response.data);
+        console.log(response.data);
         alert('Cadastro efetuado com sucesso!');
       })
       .catch((error) => {
@@ -75,12 +69,9 @@ export default function GruposAcesso() {
   }
 
   //Delete
-  var url = 'Maquina';
-
   async function handleDeleteMaquina(grupoDeAcessoId) {
     try {
       await Api.delete(`/${url}/${grupoDeAcessoId}`);
-      await Api.delete(`/GrupoDeAcesso/${grupoDeAcessoId}`, {});
       setUser(user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId));
       alert("Deletado com sucesso")
     } catch (err) {
@@ -195,13 +186,13 @@ export default function GruposAcesso() {
                     onChange={(e) => setDescricaoDoGrupo(e.target.value)}
                   />
                 </div>
-                <div className="col-md-4 col-sm-6">
+                {/* <div className="col-md-4 col-sm-6">
                   <label>Usuarios</label>
                   <select name="usuarios" id=""></select>
                   <option value="">Selecione o Usuário</option>
                   <option value="">Selecione o Usuário</option>
                   <option value="">Selecione o Usuário</option>
-                </div>
+                </div> */}
 
                 <div className="col-md-4 col-sm-6">
                   <label>QTD de Telas Permitidas</label>
@@ -214,7 +205,7 @@ export default function GruposAcesso() {
                     }
                   />
                 </div>
-               <div className="col-md-4 col-sm-6">
+                <div className="col-md-4 col-sm-6">
                   <label>QTD Usuarios Permitidos</label>
                   <input
                     type="number"

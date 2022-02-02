@@ -8,6 +8,9 @@ import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Material() {
+
+  var url = 'Material';
+
   //Modal const
   const [show, setShow] = useState(false);
 
@@ -15,7 +18,7 @@ export default function Material() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Api.get("/Material")
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -43,7 +46,7 @@ export default function Material() {
   }
 
   function createPost() {
-    Api.post("/Material", {
+    Api.post(`/${url}`, {
       codigo,
       nome,
       localizacao,
@@ -64,7 +67,8 @@ export default function Material() {
         setUnidade(response.data);
         setMinimoDeEstoque(response.data);
         setMaximoDeEstoque(response.data);
-        alert("Cadastro efetuado com sucesso");
+        console.log(response.data);
+        alert("Material efetuado com sucesso");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
@@ -73,8 +77,6 @@ export default function Material() {
   }
 
   //Delete
-  var url = 'Material';
-
   async function handleDeleteMaterial(materialId) {
     try {
       await Api.delete(`/${url}/${materialId}`);
