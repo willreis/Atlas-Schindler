@@ -13,20 +13,18 @@ import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
 // import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye } from '@fortawesome/free-solid-svg-icons'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default function Usuarios() {
+  var url = "Usuario";
 
-  var url = 'Usuario';
-
-  const [showPassword, setShowPassword] = useState(false);            //Estado showPassword começa como false.
+  const [showPassword, setShowPassword] = useState(false); //Estado showPassword começa como false.
 
   const togglePassword = () => {
-    setShowPassword(!showPassword)            //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
-  }
-
+    setShowPassword(!showPassword); //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
+  };
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -238,14 +236,22 @@ export default function Usuarios() {
                 </div>
 
                 <div className="col-md-6 col-sm-6">
-                  <label>Senha</label>
-                  <input
-                    type={showPassword ? "text" : 'password'}
-                    name="senha"
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
-                    icon={faEye}
-                  />
+                  <div class="form-group">
+                    <label>Senha</label>
+                    <div class="input-group">
+                      <input
+                        className="form-control"
+                        type={showPassword ? "text" : "password"}
+                        name="senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
+                        Style="border-right: none;"
+                      />
+                      <div className="input-group-addon iconEye">
+                        <i className="fa fa-eye fa-lg"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="col-md-6 col-sm-6">
