@@ -5,7 +5,6 @@ import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
-import makeAnimated from 'react-select/animated';
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {

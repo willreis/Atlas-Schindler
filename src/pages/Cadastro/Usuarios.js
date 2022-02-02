@@ -4,22 +4,14 @@ import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { MdDelete } from "react-icons/md";
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
-/*Material UI*/
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
-import Collapse from "@mui/material/Collapse";
-import CloseIcon from "@mui/icons-material/Close";
 
 export default function Usuarios() {
 
   //Modal const
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-
   
 
   var dataAtual = new Date().toLocaleDateString();
@@ -129,7 +121,7 @@ export default function Usuarios() {
                       <th scope="col">Grupo de Acesso</th>
                       <th scope="col">Status</th>
                       <th scope="col">Data de Cadastro</th>
-                      <th scope="col">Opções/Editar</th>
+                      <th scope="col">Editar / Excluir</th>
                     </tr>
                   </thead>
                   <tbody>

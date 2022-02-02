@@ -116,7 +116,7 @@ export default function Material() {
                     <th scope="col">Unidade de Medida</th>
                     <th scope="col">Mínimo Estoque</th>
                     <th scope="col">Máximo</th>
-                    <th scope="col">Opções/Editar</th>
+                    <th scope="col">Editar / Excluir</th>
                   </tr>
                 </thead>
 

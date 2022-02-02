@@ -95,7 +95,7 @@ export default function Impressora() {
                       <th scope="col">Marca</th>
                       <th scope="col">Endereço</th>
                       <th scope="col">Area</th>
-                      <th scope="col">Opções/Editar</th>
+                      <th scope="col">Editar / Excluir</th>
                     </tr>
                   </thead>
                   <tbody>
