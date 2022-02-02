@@ -20,7 +20,7 @@ export default function Usuarios() {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
 
-  
+
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -86,12 +86,13 @@ export default function Usuarios() {
   }
 
   //Delete
+  var url = 'Usuario';
+
   async function handleDeleteUsuario(usuarioId) {
     try {
-      await Api.delete(`/Usuario/${usuarioId}`, {});
+      await Api.delete(`/${url}/${usuarioId}`);
       setUser(user.filter((usuario) => usuario.usuarioId !== usuarioId));
       alert("Deletado com sucesso")
-      
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
@@ -154,14 +155,14 @@ export default function Usuarios() {
                           >
                             <VscEdit />
                           </span>
-                           <span
-                          Style="cursor:pointer"
-                          onClick={() =>
-                            handleDeleteUsuario(usuario.usuarioId)
-                          }
-                        >
-                          <RiDeleteBinFill />
-                        </span>
+                          <span
+                            Style="cursor:pointer"
+                            onClick={() =>
+                              handleDeleteUsuario(usuario.usuarioId)
+                            }
+                          >
+                            <RiDeleteBinFill />
+                          </span>
                         </td>
                       </tr>
                     ))}

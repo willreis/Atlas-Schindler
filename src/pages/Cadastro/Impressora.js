@@ -57,12 +57,13 @@ export default function Impressora() {
   }, []);
 
   //Delete
+  var url = 'Impressora';
+
   async function handleDeleteImpressora(impressoraId) {
     try {
-      await Api.delete(`/Impressora/${impressoraId}`, {});
+      await Api.delete(`/${url}/${impressoraId}`);
       setUser(user.filter((impressora) => impressora.impressoraId !== impressoraId));
       alert("Deletado com sucesso")
-      
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
@@ -109,22 +110,22 @@ export default function Impressora() {
                         <td>{impressora.endereco}</td>
                         <td>{impressora.area}</td>
                         <td className="text-center icons-table">
-                        <span
-                          Style="cursor:pointer"
+                          <span
+                            Style="cursor:pointer"
                           // onClick={() => pegarId(impressora.impressoraId)}
-                        >
-                          <VscEdit />
-                        </span>
+                          >
+                            <VscEdit />
+                          </span>
 
-                        <span
-                          Style="cursor:pointer"
-                          onClick={() =>
-                            handleDeleteImpressora(impressora.impressoraId)
-                          }
-                        >
-                          <RiDeleteBinFill />
-                        </span>
-                      </td>
+                          <span
+                            Style="cursor:pointer"
+                            onClick={() =>
+                              handleDeleteImpressora(impressora.impressoraId)
+                            }
+                          >
+                            <RiDeleteBinFill />
+                          </span>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

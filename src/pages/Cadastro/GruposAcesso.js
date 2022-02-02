@@ -58,13 +58,15 @@ export default function GruposAcesso() {
         alert("Ops! Ocorreu um erro!!!:", error);
       });
   }
+
   //Delete
+  var url = 'Maquina';
+
   async function handleDeleteMaquina(grupoDeAcessoId) {
     try {
-      await Api.delete(`/Maquina/${grupoDeAcessoId}`, {});
+      await Api.delete(`/${url}/${grupoDeAcessoId}`);
       setUser(user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId));
       alert("Deletado com sucesso")
-      
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }

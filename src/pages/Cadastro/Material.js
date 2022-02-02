@@ -73,14 +73,16 @@ export default function Material() {
   }
 
   //Delete
+  var url = 'Material';
+
   async function handleDeleteMaterial(materialId) {
     try {
-      await Api.delete(`/Material/${materialId}`, {});
+      await Api.delete(`/${url}/${materialId}`);
       setUser(user.filter((material) => material.materialId !== materialId));
       alert("Deletado com sucesso")
-      
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
+      console.log(err)
     }
   }
 
@@ -134,9 +136,9 @@ export default function Material() {
                       <td>{material.minimoDeEstoque}</td>
                       <td>{material.maximoDeEstoque}</td>
                       <td className="text-center icons-table">
-                      <span
+                        <span
                           Style="cursor:pointer"
-                          // onClick={() => pegarId(impressora.impressoraId)}
+                        // onClick={() => pegarId(impressora.impressoraId)}
                         >
                           <VscEdit />
                         </span>
@@ -148,7 +150,7 @@ export default function Material() {
                         >
                           <RiDeleteBinFill />
                         </span>
-                        
+
                       </td>
                     </tr>
                   ))}
