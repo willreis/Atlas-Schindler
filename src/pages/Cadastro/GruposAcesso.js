@@ -5,6 +5,7 @@ import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
+import makeAnimated from 'react-select/animated';
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
@@ -24,14 +25,25 @@ export default function GruposAcesso() {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
+
+      Api.get("/Usuario")
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
   }, []);
 
   // POST
   const [nomeDoGrupo, setNomeDoGrupo] = useState();
   const [descricaoDoGrupo, setDescricaoDoGrupo] = useState();
-  // const [usuarios, setUsuarios] = useState(null);
-  // const [quantidadeTelasPermitidas, setQuantidadeTelasPermitidas] = useState();
-  // const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState();
+  const [usuarios, setUsuarios] = useState(null);
+  const [telas, setTelas] = useState(null)
+  const [quantidadeTelasPermitidas, setQuantidadeTelasPermitidas] = useState();
+  const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState();
 
   function handleRegister(e) {
     e.preventDefault();
@@ -42,16 +54,19 @@ export default function GruposAcesso() {
     Api.post("/GrupoDeAcesso", {
       nomeDoGrupo,
       descricaoDoGrupo,
-      // usuarios,
-      // quantidadeTelasPermitidas,
-      // quantidadeDeUsuarios,
+      usuarios,
+      telas,
+      quantidadeTelasPermitidas,
+      quantidadeDeUsuarios,
     })
       .then((response) => {
         setNomeDoGrupo(response.data);
         setDescricaoDoGrupo(response.data);
-        // setUsuarios(response.data);
-        // setQuantidadeTelasPermitidas(response.data);
-        // setQuantidadeDeUsuarios(response.data);
+        setUsuarios(response.data);
+        setTelas(response.data);
+        setQuantidadeTelasPermitidas(response.data);
+        setQuantidadeDeUsuarios(response.data);
+        alert('Cadastro efetuado com sucesso!');
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
@@ -65,6 +80,7 @@ export default function GruposAcesso() {
   async function handleDeleteMaquina(grupoDeAcessoId) {
     try {
       await Api.delete(`/${url}/${grupoDeAcessoId}`);
+      await Api.delete(`/GrupoDeAcesso/${grupoDeAcessoId}`, {});
       setUser(user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId));
       alert("Deletado com sucesso")
     } catch (err) {
@@ -100,7 +116,7 @@ export default function GruposAcesso() {
                       <th scope="col">Descrição</th>
                       <th scope="col">Qtd Telas Permitidas</th>
                       <th scope="col">Qtd De Usuarios</th>
-                      <th scope="col">Opções/Editar</th>
+                      <th scope="col">Editar / Excluir</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -179,7 +195,15 @@ export default function GruposAcesso() {
                     onChange={(e) => setDescricaoDoGrupo(e.target.value)}
                   />
                 </div>
-                {/* <div className="col-md-4 col-sm-6">
+                <div className="col-md-4 col-sm-6">
+                  <label>Usuarios</label>
+                  <select name="usuarios" id=""></select>
+                  <option value="">Selecione o Usuário</option>
+                  <option value="">Selecione o Usuário</option>
+                  <option value="">Selecione o Usuário</option>
+                </div>
+
+                <div className="col-md-4 col-sm-6">
                   <label>QTD de Telas Permitidas</label>
                   <input
                     type="number"
@@ -189,8 +213,8 @@ export default function GruposAcesso() {
                       setQuantidadeTelasPermitidas(parseInt(e.target.value))
                     }
                   />
-                </div> */}
-                {/* <div className="col-md-4 col-sm-6">
+                </div>
+               <div className="col-md-4 col-sm-6">
                   <label>QTD Usuarios Permitidos</label>
                   <input
                     type="number"
@@ -200,7 +224,7 @@ export default function GruposAcesso() {
                       setQuantidadeDeUsuarios(parseInt(e.target.value))
                     }
                   />
-                </div> */}
+                </div>
 
                 <div className="col-md-4 col-sm-6 btnCol">
                   <Button
