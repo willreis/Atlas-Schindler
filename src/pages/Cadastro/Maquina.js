@@ -29,7 +29,7 @@ export default function Maquina() {
         alert("Ops! Ocorreu um erro:", error);
       });
 
-    Api.get("/Processo")
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser2(response.data);

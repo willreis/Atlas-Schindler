@@ -16,7 +16,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 
-
 export default function Usuarios() {
 
   var url = 'Usuario';
@@ -26,7 +25,6 @@ export default function Usuarios() {
   const togglePassword = () => {
     setShowPassword(!showPassword)            //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
   }
-
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -183,6 +181,7 @@ export default function Usuarios() {
 
         {/* Modal do Bootstrap*/}
         <Modal
+          Style='margin-top: 100px; margin-left: 500px'
           size="lg"
           show={show}
           onHide={() =>
@@ -244,7 +243,6 @@ export default function Usuarios() {
                     name="senha"
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
-                    icon={faEye}
                   />
                 </div>
 
@@ -354,6 +352,7 @@ export default function Usuarios() {
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
                   />
+                  <FontAwesomeIcon icon={faEye} />
                 </div>
 
                 <div className="col-md-6 col-sm-6">
