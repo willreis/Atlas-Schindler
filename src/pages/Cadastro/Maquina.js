@@ -8,6 +8,9 @@ import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Maquina() {
+
+  var url = 'Maquina';
+
   //Modal const
   const [show, setShow] = useState(false);
 
@@ -16,7 +19,7 @@ export default function Maquina() {
   const [user2, setUser2] = useState([]);
 
   useEffect(() => {
-    Api.get("/Maquina")
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -51,8 +54,7 @@ export default function Maquina() {
   }
 
   function createPost() {
-
-    Api.post("/Maquina", {
+    Api.post(`${url}`, {
       nome,
       processoId,
       processo,
@@ -67,6 +69,8 @@ export default function Maquina() {
         setStatus(response.data);
         setOrdenacao(response.data);
         setTempoMedioProducao(response.data);
+        console.log(response.data);
+        alert("Máquina cadastrado com sucesso!");
         alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
@@ -76,8 +80,6 @@ export default function Maquina() {
   }
 
   //Delete
-  var url = 'Maquina';
-
   async function handleDeleteMaquina(maquinaId) {
     try {
       await Api.delete(`/${url}/${maquinaId}`);

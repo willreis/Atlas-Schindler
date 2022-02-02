@@ -8,6 +8,9 @@ import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Impressora() {
+
+  var url = 'Impressora';
+
   //Modal const
   const [show, setShow] = useState(false);
 
@@ -22,7 +25,7 @@ export default function Impressora() {
   }
 
   function createPost() {
-    Api.post("/Impressora", {
+    Api.post(`/${url}`, {
       nome,
       marca,
       endereco,
@@ -33,6 +36,7 @@ export default function Impressora() {
         setMarca(response.data);
         setEndereco(response.data);
         setArea(response.data);
+        console.log(response.data);
         alert("Impressora cadastrada com sucesso!");
       })
       .catch((error) => {
@@ -45,7 +49,7 @@ export default function Impressora() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Api.get("/Impressora")
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -57,8 +61,6 @@ export default function Impressora() {
   }, []);
 
   //Delete
-  var url = 'Impressora';
-
   async function handleDeleteImpressora(impressoraId) {
     try {
       await Api.delete(`/${url}/${impressoraId}`);

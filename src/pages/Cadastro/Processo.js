@@ -8,6 +8,9 @@ import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Processo() {
+
+  var url = 'Processo';
+
   //Modal const
   const [show, setShow] = useState(false);
   // const [show2, setShow2] = useState(false);
@@ -25,7 +28,7 @@ export default function Processo() {
   }
 
   useEffect(() => {
-    Api.get("/Processo")
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -37,8 +40,6 @@ export default function Processo() {
   }, []);
 
   //Delete
-  var url = 'Processo';
-
   async function handleDeleteProcesso(processoId) {
     try {
       await Api.delete(`/${url}/${processoId}`);
@@ -59,13 +60,14 @@ export default function Processo() {
   }
 
   function createPost() {
-    Api.post("/Processo", {
+    Api.post(`${url}`, {
       nome,
       ordenacao,
     })
       .then((response) => {
         setNome(response.data);
         setOrdenacao(response.data);
+        console.log(response.data);
         alert("Processo cadastrado com sucesso!");
       })
       .catch((error) => {

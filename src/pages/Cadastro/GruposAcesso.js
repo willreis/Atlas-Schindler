@@ -5,9 +5,13 @@ import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
+// import makeAnimated from 'react-select/animated';
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
+
+  var url = 'GrupoDeAcesso';
+
   //Modal const
   const [show, setShow] = useState(false);
 
@@ -15,7 +19,8 @@ export default function GruposAcesso() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Api.get("/GrupoDeAcesso")
+
+    Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -40,7 +45,7 @@ export default function GruposAcesso() {
   }
 
   function createPost() {
-    Api.post("/GrupoDeAcesso", {
+    Api.post(`/${url}`, {
       nomeDoGrupo,
       descricaoDoGrupo,
       usuarios,
@@ -55,6 +60,7 @@ export default function GruposAcesso() {
         setTelas(response.data);
         setQuantidadeTelasPermitidas(response.data);
         setQuantidadeDeUsuarios(response.data);
+        console.log(response.data);
         alert('Cadastro efetuado com sucesso!');
       })
       .catch((error) => {
@@ -64,8 +70,8 @@ export default function GruposAcesso() {
   }
 
   //Delete
-  var url = 'GrupoDeAcesso';
 
+  var url = 'GrupoDeAcesso';
   async function handleDeleteMaquina(grupoDeAcessoId) {
     try {
       await Api.delete(`/${url}/${grupoDeAcessoId}`);
@@ -202,7 +208,7 @@ export default function GruposAcesso() {
                     }
                   />
                 </div>
-               <div className="col-md-4 col-sm-6">
+                <div className="col-md-4 col-sm-6">
                   <label>QTD Usuarios Permitidos</label>
                   <input
                     type="number"
