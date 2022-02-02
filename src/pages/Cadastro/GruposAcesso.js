@@ -24,16 +24,6 @@ export default function GruposAcesso() {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
-
-      Api.get("/Usuario")
-      .then((response) => {
-        console.log(response);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
-      });
   }, []);
 
   // POST
@@ -45,7 +35,7 @@ export default function GruposAcesso() {
   const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState();
 
   function handleRegister(e) {
-    e.preventDefault();
+    // e.preventDefault();
     handleRegister(user);
   }
 
@@ -74,12 +64,11 @@ export default function GruposAcesso() {
   }
 
   //Delete
-  var url = 'Maquina';
+  var url = 'GrupoDeAcesso';
 
   async function handleDeleteMaquina(grupoDeAcessoId) {
     try {
       await Api.delete(`/${url}/${grupoDeAcessoId}`);
-      await Api.delete(`/GrupoDeAcesso/${grupoDeAcessoId}`, {});
       setUser(user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId));
       alert("Deletado com sucesso")
     } catch (err) {
@@ -194,13 +183,13 @@ export default function GruposAcesso() {
                     onChange={(e) => setDescricaoDoGrupo(e.target.value)}
                   />
                 </div>
-                <div className="col-md-4 col-sm-6">
+                {/* <div className="col-md-4 col-sm-6">
                   <label>Usuarios</label>
                   <select name="usuarios" id=""></select>
                   <option value="">Selecione o Usuário</option>
                   <option value="">Selecione o Usuário</option>
                   <option value="">Selecione o Usuário</option>
-                </div>
+                </div> */}
 
                 <div className="col-md-4 col-sm-6">
                   <label>QTD de Telas Permitidas</label>
