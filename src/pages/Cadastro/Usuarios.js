@@ -8,11 +8,9 @@ import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
 
 export default function Usuarios() {
-
   //Modal const
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
-  
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -78,12 +76,13 @@ export default function Usuarios() {
   }
 
   //Delete
+  var url = "Usuario";
+
   async function handleDeleteUsuario(usuarioId) {
     try {
-      await Api.delete(`/Usuario/${usuarioId}`, {});
+      await Api.delete(`/${url}/${usuarioId}`);
       setUser(user.filter((usuario) => usuario.usuarioId !== usuarioId));
-      alert("Deletado com sucesso")
-      
+      alert("Deletado com sucesso");
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
@@ -146,14 +145,14 @@ export default function Usuarios() {
                           >
                             <VscEdit />
                           </span>
-                           <span
-                          Style="cursor:pointer"
-                          onClick={() =>
-                            handleDeleteUsuario(usuario.usuarioId)
-                          }
-                        >
-                          <RiDeleteBinFill />
-                        </span>
+                          <span
+                            Style="cursor:pointer"
+                            onClick={() =>
+                              handleDeleteUsuario(usuario.usuarioId)
+                            }
+                          >
+                            <RiDeleteBinFill />
+                          </span>
                         </td>
                       </tr>
                     ))}
@@ -170,6 +169,114 @@ export default function Usuarios() {
           show={show}
           onHide={() =>
             setShow(false)
+          } /*false possibilita fechar. True ñ deixa fechar*/
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Cadastro de Usuarios</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className="formCadastro"
+              id="formCadastro"
+              Style="margin-bottom: 30px"
+            >
+              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                <div className="col-md-6 col-sm-6">
+                  <label>Matricula</label>
+                  <input
+                    type="text"
+                    name="matricula"
+                    value={matricula}
+                    onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-6 col-sm-6">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="col-md-6 col-sm-6">
+                  <label>Cargo</label>
+                  <input
+                    type="text"
+                    name="cargo"
+                    value={cargo}
+                    onChange={(e) => setCargo(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-6 col-sm-6">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={eMail}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-6 col-sm-6">
+                  <label>Senha</label>
+                  <input
+                    type="text"
+                    name="senha"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-md-6 col-sm-6">
+                  <label>Status</label>
+                  <select
+                    type="text"
+                    id="ativoInativo"
+                    name="status"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option>Escolha uma opção</option>
+                    <option name="ativo" value="true">
+                      Ativo
+                    </option>
+                    <option name="inativo" value="false">
+                      Inativo
+                    </option>
+                  </select>
+                </div>
+                <div className="col-md-6 col-sm-6">
+                  <label>Data Cadastro</label>
+                  <input
+                    type="text"
+                    name="dataDeCadastro"
+                    value={dataAtual + " " + horaAtual}
+                    onChange={(e) => setDataDeCadastro(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-md-2 col-sm-6 btnCol">
+                  <Button
+                    type="submit"
+                    variant="success"
+                    className="align-self-baseline"
+                    onClick={createPost}
+                  >
+                    Salvar
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal do Bootstrap*/}
+        <Modal
+          size="lg"
+          show={show2}
+          onHide={() =>
+            setShow2(false)
           } /*false possibilita fechar. True ñ deixa fechar*/
         >
           <Modal.Header closeButton>

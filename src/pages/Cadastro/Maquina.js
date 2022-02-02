@@ -76,14 +76,16 @@ export default function Maquina() {
   }
 
   //Delete
+  var url = 'Maquina';
+
   async function handleDeleteMaquina(maquinaId) {
     try {
-      await Api.delete(`/Maquina/${maquinaId}`, {});
+      await Api.delete(`/${url}/${maquinaId}`);
       setUser(user.filter((maquina) => maquina.processoId !== maquinaId));
       alert("Deletado com sucesso")
-      
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
+      console.log(err)
     }
   }
 
@@ -133,21 +135,21 @@ export default function Maquina() {
                         <td>{maquina.ordenacao}</td>
                         <td>{maquina.tempoMedioProducao}</td>
                         <td className="text-center icons-table">
-                        <span
-                          Style="cursor:pointer"
-                          // onClick={() => pegarId(maquina.maquinaId)}
-                        alt="Editar">
-                          <VscEdit />
-                        </span>
+                          <span
+                            Style="cursor:pointer"
+                            // onClick={() => pegarId(maquina.maquinaId)}
+                            alt="Editar">
+                            <VscEdit />
+                          </span>
 
-                        <span
-                          Style="cursor:pointer"
-                          onClick={() =>
-                            handleDeleteMaquina(maquina.maquinaId)
-                          }
-                        alt="Deletar">
-                          <RiDeleteBinFill />
-                        </span>
+                          <span
+                            Style="cursor:pointer"
+                            onClick={() =>
+                              handleDeleteMaquina(maquina.maquinaId)
+                            }
+                            alt="Deletar">
+                            <RiDeleteBinFill />
+                          </span>
                         </td>
                       </tr>
 
@@ -210,9 +212,9 @@ export default function Maquina() {
                       name={processo}
                       value={processoId}
                       onChange={(e) => {
-                        
+
                         setProcessoId(parseInt(e.target.value));
-                        
+
                       }}
                     >
                       <option>Escolha uma opção</option>

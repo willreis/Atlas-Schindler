@@ -37,12 +37,13 @@ export default function Processo() {
   }, []);
 
   //Delete
+  var url = 'Processo';
+
   async function handleDeleteProcesso(processoId) {
     try {
-      await Api.delete(`/Processo/${processoId}`, {});
+      await Api.delete(`/${url}/${processoId}`);
       setUser(user.filter((processo) => processo.processoId !== processoId));
       alert("Deletado com sucesso")
-      
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
