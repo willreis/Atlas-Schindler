@@ -19,6 +19,7 @@ export default function GruposAcesso() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
+
     Api.get(`${url}`)
       .then((response) => {
         console.log(response);
@@ -39,7 +40,7 @@ export default function GruposAcesso() {
   const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState();
 
   function handleRegister(e) {
-    e.preventDefault();
+    // e.preventDefault();
     handleRegister(user);
   }
 
@@ -69,6 +70,8 @@ export default function GruposAcesso() {
   }
 
   //Delete
+
+  var url = 'GrupoDeAcesso';
   async function handleDeleteMaquina(grupoDeAcessoId) {
     try {
       await Api.delete(`/${url}/${grupoDeAcessoId}`);

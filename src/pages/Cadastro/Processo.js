@@ -4,17 +4,21 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
+
+
+
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Processo() {
 
-  var url = 'Processo';
+    var url = 'Processo';
 
   //Modal const
   const [show, setShow] = useState(false);
   // const [show2, setShow2] = useState(false);
   const [showPut, setShowPut] = useState(false);
+
   //Get
   const [user, setUser] = useState([]);
 
@@ -40,6 +44,7 @@ export default function Processo() {
   }, []);
 
   //Delete
+
   async function handleDeleteProcesso(processoId) {
     try {
       await Api.delete(`/${url}/${processoId}`);
