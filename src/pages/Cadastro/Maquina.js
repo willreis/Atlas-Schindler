@@ -71,6 +71,7 @@ export default function Maquina() {
         setTempoMedioProducao(response.data);
         console.log(response.data);
         alert("Máquina cadastrado com sucesso!");
+        alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
@@ -120,7 +121,7 @@ export default function Maquina() {
                       <th scope="col">Status</th>
                       <th scope="col">Ordenação</th>
                       <th scope="col">Tempo Médio Produção</th>
-                      <th scope="col">Opções/Editar</th>
+                      <th scope="col">Editar / Excluir</th>
                     </tr>
                   </thead>
 

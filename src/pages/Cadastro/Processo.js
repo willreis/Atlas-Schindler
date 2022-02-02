@@ -102,7 +102,7 @@ export default function Processo() {
                   <tr className="text-center">
                     <th scope="col">Nome</th>
                     <th scope="col">Ordenação</th>
-                    <th scope="col">Opções/Editar</th>
+                    <th scope="col">Editar / Excluir</th>
                   </tr>
                 </thead>
                 <tbody>
