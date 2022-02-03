@@ -28,10 +28,10 @@ export default function Usuarios() {
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
-  // let varAtivoInativo = document.getElementById('ativoInativo')
 
   //*GET
   const [user, setUser] = useState([]);
+
   var url = "Usuario";
 
   useEffect(() => {
@@ -48,21 +48,21 @@ export default function Usuarios() {
 
   // POST
   const [senha, setSenha] = useState();
-  const [matricula, setMatricula] = useState();
   const [nome, setNome] = useState();
+  const [matricula, setMatricula] = useState();
   const [cargo, setCargo] = useState();
   const [eMail, setEmail] = useState();
   const [grupoDeAcesso, setGrupoDeAcesso] = useState(null);
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState();
   const [dataDeCadastro, setDataDeCadastro] = useState();
 
   function handleRegister(e) {
-    //e.preventDefault();
+    e.preventDefault();
     handleRegister(user);
   }
 
   function createPost() {
-    Api.post(`/${url}`, {
+    Api.post(`/${url}/`, {
       senha,
       matricula,
       nome,
@@ -85,8 +85,8 @@ export default function Usuarios() {
         alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro!!!:", error);
-        alert("Ops! Ocorreu um erro!!!:", error);
+        console.log("Ops! Ocorreu um erro:" + error);
+        alert("Ops! Ocorreu um erro" + error);
       });
   }
 
@@ -255,21 +255,20 @@ export default function Usuarios() {
                 <div className="col-md-6 col-sm-6">
                   <label>Status</label>
                   <select
-                    type="text"
-                    id="ativoInativo"
                     name="status"
                     value={status}
-                    onChange={(e) => setStatus(e.target.value)}
+                    onChange={(e) => setStatus(!status)}
                   >
                     <option>Escolha uma opção</option>
-                    <option name="ativo" value="true">
+                    <option name="ativo" value={true}>
                       Ativo
                     </option>
-                    <option name="inativo" value="false">
+                    <option name="inativo" value={false}>
                       Inativo
                     </option>
                   </select>
                 </div>
+
                 <div className="col-md-6 col-sm-6">
                   <label>Data Cadastro</label>
                   <input
@@ -363,17 +362,16 @@ export default function Usuarios() {
                 <div className="col-md-6 col-sm-6">
                   <label>Status</label>
                   <select
-                    type="text"
                     id="ativoInativo"
                     name="status"
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                   >
                     <option>Escolha uma opção</option>
-                    <option name="ativo" value="true">
+                    <option>
                       Ativo
                     </option>
-                    <option name="inativo" value="false">
+                    <option>
                       Inativo
                     </option>
                   </select>

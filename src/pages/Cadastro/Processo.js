@@ -44,7 +44,6 @@ export default function Processo() {
   }, []);
 
   //Delete
-
   async function handleDeleteProcesso(processoId) {
     try {
       await Api.delete(`/${url}/${processoId}`);

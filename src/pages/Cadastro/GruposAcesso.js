@@ -70,8 +70,6 @@ export default function GruposAcesso() {
   }
 
   //Delete
-
-  var url = 'GrupoDeAcesso';
   async function handleDeleteMaquina(grupoDeAcessoId) {
     try {
       await Api.delete(`/${url}/${grupoDeAcessoId}`);
