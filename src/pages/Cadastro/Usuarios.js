@@ -6,21 +6,15 @@ import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
-/*Material UI*/
-// import Box from "@mui/material/Box";
-// import Alert from "@mui/material/Alert";
-// import IconButton from "@mui/material/IconButton";
-// import Collapse from "@mui/material/Collapse";
-// import CloseIcon from "@mui/icons-material/Close";
-// import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Usuarios() {
 
   const [showPassword, setShowPassword] = useState(false); //Estado showPassword começa como false.
 
   const togglePassword = () => {
-    setShowPassword(!showPassword)            //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
-  }
+
+    setShowPassword(!showPassword); //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
+  };
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -55,6 +49,8 @@ export default function Usuarios() {
   const [grupoDeAcesso, setGrupoDeAcesso] = useState(null);
   const [status, setStatus] = useState();
   const [dataDeCadastro, setDataDeCadastro] = useState();
+  console.log(status);
+  console.log("Status: " + status);
 
   function handleRegister(e) {
     e.preventDefault();
@@ -105,7 +101,7 @@ export default function Usuarios() {
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div id="divPai">
-          <div className="container paddingContainer">
+          <div className="container paddingContainer margin-0">
             <div className="row">
               <div className="col-md-6 col-sm-12">
                 <div className="tituloInterno">
@@ -178,7 +174,7 @@ export default function Usuarios() {
 
         {/* Modal do Bootstrap*/}
         <Modal
-          Style='margin-top: 100px; margin-left: 500px'
+          Style="margin-top: 100px; margin-left: 500px"
           size="lg"
           show={show}
           onHide={() =>
@@ -256,6 +252,7 @@ export default function Usuarios() {
                   <label>Status</label>
                   <select
                     name="status"
+                    type="number"
                     value={status}
                     onChange={(e) => setStatus(!status)}
                   >
@@ -294,7 +291,7 @@ export default function Usuarios() {
           </Modal.Body>
         </Modal>
 
-        {/* Modal do Bootstrap*/}
+        {/* Modal do PUT*/}
         <Modal
           size="lg"
           show={show2}
