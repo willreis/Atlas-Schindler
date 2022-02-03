@@ -6,17 +6,13 @@ import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
-//import BootstrapSwitchButton from "bootstrap-switch-button-react";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default function Usuarios() {
-  var url = "Usuario";
 
   const [showPassword, setShowPassword] = useState(false); //Estado showPassword começa como false.
 
   const togglePassword = () => {
+
     setShowPassword(!showPassword); //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
   };
 
@@ -30,6 +26,7 @@ export default function Usuarios() {
 
   //*GET
   const [user, setUser] = useState([]);
+  var url = "Usuario";
 
   useEffect(() => {
     Api.get(`${url}`)
@@ -235,7 +232,7 @@ export default function Usuarios() {
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
-                    <div className="input-group">
+                    <div className="input-group">                            {/*Bootstrap className para juntar*/}
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
@@ -245,7 +242,7 @@ export default function Usuarios() {
                         Style="border-right: none;"
                       />
                       <div className="input-group-addon iconEye">
-                        <i className="fa fa-eye fa-lg"></i>
+                        <i onClick={togglePassword} className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
                       </div>
                     </div>
                   </div>
@@ -356,7 +353,6 @@ export default function Usuarios() {
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
                   />
-                  <FontAwesomeIcon icon={faEye} />
                 </div>
 
                 <div className="col-md-6 col-sm-6">
