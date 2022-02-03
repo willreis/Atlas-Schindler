@@ -52,8 +52,7 @@ export default function Usuarios() {
   const [dataDeCadastro, setDataDeCadastro] = useState();
 
   function handleRegister(e) {
-    //e.preventDefault();
-
+    e.preventDefault();
     handleRegister(user);
   }
 
@@ -127,10 +126,24 @@ export default function Usuarios() {
   //     });
   // }
 
+  //PUT
+
+  function pegaId(usuarioId){
+    console.log(pegaId);
+
+    var pegaUsuarioId = usuarioId;
+
+    console.log(pegaUsuarioId);
+
+    setShow2(true)
+  }
+
   function updatePut(id) {
+    const pegaId = usuarioId;
+    console.log("meu IDDDDD EHHHH" + usuarioId);
     Api
-      .put(`${url}/${id}`, {
-        usuarioId,
+      .put(`${url}/${pegaId}`, {
+        usuarioId: pegaId,
         senha,
         matricula,
         nome,
@@ -150,13 +163,14 @@ export default function Usuarios() {
         setGrupoDeAcesso(response.data);
         setStatus(response.data);
         setDataDeCadastro(response.data);
-        console.log(response.data);
+        
         alert("Put Efetuado com sucesso!");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:" + error);
         alert("Ops! Ocorreu um erro" + error);
       });
+      
   }
 
   return (
@@ -213,7 +227,8 @@ export default function Usuarios() {
                           <span
                             id={usuario.usuarioId}
                             Style="cursor:pointer"
-                            onClick={() => setShow2(true, usuario.usuarioId)}
+                            // onClick={() => setShow2(true)}
+                            onClick={() => pegaId(usuario.usuarioId)}
                           >
                             <VscEdit />
                           </span>
@@ -371,6 +386,7 @@ export default function Usuarios() {
               Style="margin-bottom: 30px"
             >
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                
                 <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
