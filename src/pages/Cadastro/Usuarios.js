@@ -53,7 +53,7 @@ export default function Usuarios() {
   console.log("Status: " + status);
 
   function handleRegister(e) {
-    e.preventDefault();
+    //e.preventDefault();
     handleRegister(user);
   }
 
@@ -150,7 +150,7 @@ export default function Usuarios() {
                           <span
                             id="spanId"
                             Style="cursor:pointer"
-                            onClick={() => setShow2(true)}
+                            onClick={() => setShow2(true, usuario.usuarioId)}
                           >
                             <VscEdit />
                           </span>
@@ -347,32 +347,42 @@ export default function Usuarios() {
                   />
                 </div>
                 <div className="col-md-6 col-sm-6">
-                  <label>Senha</label>
-                  <input
-                    type="text"
-                    name="senha"
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
-                  />
+                  <div className="form-group">
+                    <label>Senha</label>
+                    <div className="input-group">                            {/*Bootstrap className para juntar*/}
+                      <input
+                        className="form-control"
+                        type={showPassword ? "text" : "password"}
+                        name="senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
+                        Style="border-right: none;"
+                      />
+                      <div className="input-group-addon iconEye">
+                        <i onClick={togglePassword} className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="col-md-6 col-sm-6">
                   <label>Status</label>
                   <select
-                    id="ativoInativo"
                     name="status"
+                    type="number"
                     value={status}
-                    onChange={(e) => setStatus(e.target.value)}
+                    onChange={(e) => setStatus(!status)}
                   >
                     <option>Escolha uma opção</option>
-                    <option>
+                    <option name="ativo" value={true}>
                       Ativo
                     </option>
-                    <option>
+                    <option name="inativo" value={false}>
                       Inativo
                     </option>
                   </select>
                 </div>
+                
                 <div className="col-md-6 col-sm-6">
                   <label>Data Cadastro</label>
                   <input
