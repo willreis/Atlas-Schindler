@@ -41,6 +41,7 @@ export default function Usuarios() {
   }, []);
 
   // POST
+  const [usuarioId, setUsuarioId] = useState();
   const [senha, setSenha] = useState();
   const [nome, setNome] = useState();
   const [matricula, setMatricula] = useState();
@@ -49,11 +50,9 @@ export default function Usuarios() {
   const [grupoDeAcesso, setGrupoDeAcesso] = useState(null);
   const [status, setStatus] = useState();
   const [dataDeCadastro, setDataDeCadastro] = useState();
-  console.log(status);
-  console.log("Status: " + status);
 
   function handleRegister(e) {
-    e.preventDefault();
+    // e.preventDefault();
     handleRegister(user);
   }
 
@@ -97,6 +96,68 @@ export default function Usuarios() {
     }
   }
 
+  //PUT
+  // function createPut() {
+  //   Api.put(`/${url}/184`, {
+  //     senha,
+  //     matricula,
+  //     nome,
+  //     cargo,
+  //     eMail,
+  //     grupoDeAcesso,
+  //     status,
+  //     dataDeCadastro,
+  //   })
+  //     .then((response) => {
+  //       setSenha(response.data);
+  //       setNome(response.data);
+  //       setMatricula(response.data);
+  //       setCargo(response.data);
+  //       setEmail(response.data);
+  //       setGrupoDeAcesso(response.data);
+  //       setStatus(response.data);
+  //       setDataDeCadastro(response.data);
+  //       console.log(response.data);
+  //       alert("Put Efetuado com sucesso!");
+  //     })
+  //     .catch((error) => {
+  //       console.log("Ops! Ocorreu um erro:" + error);
+  //       alert("Ops! Ocorreu um erro" + error);
+  //     });
+  // }
+
+  function updatePut(id) {
+    Api
+      .put(`${url}/${id}`, {
+        usuarioId,
+        senha,
+        matricula,
+        nome,
+        cargo,
+        eMail,
+        grupoDeAcesso,
+        status,
+        dataDeCadastro,
+      })
+      .then((response) => {
+        setUsuarioId(response.data)
+        setSenha(response.data);
+        setNome(response.data);
+        setMatricula(response.data);
+        setCargo(response.data);
+        setEmail(response.data);
+        setGrupoDeAcesso(response.data);
+        setStatus(response.data);
+        setDataDeCadastro(response.data);
+        console.log(response.data);
+        alert("Put Efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:" + error);
+        alert("Ops! Ocorreu um erro" + error);
+      });
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -106,6 +167,7 @@ export default function Usuarios() {
               <div className="col-md-6 col-sm-12">
                 <div className="tituloInterno">
                   <h2 Style="color:#555;">Cadastro de usuários</h2>
+                  <Button type='submit' variant='primary' onClick={updatePut}>ABCDE</Button>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12">
@@ -148,9 +210,9 @@ export default function Usuarios() {
                         <td>{usuario.dataDeCadastro}</td>
                         <td className="text-center icons-table">
                           <span
-                            id="spanId"
+                            id={usuario.usuarioId}
                             Style="cursor:pointer"
-                            onClick={() => setShow2(true)}
+                            onClick={() => setShow2(true, usuario.usuarioId)}
                           >
                             <VscEdit />
                           </span>
@@ -252,9 +314,8 @@ export default function Usuarios() {
                   <label>Status</label>
                   <select
                     name="status"
-                    type="number"
                     value={status}
-                    onChange={(e) => setStatus(!status)}
+                    onChange={() => setStatus(!status)}
                   >
                     <option>Escolha uma opção</option>
                     <option name="ativo" value={true}>
@@ -359,20 +420,20 @@ export default function Usuarios() {
                 <div className="col-md-6 col-sm-6">
                   <label>Status</label>
                   <select
-                    id="ativoInativo"
                     name="status"
                     value={status}
-                    onChange={(e) => setStatus(e.target.value)}
+                    onChange={() => setStatus(!status)}
                   >
                     <option>Escolha uma opção</option>
-                    <option>
+                    <option name="ativo" value={true}>
                       Ativo
                     </option>
-                    <option>
+                    <option name="inativo" value={false}>
                       Inativo
                     </option>
                   </select>
                 </div>
+
                 <div className="col-md-6 col-sm-6">
                   <label>Data Cadastro</label>
                   <input
@@ -388,7 +449,7 @@ export default function Usuarios() {
                     type="submit"
                     variant="success"
                     className="align-self-baseline"
-                    onClick={createPost}
+                    onClick={updatePut}
                   >
                     Salvar
                   </Button>
