@@ -52,6 +52,7 @@ export default function Maquina() {
 
   function handleRegister(e) {
     // e.preventDefault();
+    console.log(createPost)
   }
 
   function createPost() {
@@ -84,8 +85,10 @@ export default function Maquina() {
   async function handleDeleteMaquina(maquinaId) {
     try {
       await Api.delete(`/${url}/${maquinaId}`);
-      setUser(user.filter((maquina) => maquina.processoId !== maquinaId));
+      alert("chegou aqui")
+      setUser(user.filter((maquina) => maquina.maquinaId !== maquinaId));
       alert("Deletado com sucesso")
+    
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
       console.log(err)
