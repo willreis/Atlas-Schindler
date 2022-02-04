@@ -52,7 +52,7 @@ export default function Maquina() {
 
   function handleRegister(e) {
     // e.preventDefault();
-    console.log(createPost)
+    handleRegister(user);
   }
 
   function createPost() {
@@ -65,12 +65,12 @@ export default function Maquina() {
       tempoMedioProducao,
     })
       .then((response) => {
-        setNome(response.data);
-        setProcessoId(response.data);
-        setProcesso(response.data);
-        setStatus(response.data);
-        setOrdenacao(response.data);
-        setTempoMedioProducao(response.data);
+        // setNome(response.data);
+        // setProcessoId(response.data);
+        // setProcesso(response.data);
+        // setStatus(response.data);
+        // setOrdenacao(response.data);
+        // setTempoMedioProducao(response.data);
         console.log(response.data);
         alert("Máquina cadastrado com sucesso!");
         alert("Cadastro Efetuado com sucesso!");
@@ -85,7 +85,6 @@ export default function Maquina() {
   async function handleDeleteMaquina(maquinaId) {
     try {
       await Api.delete(`/${url}/${maquinaId}`);
-      alert("chegou aqui")
       setUser(user.filter((maquina) => maquina.maquinaId !== maquinaId));
       alert("Deletado com sucesso")
     
@@ -153,7 +152,7 @@ export default function Maquina() {
                             onClick={() =>
                               handleDeleteMaquina(maquina.maquinaId)
                             }
-                            alt="Deletar">
+                          >
                             <RiDeleteBinFill />
                           </span>
                         </td>

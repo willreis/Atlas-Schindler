@@ -19,7 +19,6 @@ export default function GruposAcesso() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-
     Api.get(`${url}`)
       .then((response) => {
         console.log(response);
@@ -54,12 +53,12 @@ export default function GruposAcesso() {
       quantidadeDeUsuarios,
     })
       .then((response) => {
-        setNomeDoGrupo(response.data);
-        setDescricaoDoGrupo(response.data);
-        setUsuarios(response.data);
-        setTelas(response.data);
-        setQuantidadeTelasPermitidas(response.data);
-        setQuantidadeDeUsuarios(response.data);
+        // setNomeDoGrupo(response.data);
+        // setDescricaoDoGrupo(response.data);
+        // setUsuarios(response.data);
+        // setTelas(response.data);
+        // setQuantidadeTelasPermitidas(response.data);
+        // setQuantidadeDeUsuarios(response.data);
         console.log(response.data);
         alert('Cadastro efetuado com sucesso!');
       })

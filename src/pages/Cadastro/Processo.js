@@ -69,8 +69,8 @@ export default function Processo() {
       ordenacao,
     })
       .then((response) => {
-        setNome(response.data);
-        setOrdenacao(response.data);
+        // setNome(response.data);
+        // setOrdenacao(response.data);
         console.log(response.data);
         alert("Processo cadastrado com sucesso!");
       })
