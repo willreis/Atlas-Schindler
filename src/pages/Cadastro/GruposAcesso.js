@@ -19,7 +19,6 @@ export default function GruposAcesso() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-
     Api.get(`${url}`)
       .then((response) => {
         console.log(response);
