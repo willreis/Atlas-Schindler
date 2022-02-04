@@ -22,6 +22,7 @@ export default function Impressora() {
 
   function handleRegister(e) {
     // e.preventDefault();
+    handleRegister(user);
   }
 
   function createPost() {
@@ -32,10 +33,10 @@ export default function Impressora() {
       area,
     })
       .then((response) => {
-        setNome(response.data);
-        setMarca(response.data);
-        setEndereco(response.data);
-        setArea(response.data);
+        // setNome(response.data);
+        // setMarca(response.data);
+        // setEndereco(response.data);
+        // setArea(response.data);
         console.log(response.data);
         alert("Impressora cadastrada com sucesso!");
       })

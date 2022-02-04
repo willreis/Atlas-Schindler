@@ -42,7 +42,7 @@ export default function Material() {
 
   function handleRegister(e) {
     // e.preventDefault();
-    console.log(createPost)
+    handleRegister(user);
   }
 
   function createPost() {
@@ -58,15 +58,15 @@ export default function Material() {
       maximoDeEstoque,
     })
       .then((response) => {
-        setCodigo(response.data);
-        setNome(response.data);
-        setLocalizacao(response.data);
-        setComprimento(response.data);
-        setLargura(response.data);
-        setEspessura(response.data);
-        setUnidade(response.data);
-        setMinimoDeEstoque(response.data);
-        setMaximoDeEstoque(response.data);
+        // setCodigo(response.data);
+        // setNome(response.data);
+        // setLocalizacao(response.data);
+        // setComprimento(response.data);
+        // setLargura(response.data);
+        // setEspessura(response.data);
+        // setUnidade(response.data);
+        // setMinimoDeEstoque(response.data);
+        // setMaximoDeEstoque(response.data);
         console.log(response.data);
         alert("Material efetuado com sucesso");
       })
