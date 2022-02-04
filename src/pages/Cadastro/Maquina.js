@@ -87,6 +87,7 @@ export default function Maquina() {
       await Api.delete(`/${url}/${maquinaId}`);
       setUser(user.filter((maquina) => maquina.maquinaId !== maquinaId));
       alert("Deletado com sucesso")
+    
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
       console.log(err)
