@@ -68,14 +68,7 @@ export default function Usuarios() {
       dataDeCadastro,
     })
       .then((response) => {
-        // setSenha(response.data);
-        // setNome(response.data);
-        // setMatricula(response.data);
-        // setCargo(response.data);
-        // setEmail(response.data);
-        // setGrupoDeAcesso(response.data);
-        // setStatus(response.data);
-        // setDataDeCadastro(response.data);
+
         console.log(response.data);
         alert("Cadastro Efetuado com sucesso!");
       })
@@ -96,30 +89,31 @@ export default function Usuarios() {
     }
   }
 
-  function handlePut(usuarioId) {
+  //PUT
+
+  function funcaoAbrirModal(usuarioId) {
+    
+    console.log(usuarioId)
+    console.log("modal abriu")
+    setShowModalPut(true)
+  }
+
+  function handlePut(id, usuarioId) {
     console.log('Esse é o id:', usuarioId)
     Api
       .put(`${url}/${usuarioId}`, {
-        usuarioId,
-        senha,
-        matricula,
-        nome,
-        cargo,
-        eMail,
-        grupoDeAcesso,
-        status,
-        dataDeCadastro,
+        usuarioId: usuarioId,
+        senha: '1234',
+        matricula: '024E5T09O',
+        nome: 'Julia',
+        cargo: 'Programadora',
+        eMail: 'William.reis@gmail.com',
+        grupoDeAcesso: null,
+        status: true,
+        dataDeCadastro: '2022-02-04T18:12:09.596',
       })
       .then((response) => {
-        // setUsuarioId(response.data)
-        // setSenha(response.data);
-        // setNome(response.data);
-        // setMatricula(response.data);
-        // setCargo(response.data);
-        // setEmail(response.data);
-        // setGrupoDeAcesso(response.data);
-        // setStatus(response.data);
-        // setDataDeCadastro(response.data);
+       
         console.log(response.data);
         alert("Put Efetuado com sucesso!");
       })
@@ -129,10 +123,7 @@ export default function Usuarios() {
       });
   }
 
-  function funcaoAbrirModal() {
-    setShowModalPut(true)
-    console.log("modal abriu")
-  }
+ 
 
   return (
     <>
@@ -187,8 +178,8 @@ export default function Usuarios() {
                             id={usuario.usuarioId}
                             Style="cursor:pointer"
                             onClick={() => {
-                              funcaoAbrirModal()
-                            }}
+                              funcaoAbrirModal(handlePut(usuario.usuarioId)
+                              )}}
                           >
                             <VscEdit />
                           </span>
@@ -196,6 +187,7 @@ export default function Usuarios() {
                             Style="cursor:pointer"
                             onClick={() =>
                               handleDeleteUsuario(usuario.usuarioId)
+                              
                             }
                           >
                             <RiDeleteBinFill />
@@ -325,6 +317,7 @@ export default function Usuarios() {
 
         {/* Modal do PUT*/}
         <Modal
+          id={usuarioId}
           size="lg"
           show={showModalPut}
           onHide={() =>
@@ -335,6 +328,7 @@ export default function Usuarios() {
             <Modal.Title>Cadastro de Usuarios</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            {console.log('rwrwrw ' + usuarioId)}
             <div
               className="formCadastro"
               id="formCadastro"
