@@ -4,15 +4,12 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
-
-
-
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Processo() {
 
-    var url = 'Processo';
+  var url = 'Processo';
 
   //Modal const
   const [show, setShow] = useState(false);

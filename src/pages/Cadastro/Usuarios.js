@@ -18,7 +18,7 @@ export default function Usuarios() {
 
   //Modal const
   const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(false);
+  const [showModalPut, setShowModalPut] = useState(false);
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -96,19 +96,19 @@ export default function Usuarios() {
     }
   }
 
-  function updatePut(id) {
-    Api
-      .put(`${url}/${id}`, {
-        usuarioId,
-        senha,
-        matricula,
-        nome,
-        cargo,
-        eMail,
-        grupoDeAcesso,
-        status,
-        dataDeCadastro,
-      })
+  function updatePut(usuarioId) {
+    console.log('Usuário: ', usuarioId)
+    Api.put(`${url}/${usuarioId}`, {
+      usuarioId,
+      senha,
+      matricula,
+      nome,
+      cargo,
+      eMail,
+      grupoDeAcesso,
+      status,
+      dataDeCadastro,
+    })
       .then((response) => {
         setUsuarioId(response.data)
         setSenha(response.data);
@@ -128,6 +128,20 @@ export default function Usuarios() {
       });
   }
 
+  function funcaoAbrirModal(usuarioId) {
+    setShowModalPut(true)
+
+
+    Api.get(`${url}/${usuarioId}`)
+      .then((usuarioId) => {
+        console.log('Deu certo', usuarioId);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -137,7 +151,6 @@ export default function Usuarios() {
               <div className="col-md-6 col-sm-12">
                 <div className="tituloInterno">
                   <h2 Style="color:#555;">Cadastro de usuários</h2>
-                  <Button type='submit' variant='primary' onClick={updatePut}>ABCDE</Button>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12">
@@ -182,8 +195,9 @@ export default function Usuarios() {
                           <span
                             id={usuario.usuarioId}
                             Style="cursor:pointer"
-                            onClick={() => setShow2(true, usuario.usuarioId)}
+                            onClick={funcaoAbrirModal}
                           >
+
                             <VscEdit />
                           </span>
                           <span
@@ -325,9 +339,9 @@ export default function Usuarios() {
         {/* Modal do PUT*/}
         <Modal
           size="lg"
-          show={show2}
+          show={showModalPut}
           onHide={() =>
-            setShow2(false)
+            setShowModalPut(false)
           } /*false possibilita fechar. True ñ deixa fechar*/
         >
           <Modal.Header closeButton>
