@@ -10,6 +10,7 @@ import Api from "../../services/Api";
 export default function Maquina() {
 
   var url = 'Maquina';
+  var urlProcesso = 'Processo';
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -29,7 +30,7 @@ export default function Maquina() {
         alert("Ops! Ocorreu um erro:", error);
       });
 
-    Api.get(`${url}`)
+    Api.get(`${urlProcesso}`)
       .then((response) => {
         console.log(response);
         setUser2(response.data);
@@ -44,7 +45,7 @@ export default function Maquina() {
   const [nome, setNome] = useState();
   const [processoId, setProcessoId] = useState();
   const [processo, setProcesso] = useState();
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState();
   const [ordenacao, setOrdenacao] = useState();
   const [tempoMedioProducao, setTempoMedioProducao] = useState();
 
@@ -175,7 +176,7 @@ export default function Maquina() {
           </div>
         </div>
 
-        {/* Modal */}
+        {/* Cadastro */}
         <Modal
           size="lg"
           show={show}
@@ -185,7 +186,7 @@ export default function Maquina() {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-              Cadastro de Processo
+              Cadastro de Maquina
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -238,7 +239,7 @@ export default function Maquina() {
                     <select
                       name="status"
                       value={status}
-                      onChange={(e) => setStatus(Boolean(e.target.value))}
+                      onChange={(e) => setStatus(!status)}
                     >
                       <option>Escolha</option>
                       <option name="ativo" value="true">

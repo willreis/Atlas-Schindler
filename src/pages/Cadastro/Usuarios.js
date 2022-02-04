@@ -68,16 +68,16 @@ export default function Usuarios() {
       dataDeCadastro,
     })
       .then((response) => {
-        // setSenha(response.data);
-        // setNome(response.data);
-        // setMatricula(response.data);
-        // setCargo(response.data);
-        // setEmail(response.data);
-        // setGrupoDeAcesso(response.data);
-        // setStatus(response.data);
-        // setDataDeCadastro(response.data);
+        setSenha(response.data);
+        setNome(response.data);
+        setMatricula(response.data);
+        setCargo(response.data);
+        setEmail(response.data);
+        setGrupoDeAcesso(response.data);
+        setStatus(response.data);
+        setDataDeCadastro(response.data);
         console.log(response.data);
-        alert("Cadastro Efetuado com sucesso! 0402");
+        alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:" + error);
@@ -96,9 +96,40 @@ export default function Usuarios() {
     }
   }
 
-  async function updatePut(id) {
-    try {
-      await Api.put(`${url}/${id}`, {
+  //PUT
+  // function createPut() {
+  //   Api.put(`/${url}/184`, {
+  //     senha,
+  //     matricula,
+  //     nome,
+  //     cargo,
+  //     eMail,
+  //     grupoDeAcesso,
+  //     status,
+  //     dataDeCadastro,
+  //   })
+  //     .then((response) => {
+  //       setSenha(response.data);
+  //       setNome(response.data);
+  //       setMatricula(response.data);
+  //       setCargo(response.data);
+  //       setEmail(response.data);
+  //       setGrupoDeAcesso(response.data);
+  //       setStatus(response.data);
+  //       setDataDeCadastro(response.data);
+  //       console.log(response.data);
+  //       alert("Put Efetuado com sucesso!");
+  //     })
+  //     .catch((error) => {
+  //       console.log("Ops! Ocorreu um erro:" + error);
+  //       alert("Ops! Ocorreu um erro" + error);
+  //     });
+  // }
+
+  function updatePut(id) {
+    Api
+      .put(`${url}/${id}`, {
+        usuarioId,
         senha,
         matricula,
         nome,
@@ -108,11 +139,23 @@ export default function Usuarios() {
         status,
         dataDeCadastro,
       })
-    }
-    catch (error) {
-      console.log("Ops! Ocorreu um erro:" + error);
-      alert("Ops! Ocorreu um erro" + error);
-    }
+      .then((response) => {
+        setUsuarioId(response.data)
+        setSenha(response.data);
+        setNome(response.data);
+        setMatricula(response.data);
+        setCargo(response.data);
+        setEmail(response.data);
+        setGrupoDeAcesso(response.data);
+        setStatus(response.data);
+        setDataDeCadastro(response.data);
+        console.log(response.data);
+        alert("Put Efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:" + error);
+        alert("Ops! Ocorreu um erro" + error);
+      });
   }
 
   return (
@@ -167,9 +210,9 @@ export default function Usuarios() {
                         <td>{usuario.dataDeCadastro}</td>
                         <td className="text-center icons-table">
                           <span
-                            id={usuarioId}
+                            id={usuario.usuarioId}
                             Style="cursor:pointer"
-                            onClick={() => setShow2(true)}
+                            onClick={() => setShow2(true, usuario.usuarioId)}
                           >
                             <VscEdit />
                           </span>
