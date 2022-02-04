@@ -25,6 +25,7 @@ export default function Usuarios() {
 
   //*GET
   const [user, setUser] = useState([]);
+  const [userPut, setUserPut] = useState([]);
 
   var url = "Usuario";
 
@@ -96,37 +97,22 @@ export default function Usuarios() {
     }
   }
 
-  //PUT
-  // function createPut() {
-  //   Api.put(`/${url}/184`, {
-  //     senha,
-  //     matricula,
-  //     nome,
-  //     cargo,
-  //     eMail,
-  //     grupoDeAcesso,
-  //     status,
-  //     dataDeCadastro,
-  //   })
-  //     .then((response) => {
-  //       setSenha(response.data);
-  //       setNome(response.data);
-  //       setMatricula(response.data);
-  //       setCargo(response.data);
-  //       setEmail(response.data);
-  //       setGrupoDeAcesso(response.data);
-  //       setStatus(response.data);
-  //       setDataDeCadastro(response.data);
-  //       console.log(response.data);
-  //       alert("Put Efetuado com sucesso!");
-  //     })
-  //     .catch((error) => {
-  //       console.log("Ops! Ocorreu um erro:" + error);
-  //       alert("Ops! Ocorreu um erro" + error);
-  //     });
-  // }
-
-  //PUT
+  
+  async function handlePutUsuario(usuarioId) {
+    var pegaUsuarioId = usuarioId;
+    console.log('AQUEEEEEEEEEEEEEEE   -----' + pegaUsuarioId);
+    setShow2(true)
+    await Api.get(`/${url}:223`)
+      .then((response) => {
+        
+        console.log(response);
+        setUserPut(response.data);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }
 
   function pegaId(usuarioId){
     console.log(pegaId);
@@ -137,6 +123,18 @@ export default function Usuarios() {
 
     setShow2(true)
   }
+
+  useEffect(() => {
+    Api.get(`${url}`)
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }, []);
 
   function updatePut(id) {
     const pegaId = usuarioId;
@@ -228,7 +226,7 @@ export default function Usuarios() {
                             id={usuario.usuarioId}
                             Style="cursor:pointer"
                             // onClick={() => setShow2(true)}
-                            onClick={() => pegaId(usuario.usuarioId)}
+                            onClick={() => handlePutUsuario(usuario.usuarioId)}
                           >
                             <VscEdit />
                           </span>
@@ -385,14 +383,15 @@ export default function Usuarios() {
               id="formCadastro"
               Style="margin-bottom: 30px"
             >
+              {userPut.map((usuario) => (
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                
+              
                 <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
                     type="text"
                     name="matricula"
-                    value={matricula}
+                    value={usuario.matricula}
                     onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
@@ -401,7 +400,7 @@ export default function Usuarios() {
                   <input
                     type="text"
                     name="nome"
-                    value={nome}
+                    value={usuario.nome}
                     onChange={(e) => setNome(e.target.value)}
                     required
                   />
@@ -411,7 +410,7 @@ export default function Usuarios() {
                   <input
                     type="text"
                     name="cargo"
-                    value={cargo}
+                    value={usuario.cargo}
                     onChange={(e) => setCargo(e.target.value)}
                   />
                 </div>
@@ -420,7 +419,7 @@ export default function Usuarios() {
                   <input
                     type="email"
                     name="email"
-                    value={eMail}
+                    value={usuario.eMail}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -432,7 +431,7 @@ export default function Usuarios() {
                         className="form-control"
                         type={showPassword ? "text" : "password"}
                         name="senha"
-                        value={senha}
+                        value={usuario.senha}
                         onChange={(e) => setSenha(e.target.value)}
                         Style="border-right: none;"
                       />
@@ -448,7 +447,7 @@ export default function Usuarios() {
                   <select
                     name="status"
                     type="number"
-                    value={status}
+                    value={usuario.status}
 
                     onChange={(e) => setStatus(!status)}
 
@@ -468,7 +467,7 @@ export default function Usuarios() {
                   <input
                     type="text"
                     name="dataDeCadastro"
-                    value={dataAtual + " " + horaAtual}
+                    value={usuario.dataDeCadastro}
                     onChange={(e) => setDataDeCadastro(e.target.value)}
                   />
                 </div>
@@ -483,7 +482,9 @@ export default function Usuarios() {
                     Salvar
                   </Button>
                 </div>
+              
               </form>
+              ))}
             </div>
           </Modal.Body>
         </Modal>
