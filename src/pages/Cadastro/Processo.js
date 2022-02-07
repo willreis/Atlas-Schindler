@@ -107,12 +107,14 @@ export default function Processo() {
                   </tr>
                 </thead>
                 <tbody>
-                  {user.map((processo) => (
+                  {user.map((processo, index) => (
                     <tr>
-                      <td Style="display:none" key={processo.processoId}>
+                      <td Style="display:none" key={index}></td>
+                      <td Style="display:none">
                         {processo.processoId}
                       </td>
-                      <td>{processo.nome}</td>
+                      <td>
+                        <input type="text" value={processo.nome} /></td>
                       <td>{processo.ordenacao}</td>
                       <td className="text-center icons-table">
                         <span

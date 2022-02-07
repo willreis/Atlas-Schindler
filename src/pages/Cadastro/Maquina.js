@@ -130,10 +130,11 @@ export default function Maquina() {
 
                   <tbody>
 
-                    {user.map((maquina) => (
+                    {user.map((maquina, index) => (
 
                       <tr>
-                        <td key={maquina.maquinaId} Style="display:none"></td>
+                        <td Style="display:none" key={index}></td>
+                        <td Style="display:none">{maquina.maquinaId}</td>
                         <td>{maquina.nome}</td>
                         <td>{maquina.processoId}</td>
                         <td>{maquina.status ? "Ativo" : "Inativo"}</td>

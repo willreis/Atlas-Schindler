@@ -5,14 +5,12 @@ import { Button } from "react-bootstrap";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Api from "../../services/Api";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
 export default function Usuarios() {
-
   const [showPassword, setShowPassword] = useState(false); //Estado showPassword começa como false.
 
   const togglePassword = () => {
-
     setShowPassword(!showPassword); //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
   };
 
@@ -68,7 +66,6 @@ export default function Usuarios() {
       dataDeCadastro,
     })
       .then((response) => {
-
         console.log(response.data);
         alert("Cadastro Efetuado com sucesso!");
       })
@@ -92,28 +89,44 @@ export default function Usuarios() {
   //PUT
 
   function funcaoAbrirModal(usuarioId) {
-    
-    console.log(usuarioId)
-    console.log("modal abriu")
-    setShowModalPut(true)
+    console.log(usuarioId);
+    console.log("modal abriu");
+    setShowModalPut(true);
+  }
+
+  async function handlerGetPut(usuarioId) {
+    console.log("esse aqui é clicou no id: " + usuarioId);
+
+    await Api.get("/Usuario/237")
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+        console.log("esse aqui ainda: " + usuarioId);
+        setShowModalPut(true);
+        console.log("zezinho");
+        console.log("modal show" + setShowModalPut);
+      })
+      .catch((error) => {
+        console.log("esse aqui errrrrrooooo ainda: " + usuarioId);
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
+      });
   }
 
   function handlePut(id, usuarioId) {
-    console.log('Esse é o id:', usuarioId)
-    Api
-      .put(`${url}/${usuarioId}`, {
-        usuarioId: usuarioId,
-        senha: '1234',
-        matricula: '024E5T09O',
-        nome: 'Julia',
-        cargo: 'Programadora',
-        eMail: 'William.reis@gmail.com',
-        grupoDeAcesso: null,
-        status: true,
-        dataDeCadastro: '2022-02-04T18:12:09.596',
-      })
+    console.log("Esse é o id:", usuarioId);
+    Api.put(`${url}/${usuarioId}`, {
+      usuarioId: usuarioId,
+      senha: "1234",
+      matricula: "024E5T09O",
+      nome: "Julia",
+      cargo: "Programadora",
+      eMail: "William.reis@gmail.com",
+      grupoDeAcesso: null,
+      status: true,
+      dataDeCadastro: "2022-02-04T18:12:09.596",
+    })
       .then((response) => {
-       
         console.log(response.data);
         alert("Put Efetuado com sucesso!");
       })
@@ -122,8 +135,6 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro" + error);
       });
   }
-
- 
 
   return (
     <>
@@ -163,8 +174,7 @@ export default function Usuarios() {
                   <tbody>
                     {user.map((usuario, index) => (
                       <tr>
-                        <td Style="display:none" key={index}>
-                        </td>
+                        <td Style="display:none" key={index}></td>
                         <td>{usuario.matricula}</td>
                         <td>{usuario.nome}</td>
                         <td>{usuario.cargo}</td>
@@ -178,8 +188,10 @@ export default function Usuarios() {
                             id={usuario.usuarioId}
                             Style="cursor:pointer"
                             onClick={() => {
-                              funcaoAbrirModal(handlePut(usuario.usuarioId)
-                              )}}
+                              funcaoAbrirModal(
+                                handlerGetPut(usuario.usuarioId)
+                              );
+                            }}
                           >
                             <VscEdit />
                           </span>
@@ -187,7 +199,6 @@ export default function Usuarios() {
                             Style="cursor:pointer"
                             onClick={() =>
                               handleDeleteUsuario(usuario.usuarioId)
-                              
                             }
                           >
                             <RiDeleteBinFill />
@@ -260,7 +271,9 @@ export default function Usuarios() {
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
-                    <div className="input-group">                            {/*Bootstrap className para juntar*/}
+                    <div className="input-group">
+                      {" "}
+                      {/*Bootstrap className para juntar*/}
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
@@ -270,7 +283,12 @@ export default function Usuarios() {
                         Style="border-right: none;"
                       />
                       <div className="input-group-addon iconEye">
-                        <i onClick={togglePassword} className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
+                        <i
+                          onClick={togglePassword}
+                          className={`fa ${
+                            showPassword ? "fa-eye" : "fa-eye-slash"
+                          }`}
+                        ></i>
                       </div>
                     </div>
                   </div>
@@ -328,106 +346,115 @@ export default function Usuarios() {
             <Modal.Title>Cadastro de Usuarios</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {console.log('rwrwrw ' + usuarioId)}
+            {console.log("rwrwrw " + usuarioId)}
             <div
               className="formCadastro"
               id="formCadastro"
               Style="margin-bottom: 30px"
             >
-              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                <div className="col-md-6 col-sm-6">
-                  <label>Matricula</label>
-                  <input
-                    type="text"
-                    name="matricula"
-                    value={matricula}
-                    onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <label>Nome</label>
-                  <input
-                    type="text"
-                    name="nome"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <label>Cargo</label>
-                  <input
-                    type="text"
-                    name="cargo"
-                    value={cargo}
-                    onChange={(e) => setCargo(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={eMail}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <div className="form-group">
-                    <label>Senha</label>
-                    <div className="input-group">                            {/*Bootstrap className para juntar*/}
-                      <input
-                        className="form-control"
-                        type={showPassword ? "text" : "password"}
-                        name="senha"
-                        value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
-                        Style="border-right: none;"
-                      />
-                      <div className="input-group-addon iconEye">
-                        <i onClick={togglePassword} className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
+              {user.map((usuario, index) => (
+                <form className="row g-3 formPadrao" onSubmit={handlePut}>
+                  <div className="col-md-6 col-sm-6">
+                    <label>Matricula</label>
+                    <input
+                      type="text"
+                      name="matricula"
+                      value={matricula}
+                      onChange={(e) => setMatricula(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-6 col-sm-6">
+                    <label>Nome</label>
+                    <input
+                      type="text"
+                      name="nome"
+                      value={nome}
+                      onChange={(e) => setNome(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 col-sm-6">
+                    <label>Cargo</label>
+                    <input
+                      type="text"
+                      name="cargo"
+                      value={cargo}
+                      onChange={(e) => setCargo(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-6 col-sm-6">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={eMail}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-6 col-sm-6">
+                    <div className="form-group">
+                      <label>Senha</label>
+                      <div className="input-group">
+                        {" "}
+                        {/*Bootstrap className para juntar*/}
+                        <input
+                          className="form-control"
+                          type={showPassword ? "text" : "password"}
+                          name="senha"
+                          value={senha}
+                          onChange={(e) => setSenha(e.target.value)}
+                          Style="border-right: none;"
+                        />
+                        <div className="input-group-addon iconEye">
+                          <i
+                            onClick={togglePassword}
+                            className={`fa ${
+                              showPassword ? "fa-eye" : "fa-eye-slash"
+                            }`}
+                          ></i>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <label>Status</label>
-                  <select
-                    name="status"
-                    value={status}
-                    onChange={() => setStatus(!status)}
-                  >
-                    <option>Escolha uma opção</option>
-                    <option name="ativo" value={true}>
-                      Ativo
-                    </option>
-                    <option name="inativo" value={false}>
-                      Inativo
-                    </option>
-                  </select>
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <label>Data Cadastro</label>
-                  <input
-                    type="text"
-                    name="dataDeCadastro"
-                    value={dataAtual + " " + horaAtual}
-                    onChange={(e) => setDataDeCadastro(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-2 col-sm-6 btnCol">
-                  <Button
-                    type="submit"
-                    variant="success"
-                    className="align-self-baseline"
-                    onClick={(usuario) => {
-                      handlePut(usuario.usuarioId)
-                    }}
-                  >
-                    Salvar
-                  </Button>
-                </div>
-              </form>
+                  <div className="col-md-6 col-sm-6">
+                    <label>Status</label>
+                    <select
+                      name="status"
+                      value={status}
+                      onChange={() => setStatus(!status)}
+                    >
+                      <option>Escolha uma opção</option>
+                      <option name="ativo" value={true}>
+                        Ativo
+                      </option>
+                      <option name="inativo" value={false}>
+                        Inativo
+                      </option>
+                    </select>
+                  </div>
+                  <div className="col-md-6 col-sm-6">
+                    <label>Data Cadastro</label>
+                    <input
+                      type="text"
+                      name="dataDeCadastro"
+                      value={dataAtual + " " + horaAtual}
+                      onChange={(e) => setDataDeCadastro(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-2 col-sm-6 btnCol">
+                    <Button
+                      type="submit"
+                      variant="success"
+                      className="align-self-baseline"
+                      onClick={(usuario) => {
+                        handlePut(usuario.usuarioId);
+                      }}
+                    >
+                      Salvar
+                    </Button>
+                  </div>
+                </form>
+              ))}
             </div>
           </Modal.Body>
         </Modal>

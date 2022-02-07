@@ -111,9 +111,10 @@ export default function GruposAcesso() {
                     </tr>
                   </thead>
                   <tbody>
-                    {user.map((grupo) => (
+                    {user.map((grupo, index) => (
                       <tr>
-                        <td key={grupo.grupoDeAcessoId} Style="display:none">
+                        <td Style="display:none" key={index}></td>
+                        <td Style="display:none">
                           {grupo.grupoDeAcessoId}
                         </td>
                         <td>{grupo.nomeDoGrupo}</td>
