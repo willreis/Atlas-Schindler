@@ -8,12 +8,12 @@ import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Maquina() {
-
-  var url = 'Maquina';
-  var urlProcesso = 'Processo';
+  var url = "Maquina";
+  var urlProcesso = "Processo";
 
   //Modal const
   const [show, setShow] = useState(false);
+  const [showModalPut, setShowModalPut] = useState(false);
 
   //Get
   const [user, setUser] = useState([]);
@@ -42,13 +42,13 @@ export default function Maquina() {
   }, []);
 
   //POST
+  const [maquinaId, setMaquinaId] = useState();
   const [nome, setNome] = useState();
   const [processoId, setProcessoId] = useState();
   const [processo, setProcesso] = useState();
   const [status, setStatus] = useState();
   const [ordenacao, setOrdenacao] = useState();
   const [tempoMedioProducao, setTempoMedioProducao] = useState();
-
 
   function handleRegister(e) {
     // e.preventDefault();
@@ -65,12 +65,6 @@ export default function Maquina() {
       tempoMedioProducao,
     })
       .then((response) => {
-        // setNome(response.data);
-        // setProcessoId(response.data);
-        // setProcesso(response.data);
-        // setStatus(response.data);
-        // setOrdenacao(response.data);
-        // setTempoMedioProducao(response.data);
         console.log(response.data);
         alert("Máquina cadastrado com sucesso!");
         alert("Cadastro Efetuado com sucesso!");
@@ -86,12 +80,67 @@ export default function Maquina() {
     try {
       await Api.delete(`/${url}/${maquinaId}`);
       setUser(user.filter((maquina) => maquina.maquinaId !== maquinaId));
-      alert("Deletado com sucesso")
-    
+      alert("Deletado com sucesso");
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
-      console.log(err)
+      console.log(err);
     }
+  }
+
+  ///////PUT
+  function handlePut() {
+    Api.put(`${url}/${maquinaId}`, {
+      maquinaId,
+      nome,
+      processoId,
+      processo,
+      status,
+      ordenacao,
+      tempoMedioProducao,
+    })
+      .then((response) => {
+        setMaquinaId(maquinaId);
+        setNome();
+        setProcessoId();
+        setProcesso();
+        setStatus();
+        setOrdenacao();
+        setTempoMedioProducao();
+
+        console.log("Esse é o console do Put: ", response);
+        alert("Put Efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
+
+  function funcaoAbrirModal(maquina) {
+    setShowModalPut(true);
+
+    Api.get(`${url}/${maquina.maquinaId}`, {
+      maquinaId,
+      nome,
+      processoId,
+      processo,
+      status,
+      ordenacao,
+      tempoMedioProducao,
+    })
+      .then(() => {
+        setMaquinaId(maquina.maquinaId);
+        setNome(maquina.nome);
+        setProcessoId(maquina.processoId);
+        setProcesso(maquina.processo);
+        setStatus(maquina.status);
+        setOrdenacao(maquina.ordenacao);
+        setTempoMedioProducao(maquina.tempoMedioProducao);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
+      });
   }
 
   return (
@@ -129,9 +178,7 @@ export default function Maquina() {
                   </thead>
 
                   <tbody>
-
                     {user.map((maquina, index) => (
-
                       <tr>
                         <td Style="display:none" key={index}></td>
                         <td Style="display:none">{maquina.maquinaId}</td>
@@ -143,8 +190,10 @@ export default function Maquina() {
                         <td className="text-center icons-table">
                           <span
                             Style="cursor:pointer"
-                            // onClick={() => pegarId(maquina.maquinaId)}
-                            alt="Editar">
+                            onClick={() => {
+                              funcaoAbrirModal(maquina);
+                            }}
+                          >
                             <VscEdit />
                           </span>
 
@@ -158,9 +207,7 @@ export default function Maquina() {
                           </span>
                         </td>
                       </tr>
-
                     ))}
-
                   </tbody>
                 </table>
               </div>
@@ -179,7 +226,7 @@ export default function Maquina() {
           </div>
         </div>
 
-        {/* Cadastro */}
+        {/* Modal Cadastro */}
         <Modal
           size="lg"
           show={show}
@@ -218,9 +265,7 @@ export default function Maquina() {
                       name={processo}
                       value={processoId}
                       onChange={(e) => {
-
                         setProcessoId(parseInt(e.target.value));
-
                       }}
                     >
                       <option>Escolha uma opção</option>
@@ -228,7 +273,6 @@ export default function Maquina() {
                         <option
                           name={processo.nome}
                           value={processo.processoId}
-
                         >
                           {processo.nome}
                         </option>
@@ -281,6 +325,123 @@ export default function Maquina() {
                       onClick={createPost}
                     >
                       Cadastrar
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal Put */}
+        <Modal
+          size="lg"
+          show={showModalPut}
+          onHide={() => setShowModalPut(false)}
+          dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title">
+              Cadastro de Maquina
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className="formCadastro"
+              id="formCadastro"
+              Style="margin-bottom: 30px"
+            >
+              <form className="g-3 formPadrao" onSubmit={handleRegister}>
+                <div className="row">
+                  <div className="col-md-4 col-sm-6" Style="display:none">
+                    <label>Id</label>
+                    <input
+                      name="maquinaId"
+                      value={maquinaId}
+                      onChange={(e) => setNome(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-4 col-sm-6">
+                    <label>Nome</label>
+                    <input
+                      type="text"
+                      name="nome"
+                      value={nome}
+                      onChange={(e) => setNome(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-4 col-sm-6">
+                    <label>Processo</label>
+
+                    <select
+                      type="number"
+                      id="processos"
+                      name={processo}
+                      value={processoId}
+                      onChange={(e) => {
+                        setProcessoId(parseInt(e.target.value));
+                      }}
+                    >
+                      <option>Escolha uma opção</option>
+                      {user2.map((processo) => (
+                        <option
+                          name={processo.nome}
+                          value={processo.processoId}
+                        >
+                          {processo.nome}
+                        </option>
+                      ))}
+                      ;
+                    </select>
+                  </div>
+
+                  <div className="col-md-4 col-sm-6">
+                    <label>Status</label>
+                    <select
+                      name="status"
+                      value={status}
+                      onChange={(e) => setStatus(!status)}
+                    >
+                      <option>Escolha</option>
+                      <option name="ativo" value="true">
+                        Ativo
+                      </option>
+                      <option name="inativo" value="false">
+                        Inativo
+                      </option>
+                    </select>
+                  </div>
+                  <div className="col-md-4 col-sm-6">
+                    <label>Ordenacao</label>
+                    <input
+                      type="number"
+                      name="ordenacao"
+                      value={ordenacao}
+                      onChange={(e) => setOrdenacao(parseFloat(e.target.value))}
+                    />
+                  </div>
+                  <div className="col-md-4 col-sm-6">
+                    <label>Tempo Médio</label>
+                    <input
+                      type="number"
+                      name="tempoMedio"
+                      value={tempoMedioProducao}
+                      onChange={(e) =>
+                        setTempoMedioProducao(parseFloat(e.target.value))
+                      }
+                    />
+                  </div>
+                  <div className="col-md-4 col-sm-12 btnCol">
+                    <Button
+                      type="submit"
+                      variant="success"
+                      className="align-self-baseline"
+                      onClick={(maquina) => {
+                        handlePut(maquina.maquinaId);
+                      }}
+                    >
+                      Salvar
                     </Button>
                   </div>
                 </div>

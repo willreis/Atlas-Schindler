@@ -52,7 +52,7 @@ export default function Usuarios() {
   const [dataDeCadastro, setDataDeCadastro] = useState();
 
   function handleRegister(e) {
-    // e.preventDefault();
+    //e.preventDefault();
     handleRegister(user);
   }
 
@@ -96,8 +96,8 @@ export default function Usuarios() {
     }
   }
 
-  function handlePut(usuario) {
-    Api.put(`/${url}/${usuario.usuarioId}`, {
+  function handlePut() {
+    Api.put(`${url}/${usuarioId}`, {
       usuarioId,                                                  //Os Estados para editar.
       senha,
       matricula,
@@ -107,17 +107,17 @@ export default function Usuarios() {
       grupoDeAcesso,
       status,
       dataDeCadastro,
-    })
+    })(console.log('funciona ate aqui'))
       .then((response) => {
-        // setUsuarioId(response.usuarioId);
-        // setSenha(response.senha);
-        // setNome(response.nome);
-        // setMatricula(response.matricula);
-        // setCargo(response.cargo);
-        // setEmail(response.eMail);
-        // setGrupoDeAcesso(response.grupoDeAcesso);
-        // setStatus(response.status);
-        // setDataDeCadastro(response.dataDeCadastro);
+        setUsuarioId(usuarioId);
+        setSenha();
+        setNome();
+        setMatricula();
+        setCargo();
+        setEmail();
+        setGrupoDeAcesso();
+        setStatus();
+        setDataDeCadastro();
         console.log('Esse é o console do Put: ', response)
         alert("Put Efetuado com sucesso!");
       })
@@ -144,6 +144,7 @@ export default function Usuarios() {
       dataDeCadastro,
     })
       .then(() => {
+        setUsuarioId(usuario.usuarioId);
         setSenha(usuario.senha);
         setNome(usuario.nome);
         setMatricula(usuario.matricula);
@@ -152,7 +153,6 @@ export default function Usuarios() {
         setGrupoDeAcesso(usuario.grupoDeAcesso);
         setStatus(usuario.status);
         setDataDeCadastro(usuario.dataDeCadastro);
-        console.log(usuario.nome)
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -235,7 +235,9 @@ export default function Usuarios() {
             </div>
           </div>
         </div>
-        {/* Modal do Bootstrap*/}
+
+
+        {/* Modal de Cadastro*/}
         <Modal
           Style="margin-top: 100px; margin-left: 500px"
           size="lg"
@@ -367,13 +369,22 @@ export default function Usuarios() {
               Style="margin-bottom: 30px"
             >
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                <td Style="display:none">
+                <td>
                 </td>
+                <div className="col-md-6 col-sm-6" Style="display:none">
+                  <label>Id</label>
+                  <input
+                    
+                    name="usuarioId"
+                    value={usuarioId}
+                    onChange={(e) => setUsuarioId(e.target.value)}
+                  />
+                </div>
                 <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
                     type="text"
-                    name={matricula}
+                    name="matricula"
                     value={matricula}
                     onChange={(e) => setMatricula(e.target.value)}
                   />
@@ -455,7 +466,7 @@ export default function Usuarios() {
                     variant="success"
                     className="align-self-baseline"
                     onClick={(usuario) => {
-                      handlePut(usuarioId)
+                      handlePut(usuario.usuarioId)
                     }}
                   >
                     Salvar
