@@ -96,29 +96,36 @@ export default function Usuarios() {
     }
   }
 
-  // function handlePut(usuarioId) {
-  //   Api.put(`/${url}/${usuarioId}`)
-  //     .then(() => {
-  //       JSON.stringify({
-  //         "usuarioId": usuarioId,                                                  //Os Estados para editar.
-  //         "senha": senha,
-  //         "matricula": matricula,
-  //         "nome": nome,
-  //         "cargo": cargo,
-  //         "eMail": eMail,
-  //         "grupoDeAcesso": grupoDeAcesso,
-  //         "status": status,
-  //         "dataDeCadastro": dataDeCadastro,
-  //       })
-  //       console.log('Esse é o id:', usuarioId)
-  //       console.log('Esse é o then: ');
-  //       alert("Put Efetuado com sucesso!");
-  //     })
-  //     .catch((error) => {
-  //       console.log("Ops! Ocorreu um erro: " + error);
-  //       alert("Ops! Ocorreu um erro: " + error);
-  //     });
-  // }
+  function handlePut(usuario) {
+    Api.put(`/${url}/${usuario.usuarioId}`, {
+      usuarioId,                                                  //Os Estados para editar.
+      senha,
+      matricula,
+      nome,
+      cargo,
+      eMail,
+      grupoDeAcesso,
+      status,
+      dataDeCadastro,
+    })
+      .then((response) => {
+        // setUsuarioId(response.usuarioId);
+        // setSenha(response.senha);
+        // setNome(response.nome);
+        // setMatricula(response.matricula);
+        // setCargo(response.cargo);
+        // setEmail(response.eMail);
+        // setGrupoDeAcesso(response.grupoDeAcesso);
+        // setStatus(response.status);
+        // setDataDeCadastro(response.dataDeCadastro);
+        console.log('Esse é o console do Put: ', response)
+        alert("Put Efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
 
   function funcaoAbrirModal(usuario) {
     setShowModalPut(true)
@@ -447,8 +454,8 @@ export default function Usuarios() {
                     type="submit"
                     variant="success"
                     className="align-self-baseline"
-                    onClick={(usuarioPut) => {
-                      // handlePut(usuarioPut.usuarioId)
+                    onClick={(usuario) => {
+                      handlePut(usuarioId)
                     }}
                   >
                     Salvar
