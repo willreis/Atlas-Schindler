@@ -58,15 +58,7 @@ export default function Material() {
       maximoDeEstoque,
     })
       .then((response) => {
-        // setCodigo(response.data);
-        // setNome(response.data);
-        // setLocalizacao(response.data);
-        // setComprimento(response.data);
-        // setLargura(response.data);
-        // setEspessura(response.data);
-        // setUnidade(response.data);
-        // setMinimoDeEstoque(response.data);
-        // setMaximoDeEstoque(response.data);
+        
         console.log(response.data);
         alert("Material efetuado com sucesso");
       })
@@ -125,9 +117,10 @@ export default function Material() {
                 </thead>
 
                 <tbody>
-                  {user.map((material) => (
+                  {user.map((material, index) => (
                     <tr>
-                      <td Style="display: none" key={material.materialId}>{material.materialId}</td>
+                      <td Style="display:none" key={index}></td>
+                      <td Style="display: none">{material.materialId}</td>
                       <td>{material.codigo}</td>
                       <td>{material.nome}</td>
                       <td>{material.localizacao}</td>

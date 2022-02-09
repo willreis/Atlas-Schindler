@@ -103,9 +103,10 @@ export default function Impressora() {
                     </tr>
                   </thead>
                   <tbody>
-                    {user.map((impressora) => (
-                      <tr>
-                        <td key={impressora.impressoraId} Style="display:none">
+                    {user.map((impressora, index) => (
+                     <tr>
+                        <td Style="display:none" key={index}></td>
+                        <td Style="display:none">
                           {impressora.impressoraId}
                         </td>
                         <td>{impressora.nome}</td>
