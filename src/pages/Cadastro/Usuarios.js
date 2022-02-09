@@ -96,42 +96,60 @@ export default function Usuarios() {
     }
   }
 
-  function handlePut(usuarioId) {
-    console.log('Esse é o id:', usuarioId)
-    Api
-      .put(`${url}/${usuarioId}`, {
-        usuarioId,
-        senha,
-        matricula,
-        nome,
-        cargo,
-        eMail,
-        grupoDeAcesso,
-        status,
-        dataDeCadastro,
-      })
-      .then((response) => {
-        // setUsuarioId(response.data)
-        // setSenha(response.data);
-        // setNome(response.data);
-        // setMatricula(response.data);
-        // setCargo(response.data);
-        // setEmail(response.data);
-        // setGrupoDeAcesso(response.data);
-        // setStatus(response.data);
-        // setDataDeCadastro(response.data);
-        console.log(response.data);
-        alert("Put Efetuado com sucesso!");
+  // function handlePut(usuarioId) {
+  //   Api.put(`/${url}/${usuarioId}`)
+  //     .then(() => {
+  //       JSON.stringify({
+  //         "usuarioId": usuarioId,                                                  //Os Estados para editar.
+  //         "senha": senha,
+  //         "matricula": matricula,
+  //         "nome": nome,
+  //         "cargo": cargo,
+  //         "eMail": eMail,
+  //         "grupoDeAcesso": grupoDeAcesso,
+  //         "status": status,
+  //         "dataDeCadastro": dataDeCadastro,
+  //       })
+  //       console.log('Esse é o id:', usuarioId)
+  //       console.log('Esse é o then: ');
+  //       alert("Put Efetuado com sucesso!");
+  //     })
+  //     .catch((error) => {
+  //       console.log("Ops! Ocorreu um erro: " + error);
+  //       alert("Ops! Ocorreu um erro: " + error);
+  //     });
+  // }
+
+  function funcaoAbrirModal(usuario) {
+    setShowModalPut(true)
+    console.log("funcaoAbrirModal ativada!")
+
+    Api.get(`${url}/${usuario.usuarioId}`, {
+      usuarioId,
+      senha,
+      matricula,
+      nome,
+      cargo,
+      eMail,
+      grupoDeAcesso,
+      status,
+      dataDeCadastro,
+    })
+      .then(() => {
+        setSenha(usuario.senha);
+        setNome(usuario.nome);
+        setMatricula(usuario.matricula);
+        setCargo(usuario.cargo);
+        setEmail(usuario.eMail);
+        setGrupoDeAcesso(usuario.grupoDeAcesso);
+        setStatus(usuario.status);
+        setDataDeCadastro(usuario.dataDeCadastro);
+        console.log(usuario.nome)
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro: " + error);
-        alert("Ops! Ocorreu um erro" + error);
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
       });
-  }
-
-  function funcaoAbrirModal() {
-    setShowModalPut(true)
-    console.log("modal abriu")
   }
 
   return (
@@ -187,7 +205,7 @@ export default function Usuarios() {
                             id={usuario.usuarioId}
                             Style="cursor:pointer"
                             onClick={() => {
-                              funcaoAbrirModal()
+                              funcaoAbrirModal(usuario)
                             }}
                           >
                             <VscEdit />
@@ -341,11 +359,13 @@ export default function Usuarios() {
               Style="margin-bottom: 30px"
             >
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                <td Style="display:none">
+                </td>
                 <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
                     type="text"
-                    name="matricula"
+                    name={matricula}
                     value={matricula}
                     onChange={(e) => setMatricula(e.target.value)}
                   />
@@ -417,7 +437,7 @@ export default function Usuarios() {
                   <input
                     type="text"
                     name="dataDeCadastro"
-                    value={dataAtual + " " + horaAtual}
+                    value={dataDeCadastro}
                     onChange={(e) => setDataDeCadastro(e.target.value)}
                   />
                 </div>
@@ -426,8 +446,8 @@ export default function Usuarios() {
                     type="submit"
                     variant="success"
                     className="align-self-baseline"
-                    onClick={(usuario) => {
-                      handlePut(usuario.usuarioId)
+                    onClick={(usuarioPut) => {
+                      // handlePut(usuarioPut.usuarioId)
                     }}
                   >
                     Salvar
