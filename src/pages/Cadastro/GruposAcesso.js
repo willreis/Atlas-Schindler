@@ -9,18 +9,17 @@ import { Button } from "react-bootstrap";
 import { TiArrowForward } from "react-icons/ti";
 import { TiArrowBack } from "react-icons/ti";
 import "../../../src/grupo.css";
-
-import BootstrapTable from "react-bootstrap-table-next";
-
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
+
   const columns = [
     {
-      text: "Telas Sem Permissão",
+      text: "Telas Sem Permissão!",
       dataField: "telas",
     },
   ];
+
   const products = [
     {
       telas: "Usuario",
@@ -110,71 +109,6 @@ export default function GruposAcesso() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
-        <div className="container paddingContainer">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="tituloInterno">
-                <h2 Style="color:#555;">Grupo de Acesso</h2>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div Style="text-align: right">
-                <Button variant="success" onClick={() => setShow(true)}>
-                  Cadastrar
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div className="textTable">
-                <table class="table table-striped table-bordered">
-                  <thead>
-                    <tr className="text-center">
-                      <th scope="col">Nome</th>
-                      <th scope="col">Descrição</th>
-                      <th scope="col">Qtd Telas Permitidas</th>
-                      <th scope="col">Qtd De Usuarios</th>
-                      <th scope="col">Editar / Excluir</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {user.map((grupo, index) => (
-                      <tr>
-                        <td Style="display:none" key={index}></td>
-                        <td Style="display:none">{grupo.grupoDeAcessoId}</td>
-                        <td>{grupo.nomeDoGrupo}</td>
-                        <td>{grupo.descricaoDoGrupo}</td>
-                        <td>{grupo.quantidadeTelasPermitidas}</td>
-                        <td>{grupo.quantidadeDeUsuarios}</td>
-                        <td className="text-center icons-table">
-                          <span
-                            Style="cursor:pointer"
-                            // onClick={() => pegarId(maquina.maquinaId)}
-                            alt="Editar"
-                          >
-                            <VscEdit />
-                          </span>
-
-                          <span
-                            Style="cursor:pointer"
-                            onClick={() =>
-                              handleDeleteMaquina(grupo.grupoDeAcessoId)
-                            }
-                            alt="Deletar"
-                          >
-                            <RiDeleteBinFill />
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="cadastroGPAcesso">
           <Modal
             size="lg"
@@ -189,73 +123,89 @@ export default function GruposAcesso() {
                 Cadastro de Grupo de Acesso
               </Modal.Title>
             </Modal.Header>
+
             <Modal.Body>
               <div
                 className="formCadastro"
                 id="formCadastro"
                 Style="margin-bottom: 30px"
               >
-                <div className="row">
-                  <form className="row formPadrao">
-                    <div className="row">
-                      <div className="col-5">
-                        <label>Nome</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Nome"
-                        />
+                <form className="row formPadrao">
+                  <div className="row">
+                    <div className="col-6">
+                      <label>Nome</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Nome"
+                      />
+                    </div>
+                    <div className="col-6">
+                      <label>Descrição</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Descrição"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row" Style='margin-top: 1rem; margin-bottom: 1rem'>
+                    <div className="col-3">
+                      <Button variant="success" Style="width:100%">
+                        Telas
+                      </Button>
+                    </div>
+                    <div className="col-3">
+                      <Button variant="success" Style="width:100%">
+                        Usuarios
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="row mt-3">
+                    <div className="col-5">
+                      <BootstrapTable
+                        keyField="id"
+                        data={products}
+                        columns={columns}
+                        bordered={false}
+                      />
+                    </div>
+
+                    <div className="col-2 text-center" >
+                      <div Style='border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer'>
+                        <TiArrowForward />
                       </div>
-                      <div className="col-5">
-                        <label>Descrição</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Descrição"
-                        />
+                      <div Style='border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;'>
+                        <TiArrowBack />
                       </div>
                     </div>
-                    <div className="row mt-3">
-                      <div className="col-md-2">
-                        <Button variant="success" Style="width:100%">
-                          Telas
+
+                    <div className="col-5">
+                      <BootstrapTable
+                        keyField="id"
+                        data={products}
+                        columns={columns}
+                        bordered={false}
+                      />
+                    </div>
+
+                    <div className='row mt-4'>
+                      <div className='col-6'>
+                        <Button variant='secondary'>
+                          Voltar
                         </Button>
                       </div>
-                      <div className="col-md-2">
-                        <Button variant="success" Style="width:100%">
-                          Usuarios
+                      <div className='col-6' Style='text-align:right'>
+                        <Button variant='success'>
+                          Salvar
                         </Button>
                       </div>
                     </div>
-                    <div className="row mt-3">
-                      <div className="col-md-4">
-                        <BootstrapTable
-                          keyField="id"
-                          data={products}
-                          columns={columns}
-                          bordered={false}
-                        />
-                      </div>
-                      <div className="col-md-2 center">
-                        <div>
-                          <TiArrowForward />
-                        </div>
-                        <div>
-                          <TiArrowBack />
-                        </div>
-                      </div>
-                      <div className="col-md-4">
-                        <BootstrapTable
-                          keyField="id"
-                          data={products}
-                          columns={columns}
-                          bordered={false}
-                          centered
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
+
+                  </div>
+                </form>
               </div>
             </Modal.Body>
           </Modal>
