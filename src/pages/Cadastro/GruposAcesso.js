@@ -103,6 +103,71 @@ export default function GruposAcesso() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
+        <div className="container paddingContainer">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="tituloInterno">
+                <h2 Style="color:#555;">Grupo de Acesso</h2>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div Style="text-align: right">
+                <Button variant="success" onClick={() => setShow(true)}>
+                  Cadastrar
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
+              <div className="textTable">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr className="text-center">
+                      <th scope="col">Nome</th>
+                      <th scope="col">Descrição</th>
+                      <th scope="col">Qtd Telas Permitidas</th>
+                      <th scope="col">Qtd De Usuarios</th>
+                      <th scope="col">Editar / Excluir</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {user.map((grupo, index) => (
+                      <tr>
+                        <td Style="display:none" key={index}></td>
+                        <td Style="display:none">{grupo.grupoDeAcessoId}</td>
+                        <td>{grupo.nomeDoGrupo}</td>
+                        <td>{grupo.descricaoDoGrupo}</td>
+                        <td>{grupo.quantidadeTelasPermitidas}</td>
+                        <td>{grupo.quantidadeDeUsuarios}</td>
+                        <td className="text-center icons-table">
+                          <span
+                            Style="cursor:pointer"
+                            // onClick={() => pegarId(maquina.maquinaId)}
+                            alt="Editar"
+                          >
+                            <VscEdit />
+                          </span>
+
+                          <span
+                            Style="cursor:pointer"
+                            onClick={() =>
+                              handleDeleteMaquina(grupo.grupoDeAcessoId)
+                            }
+                            alt="Deletar"
+                          >
+                            <RiDeleteBinFill />
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="cadastroGPAcesso">
           <Modal
             size="lg"
