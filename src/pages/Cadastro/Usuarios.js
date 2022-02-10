@@ -97,8 +97,9 @@ export default function Usuarios() {
   }
 
   function handlePut(usuario) {
-    Api.put(`/${url}/${usuario.usuarioId}`, {
-      usuarioId,                                                  //Os Estados para editar.
+
+    Api.put(`${url}/${usuario.usuarioId}`, {
+      usuarioId,
       senha,
       matricula,
       nome,
@@ -108,29 +109,27 @@ export default function Usuarios() {
       status,
       dataDeCadastro,
     })
-      .then((response) => {
-        // setUsuarioId(response.usuarioId);
-        // setSenha(response.senha);
-        // setNome(response.nome);
-        // setMatricula(response.matricula);
-        // setCargo(response.cargo);
-        // setEmail(response.eMail);
-        // setGrupoDeAcesso(response.grupoDeAcesso);
-        // setStatus(response.status);
-        // setDataDeCadastro(response.dataDeCadastro);
-        console.log('Esse é o console do Put: ', response)
-        alert("Put Efetuado com sucesso!");
+      .then((usuario) => {
+        setUsuarioId(usuarioId);
+        setSenha(senha);
+        setNome(nome);
+        setMatricula(matricula);
+        setCargo(cargo);
+        setEmail(eMail);
+        setGrupoDeAcesso(grupoDeAcesso);
+        setStatus(status);
+        setDataDeCadastro(dataDeCadastro);
+        console.log('Esse é o console do Put: ', usuario)
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro: " + error);
-        alert("Ops! Ocorreu um erro: " + error);
+        console.log("Ops! Ocorreu um erro: ", error);
+        alert("Ops! Ocorreu um erro: ", error);
       });
   }
 
   function funcaoAbrirModal(usuario) {
     setShowModalPut(true)
     console.log("funcaoAbrirModal ativada!")
-    console.log("aquiiii deletar")
 
     Api.get(`${url}/${usuario.usuarioId}`, {
       usuarioId,
@@ -144,6 +143,7 @@ export default function Usuarios() {
       dataDeCadastro,
     })
       .then(() => {
+        setUsuarioId(usuario.usuarioId)
         setSenha(usuario.senha);
         setNome(usuario.nome);
         setMatricula(usuario.matricula);
@@ -373,7 +373,7 @@ export default function Usuarios() {
                   <label>Matricula</label>
                   <input
                     type="text"
-                    name={matricula}
+                    name="matricula"
                     value={matricula}
                     onChange={(e) => setMatricula(e.target.value)}
                   />
@@ -455,7 +455,7 @@ export default function Usuarios() {
                     variant="success"
                     className="align-self-baseline"
                     onClick={(usuario) => {
-                      handlePut(usuarioId)
+                      handlePut(usuario.usuarioId)
                     }}
                   >
                     Salvar
