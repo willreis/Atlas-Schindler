@@ -25,7 +25,7 @@ export default function Usuarios() {
 
   //*GET
   const [user, setUser] = useState([]);
-
+  
   var url = "Usuario";
 
   useEffect(() => {
@@ -39,6 +39,7 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro1:", error);
       });
   }, []);
+ 
 
   // POST
   const [usuarioId, setUsuarioId] = useState();
@@ -47,7 +48,8 @@ export default function Usuarios() {
   const [matricula, setMatricula] = useState();
   const [cargo, setCargo] = useState();
   const [eMail, setEmail] = useState();
-  const [grupoDeAcesso, setGrupoDeAcesso] = useState(null);
+  const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
+  const [nomeDoGrupo, setNomeDoGrupo] = useState();
   const [status, setStatus] = useState();
   const [dataDeCadastro, setDataDeCadastro] = useState();
 
@@ -96,6 +98,7 @@ export default function Usuarios() {
     }
   }
 
+ 
   function handlePut() {
     Api.put(`${url}/${usuarioId}`, {
       usuarioId,                                                  //Os Estados para editar.
@@ -205,7 +208,7 @@ export default function Usuarios() {
                         <td>{usuario.cargo}</td>
                         <td>{usuario.eMail}</td>
                         <td>{usuario.senha}</td>
-                        <td>{usuario.grupoDeAcesso}</td>
+                        <td>{usuario.nomeDoGrupo}</td>
                         <td>{usuario.status ? "Ativo" : "Inativo"}</td>
                         <td>{usuario.dataDeCadastro}</td>
                         <td className="text-center icons-table">
