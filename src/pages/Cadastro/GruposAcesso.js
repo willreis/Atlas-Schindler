@@ -12,10 +12,41 @@ import "../../../src/grupo.css";
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
+  const [getTela, setGetTela] = useState();
+  // const telaId = localStorage.getItem('telaId');
+  // const telaNome = localStorage.getItem('nome')
+
+  useEffect(() => {
+    Api.get("Tela/")
+      .then((response) => {
+        console.log(response);
+        setGetTela(response.data);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }, []);
+
+  const columnsSemPermissao = [
+    {
+      text: "Telas Sem Permissão!",
+      dataField: "telas",
+    },
+  ];
+
+  const productsSemPermissao = [
+    {
+      // telas: getTela.nome,
+      telas: "usuario",
+    },
+    
+  ];
+
 
   const columns = [
     {
-      text: "Telas Sem Permissão!",
+      text: "Telas Permitidas!",
       dataField: "telas",
     },
   ];
@@ -223,11 +254,11 @@ export default function GruposAcesso() {
                   </div>
 
                   <div className="row mt-3">
-                    <div className="col-5">
+                    <div className="col-5 ultimaTabela">
                       <BootstrapTable
                         keyField="id"
-                        data={products}
-                        columns={columns}
+                        data={productsSemPermissao}
+                        columns={columnsSemPermissao}
                         bordered={false}
                       />
                     </div>
@@ -247,6 +278,7 @@ export default function GruposAcesso() {
                         data={products}
                         columns={columns}
                         bordered={false}
+                       
                       />
                     </div>
 
