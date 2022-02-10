@@ -8,25 +8,14 @@ import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Processo() {
-
-  var url = 'Processo';
+  var url = "Processo";
 
   //Modal const
   const [show, setShow] = useState(false);
-  // const [show2, setShow2] = useState(false);
-  const [showPut, setShowPut] = useState(false);
+  const [showModalPut, setShowModalPut] = useState(false);
 
   //Get
   const [user, setUser] = useState([]);
-
-  var pegarId = editarDados;
-
-  function editarDados(idPego) {
-    // var idElemento = idPego;
-    console.log(idPego);
-
-    setShowPut(true);
-  }
 
   useEffect(() => {
     Api.get(`${url}`)
@@ -45,15 +34,16 @@ export default function Processo() {
     try {
       await Api.delete(`/${url}/${processoId}`);
       setUser(user.filter((processo) => processo.processoId !== processoId));
-      alert("Deletado com sucesso")
+      alert("Deletado com sucesso");
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
   }
 
   // POST
-  const [nome, setNome] = useState([]);
-  const [ordenacao, setOrdenacao] = useState([]);
+  const [processoId, setProcessoId] = useState();
+  const [nome, setNome] = useState();
+  const [ordenacao, setOrdenacao] = useState();
 
   function handleRegister(e) {
     // e.preventDefault();
@@ -74,6 +64,45 @@ export default function Processo() {
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
         alert("Ops! Ocorreu um erro!!!:", error);
+      });
+  }
+
+  ///////PUT
+  function handlePut() {
+    Api.put(`${url}/${processoId}`, {
+      processoId, //Os Estados para editar.
+      nome,
+      ordenacao,
+    })
+      .then((response) => {
+        setProcessoId(processoId);
+        setNome();
+        setOrdenacao();
+        console.log("Esse é o console do Put: ", response);
+        alert("Put Efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
+
+  function funcaoAbrirModal(processo) {
+    setShowModalPut(true);
+
+    Api.get(`${url}/${processo.processoId}`, {
+      processoId,
+      nome,
+      ordenacao,
+    })
+      .then(() => {
+        setProcessoId(processo.processoId);
+        setNome(processo.nome);
+        setOrdenacao(processo.ordenacao);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
       });
   }
 
@@ -110,16 +139,16 @@ export default function Processo() {
                   {user.map((processo, index) => (
                     <tr>
                       <td Style="display:none" key={index}></td>
-                      <td Style="display:none">
-                        {processo.processoId}
-                      </td>
-                      <td>
-                        <input type="text" value={processo.nome} /></td>
+                      <td Style="display:none">{processo.processoId}</td>
+                      <td>{processo.nome}</td>
                       <td>{processo.ordenacao}</td>
                       <td className="text-center icons-table">
                         <span
+                          id={processo.processoId}
                           Style="cursor:pointer"
-                          onClick={() => pegarId(processo.processoId)}
+                          onClick={() => {
+                            funcaoAbrirModal(processo);
+                          }}
                         >
                           <VscEdit />
                         </span>
@@ -151,7 +180,7 @@ export default function Processo() {
           </div>
         </div>
 
-        {/* Modal */}
+        {/* Modal Cadastro */}
         <Modal
           size="lg"
           show={show}
@@ -209,14 +238,14 @@ export default function Processo() {
 
         <Modal
           size="lg"
-          show={showPut}
-          onHide={() => setShowPut(false)}
+          show={showModalPut}
+          onHide={() => setShowModalPut(false)}
           dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title"
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-              Editar Dados id: {pegarId}
+              Editar Dados id: {processoId}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -226,6 +255,14 @@ export default function Processo() {
               Style="margin-bottom: 30px"
             >
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                <div className="col-md-5 col-sm-6" Style="display:none">
+                  <label>Id</label>
+                  <input
+                    name="processoId"
+                    value={processoId}
+                    onChange={(e) => setProcessoId(e.target.value)}
+                  />
+                </div>
                 <div className="col-md-5 col-sm-6">
                   <label>Nome</label>
                   <input
@@ -250,7 +287,9 @@ export default function Processo() {
                     type="submit"
                     variant="success"
                     className="align-self-baseline"
-                    onClick={createPost}
+                    onClick={(processo) => {
+                      handlePut(processo.processoId);
+                    }}
                   >
                     Salvar
                   </Button>

@@ -8,17 +8,18 @@ import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Impressora() {
-
-  var url = 'Impressora';
+  var url = "Impressora";
 
   //Modal const
   const [show, setShow] = useState(false);
+  const [showModalPut, setShowModalPut] = useState(false);
 
   //POST
-  const [nome, setNome] = useState([]);
-  const [marca, setMarca] = useState([]);
-  const [endereco, setEndereco] = useState([]);
-  const [area, setArea] = useState([]);
+  const [impressoraId, setImpressoraId] = useState();
+  const [nome, setNome] = useState();
+  const [marca, setMarca] = useState();
+  const [endereco, setEndereco] = useState();
+  const [area, setArea] = useState();
 
   function handleRegister(e) {
     // e.preventDefault();
@@ -65,13 +66,61 @@ export default function Impressora() {
   async function handleDeleteImpressora(impressoraId) {
     try {
       await Api.delete(`/${url}/${impressoraId}`);
-      setUser(user.filter((impressora) => impressora.impressoraId !== impressoraId));
-      alert("Deletado com sucesso")
+      setUser(
+        user.filter((impressora) => impressora.impressoraId !== impressoraId)
+      );
+      alert("Deletado com sucesso");
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
   }
 
+  ///////PUT
+  function handlePut() {
+    Api.put(`${url}/${impressoraId}`, {
+      impressoraId,
+      nome,
+      marca,
+      endereco,
+      area,
+    })
+      .then((response) => {
+        setImpressoraId(impressoraId);
+        setNome();
+        setMarca();
+        setEndereco();
+        setArea();
+        console.log("Esse é o console do Put: ", response);
+        alert("Put Efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
+
+  function funcaoAbrirModal(impressora) {
+    setShowModalPut(true);
+
+    Api.get(`${url}/${impressora.impressoraId}`, {
+      impressoraId,
+      nome,
+      marca,
+      endereco,
+      area,
+    })
+      .then(() => {
+        setImpressoraId(impressora.impressoraId);
+        setNome(impressora.nome);
+        setMarca(impressora.marca);
+        setEndereco(impressora.endereco);
+        setArea(impressora.area);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
+      });
+  }
 
   return (
     <>
@@ -85,7 +134,9 @@ export default function Impressora() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button variant="success" onClick={() => setShow(true)}>Cadastrar</Button>
+                <Button variant="success" onClick={() => setShow(true)}>
+                  Cadastrar
+                </Button>
               </div>
             </div>
           </div>
@@ -104,11 +155,9 @@ export default function Impressora() {
                   </thead>
                   <tbody>
                     {user.map((impressora, index) => (
-                     <tr>
+                      <tr>
                         <td Style="display:none" key={index}></td>
-                        <td Style="display:none">
-                          {impressora.impressoraId}
-                        </td>
+                        <td Style="display:none">{impressora.impressoraId}</td>
                         <td>{impressora.nome}</td>
                         <td>{impressora.marca}</td>
                         <td>{impressora.endereco}</td>
@@ -116,7 +165,9 @@ export default function Impressora() {
                         <td className="text-center icons-table">
                           <span
                             Style="cursor:pointer"
-                          // onClick={() => pegarId(impressora.impressoraId)}
+                            onClick={() => {
+                              funcaoAbrirModal(impressora);
+                            }}
                           >
                             <VscEdit />
                           </span>
@@ -149,7 +200,7 @@ export default function Impressora() {
           </div>
         </div>
 
-        {/* Modal */}
+        {/* Modal Cadastro*/}
         <Modal
           size="lg"
           show={show}
@@ -212,6 +263,89 @@ export default function Impressora() {
                     variant="success"
                     className="align-self-baseline"
                     onClick={createPost}
+                  >
+                    Cadastrar
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal Put*/}
+        <Modal
+          size="lg"
+          show={showModalPut}
+          onHide={() => setShowModalPut(false)}
+          dialogClassName="modal-90w"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title">
+              Cadastro de Impressora
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className="formCadastro"
+              id="formCadastro"
+              Style="margin-bottom: 30px"
+            >
+              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+                <div className="col-md-3 col-sm-6" Style="display:none">
+                  <label>Id</label>
+                  <input
+                    type="text"
+                    name="impressoraId"
+                    value={impressoraId}
+                    onChange={(e) => setImpressoraId(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Marca</label>
+                  <input
+                    type="text"
+                    name="marca"
+                    value={marca}
+                    onChange={(e) => setMarca(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Endereço</label>
+                  <input
+                    type="text"
+                    name="endereco"
+                    value={endereco}
+                    onChange={(e) => setEndereco(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Área</label>
+                  <input
+                    type="text"
+                    name="area"
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
+                  />
+                </div>
+
+                <div className="col-md-12 col-sm-6" Style="text-align:right">
+                  <Button
+                    type="submit"
+                    variant="success"
+                    className="align-self-baseline"
+                    onClick={(impressora) => {
+                      handlePut(impressora.impressoraId);
+                    }}
                   >
                     Cadastrar
                   </Button>
