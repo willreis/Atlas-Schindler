@@ -1,0 +1,11 @@
+.react-bootstrap-table{
+    padding: 16px;
+    border: 1px solid red;
+}
+.table.table-bordered{
+    border: none;
+}
+
+.react-bootstrap-table table{
+    text-align: center;
+}
