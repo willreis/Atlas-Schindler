@@ -208,7 +208,7 @@ export default function Usuarios() {
                         <td>{usuario.cargo}</td>
                         <td>{usuario.eMail}</td>
                         <td>{usuario.senha}</td>
-                        <td>{usuario.nomeDoGrupo}</td>
+                        <td>{usuario.grupoDeAcesso.nomeDoGrupo}</td>
                         <td>{usuario.status ? "Ativo" : "Inativo"}</td>
                         <td>{usuario.dataDeCadastro}</td>
                         <td className="text-center icons-table">

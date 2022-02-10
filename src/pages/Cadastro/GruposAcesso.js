@@ -1,8 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
-import BootstrapTable from "react-bootstrap-table";
-
+// import BootstrapTable from "react-bootstrap-table-next";
+// import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 // import Api from "../../services/Api";
 
