@@ -133,7 +133,6 @@ export default function Usuarios() {
   function funcaoAbrirModal(usuario) {
     setShowModalPut(true)
     console.log("funcaoAbrirModal ativada!")
-    console.log("aquiiii deletar")
 
     Api.get(`${url}/${usuario.usuarioId}`, {
       usuarioId,

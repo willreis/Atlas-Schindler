@@ -12,22 +12,19 @@ import "../../../src/grupo.css";
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
-  const [getTela, setGetTela] = useState();
+
+  const [getTela, setGetTela] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [telaId, setTelaId] = useState()
+  const [nome, setNome] = useState()
+
   // const telaId = localStorage.getItem('telaId');
   // const telaNome = localStorage.getItem('nome')
 
-  useEffect(() => {
-    Api.get("Tela/")
-      .then((response) => {
-        console.log(response);
-        setGetTela(response.data);
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
-      });
-  }, []);
+  //GET
+  const [user, setUser] = useState([]);
 
+  //Get Tela:
   const columnsSemPermissao = [
     {
       text: "Telas Sem Permissão!",
@@ -35,14 +32,25 @@ export default function GruposAcesso() {
     },
   ];
 
-  const productsSemPermissao = [
-    {
-      // telas: getTela.nome,
-      telas: "usuario",
-    },
-    
-  ];
+  const [productsSemPermissao, setProductsSemPermissao] = useState([])
 
+  function funcaoAbrirModal(usuario) {
+    setShowModal(true)
+    console.log("funcaoAbrirModal ativada!!!!!!!!!!!!!")
+
+    Api.get('Tela/', {
+      telaId,
+      nome
+    })
+      .then((response) => {
+        console.log(response)
+        setProductsSemPermissao(response.data.map((t) => { return { telas: t.nome, ...t } }))
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }
 
   const columns = [
     {
@@ -70,9 +78,6 @@ export default function GruposAcesso() {
 
   //Modal const
   const [show, setShow] = useState(false);
-
-  //GET
-  const [user, setUser] = useState([]);
 
   useEffect(() => {
     Api.get(`${url}`)
@@ -143,7 +148,11 @@ export default function GruposAcesso() {
             </div>
             <div className="col-md-6">
               <div Style="text-align: right">
-                <Button variant="success" onClick={() => setShow(true)}>
+                <Button
+                  variant="success"
+                  onClick={(props) => {
+                    funcaoAbrirModal(props.usuario)
+                  }}                >
                   Cadastrar
                 </Button>
               </div>
@@ -202,8 +211,8 @@ export default function GruposAcesso() {
         <div className="cadastroGPAcesso">
           <Modal
             size="lg"
-            show={show}
-            onHide={() => setShow(false)}
+            show={showModal}
+            onHide={() => setShowModal(false)}
             dialogClassName="modal-90w cadastroGPAcesso"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -278,7 +287,7 @@ export default function GruposAcesso() {
                         data={products}
                         columns={columns}
                         bordered={false}
-                       
+
                       />
                     </div>
 
