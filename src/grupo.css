@@ -1,4 +1,4 @@
-.react-bootstrap-table{
+.react-bootstrap-table {
     padding: 16px;
     border: 1px solid rgb(2, 116, 26);
 }
@@ -6,10 +6,16 @@
 .ultimaTabela .react-bootstrap-table {
     border: 1px solid red;
 }
-.table.table-bordered{
+
+.table.table-bordered {
     border: none;
 }
 
-.react-bootstrap-table table{
+.react-bootstrap-table table {
     text-align: center;
+}
+
+.react-bootstrap-table table tr td:hover {
+    color: #ccc;
+    cursor: pointer;
 }
