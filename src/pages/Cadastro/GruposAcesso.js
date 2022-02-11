@@ -4,23 +4,118 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 
 import BootstrapTable from "react-bootstrap-table-next";
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+
+///////////////////////////transfer list
+import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+//////////////////////////
 
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { Button } from "react-bootstrap";
-import { TiArrowForward } from "react-icons/ti";
-import { TiArrowBack } from "react-icons/ti";
+// import { Button } from "react-bootstrap";
+// import { TiArrowForward } from "react-icons/ti";
+// import { TiArrowBack } from "react-icons/ti";
 import "../../../src/grupo.css";
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
+  //////////////////////////// transferlist
+  function not(a, b) {
+    return a.filter((value) => b.indexOf(value) === -1);
+  }
+
+  function intersection(a, b) {
+    return a.filter((value) => b.indexOf(value) !== -1);
+  }
+
+  const [checked, setChecked] = React.useState([]);
+  const [left, setLeft] = React.useState([0, 1, 2, 3]);
+  const [right, setRight] = React.useState([4, 5, 6, 7]);
+
+  const leftChecked = intersection(checked, left);
+  const rightChecked = intersection(checked, right);
+
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
+  const handleAllRight = () => {
+    setRight(right.concat(left));
+    setLeft([]);
+  };
+
+  const handleCheckedRight = () => {
+    setRight(right.concat(leftChecked));
+    setLeft(not(left, leftChecked));
+    setChecked(not(checked, leftChecked));
+  };
+
+  const handleCheckedLeft = () => {
+    setLeft(left.concat(rightChecked));
+    setRight(not(right, rightChecked));
+    setChecked(not(checked, rightChecked));
+  };
+
+  const handleAllLeft = () => {
+    setLeft(left.concat(right));
+    setRight([]);
+  };
+
+  const customList = (items) => (
+    <Paper sx={{ width: 200, height: 230, overflow: "auto" }}>
+      <List dense component="div" role="list">
+        {items.map((value) => {
+          const labelId = `transfer-list-item-${value}-label`;
+
+          return (
+            <ListItem
+              key={value}
+              role="listitem"
+              button
+              onClick={handleToggle(value)}
+            >
+              <ListItemIcon>
+                <Checkbox
+                  checked={checked.indexOf(value) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                  inputProps={{
+                    "aria-labelledby": labelId,
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+            </ListItem>
+          );
+        })}
+        <ListItem />
+      </List>
+    </Paper>
+  );
+
+  ///////////////////////////transfer list
 
   const [getTela, setGetTela] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [telaId, setTelaId] = useState()
-  const [nome, setNome] = useState()
+  const [telaId, setTelaId] = useState();
+  const [nome, setNome] = useState();
 
   // const telaId = localStorage.getItem('telaId');
   // const telaNome = localStorage.getItem('nome')
@@ -36,21 +131,23 @@ export default function GruposAcesso() {
     },
   ];
 
-  const [productsSemPermissao, setProductsSemPermissao] = useState([])
+  const [productsSemPermissao, setProductsSemPermissao] = useState([]);
 
   function funcaoAbrirModal(usuario) {
-    setShowModal(true)
-    console.log("funcaoAbrirModal ativada!!!!!!!!!!!!!")
+    setShowModal(true);
+    console.log("funcaoAbrirModal ativada!!!!!!!!!!!!!");
 
-    Api.get('Tela/', {
+    Api.get("Tela/", {
       telaId,
-      nome
+      nome,
     })
       .then((response) => {
-        console.log(response)
-        setProductsSemPermissao(response.data.map((t) => {
-          return { telas: t.nome, ...t }
-        }))
+        console.log(response);
+        setProductsSemPermissao(
+          response.data.map((t) => {
+            return { telas: t.nome, ...t };
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -59,27 +156,24 @@ export default function GruposAcesso() {
   }
 
   function onClickLinhaTabela() {
-
-    Api.get('Tela/', {
+    Api.get("Tela/", {
       telaId,
     })
       .then(() => {
         const idDaLinha = document.getElementById(telaId);
-        console.log('Linha da Tabela: ', idDaLinha);
+        console.log("Linha da Tabela: ", idDaLinha);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
+
+    console.log("idiididididid", telaId);
   }
 
-  function Enviar() {
+  function Enviar() {}
 
-  }
-
-  function Trazer() {
-
-  }
+  function Trazer() {}
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   const columns = [
@@ -181,8 +275,9 @@ export default function GruposAcesso() {
                 <Button
                   variant="success"
                   onClick={(props) => {
-                    funcaoAbrirModal(props.usuario)
-                  }}                >
+                    funcaoAbrirModal(props.usuario);
+                  }}
+                >
                   Cadastrar
                 </Button>
               </div>
@@ -279,7 +374,10 @@ export default function GruposAcesso() {
                     </div>
                   </div>
 
-                  <div className="row" Style='margin-top: 1rem; margin-bottom: 1rem'>
+                  <div
+                    className="row"
+                    Style="margin-top: 1rem; margin-bottom: 1rem"
+                  >
                     <div className="col-3">
                       <Button variant="success" Style="width:100%">
                         Telas
@@ -292,11 +390,69 @@ export default function GruposAcesso() {
                     </div>
                   </div>
 
+                  {/**Transfer List */}
+                  {/**Transfer List */}
+                  <Grid
+                    container
+                    spacing={2}
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Grid item>{customList(left)}</Grid>
+                    <Grid item>
+                      <Grid container direction="column" alignItems="center">
+                        <Button
+                          sx={{ my: 0.5 }}
+                          variant="outlined"
+                          size="small"
+                          onClick={handleAllRight}
+                          disabled={left.length === 0}
+                          aria-label="move all right"
+                        >
+                          ≫
+                        </Button>
+                        <Button
+                          sx={{ my: 0.5 }}
+                          variant="outlined"
+                          size="small"
+                          onClick={handleCheckedRight}
+                          disabled={leftChecked.length === 0}
+                          aria-label="move selected right"
+                        >
+                          &gt;
+                        </Button>
+                        <Button
+                          sx={{ my: 0.5 }}
+                          variant="outlined"
+                          size="small"
+                          onClick={handleCheckedLeft}
+                          disabled={rightChecked.length === 0}
+                          aria-label="move selected left"
+                        >
+                          &lt;
+                        </Button>
+                        <Button
+                          sx={{ my: 0.5 }}
+                          variant="outlined"
+                          size="small"
+                          onClick={handleAllLeft}
+                          disabled={right.length === 0}
+                          aria-label="move all left"
+                        >
+                          ≪
+                        </Button>
+                      </Grid>
+                    </Grid>
+                    <Grid item>{customList(right)}</Grid>
+                  </Grid>
+                  {/**Transfer List */}
+                  {/**Transfer List */}
+
                   {/*1ª Quadrado*/}
-                  <div className="row mt-3" >
+                  {/* <div className="row mt-3" >
                     <div className="col-5 ultimaTabela" onClick={onClickLinhaTabela}>
                       <BootstrapTable
-                        keyField="id"
+                        keyField='id'
                         data={productsSemPermissao}
                         columns={columnsSemPermissao}
                         bordered={false}
@@ -312,7 +468,7 @@ export default function GruposAcesso() {
                       </div>
                     </div>
 
-                    {/*2ª Quadrado*/}
+                    
                     <div className="col-5">
                       <BootstrapTable
                         keyField="id"
@@ -335,7 +491,8 @@ export default function GruposAcesso() {
                       </div>
                     </div>
 
-                  </div>
+                  </div> */}
+                  {/*Fim quadrados*/}
                 </form>
               </div>
             </Modal.Body>
