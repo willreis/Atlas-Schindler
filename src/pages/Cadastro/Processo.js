@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
@@ -17,17 +18,58 @@ export default function Processo() {
   //Get
   const [user, setUser] = useState([]);
 
+  const [processoGet, setprocessoGet] = useState([]);
+
+  
+
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
+        setprocessoGet(
+          response.data.map((processo) => {
+            return { nome: processo.nome,  
+                    ordenacao: processo.ordenacao, 
+                    ...processo };
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
+
+  const columns = [
+    {
+      dataField: "nome",
+      text: "Nome",
+      sort: true,
+    },
+    {
+      dataField: "ordenacao",
+      text: "Ordenação",
+      sort: true,
+    },
+    {
+      dataField: "editar",
+      text: "Editar / Excluir",
+    },
+  ];
+
+  const products = [
+    {
+      id: 0,
+      name: "William",
+      price: 123,
+    },
+    {
+      id: 1,
+      name: "Hiran",
+      price: 234,
+    },
+  ];
 
   //Delete
   async function handleDeleteProcesso(processoId) {
@@ -122,6 +164,12 @@ export default function Processo() {
                   Cadastrar
                 </Button>
               </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12">
+              <BootstrapTable keyField="id" data={processoGet} columns={columns} />
             </div>
           </div>
 
