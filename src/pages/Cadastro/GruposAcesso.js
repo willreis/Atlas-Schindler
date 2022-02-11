@@ -48,7 +48,9 @@ export default function GruposAcesso() {
     })
       .then((response) => {
         console.log(response)
-        setProductsSemPermissao(response.data.map((t) => { return { telas: t.nome, ...t } }))
+        setProductsSemPermissao(response.data.map((t) => {
+          return { telas: t.nome, ...t }
+        }))
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -56,6 +58,30 @@ export default function GruposAcesso() {
       });
   }
 
+  function onClickLinhaTabela() {
+
+    Api.get('Tela/', {
+      telaId,
+    })
+      .then(() => {
+        const idDaLinha = document.getElementById(telaId);
+        console.log('Linha da Tabela: ', idDaLinha);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }
+
+  function Enviar() {
+
+  }
+
+  function Trazer() {
+
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
   const columns = [
     {
       text: "Telas Permitidas!",
@@ -266,8 +292,9 @@ export default function GruposAcesso() {
                     </div>
                   </div>
 
-                  <div className="row mt-3">
-                    <div className="col-5 ultimaTabela">
+                  {/*1ª Quadrado*/}
+                  <div className="row mt-3" >
+                    <div className="col-5 ultimaTabela" onClick={onClickLinhaTabela}>
                       <BootstrapTable
                         keyField="id"
                         data={productsSemPermissao}
@@ -278,20 +305,20 @@ export default function GruposAcesso() {
 
                     <div className="col-2 text-center" >
                       <div Style='border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer'>
-                        <TiArrowForward />
+                        <TiArrowForward onClick={Enviar} />
                       </div>
                       <div Style='border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;'>
-                        <TiArrowBack />
+                        <TiArrowBack onClick={Trazer} />
                       </div>
                     </div>
 
+                    {/*2ª Quadrado*/}
                     <div className="col-5">
                       <BootstrapTable
                         keyField="id"
                         data={products}
                         columns={columns}
                         bordered={false}
-
                       />
                     </div>
 
