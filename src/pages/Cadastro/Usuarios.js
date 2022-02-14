@@ -1,24 +1,98 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
 import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Api from "../../services/Api";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
 export default function Usuarios() {
-
-  const [showPassword, setShowPassword] = useState(false); //Estado showPassword começa como false.
+  const [showPassword, setShowPassword] = useState(false); 
 
   const togglePassword = () => {
-
-    setShowPassword(!showPassword); //Ñ pode colocar como true, pq ñ tem outra função que volte pra false. Deve setar como Diferente do atual aí sempre vai mudar.
+    setShowPassword(!showPassword); 
   };
 
   //Modal const
   const [show, setShow] = useState(false);
   const [showModalPut, setShowModalPut] = useState(false);
+
+  const [usuarioGet, setUsuarioGet] = useState([]);
+
+  const columns = [
+    {
+      dataField: "matricula",
+      text: "Matricula",
+      sort: true,
+    },
+    {
+      dataField: "nome",
+      text: "Nome",
+      sort: true,
+    },
+    {
+      dataField: "cargo",
+      text: "Cargo",
+      sort: true,
+    },
+    {
+      dataField: "eMail",
+      text: "Email",
+      sort: true,
+    },
+    {
+      dataField: "senha",
+      text: "Senha",
+      sort: true,
+    },
+    {
+      dataField: "grupoDeAcesso",
+      text: "Grupo De Acesso",
+      sort: true,
+    },
+    {
+      dataField: "status",
+      text: "Status",
+      sort: true,
+    },
+    {
+      dataField: "dataDeCadastro",
+      text: "Data de Cadastro",
+      sort: true,
+    },
+    {
+      dataField: "editar",
+      isDummyField: true,
+      text: "Editar / Excluir",
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span 
+              className="spanTabela"
+              id={row.usuarioId}
+              Style="cursor:pointer"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+            >
+              <VscEdit />
+            </span>
+
+            <span
+            className="spanTabela"
+            id={row.usuarioId}
+            Style="cursor:pointer"
+            onClick={() => handleDeleteUsuario(row.usuarioId)}
+            >
+              <RiDeleteBinFill />
+            </span>
+          </>
+        );
+      },
+    },
+  ];
 
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
@@ -33,13 +107,30 @@ export default function Usuarios() {
       .then((response) => {
         console.log(response);
         setUser(response.data);
+        setUsuarioGet(
+          response.data.map((usuario) => {
+            return {
+              matricula: usuario.matricula,
+              nome: usuario.nome,
+              cargo: usuario.cargo,
+              eMail: usuario.eMail,
+              senha: usuario.senha,
+              grupoDeAcesso: usuario.grupoDeAcesso.nomeDoGrupo,
+              status: usuario.status ? "Ativo" : "Inativo",
+              dataDeCadastro: usuario.dataDeCadastro,
+              editar: usuario.usuarioId, 
+             
+             
+              
+            };
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
         alert("Ops! Ocorreu um erro1:", error);
       });
   }, []);
-
 
   // POST
   const [usuarioId, setUsuarioId] = useState();
@@ -49,7 +140,6 @@ export default function Usuarios() {
   const [cargo, setCargo] = useState();
   const [eMail, setEmail] = useState();
   const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
-  const [nomeDoGrupo, setNomeDoGrupo] = useState();
   const [status, setStatus] = useState();
   const [dataDeCadastro, setDataDeCadastro] = useState();
 
@@ -70,14 +160,6 @@ export default function Usuarios() {
       dataDeCadastro,
     })
       .then((response) => {
-        // setSenha(response.data);
-        // setNome(response.data);
-        // setMatricula(response.data);
-        // setCargo(response.data);
-        // setEmail(response.data);
-        // setGrupoDeAcesso(response.data);
-        // setStatus(response.data);
-        // setDataDeCadastro(response.data);
         console.log(response.data);
         alert("Cadastro Efetuado com sucesso!");
       })
@@ -91,17 +173,17 @@ export default function Usuarios() {
   async function handleDeleteUsuario(usuarioId) {
     try {
       await Api.delete(`/${url}/${usuarioId}`);
-      setUser(user.filter((usuario) => usuario.usuarioId !== usuarioId));
+      setUsuarioGet(user.filter((usuario) => usuario.usuarioId !== usuarioId));
       alert("Deletado com sucesso");
     } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
+      console.log('iddddddddddddddddddddddddd', usuarioId)
+      alert("erro ao deletar, tente novamente");
     }
   }
 
-
-  function handlePut() {
-    Api.put(`${url}/${usuarioId}`, {
-      usuarioId,                                                  //Os Estados para editar.
+  function handlePut(row) {
+    Api.put(`${url}/${row.usuarioId}`, {
+      usuarioId, //Os Estados para editar.
       senha,
       matricula,
       nome,
@@ -110,9 +192,9 @@ export default function Usuarios() {
       grupoDeAcesso,
       status,
       dataDeCadastro,
-    })(console.log('funciona ate aqui'))
+    })(console.log("funciona ate aqui"))
       .then((response) => {
-        setUsuarioId(usuarioId);
+        setUsuarioId(row.usuarioId);
         setSenha();
         setNome();
         setMatricula();
@@ -121,7 +203,7 @@ export default function Usuarios() {
         setGrupoDeAcesso();
         setStatus();
         setDataDeCadastro();
-        console.log('Esse é o console do Put: ', response)
+        console.log("Esse é o console do Put: ", response);
         alert("Put Efetuado com sucesso!");
       })
       .catch((error) => {
@@ -130,11 +212,12 @@ export default function Usuarios() {
       });
   }
 
-  function funcaoAbrirModal(usuario) {
-    setShowModalPut(true)
-    console.log("funcaoAbrirModal ativada!")
+  function funcaoAbrirModal(row) {
+    setShowModalPut(true);
+    alert( 'modal id: ', row.usuarioId)
+    console.log("funcaoAbrirModal ativada!");
 
-    Api.get(`${url}/${usuario.usuarioId}`, {
+    Api.get(`${url}/${row.usuarioId}`, {
       usuarioId,
       senha,
       matricula,
@@ -146,15 +229,15 @@ export default function Usuarios() {
       dataDeCadastro,
     })
       .then(() => {
-        setUsuarioId(usuario.usuarioId);
-        setSenha(usuario.senha);
-        setNome(usuario.nome);
-        setMatricula(usuario.matricula);
-        setCargo(usuario.cargo);
-        setEmail(usuario.eMail);
-        setGrupoDeAcesso(usuario.grupoDeAcesso);
-        setStatus(usuario.status);
-        setDataDeCadastro(usuario.dataDeCadastro);
+        setUsuarioId(row.usuarioId);
+        setSenha(row.senha);
+        setNome(row.nome);
+        setMatricula(row.matricula);
+        setCargo(row.cargo);
+        setEmail(row.eMail);
+        setGrupoDeAcesso(row.grupoDeAcesso);
+        setStatus(row.status);
+        setDataDeCadastro(row.dataDeCadastro);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -181,6 +264,18 @@ export default function Usuarios() {
                 </div>
               </div>
             </div>
+
+            <div className="row">
+              <div className="col-md-12">
+                <BootstrapTable
+                  keyField="id"
+                  data={usuarioGet}
+                  columns={columns}
+                  striped={true}
+                />
+              </div>
+            </div>
+
             <div className="row">
               <div className="col-md-12">
                 <table className="table table-striped table-bordered">
@@ -200,8 +295,7 @@ export default function Usuarios() {
                   <tbody>
                     {user.map((usuario, index) => (
                       <tr>
-                        <td Style="display:none" key={index}>
-                        </td>
+                        <td Style="display:none" key={index}></td>
                         <td>{usuario.matricula}</td>
                         <td>{usuario.nome}</td>
                         <td>{usuario.cargo}</td>
@@ -215,7 +309,7 @@ export default function Usuarios() {
                             id={usuario.usuarioId}
                             Style="cursor:pointer"
                             onClick={() => {
-                              funcaoAbrirModal(usuario)
+                              funcaoAbrirModal(usuario);
                             }}
                           >
                             <VscEdit />
@@ -237,7 +331,6 @@ export default function Usuarios() {
             </div>
           </div>
         </div>
-
 
         {/* Modal de Cadastro*/}
         <Modal
@@ -298,7 +391,9 @@ export default function Usuarios() {
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
-                    <div className="input-group">                            {/*Bootstrap className para juntar*/}
+                    <div className="input-group">
+                      {" "}
+                      {/*Bootstrap className para juntar*/}
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
@@ -308,7 +403,12 @@ export default function Usuarios() {
                         Style="border-right: none;"
                       />
                       <div className="input-group-addon iconEye">
-                        <i onClick={togglePassword} className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
+                        <i
+                          onClick={togglePassword}
+                          className={`fa ${
+                            showPassword ? "fa-eye" : "fa-eye-slash"
+                          }`}
+                        ></i>
                       </div>
                     </div>
                   </div>
@@ -371,12 +471,10 @@ export default function Usuarios() {
               Style="margin-bottom: 30px"
             >
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                <td>
-                </td>
+                <td></td>
                 <div className="col-md-6 col-sm-6" Style="display:none">
                   <label>Id</label>
                   <input
-
                     name="usuarioId"
                     value={usuarioId}
                     onChange={(e) => setUsuarioId(e.target.value)}
@@ -422,7 +520,9 @@ export default function Usuarios() {
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
-                    <div className="input-group">                            {/*Bootstrap className para juntar*/}
+                    <div className="input-group">
+                      {" "}
+                      {/*Bootstrap className para juntar*/}
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
@@ -432,7 +532,12 @@ export default function Usuarios() {
                         Style="border-right: none;"
                       />
                       <div className="input-group-addon iconEye">
-                        <i onClick={togglePassword} className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
+                        <i
+                          onClick={togglePassword}
+                          className={`fa ${
+                            showPassword ? "fa-eye" : "fa-eye-slash"
+                          }`}
+                        ></i>
                       </div>
                     </div>
                   </div>
@@ -468,7 +573,7 @@ export default function Usuarios() {
                     variant="success"
                     className="align-self-baseline"
                     onClick={(usuario) => {
-                      handlePut(usuario.usuarioId)
+                      handlePut(usuario.usuarioId);
                     }}
                   >
                     Salvar

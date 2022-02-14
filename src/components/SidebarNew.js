@@ -100,7 +100,7 @@ const SidebarNew = () => {
             <div className="fotoPerfilBox">
               <img src={fotoPerfil} alt="fotoPerfil" className="fotoUsuario" />
               <ul className="dadosPessoais">
-                <li>Ayrton Senna</li>
+                <li>Julio César</li>
                 <li>Operador de Máquinas</li>
               </ul>
             </div>

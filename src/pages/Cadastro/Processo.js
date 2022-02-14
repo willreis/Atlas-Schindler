@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
 export default function Processo() {
   var url = "Processo";
@@ -20,8 +23,6 @@ export default function Processo() {
 
   const [processoGet, setprocessoGet] = useState([]);
 
-  
-
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
@@ -29,9 +30,12 @@ export default function Processo() {
         setUser(response.data);
         setprocessoGet(
           response.data.map((processo) => {
-            return { nome: processo.nome,  
-                    ordenacao: processo.ordenacao, 
-                    ...processo };
+            return {
+              nome: processo.nome,
+              ordenacao: processo.ordenacao,
+              editar: processo.processoId,
+              ...processo,
+            };
           })
         );
       })
@@ -46,41 +50,51 @@ export default function Processo() {
       dataField: "nome",
       text: "Nome",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar por Nome',
+      })
     },
     {
       dataField: "ordenacao",
       text: "Ordenação",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar por Ordenação',
+      })
     },
     {
       dataField: "editar",
+      isDummyField: true,
       text: "Editar / Excluir",
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span 
+              className="spanTabela"
+              id={row.processoId}
+              Style="cursor:pointer"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+            >
+              <VscEdit />
+            </span>
+
+            <span
+            className="spanTabela"
+            id={row.processoId}
+            Style="cursor:pointer"
+            onClick={() => handleDeleteProcesso(row.processoId)}
+            >
+              <RiDeleteBinFill />
+            </span>
+          </>
+        );
+      },
     },
   ];
 
-  const products = [
-    {
-      id: 0,
-      name: "William",
-      price: 123,
-    },
-    {
-      id: 1,
-      name: "Hiran",
-      price: 234,
-    },
-  ];
-
-  //Delete
-  async function handleDeleteProcesso(processoId) {
-    try {
-      await Api.delete(`/${url}/${processoId}`);
-      setUser(user.filter((processo) => processo.processoId !== processoId));
-      alert("Deletado com sucesso");
-    } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
-    }
-  }
+  
 
   // POST
   const [processoId, setProcessoId] = useState();
@@ -109,7 +123,39 @@ export default function Processo() {
       });
   }
 
+  //Delete
+  async function handleDeleteProcesso(processoId) {
+    try {
+      await Api.delete(`/${url}/${processoId}`);
+      console.log('delete ID', processoId)
+      setUser(user.filter((processo) => processo.processoId !== processoId));
+      alert("Deletado com sucesso");
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+
   ///////PUT
+  function funcaoAbrirModal(row) {
+    setShowModalPut(true);
+    Api.get(`${url}/${row.processoId}`, {
+      processoId,
+      nome,
+      ordenacao,
+    })
+
+      .then(() => {
+        console.log('get feito', row.processoId)
+        setProcessoId(row.processoId);
+        setNome(row.nome);
+        setOrdenacao(row.ordenacao);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
+      });
+  }
+
   function handlePut() {
     Api.put(`${url}/${processoId}`, {
       processoId, //Os Estados para editar.
@@ -129,24 +175,7 @@ export default function Processo() {
       });
   }
 
-  function funcaoAbrirModal(processo) {
-    setShowModalPut(true);
 
-    Api.get(`${url}/${processo.processoId}`, {
-      processoId,
-      nome,
-      ordenacao,
-    })
-      .then(() => {
-        setProcessoId(processo.processoId);
-        setNome(processo.nome);
-        setOrdenacao(processo.ordenacao);
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro1:", error);
-        alert("Ops! Ocorreu um erro1:", error);
-      });
-  }
 
   return (
     <>
@@ -169,61 +198,14 @@ export default function Processo() {
 
           <div className="row">
             <div className="col-md-12">
-              <BootstrapTable keyField="id" data={processoGet} columns={columns} />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr className="text-center">
-                    <th scope="col">Nome</th>
-                    <th scope="col">Ordenação</th>
-                    <th scope="col">Editar / Excluir</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {user.map((processo, index) => (
-                    <tr>
-                      <td Style="display:none" key={index}></td>
-                      <td Style="display:none">{processo.processoId}</td>
-                      <td>{processo.nome}</td>
-                      <td>{processo.ordenacao}</td>
-                      <td className="text-center icons-table">
-                        <span
-                          id={processo.processoId}
-                          Style="cursor:pointer"
-                          onClick={() => {
-                            funcaoAbrirModal(processo);
-                          }}
-                        >
-                          <VscEdit />
-                        </span>
-
-                        <span
-                          Style="cursor:pointer"
-                          onClick={() =>
-                            handleDeleteProcesso(processo.processoId)
-                          }
-                        >
-                          <RiDeleteBinFill />
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div className="row paddingTop30">
-            <div className="col-md-6 col-sm-12">
-              <Button variant="secondary">Voltar</Button>
-            </div>
-            <div className="col-md-6 col-sm-12 paddingTop20Mobile">
-              <div className="alignButtons">
-                <Button variant="success">Salvar</Button>
-              </div>
+              
+              <BootstrapTable
+                keyField="id"
+                data={processoGet}
+                columns={columns}
+                striped={true}
+                filter={ filterFactory() }
+              />
             </div>
           </div>
         </div>
@@ -293,7 +275,7 @@ export default function Processo() {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-              Editar Dados id: {processoId}
+              Editar Dados
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

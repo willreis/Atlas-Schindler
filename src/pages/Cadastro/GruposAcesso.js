@@ -22,9 +22,6 @@ export default function GruposAcesso() {
   const [telaId, setTelaId] = useState()
   const [nome, setNome] = useState()
 
-  // const telaId = localStorage.getItem('telaId');
-  // const telaNome = localStorage.getItem('nome')
-
   //GET
   const [user, setUser] = useState([]);
 
@@ -40,7 +37,6 @@ export default function GruposAcesso() {
 
   function funcaoAbrirModal(usuario) {
     setShowModal(true)
-    console.log("funcaoAbrirModal ativada!!!!!!!!!!!!!")
 
     Api.get('Tela/', {
       telaId,
@@ -72,7 +68,6 @@ export default function GruposAcesso() {
         alert("Ops! Ocorreu um erro:", error);
       });
 
-      console.log('idiididididid', telaId)
   }
 
   function Enviar() {

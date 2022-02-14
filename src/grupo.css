@@ -1,4 +1,4 @@
-.react-bootstrap-table {
+.ultimaTabela .react-bootstrap-table {
     padding: 16px;
     border: 1px solid rgb(2, 116, 26);
 }
@@ -15,7 +15,7 @@
     text-align: center;
 }
 
-.react-bootstrap-table table tr td:hover {
+.ultimaTabela .react-bootstrap-table table tr td:hover {
     color: #ccc;
     cursor: pointer;
 }

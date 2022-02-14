@@ -5,6 +5,7 @@ import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
 import Api from "../../services/Api";
 
 export default function Maquina() {
@@ -19,11 +20,89 @@ export default function Maquina() {
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
 
+  const [maquinaGet, setMaquinaGet] = useState([]);
+
+ const columns = [
+    {
+      dataField: "id",
+      text: "ID",
+      sort: true,
+    },
+    {
+      dataField: "nome",
+      text: "Nome",
+      sort: true,
+    },
+    {
+      dataField: "processo",
+      text: "Processo",
+      sort: true,
+    },
+    {
+      dataField: "status",
+      text: "Status",
+      sort: true,
+    },
+    {
+      dataField: "ordenacao",
+      text: "Ordenação",
+      sort: true,
+    },
+    {
+      dataField: "tempoMedioProducao",
+      text: "Tempo Médio de Produção",
+      sort: true,
+    },
+    {
+      dataField: "editar",
+      isDummyField: true,
+      text: "Editar / Excluir",
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span 
+              className="spanTabela"
+              id={row.maquinaId}
+              Style="cursor:pointer"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+            >
+              <VscEdit />
+            </span>
+
+            <span
+            className="spanTabela"
+            id={row.maquinaId}
+            Style="cursor:pointer"
+            onClick={() => handleDeleteMaquina(row.maquinaId)}
+            >
+              <RiDeleteBinFill />
+            </span>
+          </>
+        );
+      },
+    },
+  ];
+
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
+        setMaquinaGet(
+          response.data.map((maquina) => {
+            return {
+              id: maquina.maquinaId,
+              nome: maquina.nome,
+              processoId: maquina.processoId,
+              processo: maquina.processo.nome,
+              status: maquina.status ? "Ativo" : "Inativo",
+              ordenacao: maquina.ordenacao,
+              tempoMedioProducao: maquina.tempoMedioProducao,
+              editar: maquina.maquinaId,
+            };
+          }))
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -79,11 +158,11 @@ export default function Maquina() {
   async function handleDeleteMaquina(maquinaId) {
     try {
       await Api.delete(`/${url}/${maquinaId}`);
-      setUser(user.filter((maquina) => maquina.maquinaId !== maquinaId));
+      console.log('delete ID', maquinaId)
+      setMaquinaGet(maquinaGet.filter((maquina) => maquina.maquinaId !== maquinaId));
       alert("Deletado com sucesso");
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
-      console.log(err);
     }
   }
 
@@ -116,10 +195,10 @@ export default function Maquina() {
       });
   }
 
-  function funcaoAbrirModal(maquina) {
+  function funcaoAbrirModal(row) {
     setShowModalPut(true);
 
-    Api.get(`${url}/${maquina.maquinaId}`, {
+    Api.get(`${url}/${row.maquinaId}`, {
       maquinaId,
       nome,
       processoId,
@@ -129,13 +208,13 @@ export default function Maquina() {
       tempoMedioProducao,
     })
       .then(() => {
-        setMaquinaId(maquina.maquinaId);
-        setNome(maquina.nome);
-        setProcessoId(maquina.processoId);
-        setProcesso(maquina.processo);
-        setStatus(maquina.status);
-        setOrdenacao(maquina.ordenacao);
-        setTempoMedioProducao(maquina.tempoMedioProducao);
+        setMaquinaId(row.maquinaId);
+        setNome(row.nome);
+        setProcessoId(row.processoId);
+        setProcesso(row.processo);
+        setStatus(row.status);
+        setOrdenacao(row.ordenacao);
+        setTempoMedioProducao(row.tempoMedioProducao);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -211,6 +290,17 @@ export default function Maquina() {
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12">
+              <BootstrapTable
+                keyField="id"
+                data={maquinaGet}
+                columns={columns}
+                striped={true}
+              />
             </div>
           </div>
 

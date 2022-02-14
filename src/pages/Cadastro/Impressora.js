@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons/lib";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
@@ -9,6 +10,61 @@ import Api from "../../services/Api";
 
 export default function Impressora() {
   var url = "Impressora";
+
+  const [impressoraGet, setImpressoraGet] = useState([]);
+
+  const columns = [
+    {
+      dataField: "nome",
+      text: "Nome",
+      sort: true,
+    },
+    {
+      dataField: "marca",
+      text: "Marca",
+      sort: true,
+    },
+    {
+      dataField: "endereco",
+      text: "Endereço",
+      sort: true,
+    },
+    {
+      dataField: "area",
+      text: "Area",
+      sort: true,
+    },
+    {
+      dataField: "editar",
+      isDummyField: true,
+      text: "Editar / Excluir",
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span 
+              className="spanTabela"
+              id={row.impressoraId}
+              Style="cursor:pointer"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+            >
+              <VscEdit />
+            </span>
+
+            <span
+            className="spanTabela"
+            id={row.impressoraId}
+            Style="cursor:pointer"
+            onClick={() => handleDeleteImpressora(row.impressoraId)}
+            >
+              <RiDeleteBinFill />
+            </span>
+          </>
+        );
+      },
+    },
+  ];
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -55,6 +111,18 @@ export default function Impressora() {
       .then((response) => {
         console.log(response);
         setUser(response.data);
+        setImpressoraGet(
+          response.data.map((impressora) => {
+            return {
+              nome: impressora.nome,
+              marca: impressora.marca,
+              endereco: impressora.endereco,
+              area: impressora.area,
+              editar: impressora.impressoraId,
+              ...impressora,
+            };
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -140,64 +208,18 @@ export default function Impressora() {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div className="textTable">
-                <table class="table table-striped table-bordered">
-                  <thead>
-                    <tr className="text-center">
-                      <th scope="col">Nome</th>
-                      <th scope="col">Marca</th>
-                      <th scope="col">Endereço</th>
-                      <th scope="col">Area</th>
-                      <th scope="col">Editar / Excluir</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {user.map((impressora, index) => (
-                      <tr>
-                        <td Style="display:none" key={index}></td>
-                        <td Style="display:none">{impressora.impressoraId}</td>
-                        <td>{impressora.nome}</td>
-                        <td>{impressora.marca}</td>
-                        <td>{impressora.endereco}</td>
-                        <td>{impressora.area}</td>
-                        <td className="text-center icons-table">
-                          <span
-                            Style="cursor:pointer"
-                            onClick={() => {
-                              funcaoAbrirModal(impressora);
-                            }}
-                          >
-                            <VscEdit />
-                          </span>
 
-                          <span
-                            Style="cursor:pointer"
-                            onClick={() =>
-                              handleDeleteImpressora(impressora.impressoraId)
-                            }
-                          >
-                            <RiDeleteBinFill />
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+          <div className="row">
+            <div className="col-md-12">
+              <BootstrapTable
+                keyField="id"
+                data={impressoraGet}
+                columns={columns}
+                striped={true}
+              />
             </div>
           </div>
-          <div className="row paddingTop30">
-            <div className="col-md-6">
-              <Button variant="secondary">Voltar</Button>
-            </div>
-            <div className="col-md-6 paddingTop20Mobile">
-              <div className="alignButtons">
-                <Button variant="success">Salvar</Button>
-              </div>
-            </div>
-          </div>
+          
         </div>
 
         {/* Modal Cadastro*/}
@@ -347,7 +369,7 @@ export default function Impressora() {
                       handlePut(impressora.impressoraId);
                     }}
                   >
-                    Cadastrar
+                    Salvar
                   </Button>
                 </div>
               </form>

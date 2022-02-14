@@ -4,11 +4,92 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
+import BootstrapTable from "react-bootstrap-table-next";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
 export default function Material() {
   var url = "Material";
+
+  const [materialGet, setMaterialGet] = useState([]);
+
+  const columns = [
+    {
+      dataField: "codigo",
+      text: "Codigo do Material",
+      sort: true,
+    },
+    {
+      dataField: "nome",
+      text: "Nome",
+      sort: true,
+    },
+    {
+      dataField: "localizacao",
+      text: "Localização",
+      sort: true,
+    },
+    {
+      dataField: "comprimento",
+      text: "Comprimento",
+      sort: true,
+    },
+    {
+      dataField: "largura",
+      text: "Largura",
+      sort: true,
+    },
+    {
+      dataField: "espessura",
+      text: "Espessura",
+      sort: true,
+    },
+    {
+      dataField: "unidade",
+      text: "Unidade de Medida",
+      sort: true,
+    },
+    {
+      dataField: "minimoDeEstoque",
+      text: "Mínimo de Estoque",
+      sort: true,
+    },
+    {
+      dataField: "maximoDeEstoque",
+      text: "Máximo de Estoque",
+      sort: true,
+    },
+    {
+      dataField: "editar",
+      isDummyField: true,
+      text: "Editar / Excluir",
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span 
+              className="spanTabela"
+              id={row.materialId}
+              Style="cursor:pointer"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+            >
+              <VscEdit />
+            </span>
+
+            <span
+            className="spanTabela"
+            id={row.materialId}
+            Style="cursor:pointer"
+            onClick={() => handleDeleteMaterial(row.materialId)}
+            >
+              <RiDeleteBinFill />
+            </span>
+          </>
+        );
+      },
+    },
+  ];
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -22,6 +103,18 @@ export default function Material() {
       .then((response) => {
         console.log(response);
         setUser(response.data);
+        setMaterialGet(
+          response.data.map((material) => {
+            return {
+              nome: material.nome,
+              marca: material.marca,
+              endereco: material.endereco,
+              area: material.area,
+              editar: material.materialId,
+              ...material,
+            };
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -165,62 +258,18 @@ export default function Material() {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr className="text-center">
-                    <th scope="col">Código Material</th>
-                    <th scope="col">Nome Material</th>
-                    <th scope="col">Localização</th>
-                    <th scope="col">Comprimento</th>
-                    <th scope="col">Largura</th>
-                    <th scope="col">Espessura</th>
-                    <th scope="col">Unidade de Medida</th>
-                    <th scope="col">Mínimo Estoque</th>
-                    <th scope="col">Máximo</th>
-                    <th scope="col">Editar / Excluir</th>
-                  </tr>
-                </thead>
 
-                <tbody>
-                  {user.map((material, index) => (
-                    <tr>
-                      <td Style="display:none" key={index}></td>
-                      <td Style="display: none">{material.materialId}</td>
-                      <td>{material.codigo}</td>
-                      <td>{material.nome}</td>
-                      <td>{material.localizacao}</td>
-                      <td>{material.comprimento}</td>
-                      <td>{material.largura}</td>
-                      <td>{material.espessura}</td>
-                      <td>{material.unidade}</td>
-                      <td>{material.minimoDeEstoque}</td>
-                      <td>{material.maximoDeEstoque}</td>
-                      <td className="text-center icons-table">
-                        <span
-                          Style="cursor:pointer"
-                          onClick={() => {
-                            funcaoAbrirModal(material);
-                          }}
-                        >
-                          <VscEdit />
-                        </span>
-                        <span
-                          Style="cursor:pointer"
-                          onClick={() =>
-                            handleDeleteMaterial(material.materialId)
-                          }
-                        >
-                          <RiDeleteBinFill />
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div className="row">
+            <div className="col-md-12">
+              <BootstrapTable
+                keyField="id"
+                data={materialGet}
+                columns={columns}
+                striped={true}
+              />
             </div>
           </div>
+
         </div>
         {/* Modal Cadastro */}
         <Modal
