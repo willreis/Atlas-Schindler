@@ -9,10 +9,10 @@ import Api from "../../services/Api";
 import Modal from "react-bootstrap/Modal";
 
 export default function Usuarios() {
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
-    setShowPassword(!showPassword); 
+    setShowPassword(!showPassword);
   };
 
   //Modal const
@@ -22,6 +22,11 @@ export default function Usuarios() {
   const [usuarioGet, setUsuarioGet] = useState([]);
 
   const columns = [
+    {
+      dataField: "usuarioId",
+      text: "id usuario",
+      hidden: true,
+    },
     {
       dataField: "matricula",
       text: "Matricula",
@@ -69,7 +74,7 @@ export default function Usuarios() {
       formatter: (cellContent, row) => {
         return (
           <>
-            <span 
+            <span
               className="spanTabela"
               id={row.usuarioId}
               Style="cursor:pointer"
@@ -79,15 +84,14 @@ export default function Usuarios() {
             >
               <VscEdit />
             </span>
-
-            <span
-            className="spanTabela"
-            id={row.usuarioId}
-            Style="cursor:pointer"
-            onClick={() => handleDeleteUsuario(row.usuarioId)}
+            <button
+              className="spanTabela"
+              id={row.usuarioId}
+              Style="cursor:pointer"
+              onClick={() => handleDeleteUsuario(row.usuarioId)}
             >
               <RiDeleteBinFill />
-            </span>
+            </button>
           </>
         );
       },
@@ -105,11 +109,12 @@ export default function Usuarios() {
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setUser(response.data);
         setUsuarioGet(
           response.data.map((usuario) => {
             return {
+              usuarioId:usuario.usuarioId,
               matricula: usuario.matricula,
               nome: usuario.nome,
               cargo: usuario.cargo,
@@ -118,10 +123,7 @@ export default function Usuarios() {
               grupoDeAcesso: usuario.grupoDeAcesso.nomeDoGrupo,
               status: usuario.status ? "Ativo" : "Inativo",
               dataDeCadastro: usuario.dataDeCadastro,
-              editar: usuario.usuarioId, 
-             
-             
-              
+              editar: usuario.usuarioId,
             };
           })
         );
@@ -130,10 +132,27 @@ export default function Usuarios() {
         console.log("Ops! Ocorreu um erro1:", error);
         alert("Ops! Ocorreu um erro1:", error);
       });
+
+      Api.get("/GrupoDeAcesso")
+      .then((response) => {
+        console.log(response.data);
+        setUserGrupoAcesso(response.data);
+        console.log('id grupodeacesssssssooo' + userGrupoAcesso)
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
+      });
   }, []);
+
+  ///Get Grupo de Acesso
+  const [userGrupoAcesso, setUserGrupoAcesso] = useState();
+ 
+
 
   // POST
   const [usuarioId, setUsuarioId] = useState();
+  const [idUser, setIdUser] = useState(null);
   const [senha, setSenha] = useState();
   const [nome, setNome] = useState();
   const [matricula, setMatricula] = useState();
@@ -170,13 +189,13 @@ export default function Usuarios() {
   }
 
   //Delete
-  async function handleDeleteUsuario(usuarioId) {
+  async function handleDeleteUsuario(idUser) {
     try {
-      await Api.delete(`/${url}/${usuarioId}`);
-      setUsuarioGet(user.filter((usuario) => usuario.usuarioId !== usuarioId));
+      await Api.delete(`/${url}/${idUser}`);
+      // setUsuarioGet(user.filter((usuario) => usuario.usuarioId !== idUser));
       alert("Deletado com sucesso");
     } catch (err) {
-      console.log('iddddddddddddddddddddddddd', usuarioId)
+      console.log("iddddddddddddddddddddddddd", usuarioId);
       alert("erro ao deletar, tente novamente");
     }
   }
@@ -192,7 +211,7 @@ export default function Usuarios() {
       grupoDeAcesso,
       status,
       dataDeCadastro,
-    })(console.log("funciona ate aqui"))
+    })
       .then((response) => {
         setUsuarioId(row.usuarioId);
         setSenha();
@@ -214,7 +233,7 @@ export default function Usuarios() {
 
   function funcaoAbrirModal(row) {
     setShowModalPut(true);
-    alert( 'modal id: ', row.usuarioId)
+    alert("modal id: ", row.usuarioId);
     console.log("funcaoAbrirModal ativada!");
 
     Api.get(`${url}/${row.usuarioId}`, {
@@ -244,6 +263,15 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro1:", error);
       });
   }
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.usuarioId);
+      setIdUser(row.usuarioId);
+    },
+  };
 
   return (
     <>
@@ -268,9 +296,10 @@ export default function Usuarios() {
             <div className="row">
               <div className="col-md-12">
                 <BootstrapTable
-                  keyField="id"
+                  keyField="usuarioId"
                   data={usuarioGet}
                   columns={columns}
+                  selectRow={selectRow}
                   striped={true}
                 />
               </div>
@@ -388,6 +417,30 @@ export default function Usuarios() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
+                <div className="col-md-4 col-sm-6">
+                    <label>Grupo De Acesso</label>
+
+                    <select
+                      type="number"
+                      id="processos"
+                      name={userGrupoAcesso}
+                      value={userGrupoAcesso}
+                      onChange={(e) => {
+                        setUserGrupoAcesso(parseInt(e.target.value));
+                      }}
+                    >
+                      <option>Escolha uma opção</option>
+                      {grupoDeAcesso.map((grupo) => (
+                        <option
+                          name={grupo.nomeDoGrupo}
+                          value={grupo.grupoDeAcessoId}
+                        >
+                          {grupo.nomeDoGrupo}
+                        </option>
+                      ))}
+                      ;
+                    </select>
+                  </div>
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
@@ -438,7 +491,7 @@ export default function Usuarios() {
                     onChange={(e) => setDataDeCadastro(e.target.value)}
                   />
                 </div>
-                <div className="col-md-2 col-sm-6 btnCol">
+                <div className="col-md-2 col-sm-6">
                   <Button
                     type="submit"
                     variant="success"
@@ -517,12 +570,12 @@ export default function Usuarios() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
+                
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
                     <div className="input-group">
-                      {" "}
-                      {/*Bootstrap className para juntar*/}
+                      
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}

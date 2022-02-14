@@ -4,8 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 
 import BootstrapTable from "react-bootstrap-table-next";
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
@@ -16,11 +17,10 @@ import "../../../src/grupo.css";
 import Api from "../../services/Api";
 
 export default function GruposAcesso() {
-
   const [getTela, setGetTela] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [telaId, setTelaId] = useState()
-  const [nome, setNome] = useState()
+  const [telaId, setTelaId] = useState();
+  const [nome, setNome] = useState();
 
   //GET
   const [user, setUser] = useState([]);
@@ -33,20 +33,22 @@ export default function GruposAcesso() {
     },
   ];
 
-  const [productsSemPermissao, setProductsSemPermissao] = useState([])
+  const [productsSemPermissao, setProductsSemPermissao] = useState([]);
 
   function funcaoAbrirModal(usuario) {
-    setShowModal(true)
+    setShowModal(true);
 
-    Api.get('Tela/', {
+    Api.get("Tela/", {
       telaId,
-      nome
+      nome,
     })
       .then((response) => {
-        console.log(response)
-        setProductsSemPermissao(response.data.map((t) => {
-          return { telas: t.nome, ...t }
-        }))
+        console.log(response);
+        setProductsSemPermissao(
+          response.data.map((t) => {
+            return { telas: t.nome, ...t };
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -55,28 +57,22 @@ export default function GruposAcesso() {
   }
 
   function onClickLinhaTabela() {
-
-    Api.get('Tela/', {
+    Api.get("Tela/", {
       telaId,
     })
       .then(() => {
         const idDaLinha = document.getElementById(telaId);
-        console.log('Linha da Tabela: ', idDaLinha);
+        console.log("Linha da Tabela: ", idDaLinha);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
-
   }
 
-  function Enviar() {
+  function Enviar() {}
 
-  }
-
-  function Trazer() {
-
-  }
+  function Trazer() {}
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   const columns = [
@@ -106,11 +102,24 @@ export default function GruposAcesso() {
   //Modal const
   const [show, setShow] = useState(false);
 
+  //GET Grupo Acesso
+  const [grupoAcessoGet, setGrupoAcessoGet] = useState([]);
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
+        setGrupoAcessoGet(
+          response.data.map((grupoAcesso) => {
+            return {
+              grupoDeAcessoId: grupoAcesso.grupoDeAcessoId,
+              nomeDoGrupo: grupoAcesso.nomeDoGrupo,
+              descricaoDoGrupo: grupoAcesso.descricaoDoGrupo,
+              quantidadeTelasPermitidas: grupoAcesso.quantidadeTelasPermitidas,
+              quantidadeDeUsuarios: grupoAcesso.quantidadeDeUsuarios,
+            };
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -118,7 +127,64 @@ export default function GruposAcesso() {
       });
   }, []);
 
+  const columnsGrupoAcesso = [
+    {
+      dataField: "nomeDoGrupo",
+      text: "Nome",
+      sort: true,
+      filter: textFilter({
+        placeholder: "Filtrar por Nome",
+      }),
+    },
+    {
+      dataField: "descricaoDoGrupo",
+      text: "Descrição",
+      sort: true,
+    },
+    {
+      dataField: "quantidadeTelasPermitidas",
+      text: "Qtd. Telas Permitidas",
+      sort: true,
+    },
+    {
+      dataField: "quantidadeDeUsuarios",
+      text: "Qtd. Usuários",
+      sort: true,
+    },
+    {
+      dataField: "editar",
+      isDummyField: true,
+      text: "Editar / Excluir",
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span
+              className="spanTabela"
+              id={row.grupoDeAcessoId}
+              Style="cursor:pointer"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+            >
+              <VscEdit />
+            </span>
+
+            <span
+              className="spanTabela"
+              id={row.grupoDeAcessoId}
+              Style="cursor:pointer"
+              onClick={() => handleDeleteGrupoAcesso(row.grupoDeAcessoId)}
+            >
+              <RiDeleteBinFill />
+            </span>
+          </>
+        );
+      },
+    },
+  ];
+
   // POST
+  const [grupoDeAcessoId, setGrupoDeAcessoId] = useState();
   const [nomeDoGrupo, setNomeDoGrupo] = useState();
   const [descricaoDoGrupo, setDescricaoDoGrupo] = useState();
   const [usuarios, setUsuarios] = useState(null);
@@ -151,7 +217,7 @@ export default function GruposAcesso() {
   }
 
   //Delete
-  async function handleDeleteMaquina(grupoDeAcessoId) {
+  async function handleDeleteGrupoAcesso(grupoDeAcessoId) {
     try {
       await Api.delete(`/${url}/${grupoDeAcessoId}`);
       setUser(
@@ -178,13 +244,27 @@ export default function GruposAcesso() {
                 <Button
                   variant="success"
                   onClick={(props) => {
-                    funcaoAbrirModal(props.usuario)
-                  }}                >
+                    funcaoAbrirModal(props.usuario);
+                  }}
+                >
                   Cadastrar
                 </Button>
               </div>
             </div>
           </div>
+
+          <div className="row">
+            <div className="col-md-12">
+              <BootstrapTable
+                keyField="id"
+                data={grupoAcessoGet}
+                columns={columnsGrupoAcesso}
+                striped={true}
+                filter={filterFactory()}
+              />
+            </div>
+          </div>
+
           <div className="row">
             <div className="col-md-12 col-sm-12 paddingTop20Mobile">
               <div className="textTable">
@@ -219,7 +299,7 @@ export default function GruposAcesso() {
                           <span
                             Style="cursor:pointer"
                             onClick={() =>
-                              handleDeleteMaquina(grupo.grupoDeAcessoId)
+                              handleDeleteGrupoAcesso(grupo.grupoDeAcessoId)
                             }
                             alt="Deletar"
                           >
@@ -276,7 +356,10 @@ export default function GruposAcesso() {
                     </div>
                   </div>
 
-                  <div className="row" Style='margin-top: 1rem; margin-bottom: 1rem'>
+                  <div
+                    className="row"
+                    Style="margin-top: 1rem; margin-bottom: 1rem"
+                  >
                     <div className="col-3">
                       <Button variant="success" Style="width:100%">
                         Telas
@@ -290,21 +373,24 @@ export default function GruposAcesso() {
                   </div>
 
                   {/*1ª Quadrado*/}
-                  <div className="row mt-3" >
-                    <div className="col-5 ultimaTabela" onClick={onClickLinhaTabela}>
+                  <div className="row mt-3">
+                    <div
+                      className="col-5 ultimaTabela"
+                      onClick={onClickLinhaTabela}
+                    >
                       <BootstrapTable
-                        keyField='id'
+                        keyField="id"
                         data={productsSemPermissao}
                         columns={columnsSemPermissao}
                         bordered={false}
                       />
                     </div>
 
-                    <div className="col-2 text-center" >
-                      <div Style='border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer'>
+                    <div className="col-2 text-center">
+                      <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer">
                         <TiArrowForward onClick={Enviar} />
                       </div>
-                      <div Style='border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;'>
+                      <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;">
                         <TiArrowBack onClick={Trazer} />
                       </div>
                     </div>
@@ -319,19 +405,14 @@ export default function GruposAcesso() {
                       />
                     </div>
 
-                    <div className='row mt-4'>
-                      <div className='col-6'>
-                        <Button variant='secondary'>
-                          Voltar
-                        </Button>
+                    <div className="row mt-4">
+                      <div className="col-6">
+                        <Button variant="secondary">Voltar</Button>
                       </div>
-                      <div className='col-6' Style='text-align:right'>
-                        <Button variant='success'>
-                          Salvar
-                        </Button>
+                      <div className="col-6" Style="text-align:right">
+                        <Button variant="success">Salvar</Button>
                       </div>
                     </div>
-
                   </div>
                 </form>
               </div>
