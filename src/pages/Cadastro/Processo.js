@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
-import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
-
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
 export default function Processo() {
@@ -64,12 +63,11 @@ export default function Processo() {
     },
     {
       dataField: "editar",
-      isDummyField: true,
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
         return (
           <>
-            <span 
+            <span
               className="spanTabela"
               id={row.processoId}
               Style="cursor:pointer"
@@ -81,10 +79,10 @@ export default function Processo() {
             </span>
 
             <span
-            className="spanTabela"
-            id={row.processoId}
-            Style="cursor:pointer"
-            onClick={() => handleDeleteProcesso(row.processoId)}
+              className="spanTabela"
+              id={row.processoId}
+              Style="cursor:pointer"
+              onClick={() => handleDeleteProcesso(row.processoId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -94,7 +92,7 @@ export default function Processo() {
     },
   ];
 
-  
+
 
   // POST
   const [processoId, setProcessoId] = useState();
@@ -198,13 +196,13 @@ export default function Processo() {
 
           <div className="row">
             <div className="col-md-12">
-              
+
               <BootstrapTable
                 keyField="id"
                 data={processoGet}
                 columns={columns}
                 striped={true}
-                filter={ filterFactory() }
+                filter={filterFactory()}
               />
             </div>
           </div>

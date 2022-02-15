@@ -22,7 +22,43 @@ export default function Maquina() {
 
   const [maquinaGet, setMaquinaGet] = useState([]);
 
- const columns = [
+  useEffect(() => {
+    Api.get(`${url}`)
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+        setMaquinaGet(
+          response.data.map((maquina) => {
+            return {
+              id: maquina.maquinaId,
+              nome: maquina.nome,
+              processoId: maquina.processoId,
+              processo: maquina.processo.nome,
+              status: maquina.status ? "Ativo" : "Inativo",
+              ordenacao: maquina.ordenacao,
+              tempoMedioProducao: maquina.tempoMedioProducao,
+              editar: maquina.maquinaId,
+              ...maquina
+            };
+          }))
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro111!:", error);
+        alert("Ops! Ocorreu um erro111!:", error);
+      });
+
+    Api.get(`${urlProcesso}`)
+      .then((response) => {
+        console.log(response);
+        setUser2(response.data);
+      })
+      .catch((error) => {
+        console.log("Não foi possivel carregar a lista", error);
+        alert("Não foi possivel carregar a lista", error);
+      });
+  }, []);
+
+  const columns = [
     {
       dataField: "id",
       text: "ID",
@@ -60,7 +96,7 @@ export default function Maquina() {
       formatter: (cellContent, row) => {
         return (
           <>
-            <span 
+            <span
               className="spanTabela"
               id={row.maquinaId}
               Style="cursor:pointer"
@@ -72,10 +108,10 @@ export default function Maquina() {
             </span>
 
             <span
-            className="spanTabela"
-            id={row.maquinaId}
-            Style="cursor:pointer"
-            onClick={() => handleDeleteMaquina(row.maquinaId)}
+              className="spanTabela"
+              id={row.maquinaId}
+              Style="cursor:pointer"
+              onClick={() => handleDeleteMaquina(row.maquinaId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -85,40 +121,7 @@ export default function Maquina() {
     },
   ];
 
-  useEffect(() => {
-    Api.get(`${url}`)
-      .then((response) => {
-        console.log(response);
-        setUser(response.data);
-        setMaquinaGet(
-          response.data.map((maquina) => {
-            return {
-              id: maquina.maquinaId,
-              nome: maquina.nome,
-              processoId: maquina.processoId,
-              processo: maquina.processo.nome,
-              status: maquina.status ? "Ativo" : "Inativo",
-              ordenacao: maquina.ordenacao,
-              tempoMedioProducao: maquina.tempoMedioProducao,
-              editar: maquina.maquinaId,
-            };
-          }))
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
-      });
 
-    Api.get(`${urlProcesso}`)
-      .then((response) => {
-        console.log(response);
-        setUser2(response.data);
-      })
-      .catch((error) => {
-        console.log("Não foi possivel carregar a lista", error);
-        alert("Não foi possivel carregar a lista", error);
-      });
-  }, []);
 
   //POST
   const [maquinaId, setMaquinaId] = useState();
@@ -262,7 +265,7 @@ export default function Maquina() {
                         <td Style="display:none" key={index}></td>
                         <td Style="display:none">{maquina.maquinaId}</td>
                         <td>{maquina.nome}</td>
-                        <td>{maquina.processo.nome}</td>
+                        {/* <td>{maquina.processo.nome}</td> */}
                         <td>{maquina.status ? "Ativo" : "Inativo"}</td>
                         <td>{maquina.ordenacao}</td>
                         <td>{maquina.tempoMedioProducao}</td>

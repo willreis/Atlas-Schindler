@@ -20,6 +20,21 @@ export default function Usuarios() {
   const [showModalPut, setShowModalPut] = useState(false);
 
   const [usuarioGet, setUsuarioGet] = useState([]);
+  //*GET
+  const [user, setUser] = useState([]);
+  ///Get Grupo de Acesso
+  const [userGrupoAcesso, setUserGrupoAcesso] = useState();
+  // POST
+  const [usuarioId, setUsuarioId] = useState();
+  const [idUser, setIdUser] = useState(null);
+  const [senha, setSenha] = useState();
+  const [nome, setNome] = useState();
+  const [matricula, setMatricula] = useState();
+  const [cargo, setCargo] = useState();
+  const [eMail, setEmail] = useState();
+  const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
+  const [status, setStatus] = useState();
+  const [dataDeCadastro, setDataDeCadastro] = useState();
 
   const columns = [
     {
@@ -101,9 +116,6 @@ export default function Usuarios() {
   var dataAtual = new Date().toLocaleDateString();
   var horaAtual = new Date().toLocaleTimeString();
 
-  //*GET
-  const [user, setUser] = useState([]);
-
   var url = "Usuario";
 
   useEffect(() => {
@@ -114,7 +126,7 @@ export default function Usuarios() {
         setUsuarioGet(
           response.data.map((usuario) => {
             return {
-              usuarioId:usuario.usuarioId,
+              usuarioId: usuario.usuarioId,
               matricula: usuario.matricula,
               nome: usuario.nome,
               cargo: usuario.cargo,
@@ -133,34 +145,18 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro1:", error);
       });
 
-      Api.get("/GrupoDeAcesso")
+    Api.get(`/GrupoDeAcesso/${grupoDeAcesso}`)
       .then((response) => {
         console.log(response.data);
-        setUserGrupoAcesso(response.data);
-        console.log('id grupodeacesssssssooo' + userGrupoAcesso)
+        setUserGrupoAcesso(response.data.grupoDeAcessoId);
+        console.log('User grupo de acesso:', userGrupoAcesso)
+        console.log("Grupo de acesso:", grupoDeAcesso)
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
         alert("Ops! Ocorreu um erro1:", error);
       });
   }, []);
-
-  ///Get Grupo de Acesso
-  const [userGrupoAcesso, setUserGrupoAcesso] = useState();
- 
-
-
-  // POST
-  const [usuarioId, setUsuarioId] = useState();
-  const [idUser, setIdUser] = useState(null);
-  const [senha, setSenha] = useState();
-  const [nome, setNome] = useState();
-  const [matricula, setMatricula] = useState();
-  const [cargo, setCargo] = useState();
-  const [eMail, setEmail] = useState();
-  const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
-  const [status, setStatus] = useState();
-  const [dataDeCadastro, setDataDeCadastro] = useState();
 
   function handleRegister(e) {
     //e.preventDefault();
@@ -263,6 +259,7 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro1:", error);
       });
   }
+
   const selectRow = {
     mode: "radio",
     clickToSelect: true,
@@ -418,29 +415,28 @@ export default function Usuarios() {
                   />
                 </div>
                 <div className="col-md-4 col-sm-6">
-                    <label>Grupo De Acesso</label>
-
-                    <select
-                      type="number"
-                      id="processos"
-                      name={userGrupoAcesso}
-                      value={userGrupoAcesso}
-                      onChange={(e) => {
-                        setUserGrupoAcesso(parseInt(e.target.value));
-                      }}
-                    >
-                      <option>Escolha uma opção</option>
-                      {grupoDeAcesso.map((grupo) => (
-                        <option
-                          name={grupo.nomeDoGrupo}
-                          value={grupo.grupoDeAcessoId}
-                        >
-                          {grupo.nomeDoGrupo}
-                        </option>
-                      ))}
-                      ;
-                    </select>
-                  </div>
+                  <label>Grupo De Acesso</label>
+                  <select
+                    type="number"
+                    id="processos"
+                    name={userGrupoAcesso}
+                    value={userGrupoAcesso}
+                    onChange={(e) => {
+                      setUserGrupoAcesso(parseInt(e.target.value));
+                    }}
+                  >
+                    <option>Escolha uma opção</option>
+                    {grupoDeAcesso.map((grupo) => (
+                      <option
+                        name={grupo.nomeDoGrupo}
+                        value={grupo.grupoDeAcessoId}
+                      >
+                        {grupo.nomeDoGrupo}
+                      </option>
+                    ))}
+                    ;
+                  </select>
+                </div>
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
@@ -458,9 +454,8 @@ export default function Usuarios() {
                       <div className="input-group-addon iconEye">
                         <i
                           onClick={togglePassword}
-                          className={`fa ${
-                            showPassword ? "fa-eye" : "fa-eye-slash"
-                          }`}
+                          className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"
+                            }`}
                         ></i>
                       </div>
                     </div>
@@ -570,12 +565,12 @@ export default function Usuarios() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                
+
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
                     <div className="input-group">
-                      
+
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
@@ -587,9 +582,8 @@ export default function Usuarios() {
                       <div className="input-group-addon iconEye">
                         <i
                           onClick={togglePassword}
-                          className={`fa ${
-                            showPassword ? "fa-eye" : "fa-eye-slash"
-                          }`}
+                          className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"
+                            }`}
                         ></i>
                       </div>
                     </div>
