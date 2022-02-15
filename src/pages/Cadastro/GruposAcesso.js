@@ -21,6 +21,11 @@ export default function GruposAcesso() {
   const [showModal, setShowModal] = useState(false);
   const [telaId, setTelaId] = useState();
   const [nome, setNome] = useState();
+  const [idGrupo, setIdGrupo] = useState();
+  const [liberarBotao, setLiberarBotao] = useState(true);
+  const [telasPermitidas, setTelasPermitidas] = useState();
+  const [idNaoAssociado, setIdNaoAssociado] = useState(null);
+  const [idAssociado ,setIdAssociado] = useState(null);
 
   //GET
   const [user, setUser] = useState([]);
@@ -28,27 +33,36 @@ export default function GruposAcesso() {
   //Get Tela:
   const columnsSemPermissao = [
     {
+      text: "telaId",
+      dataField: "telas id",
+      hidden: true,
+    },
+    {
+      dataField: "nome",
       text: "Telas Sem Permissão!",
-      dataField: "telas",
     },
   ];
 
   const [productsSemPermissao, setProductsSemPermissao] = useState([]);
 
-  function funcaoAbrirModal(usuario) {
+  function funcaoAbrirModal() {
     setShowModal(true);
-
-    Api.get("Tela/", {
+    Api.get(`Tela`, {
       telaId,
       nome,
     })
       .then((response) => {
-        console.log(response);
-        setProductsSemPermissao(
-          response.data.map((t) => {
-            return { telas: t.nome, ...t };
-          })
+        var telasSemPermissao = response.data.filter(
+          (e) =>
+            telasPermitidas.find((d) => d.telaId === e.telaId) == null &&
+            e.telaId !== idGrupo
         );
+        // filterNaoAssociados.forEach((element, index) => {
+        //     //    if(element.idTipoVeiculoAssociado == "")
+        //     element.telaId = (index + 1) * -1
+        // });
+        console.log(telasSemPermissao);
+        setProductsSemPermissao(telasSemPermissao);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
@@ -70,15 +84,22 @@ export default function GruposAcesso() {
       });
   }
 
-  function Enviar() {}
-
-  function Trazer() {}
-
   //////////////////////////////////////////////////////////////////////////////////////////////////
   const columns = [
     {
       text: "Telas Permitidas!",
       dataField: "telas",
+    },
+  ];
+  const columnsPermitidas = [
+    {
+      dataField: "telaId",
+      text: "ID DA TELA",
+      hidden: true,
+    },
+    {
+      dataField: "nome",
+      text: "Telas Permitidas!",
     },
   ];
 
@@ -97,6 +118,15 @@ export default function GruposAcesso() {
     },
   ];
 
+  const selectRowGrupos = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      setLiberarBotao(false);
+      setIdGrupo(row.grupoDeAcessoId);
+      setTelasPermitidas(row.telas);
+    },
+  };
   var url = "GrupoDeAcesso";
 
   //Modal const
@@ -104,6 +134,7 @@ export default function GruposAcesso() {
 
   //GET Grupo Acesso
   const [grupoAcessoGet, setGrupoAcessoGet] = useState([]);
+
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
@@ -115,6 +146,7 @@ export default function GruposAcesso() {
               grupoDeAcessoId: grupoAcesso.grupoDeAcessoId,
               nomeDoGrupo: grupoAcesso.nomeDoGrupo,
               descricaoDoGrupo: grupoAcesso.descricaoDoGrupo,
+              telas: grupoAcesso.telas,
               quantidadeTelasPermitidas: grupoAcesso.quantidadeTelasPermitidas,
               quantidadeDeUsuarios: grupoAcesso.quantidadeDeUsuarios,
             };
@@ -128,6 +160,11 @@ export default function GruposAcesso() {
   }, []);
 
   const columnsGrupoAcesso = [
+    {
+      dataField: "grupoDeAcessoId",
+      text: "id grupo de acesso",
+      hidden: true,
+    },
     {
       dataField: "nomeDoGrupo",
       text: "Nome",
@@ -188,9 +225,9 @@ export default function GruposAcesso() {
   const [nomeDoGrupo, setNomeDoGrupo] = useState();
   const [descricaoDoGrupo, setDescricaoDoGrupo] = useState();
   const [usuarios, setUsuarios] = useState(null);
-  const [telas, setTelas] = useState(null);
-  const [quantidadeTelasPermitidas, setQuantidadeTelasPermitidas] = useState();
-  const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState();
+  const [telas, setTelas] = useState();
+  const [quantidadeTelasPermitidas, setQuantidadeTelasPermitidas] = useState(0);
+  const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState(0);
 
   function handleRegister(e) {
     // e.preventDefault();
@@ -202,9 +239,10 @@ export default function GruposAcesso() {
       nomeDoGrupo,
       descricaoDoGrupo,
       usuarios,
-      telas,
+      telas:[telasPermitidas],
       quantidadeTelasPermitidas,
       quantidadeDeUsuarios,
+      // telas: [telasPermitidas],
     })
       .then((response) => {
         console.log(response.data);
@@ -229,6 +267,65 @@ export default function GruposAcesso() {
     }
   }
 
+  const selectRowSemPermissao = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log(row);
+      setIdNaoAssociado(row.telaId);
+    },
+  };
+
+  const selectRowComPermissao = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log(row);
+      setIdAssociado(row.telaId);
+    },
+  };
+
+  const associarTelas = (e) => {
+    var findAssociados = productsSemPermissao.find(
+      (e) => e.telaId === idNaoAssociado
+    );
+    // if (productsSemPermissao.find(e => e.telaId == idNaoAssociado) != null) {
+
+    //     return;
+    // }
+
+    findAssociados.nome = findAssociados.nome;
+    findAssociados.telaId = findAssociados.telaId;
+
+    console.log(findAssociados);
+
+    telasPermitidas.push(findAssociados);
+    setTelasPermitidas(telasPermitidas);
+    var naoAssociadosFilter = productsSemPermissao.filter(
+      (e) => e.telaId !== idNaoAssociado
+    );
+    setProductsSemPermissao(naoAssociadosFilter);
+  };
+
+  const desassociarTiposVeiculos = (e) => {
+    var findNaoAssociados = telasPermitidas.find(
+      (e) => e.telaId === idAssociado
+    );
+
+    // if (dataNaoAssociados.find(e => e.idTipoVeiculo == idAssociado) != null) {
+
+    //     return;
+    // }
+    findNaoAssociados.nome = findNaoAssociados.nome;
+    findNaoAssociados.telaId = findNaoAssociados.telaId;
+
+    productsSemPermissao.push(findNaoAssociados);
+    setProductsSemPermissao(productsSemPermissao);
+    var associadosFilter = telasPermitidas.filter(
+      (e) => e.telaId !== idAssociado
+    );
+    setTelasPermitidas(associadosFilter);
+  };
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -244,8 +341,9 @@ export default function GruposAcesso() {
                 <Button
                   variant="success"
                   onClick={(props) => {
-                    funcaoAbrirModal(props.usuario);
+                    funcaoAbrirModal(idGrupo);
                   }}
+                  disabled={liberarBotao}
                 >
                   Cadastrar
                 </Button>
@@ -256,63 +354,16 @@ export default function GruposAcesso() {
           <div className="row">
             <div className="col-md-12">
               <BootstrapTable
-                keyField="id"
+                keyField="grupoDeAcessoId"
                 data={grupoAcessoGet}
                 columns={columnsGrupoAcesso}
                 striped={true}
+                selectRow={selectRowGrupos}
                 filter={filterFactory()}
               />
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div className="textTable">
-                <table class="table table-striped table-bordered">
-                  <thead>
-                    <tr className="text-center">
-                      <th scope="col">Nome</th>
-                      <th scope="col">Descrição</th>
-                      <th scope="col">Qtd Telas Permitidas</th>
-                      <th scope="col">Qtd De Usuarios</th>
-                      <th scope="col">Editar / Excluir</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {user.map((grupo, index) => (
-                      <tr>
-                        <td Style="display:none" key={index}></td>
-                        <td Style="display:none">{grupo.grupoDeAcessoId}</td>
-                        <td>{grupo.nomeDoGrupo}</td>
-                        <td>{grupo.descricaoDoGrupo}</td>
-                        <td>{grupo.quantidadeTelasPermitidas}</td>
-                        <td>{grupo.quantidadeDeUsuarios}</td>
-                        <td className="text-center icons-table">
-                          <span
-                            Style="cursor:pointer"
-                            // onClick={() => pegarId(maquina.maquinaId)}
-                            alt="Editar"
-                          >
-                            <VscEdit />
-                          </span>
-
-                          <span
-                            Style="cursor:pointer"
-                            onClick={() =>
-                              handleDeleteGrupoAcesso(grupo.grupoDeAcessoId)
-                            }
-                            alt="Deletar"
-                          >
-                            <RiDeleteBinFill />
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="cadastroGPAcesso">
@@ -344,6 +395,8 @@ export default function GruposAcesso() {
                         type="text"
                         className="form-control"
                         placeholder="Nome"
+                        value={nomeDoGrupo}
+                        onChange={(e) => setNomeDoGrupo(e.target.value)}
                       />
                     </div>
                     <div className="col-6">
@@ -352,6 +405,8 @@ export default function GruposAcesso() {
                         type="text"
                         className="form-control"
                         placeholder="Descrição"
+                        value={descricaoDoGrupo}
+                        onChange={(e) => setDescricaoDoGrupo(e.target.value)}
                       />
                     </div>
                   </div>
@@ -375,32 +430,34 @@ export default function GruposAcesso() {
                   {/*1ª Quadrado*/}
                   <div className="row mt-3">
                     <div
-                      className="col-5 ultimaTabela"
+                      className="col-5 ultimaTabela" Style="height: 200px!important"
                       onClick={onClickLinhaTabela}
                     >
                       <BootstrapTable
-                        keyField="id"
+                        keyField="telaId"
                         data={productsSemPermissao}
                         columns={columnsSemPermissao}
+                        selectRow={selectRowSemPermissao}
                         bordered={false}
                       />
                     </div>
 
                     <div className="col-2 text-center">
                       <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer">
-                        <TiArrowForward onClick={Enviar} />
+                        <TiArrowForward onClick={associarTelas} />
                       </div>
                       <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;">
-                        <TiArrowBack onClick={Trazer} />
+                        <TiArrowBack onClick={desassociarTiposVeiculos} />
                       </div>
                     </div>
 
                     {/*2ª Quadrado*/}
-                    <div className="col-5">
+                    <div className="col-5" Style="border: 1px solid green; height: 200px">
                       <BootstrapTable
-                        keyField="id"
-                        data={products}
-                        columns={columns}
+                        keyField="telaId"
+                        data={telasPermitidas}
+                        columns={columnsPermitidas}
+                        selectRow={selectRowComPermissao}
                         bordered={false}
                       />
                     </div>
@@ -410,7 +467,7 @@ export default function GruposAcesso() {
                         <Button variant="secondary">Voltar</Button>
                       </div>
                       <div className="col-6" Style="text-align:right">
-                        <Button variant="success">Salvar</Button>
+                        <Button variant="success" onClick={() => createPost()}>Salvar</Button>
                       </div>
                     </div>
                   </div>

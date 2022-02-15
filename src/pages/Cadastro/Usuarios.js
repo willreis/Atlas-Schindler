@@ -305,7 +305,7 @@ export default function Usuarios() {
               </div>
             </div>
 
-            <div className="row">
+            {/* <div className="row">
               <div className="col-md-12">
                 <table className="table table-striped table-bordered">
                   <thead>
@@ -357,7 +357,7 @@ export default function Usuarios() {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

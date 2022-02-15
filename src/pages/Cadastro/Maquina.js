@@ -241,58 +241,7 @@ export default function Maquina() {
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-md-12 col-sm-12 paddingTop20Mobile">
-              <div className="textTable">
-                <table class="table table-striped table-bordered">
-                  <thead>
-                    <tr className="text-center">
-                      <th scope="col">Nome</th>
-                      <th scope="col">Processo</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Ordenação</th>
-                      <th scope="col">Tempo Médio Produção</th>
-                      <th scope="col">Editar / Excluir</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {user.map((maquina, index) => (
-                      <tr>
-                        <td Style="display:none" key={index}></td>
-                        <td Style="display:none">{maquina.maquinaId}</td>
-                        <td>{maquina.nome}</td>
-                        <td>{maquina.processo.nome}</td>
-                        <td>{maquina.status ? "Ativo" : "Inativo"}</td>
-                        <td>{maquina.ordenacao}</td>
-                        <td>{maquina.tempoMedioProducao}</td>
-                        <td className="text-center icons-table">
-                          <span
-                            Style="cursor:pointer"
-                            onClick={() => {
-                              funcaoAbrirModal(maquina);
-                            }}
-                          >
-                            <VscEdit />
-                          </span>
-
-                          <span
-                            Style="cursor:pointer"
-                            onClick={() =>
-                              handleDeleteMaquina(maquina.maquinaId)
-                            }
-                          >
-                            <RiDeleteBinFill />
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
+      
           <div className="row">
             <div className="col-md-12">
               <BootstrapTable
