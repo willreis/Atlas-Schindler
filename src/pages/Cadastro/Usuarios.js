@@ -34,6 +34,7 @@ export default function Usuarios() {
   const [cargo, setCargo] = useState();
   const [eMail, setEmail] = useState();
   const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
+  const [grupoDeAcessoId, setGrupoDeAcessoId] = useState();
   const [status, setStatus] = useState();
   const [dataDeCadastro, setDataDeCadastro] = useState();
 
@@ -132,7 +133,7 @@ export default function Usuarios() {
             <button
               className="spanTabela"
               id={row.usuarioId}
-              Style="cursor:pointer"
+              Style="cursor:pointer; border: none; background: none"
               onClick={() => handleDeleteUsuario(row.usuarioId)}
             >
               <RiDeleteBinFill />
@@ -178,8 +179,14 @@ export default function Usuarios() {
     Api.get('/GrupoDeAcesso')
       .then((response) => {
         setUserGrupoAcesso(response.data);
-        console.log('User grupo de acesso:', userGrupoAcesso)
-        console.log("Grupo de acesso:", grupoDeAcesso)
+        const resultadoNome = userGrupoAcesso.map(nome => (
+          nome.nomeDoGrupo
+        ))
+        const resultadoId = userGrupoAcesso.map(nome => (
+          nome.grupoDeAcessoId
+        ))
+        console.log('resultadoNome!!!:', resultadoNome)
+        console.log('resultadoId!!!:', resultadoId)
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -188,8 +195,8 @@ export default function Usuarios() {
   }, []);
 
   function handleRegister(e) {
-    //e.preventDefault();
     handleRegister(user);
+    e.preventDefault();
   }
 
   function createPost() {
@@ -199,7 +206,7 @@ export default function Usuarios() {
       nome,
       cargo,
       eMail,
-      grupoDeAcesso,
+      grupoDeAcesso: [grupoDeAcessoId],
       status,
       dataDeCadastro,
     })
@@ -450,22 +457,21 @@ export default function Usuarios() {
                   <select
                     type="number"
                     id="grupoDeAcessoId"
-                    name={userGrupoAcesso}
-                    value={userGrupoAcesso}
+                    name=""
+                    value={grupoDeAcesso.grupoDeAcessoId}
                     onChange={(e) => {
-                      setUserGrupoAcesso(parseInt(e.target.value));
+                      setGrupoDeAcesso(parseInt(e.target.value));
                     }}
                   >
+
                     <option>Escolha uma opção</option>
-                    {grupoDeAcesso.map((grupo) => (
-                      <option
-                        name={grupo.nomeDoGrupo}
-                        value={grupo.grupoDeAcessoId}
-                      >
-                        {grupo.nomeDoGrupo}
+                    {userGrupoAcesso.map((nome) => (
+                      <option name={nome.nomeDoGrupo} value={nome.grupoDeAcessoId}>
+                        {nome.nomeDoGrupo}
                       </option>
                     ))}
-                    ;
+
+
                   </select>
                 </div>
                 <div className="col-md-6 col-sm-6">
