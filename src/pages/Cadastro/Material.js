@@ -7,6 +7,9 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+//filterFactory coloca no BootstrapTable e textFilter nas Colunas da Tabela(columns).
 
 export default function Material() {
   var url = "Material";
@@ -18,16 +21,25 @@ export default function Material() {
       dataField: "codigo",
       text: "Codigo do Material",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar por Código',
+      })
     },
     {
       dataField: "nome",
       text: "Nome",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar por Nome',
+      })
     },
     {
       dataField: "localizacao",
       text: "Localização",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar por Localização',
+      })
     },
     {
       dataField: "comprimento",
@@ -61,12 +73,11 @@ export default function Material() {
     },
     {
       dataField: "editar",
-      isDummyField: true,
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
         return (
           <>
-            <span 
+            <span
               className="spanTabela"
               id={row.materialId}
               Style="cursor:pointer"
@@ -78,10 +89,10 @@ export default function Material() {
             </span>
 
             <span
-            className="spanTabela"
-            id={row.materialId}
-            Style="cursor:pointer"
-            onClick={() => handleDeleteMaterial(row.materialId)}
+              className="spanTabela"
+              id={row.materialId}
+              Style="cursor:pointer"
+              onClick={() => handleDeleteMaterial(row.materialId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -90,10 +101,6 @@ export default function Material() {
       },
     },
   ];
-
-  //Modal const
-  const [show, setShow] = useState(false);
-  const [showModalPut, setShowModalPut] = useState(false);
 
   //GET
   const [user, setUser] = useState([]);
@@ -121,6 +128,12 @@ export default function Material() {
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
+
+  //Modal const
+  const [show, setShow] = useState(false);
+  const [showModalPut, setShowModalPut] = useState(false);
+
+
 
   //POST
   const [materialId, setMaterialId] = useState();
@@ -266,11 +279,12 @@ export default function Material() {
                 data={materialGet}
                 columns={columns}
                 striped={true}
+                filter={filterFactory()}
               />
             </div>
           </div>
-
         </div>
+
         {/* Modal Cadastro */}
         <Modal
           size="lg"
@@ -279,9 +293,9 @@ export default function Material() {
           dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title"
         >
-          <Modal.Header closeButton>
+            <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-              Cadastro de Produtos
+              Cadastrar Dados
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -396,13 +410,13 @@ export default function Material() {
         <Modal
           size="lg"
           show={showModalPut}
-          onHide={() => setShow(false)}
+          onHide={() => setShowModalPut(false)}
           dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title"
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-              Cadastro de Produtos
+              Editar Dados
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -412,7 +426,7 @@ export default function Material() {
               Style="margin-bottom: 30px"
             >
               <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                <div className="col-md-3 col-sm-6" Style="display: none"> 
+                <div className="col-md-3 col-sm-6" Style="display: none">
                   <label>Id</label>
                   <input
                     name="materialId"

@@ -36,7 +36,6 @@ export default function Impressora() {
     },
     {
       dataField: "editar",
-      isDummyField: true,
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
         return (
@@ -65,6 +64,30 @@ export default function Impressora() {
       },
     },
   ];
+
+  useEffect(() => {
+    Api.get(`${url}`)
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+        setImpressoraGet(
+          response.data.map((impressora) => {
+            return {
+              nome: impressora.nome,
+              marca: impressora.marca,
+              endereco: impressora.endereco,
+              area: impressora.area,
+              editar: impressora.impressoraId,
+              ...impressora,
+            };
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }, []);
 
   //Modal const
   const [show, setShow] = useState(false);
@@ -105,30 +128,6 @@ export default function Impressora() {
 
   //GET
   const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    Api.get(`${url}`)
-      .then((response) => {
-        console.log(response);
-        setUser(response.data);
-        setImpressoraGet(
-          response.data.map((impressora) => {
-            return {
-              nome: impressora.nome,
-              marca: impressora.marca,
-              endereco: impressora.endereco,
-              area: impressora.area,
-              editar: impressora.impressoraId,
-              ...impressora,
-            };
-          })
-        );
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
-      });
-  }, []);
 
   //Delete
   async function handleDeleteImpressora(impressoraId) {
