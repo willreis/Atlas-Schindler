@@ -46,6 +46,8 @@ export default function Processo() {
 
   const columns = [
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "nome",
       text: "Nome",
       sort: true,
@@ -54,6 +56,8 @@ export default function Processo() {
       })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "ordenacao",
       text: "Ordenação",
       sort: true,
@@ -62,6 +66,8 @@ export default function Processo() {
       })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "editar",
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {

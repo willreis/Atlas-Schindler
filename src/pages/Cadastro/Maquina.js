@@ -7,6 +7,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import Api from "../../services/Api";
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
 export default function Maquina() {
   var url = "Maquina";
@@ -60,36 +61,56 @@ export default function Maquina() {
 
   const columns = [
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "id",
       text: "ID",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "nome",
       text: "Nome",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar Nome',
+      })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "processo",
       text: "Processo",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar Processo',
+      })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "status",
       text: "Status",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "ordenacao",
       text: "Ordenação",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "tempoMedioProducao",
       text: "Tempo Médio de Produção",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "editar",
       isDummyField: true,
       text: "Editar / Excluir",
@@ -244,7 +265,7 @@ export default function Maquina() {
             </div>
           </div>
 
-      
+
           <div className="row">
             <div className="col-md-12">
               <BootstrapTable
@@ -252,6 +273,7 @@ export default function Maquina() {
                 data={maquinaGet}
                 columns={columns}
                 striped={true}
+                filter={filterFactory()}
               />
             </div>
           </div>
