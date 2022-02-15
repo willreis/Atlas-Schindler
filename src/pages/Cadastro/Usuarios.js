@@ -7,7 +7,7 @@ import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Api from "../../services/Api";
 import Modal from "react-bootstrap/Modal";
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export default function Usuarios() {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,80 +39,80 @@ export default function Usuarios() {
 
   const columns = [
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "usuarioId",
       text: "id usuario",
       hidden: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "matricula",
       text: "Matricula",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Matricula',
+        placeholder: "Filtrar Matricula",
       }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "nome",
       text: "Nome",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Nome',
+        placeholder: "Filtrar Nome",
       }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "cargo",
       text: "Cargo",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Cargo',
+        placeholder: "Filtrar Cargo",
       }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "eMail",
       text: "Email",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "senha",
       text: "Senha",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "grupoDeAcesso",
       text: "Grupo De Acesso",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "status",
       text: "Status",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "dataDeCadastro",
       text: "Data de Cadastro",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
       isDummyField: true,
       text: "Editar / Excluir",
@@ -172,17 +172,13 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro1:", error);
       });
 
-    Api.get('/GrupoDeAcesso')
+    Api.get("/GrupoDeAcesso")
       .then((response) => {
         setUserGrupoAcesso(response.data);
-        const resultadoNome = userGrupoAcesso.map(nome => (
-          nome.nomeDoGrupo
-        ))
-        const resultadoId = userGrupoAcesso.map(nome => (
-          nome.grupoDeAcessoId
-        ))
-        console.log('resultadoNome!!!:', resultadoNome)
-        console.log('resultadoId!!!:', resultadoId)
+        const resultadoNome = userGrupoAcesso.map((nome) => nome.nomeDoGrupo);
+        const resultadoId = userGrupoAcesso.map((nome) => nome.grupoDeAcessoId);
+        console.log("resultadoNome!!!:", resultadoNome);
+        console.log("resultadoId!!!:", resultadoId);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -192,7 +188,7 @@ export default function Usuarios() {
 
   function handleRegister(e) {
     handleRegister(user);
-    e.preventDefault();
+    // e.preventDefault();
   }
 
   function createPost() {
@@ -203,7 +199,7 @@ export default function Usuarios() {
       cargo,
       eMail,
       grupoDeAcesso: {
-        grupoDeAcessoId
+        grupoDeAcessoId,
       },
       status,
     })
@@ -221,17 +217,15 @@ export default function Usuarios() {
   async function handleDeleteUsuario(idUser) {
     try {
       await Api.delete(`/${url}/${idUser}`);
-      // setUsuarioGet(user.filter((usuario) => usuario.usuarioId !== idUser));
       alert("Deletado com sucesso");
     } catch (err) {
-      console.log("iddddddddddddddddddddddddd", usuarioId);
       alert("erro ao deletar, tente novamente");
     }
   }
 
   function handlePut(row) {
     Api.put(`${url}/${row.usuarioId}`, {
-      usuarioId, //Os Estados para editar.
+      usuarioId,
       senha,
       matricula,
       nome,
@@ -260,9 +254,6 @@ export default function Usuarios() {
 
   function funcaoAbrirModal(row) {
     setShowModalPut(true);
-    alert("modal id: ", row.usuarioId);
-    console.log("funcaoAbrirModal ativada!");
-
     Api.get(`${url}/${row.usuarioId}`, {
       usuarioId,
       senha,
@@ -290,21 +281,20 @@ export default function Usuarios() {
   }
 
   const selectRow = {
-    mode: "radio",
+    mode: "hidden",
     clickToSelect: true,
     onSelect: (row) => {
       console.log("selecionado");
       console.log(row.usuarioId);
       setIdUser(row.usuarioId);
     },
-    hidden: true
   };
 
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div id="divPai">
-          <div className="container paddingContainer margin-0">
+          <div className="paddingContainer margin-0">
             <div className="row">
               <div className="col-md-6 col-sm-12">
                 <div className="tituloInterno">
@@ -392,21 +382,23 @@ export default function Usuarios() {
                   />
                 </div>
 
-                <div className="col-md-4 col-sm-6">
+                <div className="col-md-6 col-sm-6">
                   <label>Grupo De Acesso</label>
                   <select
                     type="number"
                     id="grupoDeAcessoId"
                     name=""
-                    value={grupoDeAcesso.grupoDeAcessoId}
+                    value={grupoDeAcesso}
                     onChange={(e) => {
-                      setGrupoDeAcesso(parseInt(e.target.value));
+                      setGrupoDeAcessoId(parseInt(e.target.value));
                     }}
                   >
-
                     <option>Escolha uma opção</option>
                     {userGrupoAcesso.map((nome) => (
-                      <option name={nome.nomeDoGrupo} value={nome.grupoDeAcessoId}>
+                      <option
+                        name={nome.nomeDoGrupo}
+                        value={nome.grupoDeAcessoId}
+                      >
                         {nome.nomeDoGrupo}
                       </option>
                     ))}
@@ -417,8 +409,6 @@ export default function Usuarios() {
                   <div className="form-group">
                     <label>Senha</label>
                     <div className="input-group">
-                      {" "}
-                      {/*Bootstrap className para juntar*/}
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
@@ -430,8 +420,9 @@ export default function Usuarios() {
                       <div className="input-group-addon iconEye">
                         <i
                           onClick={togglePassword}
-                          className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"
-                            }`}
+                          className={`fa ${
+                            showPassword ? "fa-eye" : "fa-eye-slash"
+                          }`}
                         ></i>
                       </div>
                     </div>
@@ -474,7 +465,7 @@ export default function Usuarios() {
           show={showModalPut}
           onHide={() =>
             setShowModalPut(false)
-          } /*false possibilita fechar. True ñ deixa fechar*/
+          } 
         >
           <Modal.Header closeButton>
             <Modal.Title>Cadastro de Usuarios</Modal.Title>
@@ -485,16 +476,7 @@ export default function Usuarios() {
               id="formCadastro"
               Style="margin-bottom: 30px"
             >
-              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                <td></td>
-                <div className="col-md-6 col-sm-6" Style="display:none">
-                  <label>Id</label>
-                  <input
-                    name="usuarioId"
-                    value={usuarioId}
-                    onChange={(e) => setUsuarioId(e.target.value)}
-                  />
-                </div>
+              <form className="row g-3 formPadrao" onSubmit={handlePut}>
                 <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
@@ -534,10 +516,34 @@ export default function Usuarios() {
                 </div>
 
                 <div className="col-md-6 col-sm-6">
+                  <label>Grupo De Acesso</label>
+                  <select
+                    type="number"
+                    id="grupoDeAcessoId"
+                    name=""
+                    value={grupoDeAcesso.grupoDeAcessoId}
+                    onChange={(e) => {
+                      setGrupoDeAcessoId(parseInt(e.target.value));
+                    }}
+                  >
+                    <option>Escolha uma opção</option>
+                    {userGrupoAcesso.map((nome) => (
+                      <option
+                        name={nome.nomeDoGrupo}
+                        value={nome.grupoDeAcessoId}
+                      >
+                        {nome.nomeDoGrupo}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
                     <div className="input-group">
-
+                      {" "}
+                      {/*Bootstrap className para juntar*/}
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
@@ -549,8 +555,9 @@ export default function Usuarios() {
                       <div className="input-group-addon iconEye">
                         <i
                           onClick={togglePassword}
-                          className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"
-                            }`}
+                          className={`fa ${
+                            showPassword ? "fa-eye" : "fa-eye-slash"
+                          }`}
                         ></i>
                       </div>
                     </div>
@@ -572,14 +579,13 @@ export default function Usuarios() {
                     </option>
                   </select>
                 </div>
-                <div className="col-md-2 col-sm-6 btnCol">
+                <div className="col-md-2 col-sm-6">
                   <Button
                     type="submit"
                     variant="success"
                     className="align-self-baseline"
-                    onClick={(usuario) => {
-                      handlePut(usuario.usuarioId);
-                    }}
+                    onClick={createPost}
+                    Style="margin-top: 24px"
                   >
                     Salvar
                   </Button>
