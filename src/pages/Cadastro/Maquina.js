@@ -38,7 +38,7 @@ export default function Maquina() {
               ordenacao: maquina.ordenacao,
               tempoMedioProducao: maquina.tempoMedioProducao,
               editar: maquina.maquinaId,
-              ...maquina
+             
             };
           }))
       })
@@ -148,7 +148,6 @@ export default function Maquina() {
     })
       .then((response) => {
         console.log(response.data);
-        alert("Máquina cadastrado com sucesso!");
         alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
