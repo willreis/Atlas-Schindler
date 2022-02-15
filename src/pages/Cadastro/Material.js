@@ -18,60 +18,80 @@ export default function Material() {
 
   const columns = [
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "codigo",
       text: "Codigo do Material",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar por Código',
-      })
+        placeholder: 'Filtrar Código',
+      }),
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "nome",
       text: "Nome",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar por Nome',
+        placeholder: 'Filtrar Nome',
       })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "localizacao",
       text: "Localização",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar por Localização',
+        placeholder: 'Filtrar Localização',
       })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "comprimento",
       text: "Comprimento",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "largura",
       text: "Largura",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "espessura",
       text: "Espessura",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "unidade",
       text: "Unidade de Medida",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "minimoDeEstoque",
       text: "Mínimo de Estoque",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "maximoDeEstoque",
       text: "Máximo de Estoque",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "editar",
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
@@ -293,7 +313,7 @@ export default function Material() {
           dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title"
         >
-            <Modal.Header closeButton>
+          <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
               Cadastrar Dados
             </Modal.Title>

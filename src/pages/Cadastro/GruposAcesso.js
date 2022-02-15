@@ -25,7 +25,7 @@ export default function GruposAcesso() {
   const [liberarBotao, setLiberarBotao] = useState(true);
   const [telasPermitidas, setTelasPermitidas] = useState();
   const [idNaoAssociado, setIdNaoAssociado] = useState(null);
-  const [idAssociado ,setIdAssociado] = useState(null);
+  const [idAssociado, setIdAssociado] = useState(null);
 
   //GET
   const [user, setUser] = useState([]);
@@ -161,11 +161,15 @@ export default function GruposAcesso() {
 
   const columnsGrupoAcesso = [
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "grupoDeAcessoId",
       text: "id grupo de acesso",
       hidden: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "nomeDoGrupo",
       text: "Nome",
       sort: true,
@@ -174,21 +178,29 @@ export default function GruposAcesso() {
       }),
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "descricaoDoGrupo",
       text: "Descrição",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "quantidadeTelasPermitidas",
       text: "Qtd. Telas Permitidas",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "quantidadeDeUsuarios",
       text: "Qtd. Usuários",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "editar",
       isDummyField: true,
       text: "Editar / Excluir",
@@ -239,7 +251,7 @@ export default function GruposAcesso() {
       nomeDoGrupo,
       descricaoDoGrupo,
       usuarios,
-      telas:[telasPermitidas],
+      telas: [telasPermitidas],
       quantidadeTelasPermitidas,
       quantidadeDeUsuarios,
       // telas: [telasPermitidas],

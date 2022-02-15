@@ -7,6 +7,7 @@ import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Api from "../../services/Api";
 import Modal from "react-bootstrap/Modal";
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
 export default function Usuarios() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +24,7 @@ export default function Usuarios() {
   //*GET
   const [user, setUser] = useState([]);
   ///Get Grupo de Acesso
-  const [userGrupoAcesso, setUserGrupoAcesso] = useState();
+  const [userGrupoAcesso, setUserGrupoAcesso] = useState([]);
   // POST
   const [usuarioId, setUsuarioId] = useState();
   const [idUser, setIdUser] = useState(null);
@@ -38,51 +39,80 @@ export default function Usuarios() {
 
   const columns = [
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "usuarioId",
       text: "id usuario",
       hidden: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "matricula",
       text: "Matricula",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar Matricula',
+      }),
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "nome",
       text: "Nome",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar Nome',
+      }),
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "cargo",
       text: "Cargo",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar Cargo',
+      }),
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "eMail",
       text: "Email",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "senha",
       text: "Senha",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "grupoDeAcesso",
       text: "Grupo De Acesso",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "status",
       text: "Status",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "dataDeCadastro",
       text: "Data de Cadastro",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "editar",
       isDummyField: true,
       text: "Editar / Excluir",
@@ -145,10 +175,9 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro1:", error);
       });
 
-    Api.get(`/GrupoDeAcesso/${grupoDeAcesso}`)
+    Api.get('/GrupoDeAcesso')
       .then((response) => {
-        console.log(response.data);
-        setUserGrupoAcesso(response.data.grupoDeAcessoId);
+        setUserGrupoAcesso(response.data);
         console.log('User grupo de acesso:', userGrupoAcesso)
         console.log("Grupo de acesso:", grupoDeAcesso)
       })
@@ -268,6 +297,7 @@ export default function Usuarios() {
       console.log(row.usuarioId);
       setIdUser(row.usuarioId);
     },
+    hidden: true
   };
 
   return (
@@ -298,6 +328,7 @@ export default function Usuarios() {
                   columns={columns}
                   selectRow={selectRow}
                   striped={true}
+                  filter={filterFactory()}
                 />
               </div>
             </div>
@@ -418,7 +449,7 @@ export default function Usuarios() {
                   <label>Grupo De Acesso</label>
                   <select
                     type="number"
-                    id="processos"
+                    id="grupoDeAcessoId"
                     name={userGrupoAcesso}
                     value={userGrupoAcesso}
                     onChange={(e) => {

@@ -7,6 +7,7 @@ import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
 export default function Impressora() {
   var url = "Impressora";
@@ -15,32 +16,48 @@ export default function Impressora() {
 
   const columns = [
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "nome",
       text: "Nome",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar Nome'
+      })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "marca",
       text: "Marca",
       sort: true,
+      filter: textFilter({
+        placeholder: 'Filtrar Marca'
+      })
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "endereco",
       text: "Endereço",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "area",
       text: "Area",
       sort: true,
     },
     {
+      headerAlign: 'center',
+      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "editar",
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
         return (
           <>
-            <span 
+            <span
               className="spanTabela"
               id={row.impressoraId}
               Style="cursor:pointer"
@@ -52,10 +69,10 @@ export default function Impressora() {
             </span>
 
             <span
-            className="spanTabela"
-            id={row.impressoraId}
-            Style="cursor:pointer"
-            onClick={() => handleDeleteImpressora(row.impressoraId)}
+              className="spanTabela"
+              id={row.impressoraId}
+              Style="cursor:pointer"
+              onClick={() => handleDeleteImpressora(row.impressoraId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -215,10 +232,11 @@ export default function Impressora() {
                 data={impressoraGet}
                 columns={columns}
                 striped={true}
+                filter={filterFactory()}
               />
             </div>
           </div>
-          
+
         </div>
 
         {/* Modal Cadastro*/}
