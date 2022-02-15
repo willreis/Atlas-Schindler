@@ -36,7 +36,6 @@ export default function Usuarios() {
   const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
   const [grupoDeAcessoId, setGrupoDeAcessoId] = useState();
   const [status, setStatus] = useState();
-  const [dataDeCadastro, setDataDeCadastro] = useState();
 
   const columns = [
     {
@@ -144,9 +143,6 @@ export default function Usuarios() {
     },
   ];
 
-  var dataAtual = new Date().toLocaleDateString();
-  var horaAtual = new Date().toLocaleTimeString();
-
   var url = "Usuario";
 
   useEffect(() => {
@@ -206,9 +202,10 @@ export default function Usuarios() {
       nome,
       cargo,
       eMail,
-      grupoDeAcesso: [grupoDeAcessoId],
+      grupoDeAcesso: {
+        grupoDeAcessoId
+      },
       status,
-      dataDeCadastro,
     })
       .then((response) => {
         console.log(response.data);
@@ -242,7 +239,6 @@ export default function Usuarios() {
       eMail,
       grupoDeAcesso,
       status,
-      dataDeCadastro,
     })
       .then((response) => {
         setUsuarioId(row.usuarioId);
@@ -253,7 +249,6 @@ export default function Usuarios() {
         setEmail();
         setGrupoDeAcesso();
         setStatus();
-        setDataDeCadastro();
         console.log("Esse é o console do Put: ", response);
         alert("Put Efetuado com sucesso!");
       })
@@ -277,7 +272,6 @@ export default function Usuarios() {
       eMail,
       grupoDeAcesso,
       status,
-      dataDeCadastro,
     })
       .then(() => {
         setUsuarioId(row.usuarioId);
@@ -288,7 +282,6 @@ export default function Usuarios() {
         setEmail(row.eMail);
         setGrupoDeAcesso(row.grupoDeAcesso);
         setStatus(row.status);
-        setDataDeCadastro(row.dataDeCadastro);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -339,60 +332,6 @@ export default function Usuarios() {
                 />
               </div>
             </div>
-
-            {/* <div className="row">
-              <div className="col-md-12">
-                <table className="table table-striped table-bordered">
-                  <thead>
-                    <tr className="text-center">
-                      <th scope="col">Matricula</th>
-                      <th scope="col">Nome</th>
-                      <th scope="col">Cargo</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Senha</th>
-                      <th scope="col">Grupo de Acesso</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Data de Cadastro</th>
-                      <th scope="col">Editar / Excluir</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {user.map((usuario, index) => (
-                      <tr>
-                        <td Style="display:none" key={index}></td>
-                        <td>{usuario.matricula}</td>
-                        <td>{usuario.nome}</td>
-                        <td>{usuario.cargo}</td>
-                        <td>{usuario.eMail}</td>
-                        <td>{usuario.senha}</td>
-                        <td>{usuario.grupoDeAcesso.nomeDoGrupo}</td>
-                        <td>{usuario.status ? "Ativo" : "Inativo"}</td>
-                        <td>{usuario.dataDeCadastro}</td>
-                        <td className="text-center icons-table">
-                          <span
-                            id={usuario.usuarioId}
-                            Style="cursor:pointer"
-                            onClick={() => {
-                              funcaoAbrirModal(usuario);
-                            }}
-                          >
-                            <VscEdit />
-                          </span>
-                          <span
-                            Style="cursor:pointer"
-                            onClick={() =>
-                              handleDeleteUsuario(usuario.usuarioId)
-                            }
-                          >
-                            <RiDeleteBinFill />
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div> */}
           </div>
         </div>
 
@@ -452,6 +391,7 @@ export default function Usuarios() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
+
                 <div className="col-md-4 col-sm-6">
                   <label>Grupo De Acesso</label>
                   <select
@@ -470,10 +410,9 @@ export default function Usuarios() {
                         {nome.nomeDoGrupo}
                       </option>
                     ))}
-
-
                   </select>
                 </div>
+
                 <div className="col-md-6 col-sm-6">
                   <div className="form-group">
                     <label>Senha</label>
@@ -513,15 +452,6 @@ export default function Usuarios() {
                       Inativo
                     </option>
                   </select>
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <label>Data Cadastro</label>
-                  <input
-                    type="text"
-                    name="dataDeCadastro"
-                    value={dataAtual + " " + horaAtual}
-                    onChange={(e) => setDataDeCadastro(e.target.value)}
-                  />
                 </div>
                 <div className="col-md-2 col-sm-6">
                   <Button
@@ -641,15 +571,6 @@ export default function Usuarios() {
                       Inativo
                     </option>
                   </select>
-                </div>
-                <div className="col-md-6 col-sm-6">
-                  <label>Data Cadastro</label>
-                  <input
-                    type="text"
-                    name="dataDeCadastro"
-                    value={dataDeCadastro}
-                    onChange={(e) => setDataDeCadastro(e.target.value)}
-                  />
                 </div>
                 <div className="col-md-2 col-sm-6 btnCol">
                   <Button
