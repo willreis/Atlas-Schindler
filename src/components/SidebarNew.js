@@ -86,7 +86,7 @@ const SidebarNew = () => {
 
   return (
     <>
-      <div Style="grid-area:sidebar">
+      <div className="sideBar" Style="grid-area:sidebar">
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
             <div className="logotext">
@@ -362,7 +362,7 @@ const SidebarNew = () => {
           </SidebarContent>
           <SidebarFooter>
             <div Style="text-align:center; padding:30px 0">
-                <img src={spiLogo} alt='spi-logo' Style='height: 60px; border-radius: 6px;' />
+                <img src={spiLogo} alt='spi-logo' Style='width:80%; border-radius: 10px' />
             </div>
           </SidebarFooter>
         </ProSidebar>

@@ -184,16 +184,16 @@ export default function Processo() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000", size: "1.6rem" }}>
-        <div className="container paddingContainer">
+        <div className="paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
               <div className="tituloInterno">
-                <h2 Style="color:#555;">Processo</h2>
+                <h2 className="titulosPrincipais">Processo</h2>
               </div>
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button variant="success" onClick={() => setShow(true)}>
+                <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
                   Cadastrar
                 </Button>
               </div>

@@ -5,6 +5,7 @@ import { IconContext } from "react-icons/lib";
 import { Button } from "react-bootstrap";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { HiPlus } from "react-icons/hi";
 import Api from "../../services/Api";
 import Modal from "react-bootstrap/Modal";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
@@ -88,6 +89,7 @@ export default function Usuarios() {
       dataField: "senha",
       text: "Senha",
       sort: true,
+      hidden: true,
     },
     {
       headerAlign: "center",
@@ -303,8 +305,12 @@ export default function Usuarios() {
               </div>
               <div className="col-md-6 col-sm-12">
                 <div className="alignButtons">
-                  <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
-                    Cadastrar
+                  <Button
+                    className="botaoCadastrar"
+                    variant="success"
+                    onClick={() => setShow(true)}
+                  >
+                    <HiPlus Style="color:#fff!important" /> Cadastrar
                   </Button>
                 </div>
               </div>
@@ -463,9 +469,7 @@ export default function Usuarios() {
         <Modal
           size="lg"
           show={showModalPut}
-          onHide={() =>
-            setShowModalPut(false)
-          } 
+          onHide={() => setShowModalPut(false)}
         >
           <Modal.Header closeButton>
             <Modal.Title>Cadastro de Usuarios</Modal.Title>

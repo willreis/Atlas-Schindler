@@ -66,6 +66,7 @@ export default function Maquina() {
       dataField: "id",
       text: "ID",
       sort: true,
+      hidden: true,
     },
     {
       headerAlign: 'center',
@@ -248,16 +249,16 @@ export default function Maquina() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
-        <div className="container paddingContainer">
+        <div className="paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
               <div className="tituloInterno">
-                <h2 Style="color:#555;">Maquina</h2>
+                <h2 className="titulosPrincipais">Maquina</h2>
               </div>
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button variant="success" onClick={() => setShow(true)}>
+                <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
                   Cadastrar
                 </Button>
               </div>
@@ -274,17 +275,6 @@ export default function Maquina() {
                 striped={true}
                 filter={filterFactory()}
               />
-            </div>
-          </div>
-
-          <div className="row paddingTop30">
-            <div className="col-md-6">
-              <Button variant="secondary">Voltar</Button>
-            </div>
-            <div className="col-md-6 paddingTop20Mobile">
-              <div className="alignButtons">
-                <Button variant="success">Salvar</Button>
-              </div>
             </div>
           </div>
         </div>

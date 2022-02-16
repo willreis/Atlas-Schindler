@@ -21,7 +21,7 @@ export default function Material() {
       headerAlign: 'center',
       headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "codigo",
-      text: "Codigo do Material",
+      text: "Cod. Material",
       sort: true,
       filter: textFilter({
         placeholder: 'Filtrar Código',
@@ -72,21 +72,21 @@ export default function Material() {
       headerAlign: 'center',
       headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "unidade",
-      text: "Unidade de Medida",
+      text: "Uni. Medida",
       sort: true,
     },
     {
       headerAlign: 'center',
       headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "minimoDeEstoque",
-      text: "Mínimo de Estoque",
+      text: "Mín. de Estoque",
       sort: true,
     },
     {
       headerAlign: 'center',
       headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
       dataField: "maximoDeEstoque",
-      text: "Máximo de Estoque",
+      text: "Máx. de Estoque",
       sort: true,
     },
     {
@@ -276,16 +276,16 @@ export default function Material() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
-        <div className="container paddingContainer">
+        <div className="paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
               <div className="tituloInterno">
-                <h2 Style="color:#555;">Material</h2>
+                <h2 className="titulosPrincipais">Material</h2>
               </div>
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button variant="success" onClick={() => setShow(true)}>
+                <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
                   Cadastrar
                 </Button>
               </div>

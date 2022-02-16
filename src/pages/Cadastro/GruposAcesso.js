@@ -13,6 +13,8 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import { TiArrowForward } from "react-icons/ti";
 import { TiArrowBack } from "react-icons/ti";
+import { HiPlus } from "react-icons/hi";
+
 import "../../../src/grupo.css";
 import Api from "../../services/Api";
 
@@ -341,30 +343,32 @@ export default function GruposAcesso() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
-        <div className="container paddingContainer">
+        <div className="paddingContainer">
           <div className="row">
             <div className="col-md-6">
               <div className="tituloInterno">
-                <h2 Style="color:#555;">Grupo de Acesso</h2>
+                <h2 className="titulosPrincipais">Grupo de Acesso</h2>
               </div>
             </div>
             <div className="col-md-6">
               <div Style="text-align: right">
+             
                 <Button
+                  className="botaoCadastrar"
                   variant="success"
                   onClick={(props) => {
                     funcaoAbrirModal(idGrupo);
                   }}
                   disabled={liberarBotao}
                 >
-                  Cadastrar
+                  <HiPlus Style="color:#fff!important" />  Cadastrar
                 </Button>
               </div>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 tabelaUsuario">
               <BootstrapTable
                 keyField="grupoDeAcessoId"
                 data={grupoAcessoGet}

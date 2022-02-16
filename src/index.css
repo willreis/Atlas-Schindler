@@ -15,19 +15,21 @@ h4 {
     padding: 0 !important;
 }
 
-select{
-    height: 32px!important;
+select {
+    height: 32px !important;
 }
 
-.titulosPrincipais{
+.titulosPrincipais {
     color: #555;
-    padding: 20px 0!important;
+    padding: 20px 0 !important;
     font-size: 36px;
     font-weight: bold;
 }
-.botaoCadastrar{
+
+.botaoCadastrar {
     height: 40px;
     width: 180px;
+    margin-top: 20px;
 }
 
 .margin-0 {
@@ -54,7 +56,7 @@ select{
 }
 
 .paddingContainer {
-    padding: 30px !important;
+    padding: 30px 15px !important;
 }
 
 .iconEye {
@@ -121,6 +123,33 @@ select{
 }
 
 /*Tabelas*/
+.table.table.table-striped.table-bordered {
+    font-size: 14px;
+}
+
+button.spanTabela path:hover,
+span.spanTabela svg path:hover {
+    color: #505050!important;
+}
+
+span.spanTabela svg,
+button.spanTabela svg{
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+button.botaoCadastrar svg path{
+    color:#fff;
+}
+
+button.botaoCadastrar svg {
+    color: #fff;
+    height: 1.2rem;
+    position: relative;
+    left: -30px;
+    top: -1px;
+}
+
 .textTable tr td {
     font-size: 14px;
 
@@ -143,9 +172,11 @@ td span svg {
 }
 
 .tabelaUsuario .react-bootstrap-table th.selection-cell-header,
-.tabelaUsuario .react-bootstrap-table td.selection-cell{
-    display: none!important;
+.tabelaUsuario .react-bootstrap-table td.selection-cell {
+    display: none;
 }
+
+.sideBar {}
 
 /*Botões*/
 button.btn {
@@ -190,6 +221,22 @@ td.text-center.icons-table span svg:hover {
 }
 
 /*Menu*/
+
+.pro-sidebar {
+    width: 180px !important;
+    min-width: 180px !important;
+}
+
+.pro-sidebar.collapsed {
+    width: 80px !important;
+    min-width: 80px !important;
+}
+
+.pro-sidebar.collapsed .pro-sidebar-inner .pro-sidebar-layout .pro-sidebar-content .pro-menu.inner-submenu-arrows ul li.pro-menu-item.pro-sub-menu .pro-inner-item,
+.pro-sidebar.collapsed .pro-sidebar-inner .pro-sidebar-layout .pro-sidebar-header .pro-menu.inner-submenu-arrows ul li.pro-menu-item.pro-sub-menu .pro-inner-item {
+    left: 20px !important;
+}
+
 .fotoPerfilBox {
     text-align: center;
     padding-bottom: 20px;
