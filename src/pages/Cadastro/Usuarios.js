@@ -281,7 +281,7 @@ export default function Usuarios() {
   }
 
   const selectRow = {
-    mode: "hidden",
+    mode: "radio",
     clickToSelect: true,
     onSelect: (row) => {
       console.log("selecionado");
@@ -298,12 +298,12 @@ export default function Usuarios() {
             <div className="row">
               <div className="col-md-6 col-sm-12">
                 <div className="tituloInterno">
-                  <h2 Style="color:#555;">Cadastro de usuários</h2>
+                  <h2 className="titulosPrincipais">Cadastro de Usuários</h2>
                 </div>
               </div>
               <div className="col-md-6 col-sm-12">
                 <div className="alignButtons">
-                  <Button variant="success" onClick={() => setShow(true)}>
+                  <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
                     Cadastrar
                   </Button>
                 </div>
@@ -311,7 +311,7 @@ export default function Usuarios() {
             </div>
 
             <div className="row">
-              <div className="col-md-12">
+              <div className="col-md-12 tabelaUsuario">
                 <BootstrapTable
                   keyField="usuarioId"
                   data={usuarioGet}
