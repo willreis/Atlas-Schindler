@@ -4,11 +4,13 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { HiPlus } from "react-icons/hi";
+
 import BootstrapTable from "react-bootstrap-table-next";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
-import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 //filterFactory coloca no BootstrapTable e textFilter nas Colunas da Tabela(columns).
 
 export default function Material() {
@@ -18,80 +20,80 @@ export default function Material() {
 
   const columns = [
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "codigo",
       text: "Cod. Material",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Código',
+        placeholder: "Filtrar Código",
       }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "nome",
       text: "Nome",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Nome',
-      })
+        placeholder: "Filtrar Nome",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "localizacao",
       text: "Localização",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Localização',
-      })
+        placeholder: "Filtrar Localização",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "comprimento",
       text: "Comprimento",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "largura",
       text: "Largura",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "espessura",
       text: "Espessura",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "unidade",
       text: "Uni. Medida",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "minimoDeEstoque",
       text: "Mín. de Estoque",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "maximoDeEstoque",
       text: "Máx. de Estoque",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '12px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "editar",
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
@@ -152,8 +154,6 @@ export default function Material() {
   //Modal const
   const [show, setShow] = useState(false);
   const [showModalPut, setShowModalPut] = useState(false);
-
-
 
   //POST
   const [materialId, setMaterialId] = useState();
@@ -285,8 +285,12 @@ export default function Material() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
-                  Cadastrar
+                <Button
+                  className="botaoCadastrar"
+                  variant="success"
+                  onClick={() => setShow(true)}
+                >
+                  <HiPlus Style="color:#fff!important" />Cadastrar
                 </Button>
               </div>
             </div>

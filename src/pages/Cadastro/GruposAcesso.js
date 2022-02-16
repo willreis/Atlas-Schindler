@@ -361,7 +361,7 @@ export default function GruposAcesso() {
                   }}
                   disabled={liberarBotao}
                 >
-                  <HiPlus Style="color:#fff!important" />  Cadastrar
+                  <HiPlus Style="color:#fff!important" />Cadastrar
                 </Button>
               </div>
             </div>

@@ -5,10 +5,12 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { HiPlus } from "react-icons/hi";
+
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
-import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export default function Processo() {
   var url = "Processo";
@@ -46,28 +48,28 @@ export default function Processo() {
 
   const columns = [
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "nome",
       text: "Nome",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar por Nome',
-      })
+        placeholder: "Filtrar por Nome",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "ordenacao",
       text: "Ordenação",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar por Ordenação',
-      })
+        placeholder: "Filtrar por Ordenação",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
@@ -97,8 +99,6 @@ export default function Processo() {
       },
     },
   ];
-
-
 
   // POST
   const [processoId, setProcessoId] = useState();
@@ -131,7 +131,7 @@ export default function Processo() {
   async function handleDeleteProcesso(processoId) {
     try {
       await Api.delete(`/${url}/${processoId}`);
-      console.log('delete ID', processoId)
+      console.log("delete ID", processoId);
       setUser(user.filter((processo) => processo.processoId !== processoId));
       alert("Deletado com sucesso");
     } catch (err) {
@@ -149,7 +149,7 @@ export default function Processo() {
     })
 
       .then(() => {
-        console.log('get feito', row.processoId)
+        console.log("get feito", row.processoId);
         setProcessoId(row.processoId);
         setNome(row.nome);
         setOrdenacao(row.ordenacao);
@@ -179,8 +179,6 @@ export default function Processo() {
       });
   }
 
-
-
   return (
     <>
       <IconContext.Provider value={{ color: "#000", size: "1.6rem" }}>
@@ -193,8 +191,12 @@ export default function Processo() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
-                  Cadastrar
+                <Button
+                  className="botaoCadastrar"
+                  variant="success"
+                  onClick={() => setShow(true)}
+                >
+                  <HiPlus Style="color:#fff!important" />Cadastrar
                 </Button>
               </div>
             </div>
@@ -202,7 +204,6 @@ export default function Processo() {
 
           <div className="row">
             <div className="col-md-12">
-
               <BootstrapTable
                 keyField="id"
                 data={processoGet}

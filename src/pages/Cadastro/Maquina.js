@@ -4,10 +4,12 @@ import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { HiPlus } from "react-icons/hi";
+
 import { Button } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import Api from "../../services/Api";
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export default function Maquina() {
   var url = "Maquina";
@@ -39,9 +41,9 @@ export default function Maquina() {
               ordenacao: maquina.ordenacao,
               tempoMedioProducao: maquina.tempoMedioProducao,
               editar: maquina.maquinaId,
-             
             };
-          }))
+          })
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro111!:", error);
@@ -61,57 +63,57 @@ export default function Maquina() {
 
   const columns = [
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "id",
       text: "ID",
       sort: true,
       hidden: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "nome",
       text: "Nome",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Nome',
-      })
+        placeholder: "Filtrar Nome",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "processo",
       text: "Processo",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Processo',
-      })
+        placeholder: "Filtrar Processo",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "status",
       text: "Status",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "ordenacao",
       text: "Ordenação",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "tempoMedioProducao",
       text: "Tempo Médio de Produção",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
       isDummyField: true,
       text: "Editar / Excluir",
@@ -142,8 +144,6 @@ export default function Maquina() {
       },
     },
   ];
-
-
 
   //POST
   const [maquinaId, setMaquinaId] = useState();
@@ -182,8 +182,10 @@ export default function Maquina() {
   async function handleDeleteMaquina(maquinaId) {
     try {
       await Api.delete(`/${url}/${maquinaId}`);
-      console.log('delete ID', maquinaId)
-      setMaquinaGet(maquinaGet.filter((maquina) => maquina.maquinaId !== maquinaId));
+      console.log("delete ID", maquinaId);
+      setMaquinaGet(
+        maquinaGet.filter((maquina) => maquina.maquinaId !== maquinaId)
+      );
       alert("Deletado com sucesso");
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
@@ -258,13 +260,16 @@ export default function Maquina() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
-                  Cadastrar
+                <Button
+                  className="botaoCadastrar"
+                  variant="success"
+                  onClick={() => setShow(true)}
+                >
+                  <HiPlus Style="color:#fff!important" />Cadastrar
                 </Button>
               </div>
             </div>
           </div>
-
 
           <div className="row">
             <div className="col-md-12">

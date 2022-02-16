@@ -310,7 +310,7 @@ export default function Usuarios() {
                     variant="success"
                     onClick={() => setShow(true)}
                   >
-                    <HiPlus Style="color:#fff!important" /> Cadastrar
+                    <HiPlus Style="color:#fff!important" />Cadastrar
                   </Button>
                 </div>
               </div>

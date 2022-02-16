@@ -5,9 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { HiPlus } from "react-icons/hi";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export default function Impressora() {
   var url = "Impressora";
@@ -16,42 +17,42 @@ export default function Impressora() {
 
   const columns = [
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "nome",
       text: "Nome",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Nome'
-      })
+        placeholder: "Filtrar Nome",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "marca",
       text: "Marca",
       sort: true,
       filter: textFilter({
-        placeholder: 'Filtrar Marca'
-      })
+        placeholder: "Filtrar Marca",
+      }),
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "endereco",
       text: "Endereço",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "area",
       text: "Area",
       sort: true,
     },
     {
-      headerAlign: 'center',
-      headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
       text: "Editar / Excluir",
       formatter: (cellContent, row) => {
@@ -218,8 +219,12 @@ export default function Impressora() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button className="botaoCadastrar" variant="success" onClick={() => setShow(true)}>
-                  Cadastrar
+                <Button
+                  className="botaoCadastrar"
+                  variant="success"
+                  onClick={() => setShow(true)}
+                >
+                  <HiPlus Style="color:#fff!important" />Cadastrar
                 </Button>
               </div>
             </div>
@@ -236,7 +241,6 @@ export default function Impressora() {
               />
             </div>
           </div>
-
         </div>
 
         {/* Modal Cadastro*/}
