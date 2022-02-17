@@ -150,6 +150,25 @@ button.botaoCadastrar svg {
     top: -1px;
 }
 
+button.botaoImportar{
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
+    margin-top: 25px;
+}
+
+button.botaoImportar svg path{
+    color:#fff;
+}
+
+button.botaoImportar svg {
+    color: #fff;
+    height: 1.2rem;
+    position: relative;
+    left: -20px;
+    top: -1px;
+   
+}
+
 .textTable tr td {
     font-size: 14px;
 
