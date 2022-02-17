@@ -175,6 +175,7 @@ function ImportacaoOrdemProducao() {
 
           <div className="row">
             <div className="col-md-12">
+              <marquee>
               <BootstrapTable
                 keyField="matricula"
                 hover
@@ -184,6 +185,7 @@ function ImportacaoOrdemProducao() {
                 striped={true}
                 filter={filterFactory()}
               />
+              </marquee>
             </div>
           </div>
         </div>
