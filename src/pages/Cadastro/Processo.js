@@ -192,7 +192,7 @@ export default function Processo() {
       
       setModalDelete(false);
       alert("Deletado com sucesso");
-      window.location.reload(false);
+      window.location.reload();
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
