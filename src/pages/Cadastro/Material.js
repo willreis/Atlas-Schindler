@@ -15,7 +15,7 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export default function Material() {
 
-  
+
   const [modalDelete, setModalDelete] = useState(false);
 
   const fecharModal = () => setModalDelete(false);
@@ -25,6 +25,10 @@ export default function Material() {
   const [materialGet, setMaterialGet] = useState([]);
 
   const columns = [
+    {
+      dataField: "materialId",
+      hidden: true,
+    },
     {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
@@ -132,6 +136,7 @@ export default function Material() {
 
   //GET
   const [user, setUser] = useState([]);
+  const [materialId, setMaterialId] = useState();
 
   useEffect(() => {
     Api.get(`${url}`)
@@ -141,12 +146,12 @@ export default function Material() {
         setMaterialGet(
           response.data.map((material) => {
             return {
+              materialId: material.materialId,
               nome: material.nome,
               marca: material.marca,
               endereco: material.endereco,
               area: material.area,
               editar: material.materialId,
-              ...material,
             };
           })
         );
@@ -162,7 +167,6 @@ export default function Material() {
   const [showModalPut, setShowModalPut] = useState(false);
 
   //POST
-  const [materialId, setMaterialId] = useState();
   const [codigo, setCodigo] = useState();
   const [nome, setNome] = useState();
   const [localizacao, setLocalizacao] = useState();
@@ -280,10 +284,10 @@ export default function Material() {
     }
   }
 
-    function handleDeleteModal() {
-      console.log("Modal Delete aberto!");
-      setModalDelete(true);
-    }
+  function handleDeleteModal() {
+    console.log("Modal Delete aberto!");
+    setModalDelete(true);
+  }
 
   return (
     <>
@@ -573,8 +577,8 @@ export default function Material() {
           </Modal.Body>
         </Modal>
 
-                {/* Modal Delete */}
-                <Modal
+        {/* Modal Delete */}
+        <Modal
           size="sm"
           aria-labelledby="contained-modal-title-vcenter"
           show={modalDelete}

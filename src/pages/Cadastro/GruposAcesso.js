@@ -141,7 +141,7 @@ export default function GruposAcesso() {
     Api.get(`${url}`)
       .then((response) => {
         console.log(response);
-        setUser(response.data);
+        // setUser(response.data);
         setGrupoAcessoGet(
           response.data.map((grupoAcesso) => {
             return {
