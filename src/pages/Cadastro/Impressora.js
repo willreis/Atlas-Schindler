@@ -11,6 +11,11 @@ import Api from "../../services/Api";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export default function Impressora() {
+
+  const [modalDelete, setModalDelete] = useState(false);
+
+  const fecharModal = () => setModalDelete(false);
+
   var url = "Impressora";
 
   const [impressoraGet, setImpressoraGet] = useState([]);
@@ -73,7 +78,7 @@ export default function Impressora() {
               className="spanTabela"
               id={row.impressoraId}
               Style="cursor:pointer"
-              onClick={() => handleDeleteImpressora(row.impressoraId)}
+              onClick={() => handleDeleteModal(row.impressoraId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -147,19 +152,6 @@ export default function Impressora() {
   //GET
   const [user, setUser] = useState([]);
 
-  //Delete
-  async function handleDeleteImpressora(impressoraId) {
-    try {
-      await Api.delete(`/${url}/${impressoraId}`);
-      setUser(
-        user.filter((impressora) => impressora.impressoraId !== impressoraId)
-      );
-      alert("Deletado com sucesso");
-    } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
-    }
-  }
-
   ///////PUT
   function handlePut() {
     Api.put(`${url}/${impressoraId}`, {
@@ -205,6 +197,23 @@ export default function Impressora() {
         console.log("Ops! Ocorreu um erro1:", error);
         alert("Ops! Ocorreu um erro1:", error);
       });
+  }
+
+  //Delete
+  function handleDeleteImpressora(impressoraId) {
+    try {
+      Api.delete(`/${url}/${impressoraId}`);
+      setUser(user.filter((impressora) => impressora.impressoraId !== impressoraId));
+      alert("Deletado com sucesso");
+      setModalDelete(false);
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+
+  function handleDeleteModal() {
+    console.log("Modal Delete aberto!");
+    setModalDelete(true);
   }
 
   return (
@@ -394,6 +403,46 @@ export default function Impressora() {
                   </Button>
                 </div>
               </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal Delete */}
+        <Modal
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          show={modalDelete}
+          onHide={() => setModalDelete(false)}
+          centered
+        >
+          <Modal.Header closeButton Style="position:relative">
+            <h3 Style="position: absolute; left: 30%;">
+              Atenção!
+            </h3>
+          </Modal.Header>
+          <Modal.Body>
+            <div Style="margin-bottom: 30px; text-align: center">
+              <div className="row">
+                <div className="col-12">
+                  <p>Deseja Realmente Excluir!</p>
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-6">
+                      <Button variant="danger" onClick={fecharModal}>
+                        Não
+                      </Button>
+                    </div>
+                    <div className="col-6">
+                      <Button variant="primary" onClick={handleDeleteImpressora}>
+                        Sim
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Modal.Body>
         </Modal>

@@ -13,6 +13,11 @@ import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 export default function Processo() {
+
+  const [modalDelete, setModalDelete] = useState(false);
+
+  const fecharModal = () => setModalDelete(false);
+
   var url = "Processo";
 
   //Modal const
@@ -90,7 +95,7 @@ export default function Processo() {
               className="spanTabela"
               id={row.processoId}
               Style="cursor:pointer"
-              onClick={() => handleDeleteProcesso(row.processoId)}
+              onClick={() => handleDeleteModal(row.processoId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -125,18 +130,6 @@ export default function Processo() {
         console.log("Ops! Ocorreu um erro!!!:", error);
         alert("Ops! Ocorreu um erro!!!:", error);
       });
-  }
-
-  //Delete
-  async function handleDeleteProcesso(processoId) {
-    try {
-      await Api.delete(`/${url}/${processoId}`);
-      console.log("delete ID", processoId);
-      setUser(user.filter((processo) => processo.processoId !== processoId));
-      alert("Deletado com sucesso");
-    } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
-    }
   }
 
   ///////PUT
@@ -177,6 +170,24 @@ export default function Processo() {
         console.log("Ops! Ocorreu um erro: " + error);
         alert("Ops! Ocorreu um erro: " + error);
       });
+  }
+
+  //Ativa o Delete no botão sim já dentro do modal.
+  function handleDeleteProcesso(processoId) {
+    try {
+      Api.delete(`/${url}/${processoId}`);
+      setUser(user.filter((processo) => processo.processoId !== processoId));
+      alert("Deletado com sucesso");
+      setModalDelete(false);
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+
+  //Abre o Modal no ícone de lixeira.
+  function handleDeleteModal() {
+    console.log("Modal Delete aberto!");
+    setModalDelete(true);
   }
 
   return (
@@ -330,6 +341,46 @@ export default function Processo() {
                   </Button>
                 </div>
               </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal Delete */}
+        <Modal
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          show={modalDelete}
+          onHide={() => setModalDelete(false)}
+          centered
+        >
+          <Modal.Header closeButton Style="position:relative">
+            <h3 Style="position: absolute; left: 30%;">
+              Atenção!
+            </h3>
+          </Modal.Header>
+          <Modal.Body>
+            <div Style="margin-bottom: 30px; text-align: center">
+              <div className="row">
+                <div className="col-12">
+                  <p>Deseja Realmente Excluir!</p>
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-6">
+                      <Button variant="danger" onClick={fecharModal}>
+                        Não
+                      </Button>
+                    </div>
+                    <div className="col-6">
+                      <Button variant="primary" onClick={handleDeleteProcesso}>
+                        Sim
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Modal.Body>
         </Modal>
