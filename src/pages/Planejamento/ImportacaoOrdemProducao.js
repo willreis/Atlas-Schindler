@@ -14,8 +14,9 @@ import { FaFileImport } from "react-icons/fa";
 function ImportacaoOrdemProducao() {
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+
   const fecharModal = () => setModalDelete(false);
-  
+
   const products = [
     {
       la: 101544,
@@ -136,12 +137,14 @@ function ImportacaoOrdemProducao() {
       },
     },
   ];
-
+  
+  /****************Função de Abrir e de Deletar**/
   function handleDeleteUsuario() {
     console.log("Modal Delete aberto!");
     setModalDelete(true);
   }
 
+  //Deixa de existir lá...
   function sucessoDelete() {
     alert("Deletado com sucesso!");
     setModalDelete(false);

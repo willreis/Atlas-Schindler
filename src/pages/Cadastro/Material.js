@@ -14,6 +14,12 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 //filterFactory coloca no BootstrapTable e textFilter nas Colunas da Tabela(columns).
 
 export default function Material() {
+
+  
+  const [modalDelete, setModalDelete] = useState(false);
+
+  const fecharModal = () => setModalDelete(false);
+
   var url = "Material";
 
   const [materialGet, setMaterialGet] = useState([]);
@@ -114,7 +120,7 @@ export default function Material() {
               className="spanTabela"
               id={row.materialId}
               Style="cursor:pointer"
-              onClick={() => handleDeleteMaterial(row.materialId)}
+              onClick={() => handleDeleteModal(row.materialId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -194,18 +200,6 @@ export default function Material() {
       });
   }
 
-  //Delete
-  async function handleDeleteMaterial(materialId) {
-    try {
-      await Api.delete(`/${url}/${materialId}`);
-      setUser(user.filter((material) => material.materialId !== materialId));
-      alert("Deletado com sucesso");
-    } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
-      console.log(err);
-    }
-  }
-
   ///////PUT
   function handlePut() {
     Api.put(`${url}/${materialId}`, {
@@ -272,6 +266,24 @@ export default function Material() {
         alert("Ops! Ocorreu um erro1:", error);
       });
   }
+
+  //Delete
+  async function handleDeleteMaterial(materialId) {
+    try {
+      await Api.delete(`/${url}/${materialId}`);
+      setUser(user.filter((material) => material.materialId !== materialId));
+      alert("Deletado com sucesso");
+      setModalDelete(false);
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+      console.log(err);
+    }
+  }
+
+    function handleDeleteModal() {
+      console.log("Modal Delete aberto!");
+      setModalDelete(true);
+    }
 
   return (
     <>
@@ -557,6 +569,46 @@ export default function Material() {
                   </Button>
                 </div>
               </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+                {/* Modal Delete */}
+                <Modal
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          show={modalDelete}
+          onHide={() => setModalDelete(false)}
+          centered
+        >
+          <Modal.Header closeButton Style="position:relative">
+            <h3 Style="position: absolute; left: 30%;">
+              Atenção!
+            </h3>
+          </Modal.Header>
+          <Modal.Body>
+            <div Style="margin-bottom: 30px; text-align: center">
+              <div className="row">
+                <div className="col-12">
+                  <p>Deseja Realmente Excluir!</p>
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-6">
+                      <Button variant="danger" onClick={fecharModal}>
+                        Não
+                      </Button>
+                    </div>
+                    <div className="col-6">
+                      <Button variant="primary" onClick={handleDeleteMaterial}>
+                        Sim
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Modal.Body>
         </Modal>
