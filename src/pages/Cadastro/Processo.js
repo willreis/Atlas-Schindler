@@ -59,6 +59,7 @@ export default function Processo() {
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "processoId",
       text: "ID",
+      hidden: true
       
     },
     {
@@ -191,6 +192,7 @@ export default function Processo() {
       
       setModalDelete(false);
       alert("Deletado com sucesso");
+      window.location.reload(false);
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
@@ -237,7 +239,7 @@ export default function Processo() {
           </div>
 
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 tabelaUsuario">
               <BootstrapTable
                 keyField="processoId"
                 data={processoGet}
