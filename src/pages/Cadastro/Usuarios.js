@@ -20,6 +20,8 @@ export default function Usuarios() {
   //Modal const
   const [show, setShow] = useState(false);
   const [showModalPut, setShowModalPut] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
+  const fecharModal = () => setModalDelete(false);
 
   const [usuarioGet, setUsuarioGet] = useState([]);
   //*GET
@@ -135,7 +137,7 @@ export default function Usuarios() {
               className="spanTabela"
               id={row.usuarioId}
               Style="cursor:pointer; border: none; background: none"
-              onClick={() => handleDeleteUsuario(row.usuarioId)}
+              onClick={() => handleDeleteModal(row.usuarioId)}
             >
               <RiDeleteBinFill />
             </button>
@@ -216,13 +218,23 @@ export default function Usuarios() {
   }
 
   //Delete
-  async function handleDeleteUsuario(idUser) {
+  function handleDeleteUsuario(idUser) {
     try {
-      await Api.delete(`/${url}/${idUser}`);
+      Api.delete(`/${url}/${idUser}`);
+      console.log("delete id", idUser);
+
+      setModalDelete(false);
       alert("Deletado com sucesso");
+      window.location.reload();
     } catch (err) {
-      alert("erro ao deletar, tente novamente");
+      alert("erro ao deletar caso, tente novamente");
     }
+  }
+
+  function handleDeleteModal(usuarioId) {
+    console.log("Modal Delete aberto!");
+    console.log("delete id", usuarioId);
+    setModalDelete(true);
   }
 
   function handlePut(row) {
@@ -310,7 +322,8 @@ export default function Usuarios() {
                     variant="success"
                     onClick={() => setShow(true)}
                   >
-                    <HiPlus Style="color:#fff!important" />Cadastrar
+                    <HiPlus Style="color:#fff!important" />
+                    Cadastrar
                   </Button>
                 </div>
               </div>
@@ -595,6 +608,47 @@ export default function Usuarios() {
                   </Button>
                 </div>
               </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal Delete */}
+        <Modal
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          show={modalDelete}
+          onHide={() => setModalDelete(false)}
+          centered
+        >
+          <Modal.Header closeButton Style="position:relative">
+            <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <div Style="margin-bottom: 30px; text-align: center">
+              <div className="row">
+                <div className="col-12">
+                  <p>Deseja Realmente Excluir!</p>
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-6">
+                      <Button variant="danger" onClick={fecharModal}>
+                        Não
+                      </Button>
+                    </div>
+                    <div className="col-6">
+                      <Button
+                        variant="primary"
+                        onClick={() => handleDeleteUsuario(idUser)}
+                      >
+                        Sim
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Modal.Body>
         </Modal>

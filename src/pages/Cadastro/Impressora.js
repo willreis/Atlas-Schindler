@@ -13,6 +13,8 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 export default function Impressora() {
 
   const [modalDelete, setModalDelete] = useState(false);
+  const [idUser, setIdUser] = useState(false);
+  
 
   const fecharModal = () => setModalDelete(false);
 
@@ -21,6 +23,13 @@ export default function Impressora() {
   const [impressoraGet, setImpressoraGet] = useState([]);
 
   const columns = [
+    {
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+      dataField: "impressoraId",
+      text: "ID",
+      hidden: true,
+    },
     {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -200,21 +209,34 @@ export default function Impressora() {
   }
 
   //Delete
-  function handleDeleteImpressora(impressoraId) {
+  function handleDeleteImpressora(idUser) {
     try {
-      Api.delete(`/${url}/${impressoraId}`);
-      setUser(user.filter((impressora) => impressora.impressoraId !== impressoraId));
-      alert("Deletado com sucesso");
+      Api.delete(`/${url}/${idUser}`);
+      console.log('delete id', idUser)
+      
       setModalDelete(false);
+      alert("Deletado com sucesso");
+      window.location.reload();
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
   }
 
-  function handleDeleteModal() {
+  function handleDeleteModal(impressoraId) {
     console.log("Modal Delete aberto!");
+    console.log('delete id', impressoraId)
     setModalDelete(true);
   }
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.impressoraId);
+      setIdUser(row.impressoraId);
+    },
+  };
 
   return (
     <>
@@ -240,11 +262,12 @@ export default function Impressora() {
           </div>
 
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 tabelaUsuario">
               <BootstrapTable
-                keyField="id"
+                keyField="impressoraId"
                 data={impressoraGet}
                 columns={columns}
+                selectRow={selectRow}
                 striped={true}
                 filter={filterFactory()}
               />
@@ -436,7 +459,7 @@ export default function Impressora() {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={handleDeleteImpressora}>
+                      <Button variant="primary" onClick={() => handleDeleteImpressora(idUser)}>
                         Sim
                       </Button>
                     </div>

@@ -14,12 +14,9 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 //filterFactory coloca no BootstrapTable e textFilter nas Colunas da Tabela(columns).
 
 export default function Material() {
-
-
   const [modalDelete, setModalDelete] = useState(false);
-
   const fecharModal = () => setModalDelete(false);
-
+  const [idUser, setIdUser] = useState(false);
   var url = "Material";
 
   const [materialGet, setMaterialGet] = useState([]);
@@ -27,7 +24,7 @@ export default function Material() {
   const columns = [
     {
       dataField: "materialId",
-      hidden: true,
+      // hidden: true,
     },
     {
       headerAlign: "center",
@@ -152,6 +149,7 @@ export default function Material() {
               endereco: material.endereco,
               area: material.area,
               editar: material.materialId,
+              ...material,
             };
           })
         );
@@ -272,22 +270,35 @@ export default function Material() {
   }
 
   //Delete
-  async function handleDeleteMaterial(materialId) {
+  function handleDeleteMaterial(idUser) {
     try {
-      await Api.delete(`/${url}/${materialId}`);
-      setUser(user.filter((material) => material.materialId !== materialId));
-      alert("Deletado com sucesso");
+      Api.delete(`/${url}/${idUser}`);
+      console.log('delete id', idUser)
+      
       setModalDelete(false);
+      alert("Deletado com sucesso");
+      window.location.reload();
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
-      console.log(err);
     }
   }
 
-  function handleDeleteModal() {
+  function handleDeleteModal(materialId) {
     console.log("Modal Delete aberto!");
+    console.log('delete id', materialId)
     setModalDelete(true);
   }
+
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.materialId);
+      setIdUser(row.materialId);
+    },
+  };
 
   return (
     <>
@@ -315,10 +326,11 @@ export default function Material() {
           <div className="row">
             <div className="col-md-12">
               <BootstrapTable
-                keyField="id"
+                keyField="materialId"
                 data={materialGet}
                 columns={columns}
                 striped={true}
+                selectRow={selectRow}
                 filter={filterFactory()}
               />
             </div>
@@ -606,7 +618,7 @@ export default function Material() {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={handleDeleteMaterial}>
+                      <Button variant="primary" onClick={() => handleDeleteMaterial(idUser)}>
                         Sim
                       </Button>
                     </div>

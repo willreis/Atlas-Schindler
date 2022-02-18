@@ -127,23 +127,23 @@ select {
     font-size: 14px;
 }
 
-.tabelaOrdensProducao table.table.table-striped.table-hover.table-bordered{
+.tabelaOrdensProducao table.table.table-striped.table-hover.table-bordered {
     width: max-content;
 }
 
 button.spanTabela path:hover,
 span.spanTabela svg path:hover {
-    color: #505050!important;
+    color: #505050 !important;
 }
 
 span.spanTabela svg,
-button.spanTabela svg{
+button.spanTabela svg {
     width: 1.3rem;
     height: 1.3rem;
 }
 
-button.botaoCadastrar svg path{
-    color:#fff;
+button.botaoCadastrar svg path {
+    color: #fff;
 }
 
 button.botaoCadastrar svg {
@@ -154,14 +154,14 @@ button.botaoCadastrar svg {
     top: -1px;
 }
 
-button.botaoImportar{
-    padding-top: 5px!important;
-    padding-bottom: 5px!important;
+button.botaoImportar {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
     margin-top: 25px;
 }
 
-button.botaoImportar svg path{
-    color:#fff;
+button.botaoImportar svg path {
+    color: #fff;
 }
 
 button.botaoImportar svg {
@@ -170,7 +170,7 @@ button.botaoImportar svg {
     position: relative;
     left: -20px;
     top: -1px;
-   
+
 }
 
 .textTable tr td {
@@ -263,11 +263,11 @@ td.text-center.icons-table span svg:hover {
     left: 20px !important;
 }
 
-.pro-sidebar.collapsed .pro-menu > ul > .pro-menu-item.pro-sub-menu > .pro-inner-list-item > .popper-inner {
+.pro-sidebar.collapsed .pro-menu>ul>.pro-menu-item.pro-sub-menu>.pro-inner-list-item>.popper-inner {
     max-height: 100vh;
     overflow-y: auto;
     background-color: #2b2b2b;
-    padding-left: 0!important; 
+    padding-left: 0 !important;
     border-radius: 4px;
     margin-left: -24px;
     overflow-x: hidden;
@@ -497,12 +497,17 @@ span.pro-item-content {
 
 
 @media only screen and (max-width: 1024px) {
-    .paddingContainer{
+    .paddingContainer {
         max-width: 1024px;
     }
 }
+
 @media only screen and (mix-width: 1740px) {
-    .paddingContainer{
+    .paddingContainer {
         max-width: 1740px
     }
+}
+
+.closemenu :hover {
+    box-shadow: 1px 1px 5px #fff;
 }

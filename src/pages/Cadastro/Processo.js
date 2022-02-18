@@ -132,8 +132,6 @@ export default function Processo() {
       ordenacao,
     })
       .then((response) => {
-        // setNome(response.data);
-        // setOrdenacao(response.data);
         console.log(response.data);
         alert("Processo cadastrado com sucesso!");
       })
@@ -183,12 +181,11 @@ export default function Processo() {
       });
   }
 
-  //Ativa o Delete no botão sim já dentro do modal.
+  //Delete
   function handleDeleteProcesso(idUser) {
     try {
       Api.delete(`/${url}/${idUser}`);
       console.log('delete id', idUser)
-      // setUser(user.filter((processo) => processo.processoId !== processoId));
       
       setModalDelete(false);
       alert("Deletado com sucesso");
@@ -244,8 +241,8 @@ export default function Processo() {
                 keyField="processoId"
                 data={processoGet}
                 columns={columns}
-                selectRow={selectRow}
                 striped={true}
+                selectRow={selectRow}
                 filter={filterFactory()}
               />
             </div>

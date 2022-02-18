@@ -15,13 +15,16 @@ export default function Maquina() {
   var url = "Maquina";
   var urlProcesso = "Processo";
 
-  //Modal const
+  //Modal
   const [show, setShow] = useState(false);
   const [showModalPut, setShowModalPut] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
+  const fecharModal = () => setModalDelete(false);
 
   //Get
   const [user, setUser] = useState([]);
   const [user2, setUser2] = useState([]);
+  const [idUser, setIdUser] = useState(null);
 
   const [maquinaGet, setMaquinaGet] = useState([]);
 
@@ -33,7 +36,7 @@ export default function Maquina() {
         setMaquinaGet(
           response.data.map((maquina) => {
             return {
-              id: maquina.maquinaId,
+              maquinaId: maquina.maquinaId,
               nome: maquina.nome,
               processoId: maquina.processoId,
               processo: maquina.processo.nome,
@@ -65,7 +68,7 @@ export default function Maquina() {
     {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-      dataField: "id",
+      dataField: "maquinaId",
       text: "ID",
       sort: true,
       hidden: true,
@@ -135,7 +138,7 @@ export default function Maquina() {
               className="spanTabela"
               id={row.maquinaId}
               Style="cursor:pointer"
-              onClick={() => handleDeleteMaquina(row.maquinaId)}
+              onClick={() => handleDeleteModal(row.maquinaId)}
             >
               <RiDeleteBinFill />
             </span>
@@ -179,17 +182,23 @@ export default function Maquina() {
   }
 
   //Delete
-  async function handleDeleteMaquina(maquinaId) {
+  async function handleDeleteMaquina(idUser) {
     try {
-      await Api.delete(`/${url}/${maquinaId}`);
-      console.log("delete ID", maquinaId);
-      setMaquinaGet(
-        maquinaGet.filter((maquina) => maquina.maquinaId !== maquinaId)
-      );
+      Api.delete(`/${url}/${idUser}`);
+      console.log("delete id", idUser);
+
+      setModalDelete(false);
       alert("Deletado com sucesso");
+      window.location.reload();
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
+  }
+
+  function handleDeleteModal(maquinaId) {
+    console.log("Modal Delete aberto!");
+    console.log("delete id", maquinaId);
+    setModalDelete(true);
   }
 
   ///////PUT
@@ -248,6 +257,16 @@ export default function Maquina() {
       });
   }
 
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.maquinaId);
+      setIdUser(row.maquinaId);
+    },
+  };
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -265,19 +284,21 @@ export default function Maquina() {
                   variant="success"
                   onClick={() => setShow(true)}
                 >
-                  <HiPlus Style="color:#fff!important" />Cadastrar
+                  <HiPlus Style="color:#fff!important" />
+                  Cadastrar
                 </Button>
               </div>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 tabelaUsuario">
               <BootstrapTable
-                keyField="id"
+                keyField="maquinaId"
                 data={maquinaGet}
                 columns={columns}
                 striped={true}
+                selectRow={selectRow}
                 filter={filterFactory()}
               />
             </div>
@@ -504,6 +525,47 @@ export default function Maquina() {
                   </div>
                 </div>
               </form>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Modal Delete */}
+        <Modal
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          show={modalDelete}
+          onHide={() => setModalDelete(false)}
+          centered
+        >
+          <Modal.Header closeButton Style="position:relative">
+            <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <div Style="margin-bottom: 30px; text-align: center">
+              <div className="row">
+                <div className="col-12">
+                  <p>Deseja Realmente Excluir!</p>
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-6">
+                      <Button variant="danger" onClick={fecharModal}>
+                        Não
+                      </Button>
+                    </div>
+                    <div className="col-6">
+                      <Button
+                        variant="primary"
+                        onClick={() => handleDeleteMaquina(idUser)}
+                      >
+                        Sim
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </Modal.Body>
         </Modal>
