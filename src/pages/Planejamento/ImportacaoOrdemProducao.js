@@ -164,14 +164,24 @@ function ImportacaoOrdemProducao() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-                <Button
-                  className="botaoImportar"
-                  variant="success"
-                  onClick={() => setShow(true)}
+                <form
+                  id="frmupload"
+                  name="frmupload"
+                  method="post"
+                  enctype="multipart/form-data"
+                  action="http://192.168.11.94:90/api/OrdemProducao"
                 >
-                  <FaFileImport Style="color:#fff!important; width:220px!important" />
-                  Importar Arquivo
-                </Button>
+                  <input type="file" id="filexml" name="filexml" />
+                  <Button
+                    type="submit"
+                    className="botaoImportar"
+                    variant="success"
+                    // onClick={() => setShow(true)}
+                  >
+                    <FaFileImport Style="color:#fff!important; width:220px!important" />
+                    Importar Arquivo
+                  </Button>
+                </form>
               </div>
             </div>
           </div>
@@ -179,6 +189,7 @@ function ImportacaoOrdemProducao() {
           <div className="row">
             <div className="col-md-12">
               <BootstrapTable
+                scrollX={true}
                 keyField="matricula"
                 hover
                 striped
@@ -221,9 +232,7 @@ function ImportacaoOrdemProducao() {
           centered
         >
           <Modal.Header closeButton Style="position:relative">
-            <h3 Style="position: absolute; left: 30%;">
-              Atenção!
-            </h3>
+            <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
           </Modal.Header>
           <Modal.Body>
             <div Style="margin-bottom: 30px; text-align: center">

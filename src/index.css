@@ -195,7 +195,10 @@ td span svg {
     display: none;
 }
 
-.sideBar {}
+.botoesOrdemProducao button {
+    width: 100%;
+    padding: 6px 0;
+}
 
 /*Botões*/
 button.btn {
