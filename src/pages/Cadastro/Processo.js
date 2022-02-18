@@ -26,6 +26,7 @@ export default function Processo() {
 
   //Get
   const [user, setUser] = useState([]);
+  const [idUser, setIdUser] = useState(null);
 
   const [processoGet, setprocessoGet] = useState([]);
 
@@ -37,10 +38,11 @@ export default function Processo() {
         setprocessoGet(
           response.data.map((processo) => {
             return {
+              processoId: processo.processoId,
               nome: processo.nome,
               ordenacao: processo.ordenacao,
               editar: processo.processoId,
-              ...processo,
+              
             };
           })
         );
@@ -52,6 +54,13 @@ export default function Processo() {
   }, []);
 
   const columns = [
+    {
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+      dataField: "processoId",
+      text: "ID",
+      
+    },
     {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -114,6 +123,7 @@ export default function Processo() {
     // e.preventDefault();
     handleRegister(user);
   }
+  
 
   function createPost() {
     Api.post(`${url}`, {
@@ -173,22 +183,35 @@ export default function Processo() {
   }
 
   //Ativa o Delete no botão sim já dentro do modal.
-  function handleDeleteProcesso(processoId) {
+  function handleDeleteProcesso(idUser) {
     try {
-      Api.delete(`/${url}/${processoId}`);
-      setUser(user.filter((processo) => processo.processoId !== processoId));
-      alert("Deletado com sucesso");
+      Api.delete(`/${url}/${idUser}`);
+      console.log('delete id', idUser)
+      // setUser(user.filter((processo) => processo.processoId !== processoId));
+      
       setModalDelete(false);
+      alert("Deletado com sucesso");
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
   }
 
   //Abre o Modal no ícone de lixeira.
-  function handleDeleteModal() {
+  function handleDeleteModal(processoId) {
     console.log("Modal Delete aberto!");
+    console.log('delete id', processoId)
     setModalDelete(true);
   }
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.processoId);
+      setIdUser(row.processoId);
+    },
+  };
 
   return (
     <>
@@ -216,9 +239,10 @@ export default function Processo() {
           <div className="row">
             <div className="col-md-12">
               <BootstrapTable
-                keyField="id"
+                keyField="processoId"
                 data={processoGet}
                 columns={columns}
+                selectRow={selectRow}
                 striped={true}
                 filter={filterFactory()}
               />
@@ -374,7 +398,7 @@ export default function Processo() {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={handleDeleteProcesso}>
+                      <Button variant="primary" onClick={() => handleDeleteProcesso(idUser)}>
                         Sim
                       </Button>
                     </div>

@@ -355,7 +355,7 @@ function OrdensProducao() {
         </div>
         <div className="container-fluid" Style="overflow:auto">
           <div className="row mt-3">
-            <div className="col-md-12 tabelaOrdensProducao">
+            <div className="col-md-12">
               <BootstrapTable
                 keyField="matricula"
                 hover
