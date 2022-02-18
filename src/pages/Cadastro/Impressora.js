@@ -96,12 +96,12 @@ export default function Impressora() {
         setImpressoraGet(
           response.data.map((impressora) => {
             return {
+              impressoraId: impressora.impressoraId,
               nome: impressora.nome,
               marca: impressora.marca,
               endereco: impressora.endereco,
               area: impressora.area,
               editar: impressora.impressoraId,
-              ...impressora,
             };
           })
         );
