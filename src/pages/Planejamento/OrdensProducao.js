@@ -230,7 +230,6 @@ function OrdensProducao() {
     setModalDelete(false);
   }
 
-
   // function createPost() {
   //   Api.post(`/${url}/`, { })
   //     .then((response) => {
@@ -246,7 +245,7 @@ function OrdensProducao() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
-        <div className="paddingContainer">
+        <div className="container-fluid paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
               <div className="tituloInterno">
@@ -255,17 +254,14 @@ function OrdensProducao() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
-              
                 <Button
                   className="botaoImportar"
                   variant="success"
                   onClick={() => setShow(true)}
                 >
-              
                   <AiFillSave Style="color:#fff!important; width:220px!important" />
                   Salvar
                 </Button>
-                
               </div>
             </div>
           </div>
@@ -356,64 +352,43 @@ function OrdensProducao() {
               </div>
             </form>
           </div>
-
+        </div>
+        <div className="container-fluid" Style="overflow:auto">
           <div className="row mt-3">
-            <div className="col-md-12">
+            <div className="col-md-12 tabelaOrdensProducao">
               <BootstrapTable
                 keyField="matricula"
                 hover
                 striped
                 data={products}
                 columns={columns}
-                striped={true}
                 filter={filterFactory()}
+                Style="width: max-content;"
               />
             </div>
           </div>
         </div>
 
-        <div className="row paddingContainer botoesOrdemProducao">
-          <div className="col-2">
-            <Button
-              variant="success"
-            >
-              Criar Relação Automática
-            </Button>
-          </div>
-          <div className="col-2">
-            <Button
-              variant="success"
-            >
-              Criar Relação Única
-            </Button>
-          </div>
-          <div className="col-2">
-            <Button
-              variant="success"
-            >
-              Cancelar Relação
-            </Button>
-          </div>
-          <div className="col-2">
-            <Button
-              variant="success"
-            >
-              Verificar
-            </Button>
-          </div>
-          <div className="col-2">
-            <Button
-              variant="success"
-            >
-              Imprimir
-            </Button>
-          </div>
-          <div className="col-2">
-            <Button
-              variant="success"
-            >
-              Detalhes da VG
-            </Button>
+        <div className="container-fluid">
+          <div className="row botoesOrdemProducao">
+            <div className="col-2">
+              <Button variant="success">Criar Relação Automática</Button>
+            </div>
+            <div className="col-2">
+              <Button variant="success">Criar Relação Única</Button>
+            </div>
+            <div className="col-2">
+              <Button variant="success">Cancelar Relação</Button>
+            </div>
+            <div className="col-2">
+              <Button variant="success">Verificar</Button>
+            </div>
+            <div className="col-2">
+              <Button variant="success">Imprimir</Button>
+            </div>
+            <div className="col-2">
+              <Button variant="success">Detalhes da VG</Button>
+            </div>
           </div>
         </div>
 

@@ -182,19 +182,18 @@ function ImportacaoOrdemProducao() {
               </div>
             </div>
           </div>
-
-          <div className="row">
-            <div className="col-md-12">
-              <BootstrapTable
-                scrollX={true}
-                keyField="matricula"
-                hover
-                striped
-                data={products}
-                columns={columns}
-                striped={true}
-                filter={filterFactory()}
-              />
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-12">
+                <BootstrapTable
+                  keyField="matricula"
+                  hover
+                  striped
+                  data={products}
+                  columns={columns}
+                  filter={filterFactory()}
+                />
+              </div>
             </div>
           </div>
         </div>
