@@ -230,6 +230,19 @@ function OrdensProducao() {
     setModalDelete(false);
   }
 
+
+  // function createPost() {
+  //   Api.post(`/${url}/`, { })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       alert("Cadastro Efetuado com sucesso!");
+  //     })
+  //     .catch((error) => {
+  //       console.log("Ops! Ocorreu um erro2:" + error);
+  //       alert("Ops! Ocorreu um erro2" + error);
+  //     });
+  // }
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -242,14 +255,17 @@ function OrdensProducao() {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
+              
                 <Button
                   className="botaoImportar"
                   variant="success"
                   onClick={() => setShow(true)}
                 >
+              
                   <AiFillSave Style="color:#fff!important; width:220px!important" />
                   Salvar
                 </Button>
+                
               </div>
             </div>
           </div>
