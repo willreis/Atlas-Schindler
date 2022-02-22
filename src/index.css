@@ -157,8 +157,23 @@ button.botaoCadastrar svg {
 button.botaoImportar {
     padding-top: 5px !important;
     padding-bottom: 5px !important;
-    margin-top: 25px;
+    margin-left: 15px;
+    height: 41px;
 }
+input#filexml {
+    border: 1px solid #979797b0;
+    border-radius: 5px;
+    padding: 0 10px 0 0;
+    padding: 5px;
+}
+.inputFileBox{
+    width: 400px!important;
+}
+.botaoImportarBox{
+    width:250px!important;
+}
+
+
 
 button.botaoImportar svg path {
     color: #fff;

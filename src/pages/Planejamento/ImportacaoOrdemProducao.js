@@ -4,10 +4,10 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import paginationFactory from "react-bootstrap-table2-paginator";
+import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import Modal from "react-bootstrap/Modal";
-import Api from "../../services/Api"
+import Api from "../../services/Api";
 
 import { Button } from "react-bootstrap";
 import { IconContext } from "react-icons/lib";
@@ -18,7 +18,7 @@ import { FaFileImport } from "react-icons/fa";
 function ImportacaoOrdemProducao() {
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
-  const [ordemProdGet, setOrdemProdGet] = useState([])
+  const [ordemProdGet, setOrdemProdGet] = useState([]);
   const [user, setUser] = useState();
 
   const url = "OrdemProducao";
@@ -249,8 +249,6 @@ function ImportacaoOrdemProducao() {
       origem: "SAP",
       opcoes: "colocar aqui id",
     },
-
-  
   ];
 
   const columns = [
@@ -337,11 +335,11 @@ function ImportacaoOrdemProducao() {
       },
     },
   ];
-  
+
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
-      Mostrando de { from } a { to } do total de { size } Resultados
+      Mostrando de {from} a {to} do total de {size} Resultados
     </span>
   );
   const options = {
@@ -351,31 +349,37 @@ function ImportacaoOrdemProducao() {
     withFirstAndLast: false, // Hide the going to First and Last page button
     hideSizePerPage: true, // Hide the sizePerPage dropdown always
     hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-    firstPageText: 'Primeiro',
-    prePageText: 'Voltar',
-    nextPageText: 'Próxima',
-    lastPageText: 'Última',
-    nextPageTitle: 'Primeira Página',
-    prePageTitle: 'Pre page',
-    firstPageTitle: 'Próxima Página',
-    lastPageTitle: 'Última Página',
+    firstPageText: "Primeiro",
+    prePageText: "Voltar",
+    nextPageText: "Próxima",
+    lastPageText: "Última",
+    nextPageTitle: "Primeira Página",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Próxima Página",
+    lastPageTitle: "Última Página",
     showTotal: true,
     paginationTotalRenderer: customTotal,
     disablePageTitle: true,
-    sizePerPageList: [{
-      text: '5', value: 5
-    }, {
-      text: '10', value: 10
-    }, {
-      text: 'All', value: products.length
-    }] // A numeric array is also available. the purpose of above example is custom the text
+    sizePerPageList: [
+      {
+        text: "5",
+        value: 5,
+      },
+      {
+        text: "10",
+        value: 10,
+      },
+      {
+        text: "All",
+        value: products.length,
+      },
+    ], // A numeric array is also available. the purpose of above example is custom the text
   };
 
   function handleDeleteUsuario() {
     console.log("Modal Delete aberto!");
     setModalDelete(true);
   }
-
 
   function sucessoDelete() {
     alert("Deletado com sucesso!");
@@ -385,7 +389,7 @@ function ImportacaoOrdemProducao() {
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
-        console.log('adsfasdfasdfasdf', response);
+        console.log("adsfasdfasdfasdf", response);
         setOrdemProdGet(
           response.data.map((importOr) => {
             return {
@@ -397,7 +401,6 @@ function ImportacaoOrdemProducao() {
               titulo: importOr.titulo,
               origem: importOr.origem,
               editar: importOr.la,
-              
             };
           })
         );
@@ -420,32 +423,52 @@ function ImportacaoOrdemProducao() {
                 </h2>
               </div>
             </div>
-            <div className="col-md-6 col-sm-12">
-              <div className="alignButtons">
+          </div>
+          <div className="container-fluid">
+            <div className="row" Style="text-align: -webkit-right;">
+              <div className="" Style="padding-top: 20px;">
                 <form
                   id="frmupload"
                   name="frmupload"
                   method="post"
                   enctype="multipart/form-data"
                   action="http://192.168.11.94:90/api/OrdemProducao"
+                  Style="width:700px"
                 >
-                  <input type="file" id="filexml" name="filexml" />
-                  <Button
-                    type="submit"
-                    className="botaoImportar"
-                    variant="success"
-                    // onClick={() => setShow(true)}
-                  >
-                    <FaFileImport Style="color:#fff!important; width:220px!important" />
-                    Importar Arquivo
-                  </Button>
+                  <div className="row">
+                    <div className="inputFileBox">
+                      <div className="form-group" Style="text-align:left">
+                        <input
+                          type="file"
+                          class="form-control-"
+                          id="filexml"
+                          name="filexml"
+                          aria-describedby="filexmlinfo"
+                        />
+                        <small
+                          id="filexmlinfo"
+                          className="form-text text-muted"
+                        >
+                          Obs: Enviar somente arquivos no formato <i>.xml</i>
+                        </small>
+                      </div>
+                    </div>
+                    <div className="botaoImportarBox">
+                      <Button
+                        type="submit"
+                        className="botaoImportar"
+                        variant="success"
+                      >
+                        <FaFileImport Style="color:#fff!important; width:220px!important" />
+                        Importar Arquivo
+                      </Button>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
-          </div>
-          <div className="container-fluid">
             <div className="row">
-              <div className="col-md-12">
+              <div className="col-md-12 mt-4">
                 <BootstrapTable
                   keyField="la"
                   hover

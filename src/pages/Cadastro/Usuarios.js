@@ -237,8 +237,8 @@ export default function Usuarios() {
     setModalDelete(true);
   }
 
-  function handlePut(usuario) {
-    Api.put(`${url}/${usuario.usuarioId}`, {
+  function handlePut() {
+    Api.put(`${url}/${usuarioId}`, {
       usuarioId,
       senha,
       matricula,
@@ -251,8 +251,7 @@ export default function Usuarios() {
       status,
     })
       .then((response) => {
-        alert('aqui');
-        setUsuarioId(usuario.usuarioId);
+        setUsuarioId(usuarioId);
         setSenha();
         setNome();
         setMatricula();
@@ -264,6 +263,7 @@ export default function Usuarios() {
         alert("Put Efetuado com sucesso!");
       })
       .catch((error) => {
+        alert('aquiiiiiiiiiiii', usuarioId)
         console.log("Ops! Ocorreu um erro: " + error);
         alert("Ops! Ocorreu um erro: " + error);
       });
@@ -278,7 +278,9 @@ export default function Usuarios() {
       nome,
       cargo,
       eMail,
-      grupoDeAcesso:{grupoDeAcessoId},
+      grupoDeAcesso:{
+        grupoDeAcessoId,
+      },
       status,
     })
       .then(() => {
@@ -540,7 +542,7 @@ export default function Usuarios() {
                     type="number"
                     id="grupoDeAcessoId"
                     name=""
-                    value={grupoDeAcessoId}
+                    value={grupoDeAcesso}
                     onChange={(e) => {
                       setGrupoDeAcessoId(parseInt(e.target.value));
                     }}
@@ -561,8 +563,6 @@ export default function Usuarios() {
                   <div className="form-group">
                     <label>Senha</label>
                     <div className="input-group">
-                      {" "}
-                      {/*Bootstrap className para juntar*/}
                       <input
                         className="form-control"
                         type={showPassword ? "text" : "password"}
