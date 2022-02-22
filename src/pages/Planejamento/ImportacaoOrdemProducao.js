@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import Modal from "react-bootstrap/Modal";
+import Api from "../../services/Api"
 
 import { Button } from "react-bootstrap";
 import { IconContext } from "react-icons/lib";
@@ -14,12 +18,15 @@ import { FaFileImport } from "react-icons/fa";
 function ImportacaoOrdemProducao() {
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+  const [user, setUser] = useState();
+
+  const url = "OrdemProducao";
 
   const fecharModal = () => setModalDelete(false);
 
   const products = [
     {
-      la: 101544,
+      la: 1,
       ordem: 7000158,
       familia: "Urgente",
       status: "Pendente",
@@ -32,7 +39,7 @@ function ImportacaoOrdemProducao() {
       }),
     },
     {
-      la: 101564,
+      la: 2,
       ordem: 7000159,
       familia: "Médio",
       status: "Pendente",
@@ -42,7 +49,7 @@ function ImportacaoOrdemProducao() {
       opcoes: "colocar aqui id",
     },
     {
-      la: 101576,
+      la: 3,
       ordem: 7000160,
       familia: "Baixo",
       status: "Pendente",
@@ -51,6 +58,198 @@ function ImportacaoOrdemProducao() {
       origem: "SAP",
       opcoes: "colocar aqui id",
     },
+    {
+      la: 4,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 5,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 6,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 7,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 8,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 9,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 10,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 11,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 12,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 13,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 14,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 15,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 16,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 17,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 18,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 19,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 20,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 21,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+    {
+      la: 22,
+      ordem: 7000160,
+      familia: "Baixo",
+      status: "Pendente",
+      semana: 137,
+      titulo: "OPP Cordão",
+      origem: "SAP",
+      opcoes: "colocar aqui id",
+    },
+
+  
   ];
 
   const columns = [
@@ -138,17 +337,75 @@ function ImportacaoOrdemProducao() {
     },
   ];
   
-  /****************Função de Abrir e de Deletar**/
+  //Paginação
+  const customTotal = (from, to, size) => (
+    <span className="react-bootstrap-table-pagination-total">
+      Mostrando { from } a { to } de { size } Resultados
+    </span>
+  );
+  const options = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    alwaysShowAllBtns: true, // Always show next and previous button
+    withFirstAndLast: false, // Hide the going to First and Last page button
+    hideSizePerPage: true, // Hide the sizePerPage dropdown always
+    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    firstPageText: 'First',
+    prePageText: 'Back',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+    nextPageTitle: 'First page',
+    prePageTitle: 'Pre page',
+    firstPageTitle: 'Next page',
+    lastPageTitle: 'Last page',
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    disablePageTitle: true,
+    sizePerPageList: [{
+      text: '5', value: 5
+    }, {
+      text: '10', value: 10
+    }, {
+      text: 'All', value: products.length
+    }] // A numeric array is also available. the purpose of above example is custom the text
+  };
+
   function handleDeleteUsuario() {
     console.log("Modal Delete aberto!");
     setModalDelete(true);
   }
 
-  //Deixa de existir lá...
+
   function sucessoDelete() {
     alert("Deletado com sucesso!");
     setModalDelete(false);
   }
+
+  useEffect(() => {
+    Api.get(`${url}`)
+      .then((response) => {
+        console.log('adsfasdfasdfasdf', response);
+        setUser(
+          response.data.map((importOr) => {
+            return {
+              la: importOr.la,
+              ordem: importOr.ordem,
+              familia: importOr.familia,
+              status: importOr.status,
+              semana: importOr.semana,
+              titulo: importOr.titulo,
+              origem: importOr.origem,
+              editar: importOr.la,
+       
+            };
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }, []);
 
   return (
     <>
@@ -189,12 +446,13 @@ function ImportacaoOrdemProducao() {
             <div className="row">
               <div className="col-md-12">
                 <BootstrapTable
-                  keyField="matricula"
+                  keyField="la"
                   hover
                   striped
                   data={products}
                   columns={columns}
                   filter={filterFactory()}
+                  pagination={paginationFactory(options)}
                 />
               </div>
             </div>
