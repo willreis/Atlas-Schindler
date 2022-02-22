@@ -18,6 +18,7 @@ import { FaFileImport } from "react-icons/fa";
 function ImportacaoOrdemProducao() {
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+  const [ordemProdGet, setOrdemProdGet] = useState()
   const [user, setUser] = useState();
 
   const url = "OrdemProducao";
@@ -340,24 +341,24 @@ function ImportacaoOrdemProducao() {
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
-      Mostrando { from } a { to } de { size } Resultados
+      Mostrando de { from } a { to } do total de { size } Resultados
     </span>
   );
   const options = {
     paginationSize: 4,
     pageStartIndex: 0,
-    alwaysShowAllBtns: true, // Always show next and previous button
+    //alwaysShowAllBtns: true, // Always show next and previous button
     withFirstAndLast: false, // Hide the going to First and Last page button
     hideSizePerPage: true, // Hide the sizePerPage dropdown always
     hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-    firstPageText: 'First',
-    prePageText: 'Back',
-    nextPageText: 'Next',
-    lastPageText: 'Last',
-    nextPageTitle: 'First page',
+    firstPageText: 'Primeiro',
+    prePageText: 'Voltar',
+    nextPageText: 'Próxima',
+    lastPageText: 'Última',
+    nextPageTitle: 'Primeira Página',
     prePageTitle: 'Pre page',
-    firstPageTitle: 'Next page',
-    lastPageTitle: 'Last page',
+    firstPageTitle: 'Próxima Página',
+    lastPageTitle: 'Última Página',
     showTotal: true,
     paginationTotalRenderer: customTotal,
     disablePageTitle: true,
@@ -385,7 +386,7 @@ function ImportacaoOrdemProducao() {
     Api.get(`${url}`)
       .then((response) => {
         console.log('adsfasdfasdfasdf', response);
-        setUser(
+        setOrdemProdGet(
           response.data.map((importOr) => {
             return {
               la: importOr.la,
@@ -396,7 +397,6 @@ function ImportacaoOrdemProducao() {
               titulo: importOr.titulo,
               origem: importOr.origem,
               editar: importOr.la,
-       
             };
           })
         );
@@ -449,7 +449,7 @@ function ImportacaoOrdemProducao() {
                   keyField="la"
                   hover
                   striped
-                  data={products}
+                  data={ordemProdGet}
                   columns={columns}
                   filter={filterFactory()}
                   pagination={paginationFactory(options)}

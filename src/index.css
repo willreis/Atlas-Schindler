@@ -511,3 +511,12 @@ span.pro-item-content {
 .closemenu :hover {
     box-shadow: 1px 1px 5px #fff;
 }
+
+.page-item.active .page-link {
+   background-color: #979797!important;
+    border-color: #979797!important;
+}
+
+.page-link{
+    color:#282529!important;
+}

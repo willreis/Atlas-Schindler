@@ -24,7 +24,7 @@ export default function Material() {
   const columns = [
     {
       dataField: "materialId",
-      // hidden: true,
+      hidden: true,
     },
     {
       headerAlign: "center",
@@ -324,7 +324,7 @@ export default function Material() {
           </div>
 
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-12 tabelaUsuario">
               <BootstrapTable
                 keyField="materialId"
                 data={materialGet}

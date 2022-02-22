@@ -207,7 +207,9 @@ export default function Maquina() {
       maquinaId,
       nome,
       processoId,
-      processo,
+      processo:{
+        nome
+      },
       status,
       ordenacao,
       tempoMedioProducao,
@@ -222,7 +224,7 @@ export default function Maquina() {
         setTempoMedioProducao();
 
         console.log("Esse é o console do Put: ", response);
-        alert("Put Efetuado com sucesso!");
+        alert("Alterações Efetuadas com sucesso!");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro: " + error);

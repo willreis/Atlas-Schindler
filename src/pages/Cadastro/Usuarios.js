@@ -38,6 +38,7 @@ export default function Usuarios() {
   const [eMail, setEmail] = useState();
   const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
   const [grupoDeAcessoId, setGrupoDeAcessoId] = useState();
+  const [nomeDoGrupo, setNomeDoGrupo] = useState();
   const [status, setStatus] = useState();
 
   const columns = [
@@ -245,7 +246,9 @@ export default function Usuarios() {
       nome,
       cargo,
       eMail,
-      grupoDeAcesso,
+      grupoDeAcesso: {
+        grupoDeAcessoId,
+      },
       status,
     })
       .then((response) => {
@@ -546,10 +549,10 @@ export default function Usuarios() {
                     <option>Escolha uma opção</option>
                     {userGrupoAcesso.map((nome) => (
                       <option
-                        name={nome.nomeDoGrupo}
+                        name={nome.grupoDeAcesso.nomeDoGrupo}
                         value={nome.grupoDeAcessoId}
                       >
-                        {nome.nomeDoGrupo}
+                        {nome.grupoDeAcesso.nomeDoGrupo}
                       </option>
                     ))}
                   </select>
