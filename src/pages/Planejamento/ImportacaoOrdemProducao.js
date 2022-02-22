@@ -18,7 +18,7 @@ import { FaFileImport } from "react-icons/fa";
 function ImportacaoOrdemProducao() {
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
-  const [ordemProdGet, setOrdemProdGet] = useState()
+  const [ordemProdGet, setOrdemProdGet] = useState([])
   const [user, setUser] = useState();
 
   const url = "OrdemProducao";
@@ -397,6 +397,7 @@ function ImportacaoOrdemProducao() {
               titulo: importOr.titulo,
               origem: importOr.origem,
               editar: importOr.la,
+              
             };
           })
         );

@@ -38,7 +38,6 @@ export default function Usuarios() {
   const [eMail, setEmail] = useState();
   const [grupoDeAcesso, setGrupoDeAcesso] = useState([]);
   const [grupoDeAcessoId, setGrupoDeAcessoId] = useState();
-  const [nomeDoGrupo, setNomeDoGrupo] = useState();
   const [status, setStatus] = useState();
 
   const columns = [
@@ -238,8 +237,8 @@ export default function Usuarios() {
     setModalDelete(true);
   }
 
-  function handlePut(row) {
-    Api.put(`${url}/${row.usuarioId}`, {
+  function handlePut(usuario) {
+    Api.put(`${url}/${usuario.usuarioId}`, {
       usuarioId,
       senha,
       matricula,
@@ -252,7 +251,8 @@ export default function Usuarios() {
       status,
     })
       .then((response) => {
-        setUsuarioId(row.usuarioId);
+        alert('aqui');
+        setUsuarioId(usuario.usuarioId);
         setSenha();
         setNome();
         setMatricula();
@@ -278,7 +278,7 @@ export default function Usuarios() {
       nome,
       cargo,
       eMail,
-      grupoDeAcesso,
+      grupoDeAcesso:{grupoDeAcessoId},
       status,
     })
       .then(() => {
@@ -288,7 +288,7 @@ export default function Usuarios() {
         setMatricula(row.matricula);
         setCargo(row.cargo);
         setEmail(row.eMail);
-        setGrupoDeAcesso(row.grupoDeAcesso);
+        setGrupoDeAcesso(row.grupoDeAcesso.nomeDoGrupo);
         setStatus(row.status);
       })
       .catch((error) => {
@@ -410,7 +410,7 @@ export default function Usuarios() {
                     type="number"
                     id="grupoDeAcessoId"
                     name=""
-                    value={grupoDeAcesso}
+                    value={grupoDeAcessoId}
                     onChange={(e) => {
                       setGrupoDeAcessoId(parseInt(e.target.value));
                     }}
@@ -513,7 +513,6 @@ export default function Usuarios() {
                     name="nome"
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
-                    required
                   />
                 </div>
                 <div className="col-md-6 col-sm-6">
@@ -541,7 +540,7 @@ export default function Usuarios() {
                     type="number"
                     id="grupoDeAcessoId"
                     name=""
-                    value={grupoDeAcesso.grupoDeAcessoId}
+                    value={grupoDeAcessoId}
                     onChange={(e) => {
                       setGrupoDeAcessoId(parseInt(e.target.value));
                     }}
@@ -549,10 +548,10 @@ export default function Usuarios() {
                     <option>Escolha uma opção</option>
                     {userGrupoAcesso.map((nome) => (
                       <option
-                        name={nome.grupoDeAcesso.nomeDoGrupo}
+                        name={nome.nomeDoGrupo}
                         value={nome.grupoDeAcessoId}
                       >
-                        {nome.grupoDeAcesso.nomeDoGrupo}
+                        {nome.nomeDoGrupo}
                       </option>
                     ))}
                   </select>
@@ -604,7 +603,9 @@ export default function Usuarios() {
                     type="submit"
                     variant="success"
                     className="align-self-baseline"
-                    onClick={createPost}
+                    onClick={(usuario) => {
+                      handlePut(usuario.usuarioId);
+                    }}
                     Style="margin-top: 24px"
                   >
                     Salvar
