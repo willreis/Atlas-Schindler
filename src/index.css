@@ -31,7 +31,7 @@ h4 {
     padding-top: 20px;
 }
 
-.inlineFlex{
+.inlineFlex {
     display: inline-flex;
     justify-content: flex-end;
 }
@@ -150,6 +150,17 @@ select {
 
 .tabelaOrdensProducao table.table.table-striped.table-hover.table-bordered {
     width: max-content;
+}
+
+.tabelaOrdem .react-bootstrap-table {
+    overflow-x: scroll;
+}
+.tabelaOrdem table.table.table-striped.table-hover.table-bordered{
+    width: max-content;
+}
+
+.botoesOrdemProducao button {
+    height: 45px;
 }
 
 button.spanTabela path:hover,
@@ -563,4 +574,8 @@ span.pro-item-content {
 
 .react-bootstrap-table-pagination {
     margin-bottom: 1rem;
+}
+
+.section.tabelaOrdem {
+    width: calc(100vw - 200px)
 }

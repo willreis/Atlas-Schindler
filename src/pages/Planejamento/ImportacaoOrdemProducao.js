@@ -14,7 +14,6 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
 function ImportacaoOrdemProducao() {
-
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -187,48 +186,50 @@ function ImportacaoOrdemProducao() {
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div className="paddingContainer">
-
-        <form
-                className="row"
-                id="frmupload"
-                name="frmupload"
-                method="post"
-                enctype="multipart/form-data"
-                action="http://192.168.11.94:90/api/OrdemProducao"
-              >
-          <div className="row">
-            <div className="col-md-6 col-lg-6 col-sm-12">
-              <div className="tituloInterno">
-                <h2 className="titulosPrincipais">
-                  Importação de Ordem Produção
-                </h2>
+          <form
+            className="row"
+            id="frmupload"
+            name="frmupload"
+            method="post"
+            enctype="multipart/form-data"
+            action="http://192.168.11.94:90/api/OrdemProducao"
+          >
+            <div className="row">
+              <div className="col-md-6 col-lg-6 col-sm-12">
+                <div className="tituloInterno">
+                  <h2 className="titulosPrincipais">
+                    Importação de Ordem Produção
+                  </h2>
+                </div>
               </div>
-            </div>
-            <div className="col-md-6 col-lg-6 paddingTop20 inlineFlex">
-              <div className="form-group">
-                <input
-                  type="file"
-                  class="form-control-"
-                  id="filexml"
-                  name="filexml"
-                  aria-describedby="filexmlinfo"
-                />
-                <small
-                  id="filexmlinfo"
-                  className="form-text text-muted"
-                  Style="display:block"
+              <div className="col-md-6 col-lg-6 paddingTop20 inlineFlex">
+                <div className="form-group">
+                  <input
+                    type="file"
+                    class="form-control-"
+                    id="filexml"
+                    name="filexml"
+                    aria-describedby="filexmlinfo"
+                  />
+                  <small
+                    id="filexmlinfo"
+                    className="form-text text-muted"
+                    Style="display:block"
+                  >
+                    Obs: Enviar somente arquivos no formato <i>.xml</i>
+                  </small>
+                </div>
+                <Button
+                  type="submit"
+                  className="botaoImportar"
+                  variant="success"
                 >
-                  Obs: Enviar somente arquivos no formato <i>.xml</i>
-                </small>
+                  <FaFileImport Style="color:#fff!important; width:220px!important" />
+                  Importar
+                </Button>
               </div>
-              <Button type="submit" className="botaoImportar" variant="success">
-                <FaFileImport Style="color:#fff!important; width:220px!important" />
-                Importar
-              </Button>
             </div>
-          </div>
           </form>
-
 
           <div className="container-fluid">
             <div className="row">

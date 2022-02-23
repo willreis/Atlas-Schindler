@@ -12,7 +12,6 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
 function OrdensProducao() {
-
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -54,7 +53,6 @@ function OrdensProducao() {
 
   const products = [
     {
-      vazio: "X",
       vg: 101544,
       item: 7000158,
       codigoMaterial: 42343,
@@ -72,7 +70,6 @@ function OrdensProducao() {
       sequencia: 344,
     },
     {
-      vazio: "X",
       vg: 101678,
       item: 7000876,
       codigoMaterial: 234556,
@@ -90,7 +87,6 @@ function OrdensProducao() {
       sequencia: 346,
     },
     {
-      vazio: "X",
       vg: 101678,
       item: 7000876,
       codigoMaterial: 234556,
@@ -110,12 +106,6 @@ function OrdensProducao() {
   ];
 
   const columns = [
-    {
-      dataField: "vazio",
-      text: "",
-      headerAlign: "center",
-      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-    },
     {
       dataField: "vg",
       text: "VG",
@@ -266,22 +256,10 @@ function OrdensProducao() {
     setModalDelete(false);
   }
 
-  // function createPost() {
-  //   Api.post(`/${url}/`, { })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       alert("Cadastro Efetuado com sucesso!");
-  //     })
-  //     .catch((error) => {
-  //       console.log("Ops! Ocorreu um erro2:" + error);
-  //       alert("Ops! Ocorreu um erro2" + error);
-  //     });
-  // }
-
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
-        <div className="container-fluid paddingContainer">
+        <div className="paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
               <div className="tituloInterno">
@@ -302,10 +280,9 @@ function OrdensProducao() {
             </div>
           </div>
 
-          <div className="row">
-            <form>
+          <form>
               <div class="row">
-                <div class="col-3 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>LA</label>
                   <input
                     type="text"
@@ -313,7 +290,7 @@ function OrdensProducao() {
                     placeholder="First name"
                   />
                 </div>
-                <div class="col-3 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Ordem</label>
                   <input
                     type="text"
@@ -321,7 +298,7 @@ function OrdensProducao() {
                     placeholder="Last name"
                   />
                 </div>
-                <div class="col-3 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Status</label>
                   <input
                     type="text"
@@ -329,7 +306,7 @@ function OrdensProducao() {
                     placeholder="First name"
                   />
                 </div>
-                <div class="col-3 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Título</label>
                   <input
                     type="text"
@@ -337,7 +314,7 @@ function OrdensProducao() {
                     placeholder="Last name"
                   />
                 </div>
-                <div class="col-2 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Família</label>
                   <input
                     type="text"
@@ -345,7 +322,7 @@ function OrdensProducao() {
                     placeholder="Last name"
                   />
                 </div>
-                <div class="col-2 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Semana</label>
                   <input
                     type="text"
@@ -353,7 +330,7 @@ function OrdensProducao() {
                     placeholder="Last name"
                   />
                 </div>
-                <div class="col-2 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Origem</label>
                   <input
                     type="text"
@@ -361,7 +338,7 @@ function OrdensProducao() {
                     placeholder="Last name"
                   />
                 </div>
-                <div class="col-2 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Ordenação</label>
                   <input
                     type="text"
@@ -369,7 +346,7 @@ function OrdensProducao() {
                     placeholder="Last name"
                   />
                 </div>
-                <div class="col-2 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Data Início</label>
                   <input
                     type="text"
@@ -377,7 +354,7 @@ function OrdensProducao() {
                     placeholder="Last name"
                   />
                 </div>
-                <div class="col-2 mt-3">
+                <div class="col-md-3 mt-3">
                   <label>Data Fim</label>
                   <input
                     type="text"
@@ -387,10 +364,9 @@ function OrdensProducao() {
                 </div>
               </div>
             </form>
-          </div>
         </div>
-        <div className="container-fluid" Style="overflow:auto">
-          <div className="row mt-3">
+        <div className="section tabelaOrdem">
+          <div className="row" Style="margin: 0; padding: 0">
             <div className="col-md-12">
               <BootstrapTable
                 keyField="matricula"
@@ -406,24 +382,24 @@ function OrdensProducao() {
           </div>
         </div>
 
-        <div className="container-fluid">
+        <div className="container">
           <div className="row botoesOrdemProducao">
-            <div className="col-2">
+            <div className="col-md-4 mt-3">
               <Button variant="success">Criar Relação Automática</Button>
             </div>
-            <div className="col-2">
+            <div className="col-md-4 mt-3">
               <Button variant="success">Criar Relação Única</Button>
             </div>
-            <div className="col-2">
+            <div className="col-md-4 mt-3">
               <Button variant="success">Cancelar Relação</Button>
             </div>
-            <div className="col-2">
+            <div className="col-md-4 mt-3">
               <Button variant="success">Verificar</Button>
             </div>
-            <div className="col-2">
+            <div className="col-md-4 mt-3">
               <Button variant="success">Imprimir</Button>
             </div>
-            <div className="col-2">
+            <div className="col-md-4 mt-3">
               <Button variant="success">Detalhes da VG</Button>
             </div>
           </div>
