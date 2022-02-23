@@ -15,13 +15,29 @@ h4 {
     padding: 0 !important;
 }
 
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.paddingTop20{
+    padding-top: 20px;
+}
+
 select {
     height: 32px !important;
 }
 
 .titulosPrincipais {
     color: #555;
-    padding: 20px 0 !important;
+    padding: 20px 0 0 10px !important;
     font-size: 36px;
     font-weight: bold;
 }
@@ -160,17 +176,21 @@ button.botaoImportar {
     margin-left: 15px;
     height: 41px;
 }
+
 input#filexml {
     border: 1px solid #979797b0;
     border-radius: 5px;
     padding: 0 10px 0 0;
     padding: 5px;
 }
-.inputFileBox{
-    width: 400px!important;
+
+.inputFileBox {
+    width: 400px !important;
 }
-.botaoImportarBox{
-    width:250px!important;
+
+.botaoImportarBox {
+    width: 250px !important;
+    text-align: center;
 }
 
 
@@ -528,10 +548,10 @@ span.pro-item-content {
 }
 
 .page-item.active .page-link {
-   background-color: #979797!important;
-    border-color: #979797!important;
+    background-color: #979797 !important;
+    border-color: #979797 !important;
 }
 
-.page-link{
-    color:#282529!important;
+.page-link {
+    color: #282529 !important;
 }

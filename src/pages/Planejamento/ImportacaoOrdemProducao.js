@@ -415,58 +415,51 @@ function ImportacaoOrdemProducao() {
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div className="paddingContainer">
+        <form
+                className="row"
+                id="frmupload"
+                name="frmupload"
+                method="post"
+                enctype="multipart/form-data"
+                action="http://192.168.11.94:90/api/OrdemProducao"
+              >
           <div className="row">
-            <div className="col-md-6 col-sm-12">
+            <div className="col-md-6 col-lg-5 col-sm-12">
               <div className="tituloInterno">
                 <h2 className="titulosPrincipais">
                   Importação de Ordem Produção
                 </h2>
               </div>
             </div>
-          </div>
-          <div className="container-fluid">
-            <div className="row" Style="text-align: -webkit-right;">
-              <div className="" Style="padding-top: 20px;">
-                <form
-                  id="frmupload"
-                  name="frmupload"
-                  method="post"
-                  enctype="multipart/form-data"
-                  action="http://192.168.11.94:90/api/OrdemProducao"
-                  Style="width:700px"
+            <div className="col-md-4 col-lg-5 paddingTop20">
+              <div className="form-group text-right">
+                <input
+                  type="file"
+                  class="form-control-"
+                  id="filexml"
+                  name="filexml"
+                  aria-describedby="filexmlinfo"
+                />
+                <small
+                  id="filexmlinfo"
+                  className="form-text text-muted"
+                  Style="display:block"
                 >
-                  <div className="row">
-                    <div className="inputFileBox">
-                      <div className="form-group" Style="text-align:left">
-                        <input
-                          type="file"
-                          class="form-control-"
-                          id="filexml"
-                          name="filexml"
-                          aria-describedby="filexmlinfo"
-                        />
-                        <small
-                          id="filexmlinfo"
-                          className="form-text text-muted"
-                        >
-                          Obs: Enviar somente arquivos no formato <i>.xml</i>
-                        </small>
-                      </div>
-                    </div>
-                    <div className="botaoImportarBox">
-                      <Button
-                        type="submit"
-                        className="botaoImportar"
-                        variant="success"
-                      >
-                        <FaFileImport Style="color:#fff!important; width:220px!important" />
-                        Importar Arquivo
-                      </Button>
-                    </div>
-                  </div>
-                </form>
+                  Obs: Enviar somente arquivos no formato <i>.xml</i>
+                </small>
               </div>
             </div>
+            <div className="col-md-2 col-lg-2 paddingTop20">
+              <Button type="submit" className="botaoImportar" variant="success">
+                <FaFileImport Style="color:#fff!important; width:220px!important" />
+                Importar
+              </Button>
+            </div>
+          </div>
+          </form>
+         
+
+          <div className="container-fluid">
             <div className="row">
               <div className="col-md-12 mt-4">
                 <BootstrapTable
