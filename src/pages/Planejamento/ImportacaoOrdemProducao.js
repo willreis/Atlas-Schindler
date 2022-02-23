@@ -25,233 +25,7 @@ function ImportacaoOrdemProducao() {
 
   const fecharModal = () => setModalDelete(false);
 
-  const products = [
-    {
-      la: 1,
-      ordem: 7000158,
-      familia: "Urgente",
-      status: "Pendente",
-      semana: 135,
-      titulo: "COP Coroa",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-      filter: textFilter({
-        placeholder: "Filtrar LA",
-      }),
-    },
-    {
-      la: 2,
-      ordem: 7000159,
-      familia: "Médio",
-      status: "Pendente",
-      semana: 136,
-      titulo: "QAP Solido",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 3,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 4,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 5,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 6,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 7,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 8,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 9,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 10,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 11,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 12,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 13,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 14,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 15,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 16,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 17,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 18,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 19,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 20,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 21,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-    {
-      la: 22,
-      ordem: 7000160,
-      familia: "Baixo",
-      status: "Pendente",
-      semana: 137,
-      titulo: "OPP Cordão",
-      origem: "SAP",
-      opcoes: "colocar aqui id",
-    },
-  ];
-
-  const columns = [
+ const columns = [
     {
       dataField: "la",
       text: "LA",
@@ -361,19 +135,13 @@ function ImportacaoOrdemProducao() {
     paginationTotalRenderer: customTotal,
     disablePageTitle: true,
     sizePerPageList: [
-      {
-        text: "5",
-        value: 5,
-      },
+      
       {
         text: "10",
         value: 10,
       },
-      {
-        text: "All",
-        value: products.length,
-      },
-    ], // A numeric array is also available. the purpose of above example is custom the text
+      
+    ],
   };
 
   function handleDeleteUsuario() {
@@ -424,15 +192,15 @@ function ImportacaoOrdemProducao() {
                 action="http://192.168.11.94:90/api/OrdemProducao"
               >
           <div className="row">
-            <div className="col-md-6 col-lg-5 col-sm-12">
+            <div className="col-md-6 col-lg-6 col-sm-12">
               <div className="tituloInterno">
                 <h2 className="titulosPrincipais">
                   Importação de Ordem Produção
                 </h2>
               </div>
             </div>
-            <div className="col-md-4 col-lg-5 paddingTop20">
-              <div className="form-group text-right">
+            <div className="col-md-6 col-lg-6 paddingTop20 inlineFlex">
+              <div className="form-group">
                 <input
                   type="file"
                   class="form-control-"
@@ -448,8 +216,6 @@ function ImportacaoOrdemProducao() {
                   Obs: Enviar somente arquivos no formato <i>.xml</i>
                 </small>
               </div>
-            </div>
-            <div className="col-md-2 col-lg-2 paddingTop20">
               <Button type="submit" className="botaoImportar" variant="success">
                 <FaFileImport Style="color:#fff!important; width:220px!important" />
                 Importar
