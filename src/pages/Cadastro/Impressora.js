@@ -9,12 +9,48 @@ import { HiPlus } from "react-icons/hi";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 export default function Impressora() {
 
+  //Paginação
+  const customTotal = (from, to, size) => (
+    <span className="react-bootstrap-table-pagination-total">
+      Mostrando de {from} a {to} do total de {size} Resultados
+    </span>
+  );
+  const options = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    //alwaysShowAllBtns: true, // Always show next and previous button
+    withFirstAndLast: false, // Hide the going to First and Last page button
+    hideSizePerPage: true, // Hide the sizePerPage dropdown always
+    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    firstPageText: "Primeiro",
+    prePageText: "Voltar",
+    nextPageText: "Próxima",
+    lastPageText: "Última",
+    nextPageTitle: "Primeira Página",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Próxima Página",
+    lastPageTitle: "Última Página",
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    disablePageTitle: true,
+    sizePerPageList: [
+      {
+        text: "10",
+        value: 10,
+      },
+      {
+        text: "All",
+      },
+    ], // A numeric array is also available. the purpose of above example is custom the text
+  };
+
   const [modalDelete, setModalDelete] = useState(false);
   const [idUser, setIdUser] = useState(false);
-  
+
 
   const fecharModal = () => setModalDelete(false);
 
@@ -213,7 +249,7 @@ export default function Impressora() {
     try {
       Api.delete(`/${url}/${idUser}`);
       console.log('delete id', idUser)
-      
+
       setModalDelete(false);
       alert("Deletado com sucesso");
       window.location.reload();
@@ -270,6 +306,7 @@ export default function Impressora() {
                 selectRow={selectRow}
                 striped={true}
                 filter={filterFactory()}
+                pagination={paginationFactory(options)}
               />
             </div>
           </div>

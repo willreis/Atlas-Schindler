@@ -1,21 +1,59 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-
 import BootstrapTable from "react-bootstrap-table-next";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
-
 import { Button } from "react-bootstrap";
 import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FaFileImport } from "react-icons/fa";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 function ImportacaoOrdemProducao() {
+
+  //Paginação
+  const customTotal = (from, to, size) => (
+    <span className="react-bootstrap-table-pagination-total">
+      Mostrando de {from} a {to} do total de {size} Resultados
+    </span>
+  );
+  const options = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    //alwaysShowAllBtns: true, // Always show next and previous button
+    withFirstAndLast: false, // Hide the going to First and Last page button
+    hideSizePerPage: true, // Hide the sizePerPage dropdown always
+    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    firstPageText: "Primeiro",
+    prePageText: "Voltar",
+    nextPageText: "Próxima",
+    lastPageText: "Última",
+    nextPageTitle: "Primeira Página",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Próxima Página",
+    lastPageTitle: "Última Página",
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    disablePageTitle: true,
+    sizePerPageList: [
+      {
+        text: "5",
+        value: 5,
+      },
+      {
+        text: "10",
+        value: 10,
+      },
+      {
+        text: "All",
+      },
+    ], // A numeric array is also available. the purpose of above example is custom the text
+  };
+
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [ordemProdGet, setOrdemProdGet] = useState([]);
@@ -25,7 +63,7 @@ function ImportacaoOrdemProducao() {
 
   const fecharModal = () => setModalDelete(false);
 
- const columns = [
+  const columns = [
     {
       dataField: "la",
       text: "LA",
@@ -110,40 +148,6 @@ function ImportacaoOrdemProducao() {
     },
   ];
 
-  //Paginação
-  const customTotal = (from, to, size) => (
-    <span className="react-bootstrap-table-pagination-total">
-      Mostrando de {from} a {to} do total de {size} Resultados
-    </span>
-  );
-  const options = {
-    paginationSize: 4,
-    pageStartIndex: 0,
-    //alwaysShowAllBtns: true, // Always show next and previous button
-    withFirstAndLast: false, // Hide the going to First and Last page button
-    hideSizePerPage: true, // Hide the sizePerPage dropdown always
-    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-    firstPageText: "Primeiro",
-    prePageText: "Voltar",
-    nextPageText: "Próxima",
-    lastPageText: "Última",
-    nextPageTitle: "Primeira Página",
-    prePageTitle: "Pre page",
-    firstPageTitle: "Próxima Página",
-    lastPageTitle: "Última Página",
-    showTotal: true,
-    paginationTotalRenderer: customTotal,
-    disablePageTitle: true,
-    sizePerPageList: [
-      
-      {
-        text: "10",
-        value: 10,
-      },
-      
-    ],
-  };
-
   function handleDeleteUsuario() {
     console.log("Modal Delete aberto!");
     setModalDelete(true);
@@ -183,6 +187,7 @@ function ImportacaoOrdemProducao() {
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div className="paddingContainer">
+
         <form
                 className="row"
                 id="frmupload"
@@ -223,7 +228,7 @@ function ImportacaoOrdemProducao() {
             </div>
           </div>
           </form>
-         
+
 
           <div className="container-fluid">
             <div className="row">
