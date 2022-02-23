@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -10,8 +10,11 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { AiFillSave } from "react-icons/ai";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import Api from "../../services/Api";
 
 function OrdensProducao() {
+  const [getOrdem, setGetOrdem] = useState([]);
+
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -256,6 +259,18 @@ function OrdensProducao() {
     setModalDelete(false);
   }
 
+  //GET
+  useEffect(() => {
+    Api.get("OrdemProducao")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }, []);
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -281,89 +296,89 @@ function OrdensProducao() {
           </div>
 
           <form>
-              <div class="row">
-                <div class="col-md-3 mt-3">
-                  <label>LA</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="First name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Ordem</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Status</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="First name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Título</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Família</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Semana</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Origem</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Ordenação</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Data Início</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
-                <div class="col-md-3 mt-3">
-                  <label>Data Fim</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
+            <div class="row">
+              <div class="col-md-3 mt-3">
+                <label>LA</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="First name"
+                />
               </div>
-            </form>
+              <div class="col-md-3 mt-3">
+                <label>Ordem</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Status</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="First name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Título</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Família</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Semana</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Origem</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Ordenação</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Data Início</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Data Fim</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                />
+              </div>
+            </div>
+          </form>
         </div>
         <div className="section tabelaOrdem">
           <div className="row" Style="margin: 0; padding: 0">
