@@ -27,7 +27,7 @@ h4 {
     text-align: center;
 }
 
-.paddingTop20{
+.paddingTop20 {
     padding-top: 20px;
 }
 
@@ -554,4 +554,8 @@ span.pro-item-content {
 
 .page-link {
     color: #282529 !important;
+}
+
+.react-bootstrap-table-pagination {
+    margin-bottom: 1rem;
 }

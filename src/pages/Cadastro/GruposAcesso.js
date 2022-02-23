@@ -2,23 +2,57 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import { IconContext } from "react-icons/lib";
-
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import { TiArrowForward } from "react-icons/ti";
 import { TiArrowBack } from "react-icons/ti";
 import { HiPlus } from "react-icons/hi";
-
 import "../../../src/grupo.css";
 import Api from "../../services/Api";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 export default function GruposAcesso() {
+
+  //Paginação
+  const customTotal = (from, to, size) => (
+    <span className="react-bootstrap-table-pagination-total">
+      Mostrando de {from} a {to} do total de {size} Resultados
+    </span>
+  );
+  const options = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    //alwaysShowAllBtns: true, // Always show next and previous button
+    withFirstAndLast: false, // Hide the going to First and Last page button
+    hideSizePerPage: true, // Hide the sizePerPage dropdown always
+    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    firstPageText: "Primeiro",
+    prePageText: "Voltar",
+    nextPageText: "Próxima",
+    lastPageText: "Última",
+    nextPageTitle: "Primeira Página",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Próxima Página",
+    lastPageTitle: "Última Página",
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    disablePageTitle: true,
+    sizePerPageList: [
+      {
+        text: "10",
+        value: 10,
+      },
+      {
+        text: "All",
+      },
+    ], // A numeric array is also available. the purpose of above example is custom the text
+  };
+
   const [getTela, setGetTela] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [telaId, setTelaId] = useState();
@@ -352,7 +386,7 @@ export default function GruposAcesso() {
             </div>
             <div className="col-md-6">
               <div Style="text-align: right">
-             
+
                 <Button
                   className="botaoCadastrar"
                   variant="success"
@@ -376,6 +410,7 @@ export default function GruposAcesso() {
                 striped={true}
                 selectRow={selectRowGrupos}
                 filter={filterFactory()}
+                pagination={paginationFactory(options)}
               />
             </div>
           </div>
