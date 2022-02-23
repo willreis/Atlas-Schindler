@@ -261,9 +261,29 @@ function OrdensProducao() {
 
   //GET
   useEffect(() => {
-    Api.get("OrdemProducao")
+    Api.get("OrdemProducao/25")
       .then((response) => {
         console.log(response.data);
+        //setGetOrdem(response.data.map((ordem) => {
+          // return{
+          //   la:ordem.la,
+          //   ordem: ordem.ordem,
+          //   status: ordem.statusId,
+          //   titulo: ordem.titulo,
+          //   familia: ordem.familia,
+          //   semana: ordem.semana,
+          //   origem: ordem.origem,
+          //   ordenacao: ordem.ordenacao,
+          //   verificada: ordem.verificada,
+          //   dataImportacao: ordem.dataImportacao,
+          //   dataInicio: ordem.dataInicio,
+          //   dataFim: ordem.dataFim,
+          //   ordemProducaoElementos:[{
+          //     ordemProducaoElementosId:ordem.ordemProducaoElementosId,
+          //   }]
+          // }
+        //}
+        //));
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
