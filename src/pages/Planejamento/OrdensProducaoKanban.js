@@ -153,11 +153,11 @@ export default function OrdensProducaoKanban() {
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
-        <div className="container-fluid">
+        <div className="container-fluid margin-bottom50">
           <div className="row">
-            <div className="col-md-6 col-sm-12">
+            <div className="col-md-12 col-sm-12">
               <div className="tituloInterno">
-                <h2 className="titulosPrincipais">Ordens Para Produção</h2>
+                <h2 className="titulosPrincipais" Style="margin-top: 30px!important;">Ordens De Produção Kanban</h2>
               </div>
             </div>
           </div>
@@ -166,7 +166,7 @@ export default function OrdensProducaoKanban() {
           <div className="ordemProducaoBox">
             <div className="row">
               <div className="col-md-12">
-                <h3>Pendentes</h3>
+                <p>Pendentes</p>
                 <BootstrapTable
                   keyField="matricula"
                   hover
@@ -183,7 +183,7 @@ export default function OrdensProducaoKanban() {
           <div className="ordemProducaoBox">
             <div className="row">
               <div className="col-md-12">
-                <h3>Customizada</h3>
+                <p>Customizada</p>
                 <BootstrapTable
                   keyField="matricula"
                   hover
@@ -201,7 +201,7 @@ export default function OrdensProducaoKanban() {
           <div className="ordemProducaoBox">
             <div className="row">
               <div className="col-md-12">
-                <h3>Kanban</h3>
+                <p>Kanban</p>
                 <BootstrapTable
                   keyField="matricula"
                   hover
