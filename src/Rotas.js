@@ -13,7 +13,7 @@ import MotivoProblema from './pages/Cadastro/MotivoProblema'
 import NovoEditarMaterial from './pages/Cadastro/NovoEditarMaterial'
 import ImportacaoOrdemProducao from './pages/Planejamento/ImportacaoOrdemProducao'
 import OrdensProducao from './pages/Planejamento/OrdensProducao'
-import OrdensParaProducao from './pages/Planejamento/OrdensParaProducao'
+import OrdensProducaoKanban from './pages/Planejamento/OrdensProducaoKanban'
 import ProblemasProducao from './pages/Planejamento/ProblemasProducao'
 
 //Páginas Internas Planejamento
@@ -85,7 +85,7 @@ function Rotas(props) {
 
                     <Route path='/planejamento/importacaoordemproducao' exact element={<ImportacaoOrdemProducao />}></Route>
                     <Route path='/planejamento/ordensproducao' exact element={<OrdensProducao />}></Route>
-                    <Route path='/planejamento/ordensdeproducaokanban' exact element={<OrdensParaProducao />}></Route>
+                    <Route path='/planejamento/ordensproducaokanban' exact element={<OrdensProducaoKanban />}></Route>
                     <Route path='/planejamento/problemasproducao' exact element={<ProblemasProducao />}></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
                     <Route path='/planejamento/detalhesitemproducao' exact element={<DetalhesItemProducao />}></Route>

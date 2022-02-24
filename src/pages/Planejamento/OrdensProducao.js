@@ -15,6 +15,21 @@ import Api from "../../services/Api";
 function OrdensProducao() {
   const [getOrdem, setGetOrdem] = useState([]);
 
+  const [la, setLa] = useState();
+  const [ordem, setOrdem] = useState();
+  const [statusId, setStatusId] = useState();
+  const [status, setStatus] = useState();
+  const [titulo, setTitulo] = useState();
+  const [familia, setFamilia] = useState();
+  const [semana, setSemana] = useState();
+  const [origem, setOrigem] = useState();
+  const [ordenacao, setOrdenacao] = useState();
+  const [verificada, setVerificada] = useState();
+  const [dataImportacao, setDataImportacao] = useState();
+  const [dataInicio, setDataInicio] = useState();
+  const [dataFim, setDataFim] = useState();
+  const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([])
+
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -264,26 +279,26 @@ function OrdensProducao() {
     Api.get("OrdemProducao/25")
       .then((response) => {
         console.log(response.data);
-        //setGetOrdem(response.data.map((ordem) => {
-          // return{
-          //   la:ordem.la,
-          //   ordem: ordem.ordem,
-          //   status: ordem.statusId,
-          //   titulo: ordem.titulo,
-          //   familia: ordem.familia,
-          //   semana: ordem.semana,
-          //   origem: ordem.origem,
-          //   ordenacao: ordem.ordenacao,
-          //   verificada: ordem.verificada,
-          //   dataImportacao: ordem.dataImportacao,
-          //   dataInicio: ordem.dataInicio,
-          //   dataFim: ordem.dataFim,
-          //   ordemProducaoElementos:[{
-          //     ordemProducaoElementosId:ordem.ordemProducaoElementosId,
-          //   }]
-          // }
-        //}
-        //));
+        setGetOrdem(response.data.map((ordem) => {
+        return{
+          la:ordem.la,
+          ordem: ordem.ordem,
+          status: ordem.statusId,
+          titulo: ordem.titulo,
+          familia: ordem.familia,
+          semana: ordem.semana,
+          origem: ordem.origem,
+          ordenacao: ordem.ordenacao,
+          verificada: ordem.verificada,
+          dataImportacao: ordem.dataImportacao,
+          dataInicio: ordem.dataInicio,
+          dataFim: ordem.dataFim,
+          ordemProducaoElementos: ordem.ordemProducaoElementos.ordemProducaoElementosId,
+
+         
+        }
+        }
+        ));
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);

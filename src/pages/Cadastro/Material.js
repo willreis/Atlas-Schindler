@@ -13,7 +13,6 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
 export default function Material() {
-
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -308,7 +307,7 @@ export default function Material() {
   function handleDeleteMaterial(idUser) {
     try {
       Api.delete(`/${url}/${idUser}`);
-      console.log('delete id', idUser)
+      console.log("delete id", idUser);
 
       setModalDelete(false);
       alert("Deletado com sucesso");
@@ -320,10 +319,9 @@ export default function Material() {
 
   function handleDeleteModal(materialId) {
     console.log("Modal Delete aberto!");
-    console.log('delete id', materialId)
+    console.log("delete id", materialId);
     setModalDelete(true);
   }
-
 
   const selectRow = {
     mode: "radio",
@@ -352,23 +350,25 @@ export default function Material() {
                   variant="success"
                   onClick={() => setShow(true)}
                 >
-                  <HiPlus Style="color:#fff!important" />Cadastrar
+                  <HiPlus Style="color:#fff!important" />
+                  Cadastrar
                 </Button>
               </div>
             </div>
           </div>
-
-          <div className="row">
-            <div className="col-md-12 tabelaUsuario">
-              <BootstrapTable
-                keyField="materialId"
-                data={materialGet}
-                columns={columns}
-                striped={true}
-                selectRow={selectRow}
-                filter={filterFactory()}
-                pagination={paginationFactory(options)}
-              />
+          <div className="section tabelaMaterial">
+            <div className="row">
+              <div className="col-md-12 tabelaOrdem tabelaUsuario">
+                <BootstrapTable
+                  keyField="materialId"
+                  data={materialGet}
+                  columns={columns}
+                  striped={true}
+                  selectRow={selectRow}
+                  filter={filterFactory()}
+                  pagination={paginationFactory(options)}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -634,9 +634,7 @@ export default function Material() {
           centered
         >
           <Modal.Header closeButton Style="position:relative">
-            <h3 Style="position: absolute; left: 30%;">
-              Atenção!
-            </h3>
+            <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
           </Modal.Header>
           <Modal.Body>
             <div Style="margin-bottom: 30px; text-align: center">
@@ -654,7 +652,10 @@ export default function Material() {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={() => handleDeleteMaterial(idUser)}>
+                      <Button
+                        variant="primary"
+                        onClick={() => handleDeleteMaterial(idUser)}
+                      >
                         Sim
                       </Button>
                     </div>

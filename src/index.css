@@ -579,3 +579,12 @@ span.pro-item-content {
 .section.tabelaOrdem {
     width: calc(100vw - 200px)
 }
+
+.ordemProducaoBox{
+    padding: 0 10px;
+    margin-top: 20px;
+}
+.ordemProducaoBox h3{
+    color: #555;
+    font-weight: bold;
+}
