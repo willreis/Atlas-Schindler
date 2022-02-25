@@ -28,8 +28,8 @@ function OrdensProducao() {
   const [dataImportacao, setDataImportacao] = useState();
   const [dataInicio, setDataInicio] = useState();
   const [dataFim, setDataFim] = useState();
-  const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([])
-  const [ordemProducao, setOrdemProducao] = useState({})
+  const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([]);
+  const [ordemProducao, setOrdemProducao] = useState({});
 
   //Paginação
   const customTotal = (from, to, size) => (
@@ -278,10 +278,15 @@ function OrdensProducao() {
   //GET
   useEffect(() => {
     Api.get("OrdemProducao/53")
-      .then(response => {
-        var data = new Date(response.data.dataFim)
-        console.log("Dia " + data.getDate() + " / " + "Mes " + data.getMonth() + " / " + "Ano " + data.getFullYear())
-        //setGetOrdem(response.data.map((ordem) => {
+      .then((response) => {
+        //Input Data Fim
+        var data = new Date(response.data.dataFim);
+        var dataFimForm = data.toLocaleDateString();
+
+        //Input Data Inicio
+        var dataInicio = new Date(response.data.dataInicio);
+        var dataInicioForm = dataInicio.toLocaleDateString();
+
         var obj = {
           la: response.data.la,
           ordem: response.data.ordem,
@@ -293,18 +298,16 @@ function OrdensProducao() {
           ordenacao: response.data.ordenacao,
           verificada: response.data.verificada,
           dataImportacao: response.data.dataImportacao,
-          dataInicio: response.data.dataInicio,
-          dataFim: response.data.dataFim,
-        }
-        setOrdemProducao(obj)
+          dataInicio: dataInicioForm,
+          dataFim: dataFimForm,
+        };
+        setOrdemProducao(obj);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
-
-
 
   return (
     <>
@@ -407,6 +410,7 @@ function OrdensProducao() {
               <div class="col-md-3 mt-3">
                 <label>Data Início</label>
                 <input
+                  id="dataInicio"
                   type="text"
                   class="form-control"
                   placeholder="Last name"
@@ -416,6 +420,7 @@ function OrdensProducao() {
               <div class="col-md-3 mt-3">
                 <label>Data Fim</label>
                 <input
+                  id="dataFim"
                   type="text"
                   class="form-control"
                   placeholder="Last name"
