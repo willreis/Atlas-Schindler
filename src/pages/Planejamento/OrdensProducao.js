@@ -363,41 +363,41 @@ function OrdensProducao() {
           };
         })
       );
-    });
-
-    
+    });    
   }, []);
 
-///GET OrdemProducaoElementoId
+//GET OrdemProducaoElementoId
 function handleGetProdElement(){
-  Api.get("OrdemProducaoElemento/GetById/1477").then((response) => {
-    setGetOrdemById(
-      response.data.map((ordemProdGet) => {
-        console.log('aqui feito o get dentro da função')
-        return{
-          ordemProducaoElementoId: ordemProdGet.ordemProducaoElementoId,
-          la: ordemProdGet.la,
-          vg: ordemProdGet.vg,
-          item: ordemProdGet.item,
-          codMaterial: ordemProdGet.codMaterial,
-          material: ordemProdGet.material,
-          quantidade: ordemProdGet.quantidade,
-          programa: ordemProdGet.programa,
-          comprimento: ordemProdGet.comprimento,
-          largura: ordemProdGet.largura,
-          op: ordemProdGet.op,
-          ovm: ordemProdGet.ovm,
-          roteiro1: ordemProdGet.roteiro1,
-          roteiro2: ordemProdGet.roteiro2,
-          roteiro3: ordemProdGet.roteiro3,
-          roteiro4: ordemProdGet.roteiro4,
-          sequencia: ordemProdGet.sequencia,
-          tipoDeEstoque: ordemProdGet.tipoDeEstoque,
-          gondola: ordemProdGet.gondola,
-          roteiro: ordemProdGet.roteiro,
-        };
-      })
-    );
+  Api.get("/OrdemProducaoElemento/GetById/1477").then((response) => {
+    console.log('adsfadsfasdfadfadf', response)
+    // setGetOrdemById(
+    //   response.data.map((ordemProdGet) => {
+    //     console.log('aqui feito o get dentro da função')
+    //     return{
+    //       ordemProducaoElementoId: ordemProdGet.ordemProducaoElementoId,
+    //       la: ordemProdGet.la,
+    //       vg: ordemProdGet.vg,
+    //       item: ordemProdGet.item,
+    //       codMaterial: ordemProdGet.codMaterial,
+    //       material: ordemProdGet.material,
+    //       quantidade: ordemProdGet.quantidade,
+    //       programa: ordemProdGet.programa,
+    //       comprimento: ordemProdGet.comprimento,
+    //       largura: ordemProdGet.largura,
+    //       op: ordemProdGet.op,
+    //       ovm: ordemProdGet.ovm,
+    //       roteiro1: ordemProdGet.roteiro1,
+    //       roteiro2: ordemProdGet.roteiro2,
+    //       roteiro3: ordemProdGet.roteiro3,
+    //       roteiro4: ordemProdGet.roteiro4,
+    //       sequencia: ordemProdGet.sequencia,
+    //       tipoDeEstoque: ordemProdGet.tipoDeEstoque,
+    //       gondola: ordemProdGet.gondola,
+    //       roteiro: ordemProdGet.roteiro,
+    //     };
+      //}
+      //)
+    //);
   })
   .catch((error) => {
     console.log("Ops! Ocorreu um erro:", error);
@@ -406,7 +406,7 @@ function handleGetProdElement(){
 }
 
   ///////PUT
-  function handlePut(ordemProducaoElementosId) {
+  function handlePut() {
     Api.put("OrdemProducaoElemento/1477", {
       ordemProducaoElementosId,
       la,
@@ -604,7 +604,7 @@ function handleGetProdElement(){
                   },
                   afterSaveCell: (oldValue, newValue, row, column) => {
                     console.log("After Saving Cell!!");
-                    handlePut(ordemProducaoElementosId)
+                    handlePut(row)
                   },
                 })}
               />
