@@ -29,6 +29,7 @@ function OrdensProducao() {
   const [dataInicio, setDataInicio] = useState();
   const [dataFim, setDataFim] = useState();
   const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([])
+  const [ordemProducao, setOrdemProducao] = useState({})
 
   //Paginação
   const customTotal = (from, to, size) => (
@@ -276,35 +277,34 @@ function OrdensProducao() {
 
   //GET
   useEffect(() => {
-    Api.get("OrdemProducao/25")
-      .then((response) => {
-        console.log(response.data);
-        setGetOrdem(response.data.map((ordem) => {
-        return{
-          la:ordem.la,
-          ordem: ordem.ordem,
-          status: ordem.statusId,
-          titulo: ordem.titulo,
-          familia: ordem.familia,
-          semana: ordem.semana,
-          origem: ordem.origem,
-          ordenacao: ordem.ordenacao,
-          verificada: ordem.verificada,
-          dataImportacao: ordem.dataImportacao,
-          dataInicio: ordem.dataInicio,
-          dataFim: ordem.dataFim,
-          ordemProducaoElementos: ordem.ordemProducaoElementos.ordemProducaoElementosId,
-
-         
+    Api.get("OrdemProducao/53")
+      .then(response => {
+        var data = new Date(response.data.dataFim)
+        console.log("Dia " + data.getDate() + " / " + "Mes " + data.getMonth() + " / " + "Ano " + data.getFullYear())
+        //setGetOrdem(response.data.map((ordem) => {
+        var obj = {
+          la: response.data.la,
+          ordem: response.data.ordem,
+          status: response.data.statusId,
+          titulo: response.data.titulo,
+          familia: response.data.familia,
+          semana: response.data.semana,
+          origem: response.data.origem,
+          ordenacao: response.data.ordenacao,
+          verificada: response.data.verificada,
+          dataImportacao: response.data.dataImportacao,
+          dataInicio: response.data.dataInicio,
+          dataFim: response.data.dataFim,
         }
-        }
-        ));
+        setOrdemProducao(obj)
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
+
+
 
   return (
     <>
@@ -338,6 +338,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="First name"
+                  value={ordemProducao.la}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -346,6 +347,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.ordem}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -354,6 +356,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="First name"
+                  value={ordemProducao.status}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -362,6 +365,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.titulo}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -370,6 +374,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.familia}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -378,6 +383,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.semana}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -386,6 +392,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.origem}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -394,6 +401,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.ordenacao}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -402,6 +410,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.dataInicio}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -410,6 +419,7 @@ function OrdensProducao() {
                   type="text"
                   class="form-control"
                   placeholder="Last name"
+                  value={ordemProducao.dataFim}
                 />
               </div>
             </div>
