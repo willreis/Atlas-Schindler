@@ -10,14 +10,32 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { AiFillSave } from "react-icons/ai";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import cellEditFactory from 'react-bootstrap-table2-editor';
+import cellEditFactory from "react-bootstrap-table2-editor";
 import Api from "../../services/Api";
-
 
 function OrdensProducao() {
   const [getOrdem, setGetOrdem] = useState([]);
 
+  const [ordemProducaoElementosId, setOrdemProducaoElementosId] = useState();
   const [la, setLa] = useState();
+  const [vg, setVg] = useState();
+  const [item, setItem] = useState();
+  const [codMaterial, setCodMaterial] = useState();
+  const [material, setMaterial] = useState();
+  const [quantidade, setQuantidade] = useState();
+  const [programa, setPrograma] = useState();
+  const [comprimento, setComprimento] = useState();
+  const [largura, setLargura] = useState();
+  const [op, setOp] = useState();
+  const [ovm, setOvm] = useState();
+  const [roteiro1, setRoteiro1] = useState();
+  const [roteiro2, setRoteiro2] = useState();
+  const [roteiro3, setRoteiro3] = useState();
+  const [roteiro4, setRoteiro4] = useState();
+  const [sequencia, setSequencia] = useState();
+  const [tipoDeEstoque, setTipoDeEstoque] = useState();
+  const [gondola, setGondola] = useState();
+  const [roteiro, setRoteiro] = useState();
   const [ordem, setOrdem] = useState();
   const [statusId, setStatusId] = useState();
   const [status, setStatus] = useState();
@@ -127,6 +145,13 @@ function OrdensProducao() {
   ];
 
   const columns = [
+    // {
+    //   dataField: "ordemProducaoElementoId",
+    //   text: "OR ID",
+    //   headerAlign: "center",
+    //   headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+    //   sort: true,
+    // },
     {
       dataField: "vg",
       text: "VG",
@@ -310,11 +335,10 @@ function OrdensProducao() {
         alert("Ops! Ocorreu um erro:", error);
       });
 
-      Api.get("OrdemProducaoElemento/GetByLa/53")
-      .then ((response) =>{
-
-        setGetOrdem(response.data.map((ordemGet) => {
-          return{
+    Api.get("OrdemProducaoElemento/GetByLa/53").then((response) => {
+      setGetOrdem(
+        response.data.map((ordemGet) => {
+          return {
             ordemProducaoElementoId: ordemGet.ordemProducaoElementoId,
             la: ordemGet.la,
             vg: ordemGet.vg,
@@ -324,21 +348,77 @@ function OrdensProducao() {
             quantidade: ordemGet.quantidade,
             programa: ordemGet.programa,
             comprimento: ordemGet.comprimento,
-            largura : ordemGet.largura,
+            largura: ordemGet.largura,
             op: ordemGet.op,
             ovm: ordemGet.ovm,
             roteiro1: ordemGet.roteiro1,
-            roteiro2 : ordemGet.roteiro2,
-            roteiro3 : ordemGet.roteiro3,
-            roteiro4 : ordemGet.roteiro4,
+            roteiro2: ordemGet.roteiro2,
+            roteiro3: ordemGet.roteiro3,
+            roteiro4: ordemGet.roteiro4,
             sequencia: ordemGet.sequencia,
             tipoDeEstoque: ordemGet.tipoDeEstoque,
             gondola: ordemGet.gondola,
             roteiro: ordemGet.roteiro,
-          }
-        }))
-      })
+          };
+        })
+      );
+    });
   }, []);
+
+  ///////PUT
+  function handlePut(ordemProducaoElementosId) {
+    Api.put("OrdemProducaoElemento/GetByLa/53", {
+      ordemProducaoElementosId,
+      la,
+      vg,
+      item,
+      codMaterial,
+      material,
+      quantidade,
+      programa,
+      comprimento,
+      largura,
+      op,
+      ovm,
+      roteiro1,
+      roteiro2,
+      roteiro3,
+      roteiro4,
+      sequencia,
+      tipoDeEstoque,
+      gondola,
+      roteiro,
+    })
+      .then((response) => {
+        setOrdemProducaoElementosId(ordemProducaoElementosId);
+        setLa();
+        setVg();
+        setItem();
+        setCodMaterial();
+        setMaterial();
+        setQuantidade();
+        setPrograma();
+        setComprimento();
+        setLargura();
+        setOp();
+        setOvm();
+        setRoteiro1();
+        setRoteiro2();
+        setRoteiro3();
+        setRoteiro4();
+        setSequencia();
+        setTipoDeEstoque();
+        setGondola();
+        setRoteiro();
+        console.log("Esse é o console do Put: ", response);
+        alert("Alteração Efetuada com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Rooooooteeeeiroooo", roteiro);
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
 
   return (
     <>
@@ -473,12 +553,19 @@ function OrdensProducao() {
                 filter={filterFactory()}
                 pagination={paginationFactory(options)}
                 Style="margin-bottom: 2rem"
-                cellEdit={ cellEditFactory({
-                  mode: 'click',
-                  onStartEdit: (row, column, rowIndex, columnIndex) => { console.log('start to edit!!!'); },
-                  beforeSaveCell: (oldValue, newValue, row, column) => { console.log('Before Saving Cell!!'); },
-                  afterSaveCell: (oldValue, newValue, row, column) => { console.log('After Saving Cell!!'); }
-                }) }
+                cellEdit={cellEditFactory({
+                  mode: "click",
+                  onStartEdit: (row, column, rowIndex, columnIndex) => {
+                    console.log("start to edit!!!");
+                  },
+                  beforeSaveCell: (oldValue, newValue, row, column) => {
+                    console.log("Before Saving Cell!!");
+                  },
+                  afterSaveCell: (oldValue, newValue, row, column) => {
+                    console.log("After Saving Cell!!");
+                    handlePut(ordemProducaoElementosId)
+                  },
+                })}
               />
             </div>
           </div>
