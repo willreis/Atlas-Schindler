@@ -10,7 +10,9 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { AiFillSave } from "react-icons/ai";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import cellEditFactory from 'react-bootstrap-table2-editor';
 import Api from "../../services/Api";
+
 
 function OrdensProducao() {
   const [getOrdem, setGetOrdem] = useState([]);
@@ -146,8 +148,8 @@ function OrdensProducao() {
       }),
     },
     {
-      dataField: "codigoMaterial",
-      text: "Cód.Material",
+      dataField: "codMaterial",
+      text: "Cod.Material",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
@@ -307,6 +309,35 @@ function OrdensProducao() {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
+
+      Api.get("OrdemProducaoElemento/GetByLa/53")
+      .then ((response) =>{
+
+        setGetOrdem(response.data.map((ordemGet) => {
+          return{
+            ordemProducaoElementoId: ordemGet.ordemProducaoElementoId,
+            la: ordemGet.la,
+            vg: ordemGet.vg,
+            item: ordemGet.item,
+            codMaterial: ordemGet.codMaterial,
+            material: ordemGet.material,
+            quantidade: ordemGet.quantidade,
+            programa: ordemGet.programa,
+            comprimento: ordemGet.comprimento,
+            largura : ordemGet.largura,
+            op: ordemGet.op,
+            ovm: ordemGet.ovm,
+            roteiro1: ordemGet.roteiro1,
+            roteiro2 : ordemGet.roteiro2,
+            roteiro3 : ordemGet.roteiro3,
+            roteiro4 : ordemGet.roteiro4,
+            sequencia: ordemGet.sequencia,
+            tipoDeEstoque: ordemGet.tipoDeEstoque,
+            gondola: ordemGet.gondola,
+            roteiro: ordemGet.roteiro,
+          }
+        }))
+      })
   }, []);
 
   return (
@@ -434,14 +465,20 @@ function OrdensProducao() {
           <div className="row" Style="margin: 0; padding: 0">
             <div className="col-md-12">
               <BootstrapTable
-                keyField="matricula"
+                keyField="ordemProducaoElementoId"
                 hover
                 striped
-                data={products}
+                data={getOrdem}
                 columns={columns}
                 filter={filterFactory()}
                 pagination={paginationFactory(options)}
                 Style="margin-bottom: 2rem"
+                cellEdit={ cellEditFactory({
+                  mode: 'click',
+                  onStartEdit: (row, column, rowIndex, columnIndex) => { console.log('start to edit!!!'); },
+                  beforeSaveCell: (oldValue, newValue, row, column) => { console.log('Before Saving Cell!!'); },
+                  afterSaveCell: (oldValue, newValue, row, column) => { console.log('After Saving Cell!!'); }
+                }) }
               />
             </div>
           </div>
