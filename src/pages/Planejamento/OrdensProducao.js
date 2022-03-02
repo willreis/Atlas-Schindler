@@ -493,6 +493,7 @@ function handleGetProdElement(){
                   class="form-control"
                   placeholder="First name"
                   value={ordemProducao.la}
+                  readOnly
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -502,6 +503,7 @@ function handleGetProdElement(){
                   class="form-control"
                   placeholder="Last name"
                   value={ordemProducao.ordem}
+                  readOnly
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -511,6 +513,7 @@ function handleGetProdElement(){
                   class="form-control"
                   placeholder="First name"
                   value={ordemProducao.status}
+                  readOnly
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -566,6 +569,7 @@ function handleGetProdElement(){
                   class="form-control"
                   placeholder="Last name"
                   value={ordemProducao.dataInicio}
+                  readOnly
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -576,6 +580,7 @@ function handleGetProdElement(){
                   class="form-control"
                   placeholder="Last name"
                   value={ordemProducao.dataFim}
+                  readOnly
                 />
               </div>
             </div>
