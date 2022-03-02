@@ -17,6 +17,8 @@ function OrdensProducao() {
   const [getOrdem, setGetOrdem] = useState([]);
   const [getOrdemById, setGetOrdemById] = useState([]);
 
+  const [showModalPut, setShowModalPut] = useState();
+
   const [ordemProducaoElementosId, setOrdemProducaoElementosId] = useState();
   const [la, setLa] = useState();
   const [vg, setVg] = useState();
@@ -50,6 +52,8 @@ function OrdensProducao() {
   const [dataInicio, setDataInicio] = useState();
   const [dataFim, setDataFim] = useState();
   const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([]);
+
+  
   const [ordemProducao, setOrdemProducao] = useState({});
 
   //Paginação
@@ -146,13 +150,13 @@ function OrdensProducao() {
   ];
 
   const columns = [
-    // {
-    //   dataField: "ordemProducaoElementoId",
-    //   text: "OR ID",
-    //   headerAlign: "center",
-    //   headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-    //   sort: true,
-    // },
+    {
+      dataField: "ordemProducaoElementoId",
+      text: "OR ID",
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+      sort: true,
+    },
     {
       dataField: "vg",
       text: "VG",
@@ -276,9 +280,16 @@ function OrdensProducao() {
       formatter: (cellContent, row) => {
         return (
           <>
-            <span className="spanTabela" id="" Style="cursor:pointer">
+            <span 
+            className="spanTabela"
+              id={row.usuarioId}
+              Style="cursor:pointer"
+              onClick={() => {
+                funcaoAbrirModal()
+              }}>
               <VscEdit />
             </span>
+              
             <button
               className="spanTabela"
               id=""
@@ -293,14 +304,9 @@ function OrdensProducao() {
     },
   ];
 
-  function handleDeleteUsuario() {
-    console.log("Modal Delete aberto!");
-    setModalDelete(true);
-  }
 
-  function sucessoDelete() {
-    alert("Deletado com sucesso!");
-    setModalDelete(false);
+  function funcaoAbrirModal(){
+    setShowModalPut(true)
   }
 
   //GET
@@ -405,10 +411,10 @@ function handleGetProdElement(){
   });
 }
 
-  ///////PUT
-  function handlePut() {
-    Api.put("OrdemProducaoElemento/1477", {
-      ordemProducaoElementosId,
+//PUT
+function handlePut() {
+  Api.put(`#`, {
+    ordemProducaoElementosId,
       la,
       vg,
       item,
@@ -428,37 +434,59 @@ function handleGetProdElement(){
       tipoDeEstoque,
       gondola,
       roteiro,
-    })
-      .then((response) => {
-        setOrdemProducaoElementosId(ordemProducaoElementosId);
-        setLa();
-        setVg();
-        setItem();
-        setCodMaterial();
-        setMaterial();
-        setQuantidade();
-        setPrograma();
-        setComprimento();
-        setLargura();
-        setOp();
-        setOvm();
-        setRoteiro1();
-        setRoteiro2();
-        setRoteiro3();
-        setRoteiro4();
-        setSequencia();
-        setTipoDeEstoque();
-        setGondola();
-        setRoteiro();
-        console.log("Esse é o console do Put: ", response);
-        alert("Alteração Efetuada com sucesso!");
-      })
-      .catch((error) => {
-        console.log("Rooooooteeeeiroooo", roteiro);
-        console.log("Ops! Ocorreu um erro: " + error);
-        alert("Ops! Ocorreu um erro: " + error);
-      });
-  }
+  })
+  .then((response) => {
+    setOrdemProducaoElementosId(ordemProducaoElementosId);
+    setLa();
+    setVg();
+    setItem();
+    setCodMaterial();
+    setMaterial();
+    setQuantidade();
+    setPrograma();
+    setComprimento();
+    setLargura();
+    setOp();
+    setOvm();
+    setRoteiro1();
+    setRoteiro2();
+    setRoteiro3();
+    setRoteiro4();
+    setSequencia();
+    setTipoDeEstoque();
+    setGondola();
+    setRoteiro();
+    console.log("Esse é o console do Put: ", response);
+    alert("Alteração Efetuada com sucesso!");
+  })
+  .catch((error) => {
+    console.log("Rooooooteeeeiroooo", roteiro);
+    console.log("Ops! Ocorreu um erro: " + error);
+    alert("Ops! Ocorreu um erro: " + error);
+  });;
+   
+}
+
+//Delete
+function handleDeleteUsuario() {
+  console.log("Modal Delete aberto!");
+  setModalDelete(true);
+}
+
+function sucessoDelete() {
+  alert("Deletado com sucesso!");
+  setModalDelete(false);
+}
+
+const selectRow = {
+  mode: "radio",
+  clickToSelect: true,
+  onSelect: (row) => {
+    console.log("selecionado");
+    console.log(row.ordemProducaoElementosId);
+    setOrdemProducaoElementosId(row.ordemProducaoElementosId);
+  },
+};
 
   return (
     <>
@@ -594,24 +622,11 @@ function handleGetProdElement(){
                 hover
                 striped
                 data={getOrdem}
+                selectRow={selectRow}
                 columns={columns}
                 filter={filterFactory()}
                 pagination={paginationFactory(options)}
                 Style="margin-bottom: 2rem"
-                cellEdit={cellEditFactory({
-                  mode: "click",
-                  onStartEdit: (row, column, rowIndex, columnIndex) => {
-                    console.log("start to edit!!!");
-                    handleGetProdElement();
-                  },
-                  beforeSaveCell: (oldValue, newValue, row, column) => {
-                    console.log("Before Saving Cell!!");
-                  },
-                  afterSaveCell: (oldValue, newValue, row, column) => {
-                    console.log("After Saving Cell!!");
-                    handlePut(row)
-                  },
-                })}
               />
             </div>
           </div>
@@ -642,13 +657,12 @@ function handleGetProdElement(){
 
         {/* Modal importar arquivo */}
         <Modal
-          Style="margin-top: 100px; margin-left: 500px"
           size="lg"
-          show={show}
-          onHide={() => setShow(false)}
+          show={showModalPut}
+          onHide={() => setShowModalPut(false)}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Cadastro de Usuarios</Modal.Title>
+            <Modal.Title>Detalhes do Item de Produção</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div
@@ -656,7 +670,149 @@ function handleGetProdElement(){
               id="formCadastro"
               Style="margin-bottom: 30px"
             >
-              <p>Vou ser um modal de Cadastro bora CODAR!</p>
+              <form className="row g-3 formPadrao" onSubmit={handlePut}>
+                <div className="col-md-3 col-sm-6">
+                  <label>ID</label>
+                  <input
+                    type="number"
+                    name="id"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>LA</label>
+                  <input
+                    type="number"
+                    name="la"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Gôndola</label>
+                  <input
+                    type="text"
+                    name="gondola"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Item</label>
+                  <input
+                    type="number"
+                    name="item"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Quantidade</label>
+                  <input
+                    type="number"
+                    name="quantidade"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Sequência</label>
+                  <input
+                    type="number"
+                    name="sequencia"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Roteiro</label>
+                  <input
+                    type="number"
+                    name="roteiro"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Comprimento</label>
+                  <input
+                    type="number"
+                    name="comprimento"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Largura</label>
+                  <input
+                    type="number"
+                    name="largura"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Programa CNC</label>
+                  <input
+                    type="number"
+                    name="programa"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Cód. Material</label>
+                  <input
+                    type="number"
+                    name="material"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>OP</label>
+                  <input
+                    type="number"
+                    name="op"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>OVM</label>
+                  <input
+                    type="number"
+                    name="ovm"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Tipo de estoque</label>
+                  <input
+                    type="number"
+                    name="tipoDeEstoque"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                
+               
+                <div className="col-md-2 col-sm-6">
+                  <Button
+                    type="submit"
+                    variant="success"
+                    className="align-self-baseline"
+                    onClick={(usuario) => {
+                      handlePut(usuario.usuarioId);
+                    }}
+                    Style="margin-top: 24px"
+                  >
+                    Salvar
+                  </Button>
+                </div>
+              </form>
             </div>
           </Modal.Body>
         </Modal>
