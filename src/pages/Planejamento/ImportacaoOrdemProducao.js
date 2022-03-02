@@ -58,6 +58,8 @@ function ImportacaoOrdemProducao() {
   const [ordemProdGet, setOrdemProdGet] = useState([]);
   const [user, setUser] = useState();
 
+  const [la, setLa] = useState();
+
   const url = "OrdemProducao";
 
   const fecharModal = () => setModalDelete(false);
@@ -130,7 +132,12 @@ function ImportacaoOrdemProducao() {
       formatter: (cellContent, row) => {
         return (
           <>
-            <span className="spanTabela" id="" Style="cursor:pointer">
+            <span
+              className="spanTabela"
+              id=""
+              Style="cursor:pointer"
+              onClick={() => detalhesOrdemProducao(row.la)}
+            >
               <VscEdit />
             </span>
             <button
@@ -181,6 +188,28 @@ function ImportacaoOrdemProducao() {
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.la);
+      setLa(row.la);
+    },
+  };
+
+  function detalhesOrdemProducao(row) {
+
+    localStorage.setItem('id', row)
+    localStorage.getItem('id')
+    console.log('aaaaaaaaaaaa', localStorage.getItem('id'))
+    var storageId = localStorage.getItem('id')
+    console.log('ttttttttttttt', storageId)
+
+
+    window.location.href = "http://localhost:3000/planejamento/ordensproducao?ordemProducaoElementoId="+row;
+  }
 
   return (
     <>
@@ -240,6 +269,7 @@ function ImportacaoOrdemProducao() {
                   striped
                   data={ordemProdGet}
                   columns={columns}
+                  selectRow={selectRow}
                   filter={filterFactory()}
                   pagination={paginationFactory(options)}
                 />

@@ -152,10 +152,9 @@ function OrdensProducao() {
   const columns = [
     {
       dataField: "ordemProducaoElementoId",
-      text: "OR ID",
+      text: "Ordem Id",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-      sort: true,
     },
     {
       dataField: "vg",
@@ -282,10 +281,10 @@ function OrdensProducao() {
           <>
             <span 
             className="spanTabela"
-              id={row.usuarioId}
+              id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
               onClick={() => {
-                funcaoAbrirModal()
+                funcaoAbrirModal(row)
               }}>
               <VscEdit />
             </span>
@@ -294,7 +293,7 @@ function OrdensProducao() {
               className="spanTabela"
               id=""
               Style="cursor:pointer; border: none; background: none"
-              onClick={() => handleDeleteUsuario(row.usuarioId)}
+              onClick={() => handleDeleteUsuario(row.ordemProducaoElementoId)}
             >
               <RiDeleteBinFill />
             </button>
@@ -372,45 +371,6 @@ function OrdensProducao() {
     });    
   }, []);
 
-//GET OrdemProducaoElementoId
-function handleGetProdElement(){
-  Api.get("/OrdemProducaoElemento/GetById/1477").then((response) => {
-    console.log('adsfadsfasdfadfadf', response)
-    // setGetOrdemById(
-    //   response.data.map((ordemProdGet) => {
-    //     console.log('aqui feito o get dentro da função')
-    //     return{
-    //       ordemProducaoElementoId: ordemProdGet.ordemProducaoElementoId,
-    //       la: ordemProdGet.la,
-    //       vg: ordemProdGet.vg,
-    //       item: ordemProdGet.item,
-    //       codMaterial: ordemProdGet.codMaterial,
-    //       material: ordemProdGet.material,
-    //       quantidade: ordemProdGet.quantidade,
-    //       programa: ordemProdGet.programa,
-    //       comprimento: ordemProdGet.comprimento,
-    //       largura: ordemProdGet.largura,
-    //       op: ordemProdGet.op,
-    //       ovm: ordemProdGet.ovm,
-    //       roteiro1: ordemProdGet.roteiro1,
-    //       roteiro2: ordemProdGet.roteiro2,
-    //       roteiro3: ordemProdGet.roteiro3,
-    //       roteiro4: ordemProdGet.roteiro4,
-    //       sequencia: ordemProdGet.sequencia,
-    //       tipoDeEstoque: ordemProdGet.tipoDeEstoque,
-    //       gondola: ordemProdGet.gondola,
-    //       roteiro: ordemProdGet.roteiro,
-    //     };
-      //}
-      //)
-    //);
-  })
-  .catch((error) => {
-    console.log("Ops! Ocorreu um erro:", error);
-    alert("Ops! Ocorreu um erro:", error);
-  });
-}
-
 //PUT
 function handlePut() {
   Api.put(`#`, {
@@ -483,7 +443,7 @@ const selectRow = {
   clickToSelect: true,
   onSelect: (row) => {
     console.log("selecionado");
-    console.log(row.ordemProducaoElementosId);
+    console.log(row.ordemProducaoElementoId);
     setOrdemProducaoElementosId(row.ordemProducaoElementosId);
   },
 };
@@ -618,7 +578,7 @@ const selectRow = {
           <div className="row" Style="margin: 0; padding: 0">
             <div className="col-md-12">
               <BootstrapTable
-                keyField="ordemProducaoElementoId"
+                keyField="ordemProducaoElementosId"
                 hover
                 striped
                 data={getOrdem}
