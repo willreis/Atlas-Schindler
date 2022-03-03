@@ -236,7 +236,7 @@ function OrdensProducao() {
               className="spanTabela"
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
-              onClick={() => { funcaoAbrirModal(row) }}
+              onClick={() => {funcaoAbrirModal(row) }}
               data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
@@ -256,9 +256,10 @@ function OrdensProducao() {
     },
   ];
 
+  ///Modal PUT
   function funcaoAbrirModal(row) {
     setShowModalPut(true);
-    Api.get(`OrdemProducaoElemento/GetById/1524`, {
+    Api.get(`OrdemProducaoElemento/GetById/${row.ordemProducaoElementoId}`, {
       ordemProducaoElementoId,
       la,
       vg,
@@ -280,6 +281,7 @@ function OrdensProducao() {
       gondola,
       roteiro,
     }).then(() => {
+      console.log("Get Feito: ", row.ordemProducaoElementoId)
       setOrdemProducaoElementoId(row.ordemProducaoElementoId);
       setLa(row.la);
       setVg(row.vg);
@@ -329,7 +331,7 @@ function OrdensProducao() {
           dataInicio: dataInicioForm,
           dataFim: dataFimForm,
         };
-        setOrdemProducao(obj);
+        setOrdemProducao(obj);        
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -369,7 +371,7 @@ function OrdensProducao() {
 
   //PUT
   function handlePut() {
-    Api.put(`#`, {
+    Api.put(`OrdemProducaoElemento/${ordemProducaoElementoId}`, {
       ordemProducaoElementoId,
       la,
       vg,
@@ -390,11 +392,12 @@ function OrdensProducao() {
       tipoDeEstoque,
       gondola,
       roteiro,
+     
     })
       .then((response) => {
         setOrdemProducaoElementoId(ordemProducaoElementoId);
-        setLa();
-        setVg();
+        setLa(la);
+        setVg(vg);
         setItem();
         setCodMaterial();
         setMaterial();
@@ -412,11 +415,11 @@ function OrdensProducao() {
         setTipoDeEstoque();
         setGondola();
         setRoteiro();
-        console.log("Esse é o console do Put: ", response);
+
         alert("Alteração Efetuada com sucesso!");
+        window.location.assign(`/planejamento/ordensproducao?ordemProducaoElementoId=${ordemIdGet}`);
       })
       .catch((error) => {
-        console.log("Rooooooteeeeiroooo", roteiro);
         console.log("Ops! Ocorreu um erro2: " + error);
         alert("Ops! Ocorreu um erro2: " + error);
       });
@@ -524,6 +527,7 @@ function OrdensProducao() {
                   class="form-control"
                   placeholder="Last name"
                   value={ordemProducao.titulo}
+                  onChange={(e) => setTitulo(e.target.value)}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -533,6 +537,7 @@ function OrdensProducao() {
                   class="form-control"
                   placeholder="Last name"
                   value={ordemProducao.familia}
+                  onChange={(e) => setFamilia(e.target.value)}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -650,52 +655,36 @@ function OrdensProducao() {
                     type="number"
                     name="vg"
                     value={vg}
-                    onChange={(e) => setVg(e.target.value)}
+                    onChange={(e) => setVg(parseInt(e.target.value))}
                   />
                 </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>LA</label>
-                  <input
-                    type="number"
-                    name="la"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Gôndola</label>
-                  <input
-                    type="text"
-                    name="gondola"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
+              
+                
                 <div className="col-md-3 col-sm-6">
                   <label>Item</label>
                   <input
                     type="number"
                     name="item"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={item}
+                    onChange={(e) => setItem(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Cod. Material</label>
+                  <label>Cod. Material2</label>
                   <input
                     type="number"
                     name="codMaterial"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={codMaterial}
+                    onChange={(e) => setCodMaterial(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <label>Material</label>
                   <input
-                    type="number"
+                    type="text"
                     name="material"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={material}
+                     onChange={(e) => setMaterial(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -703,8 +692,8 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="quantidade"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={quantidade}
+                   onChange={(e) => setQuantidade(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -712,17 +701,8 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="programa"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Roteiro</label>
-                  <input
-                    type="number"
-                    name="roteiro"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={programa}
+                   onChange={(e) => setPrograma(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -730,8 +710,8 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="comprimento"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={comprimento}
+                   onChange={(e) => setComprimento(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -739,35 +719,18 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="largura"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={largura}
+                   onChange={(e) => setLargura(parseInt(e.target.value))}
                   />
                 </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Programa CNC</label>
-                  <input
-                    type="number"
-                    name="programa"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Cód. Material</label>
-                  <input
-                    type="number"
-                    name="material"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
+               
                 <div className="col-md-3 col-sm-6">
                   <label>OP</label>
                   <input
                     type="number"
                     name="op"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={op}
+                   onChange={(e) => setOp(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -775,8 +738,8 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="ovm"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={ovm}
+                  onChange={(e) => setOvm(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -784,8 +747,8 @@ function OrdensProducao() {
                   <input
                     type="text"
                     name="roteiro1"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={roteiro1}
+                    onChange={(e) => setRoteiro1(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -793,8 +756,8 @@ function OrdensProducao() {
                   <input
                     type="text"
                     name="roteiro2"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={roteiro2}
+                    onChange={(e) => setRoteiro2(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -802,8 +765,8 @@ function OrdensProducao() {
                   <input
                     type="text"
                     name="roteiro3"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={roteiro3}
+                    onChange={(e) => setRoteiro3(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -811,8 +774,8 @@ function OrdensProducao() {
                   <input
                     type="text"
                     name="roteiro4"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={roteiro4}
+                    onChange={(e) => setRoteiro4(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -820,8 +783,8 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="sequencia"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={sequencia}
+                    onChange={(e) => setSequencia(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -829,29 +792,19 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="tipoDeEstoque"
-                    value=""
-                  //onChange={(e) => setMatricula(e.target.value)}
+                    value={tipoDeEstoque}
+                    onChange={(e) => setTipoDeEstoque(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Gôndola</label>
+                  <label>Gondola</label>
                   <input
-                    type="text"
+                    type="string"
                     name="gondola"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    value={gondola}
+                    onChange={(e) => setGondola(e.target.value)}
                   />
                 </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Roteiro</label>
-                  <input
-                    type="text"
-                    name="roteiro"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-
                 <div className="col-md-2 col-sm-6">
                   <Button
                     type="submit"
