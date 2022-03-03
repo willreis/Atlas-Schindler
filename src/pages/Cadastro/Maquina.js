@@ -155,7 +155,7 @@ export default function Maquina() {
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
       isDummyField: true,
-      text: "Editar / Excluir",
+      text: "Editar / Deletar",
       formatter: (cellContent, row) => {
         return (
           <>
@@ -163,9 +163,8 @@ export default function Maquina() {
               className="spanTabela"
               id={row.maquinaId}
               Style="cursor:pointer"
-              onClick={() => {
-                funcaoAbrirModal(row);
-              }}
+              onClick={() => { funcaoAbrirModal(row) }}
+              data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
             </span>
@@ -175,6 +174,7 @@ export default function Maquina() {
               id={row.maquinaId}
               Style="cursor:pointer"
               onClick={() => handleDeleteModal(row.maquinaId)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </span>

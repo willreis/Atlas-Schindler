@@ -226,7 +226,7 @@ function OrdensProducao() {
     {
       dataField: "editar",
       isDummyField: true,
-      text: "Editar / Excluir",
+      text: "Editar / Deletar",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       formatter: (cellContent, row) => {
@@ -236,18 +236,17 @@ function OrdensProducao() {
               className="spanTabela"
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
-              onClick={() => {
-                funcaoAbrirModal(row.ordemProducaoElementoId);
-              }}
+              onClick={() => { funcaoAbrirModal(row) }}
+              data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
             </span>
-
             <button
               className="spanTabela"
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer; border: none; background: none"
               onClick={() => handleDeleteModal(row.ordemProducaoElementoId)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </button>
@@ -333,8 +332,8 @@ function OrdensProducao() {
         setOrdemProducao(obj);
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
+        console.log("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro1:", error);
       });
 
     Api.get(`OrdemProducaoElemento/GetByLa/${ordemIdGet}`).then((response) => {
@@ -418,8 +417,8 @@ function OrdensProducao() {
       })
       .catch((error) => {
         console.log("Rooooooteeeeiroooo", roteiro);
-        console.log("Ops! Ocorreu um erro: " + error);
-        alert("Ops! Ocorreu um erro: " + error);
+        console.log("Ops! Ocorreu um erro2: " + error);
+        alert("Ops! Ocorreu um erro2: " + error);
       });
   }
 
@@ -655,12 +654,30 @@ function OrdensProducao() {
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
+                  <label>LA</label>
+                  <input
+                    type="number"
+                    name="la"
+                    value=""
+                  //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Gôndola</label>
+                  <input
+                    type="text"
+                    name="gondola"
+                    value=""
+                  //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
                   <label>Item</label>
                   <input
                     type="number"
                     name="item"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -687,7 +704,7 @@ function OrdensProducao() {
                     type="number"
                     name="quantidade"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -696,7 +713,16 @@ function OrdensProducao() {
                     type="number"
                     name="programa"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Roteiro</label>
+                  <input
+                    type="number"
+                    name="roteiro"
+                    value=""
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -705,7 +731,7 @@ function OrdensProducao() {
                     type="number"
                     name="comprimento"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -714,7 +740,25 @@ function OrdensProducao() {
                     type="number"
                     name="largura"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Programa CNC</label>
+                  <input
+                    type="number"
+                    name="programa"
+                    value=""
+                  //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Cód. Material</label>
+                  <input
+                    type="number"
+                    name="material"
+                    value=""
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -723,7 +767,7 @@ function OrdensProducao() {
                     type="number"
                     name="op"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -732,7 +776,7 @@ function OrdensProducao() {
                     type="number"
                     name="ovm"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -786,7 +830,7 @@ function OrdensProducao() {
                     type="number"
                     name="tipoDeEstoque"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">

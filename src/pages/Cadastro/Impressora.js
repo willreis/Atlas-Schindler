@@ -104,7 +104,7 @@ export default function Impressora() {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
-      text: "Editar / Excluir",
+      text: "Editar / Deletar",
       formatter: (cellContent, row) => {
         return (
           <>
@@ -112,9 +112,8 @@ export default function Impressora() {
               className="spanTabela"
               id={row.impressoraId}
               Style="cursor:pointer"
-              onClick={() => {
-                funcaoAbrirModal(row);
-              }}
+              onClick={() => { funcaoAbrirModal(row) }}
+              data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
             </span>
@@ -124,6 +123,7 @@ export default function Impressora() {
               id={row.impressoraId}
               Style="cursor:pointer"
               onClick={() => handleDeleteModal(row.impressoraId)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </span>

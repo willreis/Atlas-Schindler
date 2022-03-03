@@ -136,7 +136,7 @@ export default function Material() {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "12px" },
       dataField: "editar",
-      text: "Editar / Excluir",
+      text: "Editar / Deletar",
       formatter: (cellContent, row) => {
         return (
           <>
@@ -144,9 +144,8 @@ export default function Material() {
               className="spanTabela"
               id={row.materialId}
               Style="cursor:pointer"
-              onClick={() => {
-                funcaoAbrirModal(row);
-              }}
+              onClick={() => { funcaoAbrirModal(row) }}
+              data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
             </span>
@@ -156,6 +155,7 @@ export default function Material() {
               id={row.materialId}
               Style="cursor:pointer"
               onClick={() => handleDeleteModal(row.materialId)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </span>

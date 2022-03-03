@@ -91,29 +91,34 @@ export default function OrdensProducaoKanban() {
       }),
     },
     {
-        dataField: "editar",
-        isDummyField: true,
-        text: "Editar / Excluir",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        formatter: (cellContent, row) => {
-          return (
-            <>
-              <span className="spanTabela" id="" Style="cursor:pointer">
-                <VscEdit />
-              </span>
-              <button
-                className="spanTabela"
-                id=""
-                Style="cursor:pointer; border: none; background: none"
-                
-              >
-                <RiDeleteBinFill />
-              </button>
-            </>
-          );
-        },
+      dataField: "editar",
+      isDummyField: true,
+      text: "Editar / Deletar",
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span
+              className="spanTabela"
+              id=""
+              Style="cursor:pointer"
+              data-toggle="tooltip" data-placement="left" title="Editar"
+            >
+              <VscEdit />
+            </span>
+            <button
+              className="spanTabela"
+              id=""
+              Style="cursor:pointer; border: none; background: none"
+              data-toggle="tooltip" data-placement="left" title="Deletar"
+            >
+              <RiDeleteBinFill />
+            </button>
+          </>
+        );
       },
+    },
   ];
   const productsPendentes = [
     {
