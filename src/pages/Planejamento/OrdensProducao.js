@@ -236,7 +236,7 @@ function OrdensProducao() {
               className="spanTabela"
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
-              onClick={() => { funcaoAbrirModal(row) }}
+              onClick={() => { funcaoAbrirModal(row.ordemProducaoElementoId) }}
               data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
@@ -257,8 +257,9 @@ function OrdensProducao() {
   ];
 
   function funcaoAbrirModal(row) {
+    console.log("Abriu MODAL!", row)
     setShowModalPut(true);
-    Api.get(`OrdemProducaoElemento/GetById/1524`, {
+    Api.get(`OrdemProducaoElemento/GetById/${row}`, {
       ordemProducaoElementoId,
       la,
       vg,
@@ -461,7 +462,7 @@ function OrdensProducao() {
                 <h2 className="titulosPrincipais">Ordens de Produção</h2>
               </div>
             </div>
-            <div className="col-md-6 col-sm-12">
+            <div className="col-md-6 col-sm-12" Style='margin-top: 1.6rem'>
               <div className="alignButtons">
                 <Link to="/planejamento/importacaoordemproducao">
                   <Button
@@ -473,14 +474,6 @@ function OrdensProducao() {
                     Voltar
                   </Button>
                 </Link>
-                <Button
-                  className="botaoImportar"
-                  variant="success"
-                  onClick={() => setShow(true)}
-                >
-                  <AiFillSave Style="color:#fff!important; width:220px!important" />
-                  Salvar
-                </Button>
               </div>
             </div>
           </div>
@@ -585,6 +578,20 @@ function OrdensProducao() {
                 />
               </div>
             </div>
+            <div className="col-md-12 col-sm-12" Style='margin-top: -2.4rem'>
+              <div className="alignButtons">
+                <Link to="/planejamento/importacaoordemproducao">
+                </Link>
+                <Button
+                  className="botaoImportar"
+                  variant="success"
+                  onClick={() => setShow(true)}
+                >
+                  <AiFillSave Style="color:#fff!important; width:220px!important" />
+                  Salvar
+                </Button>
+              </div>
+            </div>
           </form>
         </div>
         <div className="section tabelaOrdem">
@@ -686,7 +693,7 @@ function OrdensProducao() {
                     type="number"
                     name="codMaterial"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -695,7 +702,7 @@ function OrdensProducao() {
                     type="number"
                     name="material"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -785,7 +792,7 @@ function OrdensProducao() {
                     type="text"
                     name="roteiro1"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -794,7 +801,7 @@ function OrdensProducao() {
                     type="text"
                     name="roteiro2"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -803,7 +810,7 @@ function OrdensProducao() {
                     type="text"
                     name="roteiro3"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -812,7 +819,7 @@ function OrdensProducao() {
                     type="text"
                     name="roteiro4"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -821,7 +828,7 @@ function OrdensProducao() {
                     type="number"
                     name="sequencia"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -839,7 +846,7 @@ function OrdensProducao() {
                     type="text"
                     name="gondola"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -848,7 +855,7 @@ function OrdensProducao() {
                     type="text"
                     name="roteiro"
                     value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                  //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
 
