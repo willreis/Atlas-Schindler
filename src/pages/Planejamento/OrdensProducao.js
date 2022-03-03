@@ -8,18 +8,21 @@ import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { AiFillSave } from "react-icons/ai";
+import { MdKeyboardReturn } from "react-icons/md";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import Api from "../../services/Api";
+import { Link } from "react-router-dom";
 
 function OrdensProducao() {
+  const url = "OrdemProducaoElemento";
   const [getOrdem, setGetOrdem] = useState([]);
   const [getOrdemById, setGetOrdemById] = useState([]);
 
   const [showModalPut, setShowModalPut] = useState();
 
-  const [ordemProducaoElementosId, setOrdemProducaoElementosId] = useState();
+  const [ordemProducaoElementoId, setOrdemProducaoElementoId] = useState();
   const [la, setLa] = useState();
   const [vg, setVg] = useState();
   const [item, setItem] = useState();
@@ -53,9 +56,8 @@ function OrdensProducao() {
   const [dataFim, setDataFim] = useState();
   const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([]);
 
-  
   const [ordemProducao, setOrdemProducao] = useState({});
-
+ 
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -90,64 +92,15 @@ function OrdensProducao() {
       },
     ], // A numeric array is also available. the purpose of above example is custom the text
   };
-
+  
+  const [idUser, setIdUser] = useState(null);
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const fecharModal = () => setModalDelete(false);
 
-  const products = [
-    {
-      vg: 101544,
-      item: 7000158,
-      codigoMaterial: 42343,
-      material: 542345,
-      quantidade: 135,
-      programa: 0,
-      comprimento: 23,
-      largura: 10,
-      op: 5436456,
-      ovm: 8765,
-      roteiro1: "T1",
-      roteiro2: "",
-      roteiro3: "",
-      roteiro4: "D1",
-      sequencia: 344,
-    },
-    {
-      vg: 101678,
-      item: 7000876,
-      codigoMaterial: 234556,
-      material: 23456,
-      quantidade: 4345,
-      programa: 0,
-      comprimento: 43,
-      largura: 14,
-      op: 967896,
-      ovm: 65443,
-      roteiro1: "T1",
-      roteiro2: "T2",
-      roteiro3: "",
-      roteiro4: "D1",
-      sequencia: 346,
-    },
-    {
-      vg: 101678,
-      item: 7000876,
-      codigoMaterial: 234556,
-      material: 23456,
-      quantidade: 4345,
-      programa: 0,
-      comprimento: 43,
-      largura: 14,
-      op: 967896,
-      ovm: 65443,
-      roteiro1: "T1",
-      roteiro2: "T2",
-      roteiro3: "",
-      roteiro4: "D1",
-      sequencia: 346,
-    },
-  ];
+  //Pegando o ID da LA via URL
+  var baseUrl = window.location.href;
+  var ordemIdGet = baseUrl.substring(baseUrl.lastIndexOf("=") + 1);
 
   const columns = [
     {
@@ -279,21 +232,22 @@ function OrdensProducao() {
       formatter: (cellContent, row) => {
         return (
           <>
-            <span 
-            className="spanTabela"
+            <span
+              className="spanTabela"
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
               onClick={() => {
-                funcaoAbrirModal(row)
-              }}>
+                funcaoAbrirModal(row);
+              }}
+            >
               <VscEdit />
             </span>
-              
+
             <button
               className="spanTabela"
-              id=""
+              id={row.ordemProducaoElementoId}
               Style="cursor:pointer; border: none; background: none"
-              onClick={() => handleDeleteUsuario(row.ordemProducaoElementoId)}
+              onClick={() => handleDeleteModal(row.ordemProducaoElementoId)}
             >
               <RiDeleteBinFill />
             </button>
@@ -303,14 +257,13 @@ function OrdensProducao() {
     },
   ];
 
-
-  function funcaoAbrirModal(){
-    setShowModalPut(true)
+  function funcaoAbrirModal() {
+    setShowModalPut(true);
   }
 
   //GET
   useEffect(() => {
-    Api.get("OrdemProducao/53")
+    Api.get(`OrdemProducao/${ordemIdGet}`)
       .then((response) => {
         //Input Data Fim
         var data = new Date(response.data.dataFim);
@@ -341,7 +294,7 @@ function OrdensProducao() {
         alert("Ops! Ocorreu um erro:", error);
       });
 
-    Api.get("OrdemProducaoElemento/GetByLa/53").then((response) => {
+    Api.get(`OrdemProducaoElemento/GetByLa/${ordemIdGet}`).then((response) => {
       setGetOrdem(
         response.data.map((ordemGet) => {
           return {
@@ -368,13 +321,13 @@ function OrdensProducao() {
           };
         })
       );
-    });    
+    });
   }, []);
 
-//PUT
-function handlePut() {
-  Api.put(`#`, {
-    ordemProducaoElementosId,
+  //PUT
+  function handlePut() {
+    Api.put(`#`, {
+      ordemProducaoElementoId,
       la,
       vg,
       item,
@@ -394,59 +347,66 @@ function handlePut() {
       tipoDeEstoque,
       gondola,
       roteiro,
-  })
-  .then((response) => {
-    setOrdemProducaoElementosId(ordemProducaoElementosId);
-    setLa();
-    setVg();
-    setItem();
-    setCodMaterial();
-    setMaterial();
-    setQuantidade();
-    setPrograma();
-    setComprimento();
-    setLargura();
-    setOp();
-    setOvm();
-    setRoteiro1();
-    setRoteiro2();
-    setRoteiro3();
-    setRoteiro4();
-    setSequencia();
-    setTipoDeEstoque();
-    setGondola();
-    setRoteiro();
-    console.log("Esse é o console do Put: ", response);
-    alert("Alteração Efetuada com sucesso!");
-  })
-  .catch((error) => {
-    console.log("Rooooooteeeeiroooo", roteiro);
-    console.log("Ops! Ocorreu um erro: " + error);
-    alert("Ops! Ocorreu um erro: " + error);
-  });;
-   
-}
+    })
+      .then((response) => {
+        setOrdemProducaoElementoId(ordemProducaoElementoId);
+        setLa();
+        setVg();
+        setItem();
+        setCodMaterial();
+        setMaterial();
+        setQuantidade();
+        setPrograma();
+        setComprimento();
+        setLargura();
+        setOp();
+        setOvm();
+        setRoteiro1();
+        setRoteiro2();
+        setRoteiro3();
+        setRoteiro4();
+        setSequencia();
+        setTipoDeEstoque();
+        setGondola();
+        setRoteiro();
+        console.log("Esse é o console do Put: ", response);
+        alert("Alteração Efetuada com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Rooooooteeeeiroooo", roteiro);
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
 
-//Delete
-function handleDeleteUsuario() {
-  console.log("Modal Delete aberto!");
-  setModalDelete(true);
-}
+  //Delete
+  function handleDeleteModal(ordemProducaoElementoId) {
+    console.log('handleDeleteModal delete id ', ordemProducaoElementoId)
+    setModalDelete(true);
+  }
 
-function sucessoDelete() {
-  alert("Deletado com sucesso!");
-  setModalDelete(false);
-}
+  function handleDeleteOrdemProducao(idUser) {
+    console.log('handleDeleteOrdemProducao delete id ', idUser)
+    try {
+      Api.delete(`/${url}/${idUser}`);
+      alert('delete id passo 1', idUser)
+      setModalDelete(false);
+      
+      window.location.reload();
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
 
-const selectRow = {
-  mode: "radio",
-  clickToSelect: true,
-  onSelect: (row) => {
-    console.log("selecionado");
-    console.log(row.ordemProducaoElementoId);
-    setOrdemProducaoElementosId(row.ordemProducaoElementosId);
-  },
-};
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.ordemProducaoElementoId);
+      setIdUser(row.ordemProducaoElementoId);
+    },
+  };
 
   return (
     <>
@@ -460,6 +420,16 @@ const selectRow = {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
+                <Link to="/planejamento/importacaoordemproducao">
+                  <Button
+                    className="botaoImportar"
+                    variant="primary"
+                    onClick={() => setShow(true)}
+                  >
+                    <MdKeyboardReturn Style="color:#fff!important; width:220px!important" />
+                    Voltar
+                  </Button>
+                </Link>
                 <Button
                   className="botaoImportar"
                   variant="success"
@@ -576,9 +546,9 @@ const selectRow = {
         </div>
         <div className="section tabelaOrdem">
           <div className="row" Style="margin: 0; padding: 0">
-            <div className="col-md-12">
+            <div className="col-md-12 tabelaUsuario">
               <BootstrapTable
-                keyField="ordemProducaoElementosId"
+                keyField="ordemProducaoElementoId"
                 hover
                 striped
                 data={getOrdem}
@@ -592,7 +562,7 @@ const selectRow = {
           </div>
         </div>
 
-        <div className="container">
+        <div className="container mb150">
           <div className="row botoesOrdemProducao">
             <div className="col-md-4 mt-3">
               <Button variant="success">Criar Relação Automática</Button>
@@ -757,8 +727,7 @@ const selectRow = {
                     //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
-                
-               
+
                 <div className="col-md-2 col-sm-6">
                   <Button
                     type="submit"
@@ -778,7 +747,7 @@ const selectRow = {
         </Modal>
 
         {/* Modal Delete */}
-        <Modal
+         <Modal
           size="sm"
           aria-labelledby="contained-modal-title-vcenter"
           show={modalDelete}
@@ -786,7 +755,9 @@ const selectRow = {
           centered
         >
           <Modal.Header closeButton Style="position:relative">
-            <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
+            <h3 Style="position: absolute; left: 30%;">
+              Atenção!
+            </h3>
           </Modal.Header>
           <Modal.Body>
             <div Style="margin-bottom: 30px; text-align: center">
@@ -804,7 +775,7 @@ const selectRow = {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={sucessoDelete}>
+                      <Button variant="primary" onClick={() => handleDeleteOrdemProducao(idUser)}>
                         Sim
                       </Button>
                     </div>
