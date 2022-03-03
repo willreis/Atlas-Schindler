@@ -8,10 +8,12 @@ import { IconContext } from "react-icons/lib";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { AiFillSave } from "react-icons/ai";
+import { MdKeyboardReturn } from "react-icons/md";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import Api from "../../services/Api";
+import { Link } from "react-router-dom";
 
 function OrdensProducao() {
   const [getOrdem, setGetOrdem] = useState([]);
@@ -53,7 +55,6 @@ function OrdensProducao() {
   const [dataFim, setDataFim] = useState();
   const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([]);
 
-  
   const [ordemProducao, setOrdemProducao] = useState({});
 
   //Paginação
@@ -94,6 +95,10 @@ function OrdensProducao() {
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const fecharModal = () => setModalDelete(false);
+
+  //Pegando o ID da LA via URL
+  var baseUrl = window.location.href;
+  var ordemIdGet = baseUrl.substring(baseUrl.lastIndexOf("=") + 1);
 
   const products = [
     {
@@ -279,16 +284,17 @@ function OrdensProducao() {
       formatter: (cellContent, row) => {
         return (
           <>
-            <span 
-            className="spanTabela"
+            <span
+              className="spanTabela"
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
               onClick={() => {
-                funcaoAbrirModal(row)
-              }}>
+                funcaoAbrirModal(row);
+              }}
+            >
               <VscEdit />
             </span>
-              
+
             <button
               className="spanTabela"
               id=""
@@ -303,14 +309,13 @@ function OrdensProducao() {
     },
   ];
 
-
-  function funcaoAbrirModal(){
-    setShowModalPut(true)
+  function funcaoAbrirModal() {
+    setShowModalPut(true);
   }
 
   //GET
   useEffect(() => {
-    Api.get("OrdemProducao/53")
+    Api.get(`OrdemProducao/${ordemIdGet}`)
       .then((response) => {
         //Input Data Fim
         var data = new Date(response.data.dataFim);
@@ -368,13 +373,13 @@ function OrdensProducao() {
           };
         })
       );
-    });    
+    });
   }, []);
 
-//PUT
-function handlePut() {
-  Api.put(`#`, {
-    ordemProducaoElementosId,
+  //PUT
+  function handlePut() {
+    Api.put(`#`, {
+      ordemProducaoElementosId,
       la,
       vg,
       item,
@@ -394,59 +399,58 @@ function handlePut() {
       tipoDeEstoque,
       gondola,
       roteiro,
-  })
-  .then((response) => {
-    setOrdemProducaoElementosId(ordemProducaoElementosId);
-    setLa();
-    setVg();
-    setItem();
-    setCodMaterial();
-    setMaterial();
-    setQuantidade();
-    setPrograma();
-    setComprimento();
-    setLargura();
-    setOp();
-    setOvm();
-    setRoteiro1();
-    setRoteiro2();
-    setRoteiro3();
-    setRoteiro4();
-    setSequencia();
-    setTipoDeEstoque();
-    setGondola();
-    setRoteiro();
-    console.log("Esse é o console do Put: ", response);
-    alert("Alteração Efetuada com sucesso!");
-  })
-  .catch((error) => {
-    console.log("Rooooooteeeeiroooo", roteiro);
-    console.log("Ops! Ocorreu um erro: " + error);
-    alert("Ops! Ocorreu um erro: " + error);
-  });;
-   
-}
+    })
+      .then((response) => {
+        setOrdemProducaoElementosId(ordemProducaoElementosId);
+        setLa();
+        setVg();
+        setItem();
+        setCodMaterial();
+        setMaterial();
+        setQuantidade();
+        setPrograma();
+        setComprimento();
+        setLargura();
+        setOp();
+        setOvm();
+        setRoteiro1();
+        setRoteiro2();
+        setRoteiro3();
+        setRoteiro4();
+        setSequencia();
+        setTipoDeEstoque();
+        setGondola();
+        setRoteiro();
+        console.log("Esse é o console do Put: ", response);
+        alert("Alteração Efetuada com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Rooooooteeeeiroooo", roteiro);
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
 
-//Delete
-function handleDeleteUsuario() {
-  console.log("Modal Delete aberto!");
-  setModalDelete(true);
-}
+  //Delete
+  function handleDeleteUsuario() {
+    console.log("Modal Delete aberto!");
+    setModalDelete(true);
+  }
 
-function sucessoDelete() {
-  alert("Deletado com sucesso!");
-  setModalDelete(false);
-}
+  function sucessoDelete() {
+    alert("Deletado com sucesso!");
+    setModalDelete(false);
+  }
 
-const selectRow = {
-  mode: "radio",
-  clickToSelect: true,
-  onSelect: (row) => {
-    console.log("selecionado");
-    console.log(row.ordemProducaoElementoId);
-    setOrdemProducaoElementosId(row.ordemProducaoElementosId);
-  },
-};
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.ordemProducaoElementoId);
+      setOrdemProducaoElementosId(row.ordemProducaoElementosId);
+    },
+  };
 
   return (
     <>
@@ -460,6 +464,16 @@ const selectRow = {
             </div>
             <div className="col-md-6 col-sm-12">
               <div className="alignButtons">
+                <Link to="/planejamento/importacaoordemproducao">
+                  <Button
+                    className="botaoImportar"
+                    variant="primary"
+                    onClick={() => setShow(true)}
+                  >
+                    <MdKeyboardReturn Style="color:#fff!important; width:220px!important" />
+                    Voltar
+                  </Button>
+                </Link>
                 <Button
                   className="botaoImportar"
                   variant="success"
@@ -757,8 +771,7 @@ const selectRow = {
                     //onChange={(e) => setMatricula(e.target.value)}
                   />
                 </div>
-                
-               
+
                 <div className="col-md-2 col-sm-6">
                   <Button
                     type="submit"
