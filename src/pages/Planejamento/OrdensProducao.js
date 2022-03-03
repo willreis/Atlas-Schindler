@@ -258,6 +258,7 @@ function OrdensProducao() {
 
   ///Modal PUT
   function funcaoAbrirModal(row) {
+    console.log("Abriu MODAL!", row)
     setShowModalPut(true);
     Api.get(`OrdemProducaoElemento/GetById/${row.ordemProducaoElementoId}`, {
       ordemProducaoElementoId,
@@ -464,7 +465,7 @@ function OrdensProducao() {
                 <h2 className="titulosPrincipais">Ordens de Produção</h2>
               </div>
             </div>
-            <div className="col-md-6 col-sm-12">
+            <div className="col-md-6 col-sm-12" Style='margin-top: 1.6rem'>
               <div className="alignButtons">
                 <Link to="/planejamento/importacaoordemproducao">
                   <Button
@@ -476,14 +477,6 @@ function OrdensProducao() {
                     Voltar
                   </Button>
                 </Link>
-                <Button
-                  className="botaoImportar"
-                  variant="success"
-                  onClick={() => setShow(true)}
-                >
-                  <AiFillSave Style="color:#fff!important; width:220px!important" />
-                  Salvar
-                </Button>
               </div>
             </div>
           </div>
@@ -588,6 +581,20 @@ function OrdensProducao() {
                   value={ordemProducao.dataFim}
                   readOnly
                 />
+              </div>
+            </div>
+            <div className="col-md-12 col-sm-12" Style='margin-top: -2.4rem'>
+              <div className="alignButtons">
+                <Link to="/planejamento/importacaoordemproducao">
+                </Link>
+                <Button
+                  className="botaoImportar"
+                  variant="success"
+                  onClick={() => setShow(true)}
+                >
+                  <AiFillSave Style="color:#fff!important; width:220px!important" />
+                  Salvar
+                </Button>
               </div>
             </div>
           </form>
