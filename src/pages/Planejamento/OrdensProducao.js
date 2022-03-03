@@ -677,7 +677,7 @@ function OrdensProducao() {
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Cod. Material2</label>
+                  <label>Cod. Material</label>
                   <input
                     type="number"
                     name="codMaterial"
