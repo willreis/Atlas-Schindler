@@ -57,7 +57,7 @@ function OrdensProducao() {
   const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([]);
 
   const [ordemProducao, setOrdemProducao] = useState({});
- 
+
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -92,7 +92,7 @@ function OrdensProducao() {
       },
     ], // A numeric array is also available. the purpose of above example is custom the text
   };
-  
+
   const [idUser, setIdUser] = useState(null);
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -237,7 +237,7 @@ function OrdensProducao() {
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
               onClick={() => {
-                funcaoAbrirModal(row);
+                funcaoAbrirModal(row.ordemProducaoElementoId);
               }}
             >
               <VscEdit />
@@ -257,8 +257,51 @@ function OrdensProducao() {
     },
   ];
 
-  function funcaoAbrirModal() {
+  function funcaoAbrirModal(row) {
     setShowModalPut(true);
+    Api.get(`OrdemProducaoElemento/GetById/1524`, {
+      ordemProducaoElementoId,
+      la,
+      vg,
+      item,
+      codMaterial,
+      material,
+      quantidade,
+      programa,
+      comprimento,
+      largura,
+      op,
+      ovm,
+      roteiro1,
+      roteiro2,
+      roteiro3,
+      roteiro4,
+      sequencia,
+      tipoDeEstoque,
+      gondola,
+      roteiro,
+    }).then(() => {
+      setOrdemProducaoElementoId(row.ordemProducaoElementoId);
+      setLa(row.la);
+      setVg(row.vg);
+      setItem(row.item);
+      setCodMaterial(row.codMaterial);
+      setMaterial(row.material);
+      setQuantidade(row.quantidade);
+      setPrograma(row.programa);
+      setComprimento(row.comprimento);
+      setLargura(row.largura);
+      setOp(row.op);
+      setOvm(row.ovm);
+      setRoteiro1(row.roteiro1);
+      setRoteiro2(row.roteiro2);
+      setRoteiro3(row.roteiro3);
+      setRoteiro4(row.roteiro4);
+      setSequencia(row.sequencia);
+      setTipoDeEstoque(row.tipoDeEstoque);
+      setGondola(row.gondola);
+      setRoteiro(row.roteiro);
+    });
   }
 
   //GET
@@ -295,6 +338,7 @@ function OrdensProducao() {
       });
 
     Api.get(`OrdemProducaoElemento/GetByLa/${ordemIdGet}`).then((response) => {
+      console.log("get elemento: ", response);
       setGetOrdem(
         response.data.map((ordemGet) => {
           return {
@@ -381,17 +425,17 @@ function OrdensProducao() {
 
   //Delete
   function handleDeleteModal(ordemProducaoElementoId) {
-    console.log('handleDeleteModal delete id ', ordemProducaoElementoId)
+    console.log("handleDeleteModal delete id ", ordemProducaoElementoId);
     setModalDelete(true);
   }
 
   function handleDeleteOrdemProducao(idUser) {
-    console.log('handleDeleteOrdemProducao delete id ', idUser)
+    console.log("handleDeleteOrdemProducao delete id ", idUser);
     try {
       Api.delete(`/${url}/${idUser}`);
-      alert('delete id passo 1', idUser)
+      alert("delete id passo 1", idUser);
       setModalDelete(false);
-      
+
       window.location.reload();
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
@@ -602,30 +646,12 @@ function OrdensProducao() {
             >
               <form className="row g-3 formPadrao" onSubmit={handlePut}>
                 <div className="col-md-3 col-sm-6">
-                  <label>ID</label>
+                  <label>VG</label>
                   <input
                     type="number"
-                    name="id"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>LA</label>
-                  <input
-                    type="number"
-                    name="la"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Gôndola</label>
-                  <input
-                    type="text"
-                    name="gondola"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
+                    name="vg"
+                    value={vg}
+                    onChange={(e) => setVg(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -633,6 +659,24 @@ function OrdensProducao() {
                   <input
                     type="number"
                     name="item"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Cod. Material</label>
+                  <input
+                    type="number"
+                    name="codMaterial"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Material</label>
+                  <input
+                    type="number"
+                    name="material"
                     value=""
                     //onChange={(e) => setMatricula(e.target.value)}
                   />
@@ -647,19 +691,10 @@ function OrdensProducao() {
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Sequência</label>
+                  <label>Programa</label>
                   <input
                     type="number"
-                    name="sequencia"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Roteiro</label>
-                  <input
-                    type="number"
-                    name="roteiro"
+                    name="programa"
                     value=""
                     //onChange={(e) => setMatricula(e.target.value)}
                   />
@@ -683,24 +718,6 @@ function OrdensProducao() {
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Programa CNC</label>
-                  <input
-                    type="number"
-                    name="programa"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
-                  <label>Cód. Material</label>
-                  <input
-                    type="number"
-                    name="material"
-                    value=""
-                    //onChange={(e) => setMatricula(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
                   <label>OP</label>
                   <input
                     type="number"
@@ -719,10 +736,73 @@ function OrdensProducao() {
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Tipo de estoque</label>
+                  <label>Roteiro 1</label>
+                  <input
+                    type="text"
+                    name="roteiro1"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Roteiro 2</label>
+                  <input
+                    type="text"
+                    name="roteiro2"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Roteiro 3</label>
+                  <input
+                    type="text"
+                    name="roteiro3"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Roteiro 4</label>
+                  <input
+                    type="text"
+                    name="roteiro4"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Sequência</label>
+                  <input
+                    type="number"
+                    name="sequencia"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Tipo de Estoque</label>
                   <input
                     type="number"
                     name="tipoDeEstoque"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Gôndola</label>
+                  <input
+                    type="text"
+                    name="gondola"
+                    value=""
+                    //onChange={(e) => setMatricula(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-3 col-sm-6">
+                  <label>Roteiro</label>
+                  <input
+                    type="text"
+                    name="roteiro"
                     value=""
                     //onChange={(e) => setMatricula(e.target.value)}
                   />
@@ -747,7 +827,7 @@ function OrdensProducao() {
         </Modal>
 
         {/* Modal Delete */}
-         <Modal
+        <Modal
           size="sm"
           aria-labelledby="contained-modal-title-vcenter"
           show={modalDelete}
@@ -755,9 +835,7 @@ function OrdensProducao() {
           centered
         >
           <Modal.Header closeButton Style="position:relative">
-            <h3 Style="position: absolute; left: 30%;">
-              Atenção!
-            </h3>
+            <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
           </Modal.Header>
           <Modal.Body>
             <div Style="margin-bottom: 30px; text-align: center">
@@ -775,7 +853,10 @@ function OrdensProducao() {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={() => handleDeleteOrdemProducao(idUser)}>
+                      <Button
+                        variant="primary"
+                        onClick={() => handleDeleteOrdemProducao(idUser)}
+                      >
                         Sim
                       </Button>
                     </div>
