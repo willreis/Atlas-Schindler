@@ -7,11 +7,11 @@ import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
 import { Button } from "react-bootstrap";
 import { IconContext } from "react-icons/lib";
-import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FaFileImport } from "react-icons/fa";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { BiCommentDetail } from "react-icons/bi";
 
 function ImportacaoOrdemProducao() {
   //Paginação
@@ -53,13 +53,12 @@ function ImportacaoOrdemProducao() {
     ], // A numeric array is also available. the purpose of above example is custom the text
   };
 
+  const [la, setLa] = useState(null);
+  const [idUser, setIdUser] = useState(null);
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [ordemProdGet, setOrdemProdGet] = useState([]);
   const [user, setUser] = useState();
-
-  const [la, setLa] = useState();
-
   const url = "OrdemProducao";
 
   const fecharModal = () => setModalDelete(false);
@@ -126,7 +125,7 @@ function ImportacaoOrdemProducao() {
     {
       dataField: "editar",
       isDummyField: true,
-      text: "Editar / Excluir",
+      text: "Opções / Deletar",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       formatter: (cellContent, row) => {
@@ -134,17 +133,19 @@ function ImportacaoOrdemProducao() {
           <>
             <span
               className="spanTabela"
-              id=""
+              id={row.la}
               Style="cursor:pointer"
               onClick={() => detalhesOrdemProducao(row.la)}
+              data-toggle="tooltip" data-placement="left" title="Detalhes"
             >
-              <VscEdit />
+              <BiCommentDetail />
             </span>
             <button
               className="spanTabela"
-              id=""
+              id={row.la}
               Style="cursor:pointer; border: none; background: none"
-              onClick={() => handleDeleteUsuario(row.usuarioId)}
+              onClick={() => handleDeleteUsuario(row.la)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </button>
@@ -154,15 +155,33 @@ function ImportacaoOrdemProducao() {
     },
   ];
 
-  function handleDeleteUsuario() {
+  function handleDeleteImportacao(idUser) {
+    try {
+      Api.delete(`/${url}/${idUser}`);
+      console.log('delete id la:', idUser)
+      setModalDelete(false)
+      alert("Deletado com sucesso!")
+      window.location.reload();
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+
+  function handleDeleteUsuario(la) {
     console.log("Modal Delete aberto!");
+    console.log('id modal', la)
     setModalDelete(true);
   }
 
-  function sucessoDelete() {
-    alert("Deletado com sucesso!");
-    setModalDelete(false);
-  }
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("selecionado");
+      console.log(row.la);
+      setIdUser(row.la)
+    },
+  };
 
   useEffect(() => {
     Api.get(`${url}`)
@@ -189,16 +208,6 @@ function ImportacaoOrdemProducao() {
       });
   }, []);
 
-  const selectRow = {
-    mode: "radio",
-    clickToSelect: true,
-    onSelect: (row) => {
-      console.log("selecionado");
-      console.log(row.la);
-      setLa(row.la);
-    },
-  };
-
   function detalhesOrdemProducao(row) {
 
     localStorage.setItem('id', row)
@@ -208,7 +217,7 @@ function ImportacaoOrdemProducao() {
     console.log('ttttttttttttt', storageId)
 
 
-    window.location.href = "http://localhost:3000/planejamento/ordensproducao?ordemProducaoElementoId="+row;
+    window.location.href = "http://localhost:3000/planejamento/ordensproducao?ordemProducaoElementoId=" + row;
   }
 
   return (
@@ -262,7 +271,7 @@ function ImportacaoOrdemProducao() {
 
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-12 mt-4">
+              <div className="col-md-12 mt-4 tabelaUsuario">
                 <BootstrapTable
                   keyField="la"
                   hover
@@ -314,7 +323,7 @@ function ImportacaoOrdemProducao() {
             <div Style="margin-bottom: 30px; text-align: center">
               <div className="row">
                 <div className="col-12">
-                  <p>Deseja Realmente Excluir!</p>
+                  <p>Deseja Realmente Excluir?</p>
                 </div>
               </div>
               <div className="row mt-3">
@@ -326,7 +335,7 @@ function ImportacaoOrdemProducao() {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={sucessoDelete}>
+                      <Button variant="primary" onClick={() => handleDeleteImportacao(idUser)}>
                         Sim
                       </Button>
                     </div>
