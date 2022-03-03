@@ -168,11 +168,11 @@ const SidebarNew = () => {
                     Importação de Ordem Produção
                   </Link>
                 </MenuItem>
-                <MenuItem title="Grupo de Acesso" icon={<IoIosPaper />}>
+                {/* <MenuItem title="Grupo de Acesso" icon={<IoIosPaper />}>
                   <Link className="link" to="/planejamento/ordensproducao">
                     Ordens de Produção
                   </Link>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem title="Impressora" icon={<BsPrinterFill />}>
                   <Link
                     className="link"

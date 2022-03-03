@@ -156,7 +156,7 @@ export default function Usuarios() {
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
       isDummyField: true,
-      text: "Editar / Excluir",
+      text: "Editar / Deletar",
       formatter: (cellContent, row) => {
         return (
           <>
@@ -164,9 +164,8 @@ export default function Usuarios() {
               className="spanTabela"
               id={row.usuarioId}
               Style="cursor:pointer"
-              onClick={() => {
-                funcaoAbrirModal(row);
-              }}
+              onClick={() => { funcaoAbrirModal(row); }}
+              data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
             </span>
@@ -175,6 +174,7 @@ export default function Usuarios() {
               id={row.usuarioId}
               Style="cursor:pointer; border: none; background: none"
               onClick={() => handleDeleteModal(row.usuarioId)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </button>

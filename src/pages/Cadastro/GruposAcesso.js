@@ -239,7 +239,7 @@ export default function GruposAcesso() {
       headerStyle: { backgroundColor: 'rgb(151 151 151)', fontSize: '14px' },
       dataField: "editar",
       isDummyField: true,
-      text: "Editar / Excluir",
+      text: "Editar / Deletar",
       formatter: (cellContent, row) => {
         return (
           <>
@@ -247,9 +247,8 @@ export default function GruposAcesso() {
               className="spanTabela"
               id={row.grupoDeAcessoId}
               Style="cursor:pointer"
-              onClick={() => {
-                funcaoAbrirModal(row);
-              }}
+              onClick={() => { funcaoAbrirModal(row) }}
+              data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
             </span>
@@ -259,6 +258,7 @@ export default function GruposAcesso() {
               id={row.grupoDeAcessoId}
               Style="cursor:pointer"
               onClick={() => handleDeleteGrupoAcesso(row.grupoDeAcessoId)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </span>

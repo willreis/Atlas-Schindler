@@ -121,7 +121,7 @@ export default function Processo() {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       dataField: "editar",
-      text: "Editar / Excluir",
+      text: "Editar / Deletar",
       formatter: (cellContent, row) => {
         return (
           <>
@@ -129,9 +129,8 @@ export default function Processo() {
               className="spanTabela"
               id={row.processoId}
               Style="cursor:pointer"
-              onClick={() => {
-                funcaoAbrirModal(row);
-              }}
+              onClick={() => { funcaoAbrirModal(row) }}
+              data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
             </span>
@@ -141,6 +140,7 @@ export default function Processo() {
               id={row.processoId}
               Style="cursor:pointer"
               onClick={() => handleDeleteModal(row.processoId)}
+              data-toggle="tooltip" data-placement="left" title="Deletar"
             >
               <RiDeleteBinFill />
             </span>
