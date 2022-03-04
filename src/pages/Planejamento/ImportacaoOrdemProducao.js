@@ -40,10 +40,6 @@ function ImportacaoOrdemProducao() {
     disablePageTitle: true,
     sizePerPageList: [
       {
-        text: "5",
-        value: 5,
-      },
-      {
         text: "10",
         value: 10,
       },
@@ -59,6 +55,7 @@ function ImportacaoOrdemProducao() {
   const [modalDelete, setModalDelete] = useState(false);
   const [ordemProdGet, setOrdemProdGet] = useState([]);
   const [user, setUser] = useState();
+  const [file, setFile] = useState();
   const url = "OrdemProducao";
 
   const fecharModal = () => setModalDelete(false);
@@ -136,7 +133,9 @@ function ImportacaoOrdemProducao() {
               id={row.la}
               Style="cursor:pointer"
               onClick={() => detalhesOrdemProducao(row.la)}
-              data-toggle="tooltip" data-placement="left" title="Detalhes"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Detalhes"
             >
               <BiCommentDetail />
             </span>
@@ -145,7 +144,9 @@ function ImportacaoOrdemProducao() {
               id={row.la}
               Style="cursor:pointer; border: none; background: none"
               onClick={() => handleDeleteUsuario(row.la)}
-              data-toggle="tooltip" data-placement="left" title="Deletar"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Deletar"
             >
               <RiDeleteBinFill />
             </button>
@@ -158,9 +159,9 @@ function ImportacaoOrdemProducao() {
   function handleDeleteImportacao(idUser) {
     try {
       Api.delete(`/${url}/${idUser}`);
-      console.log('delete id la:', idUser)
-      setModalDelete(false)
-      alert("Deletado com sucesso!")
+      console.log("delete id la:", idUser);
+      setModalDelete(false);
+      alert("Deletado com sucesso!");
       window.location.reload();
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
@@ -169,7 +170,7 @@ function ImportacaoOrdemProducao() {
 
   function handleDeleteUsuario(la) {
     console.log("Modal Delete aberto!");
-    console.log('id modal', la)
+    console.log("id modal", la);
     setModalDelete(true);
   }
 
@@ -179,14 +180,13 @@ function ImportacaoOrdemProducao() {
     onSelect: (row) => {
       console.log("selecionado");
       console.log(row.la);
-      setIdUser(row.la)
+      setIdUser(row.la);
     },
   };
 
   useEffect(() => {
     Api.get(`${url}`)
       .then((response) => {
-        console.log("adsfasdfasdfasdf", response);
         setOrdemProdGet(
           response.data.map((importOr) => {
             return {
@@ -209,15 +209,34 @@ function ImportacaoOrdemProducao() {
   }, []);
 
   function detalhesOrdemProducao(row) {
+    localStorage.setItem("id", row);
+    localStorage.getItem("id");
+    var storageId = localStorage.getItem("id");
+    window.location.href =
+      "http://localhost:3000/planejamento/ordensproducao?ordemProducaoElementoId=" +
+      row;
+  }
 
-    localStorage.setItem('id', row)
-    localStorage.getItem('id')
-    console.log('aaaaaaaaaaaa', localStorage.getItem('id'))
-    var storageId = localStorage.getItem('id')
-    console.log('ttttttttttttt', storageId)
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+  }
 
-
-    window.location.href = "http://localhost:3000/planejamento/ordensproducao?ordemProducaoElementoId=" + row;
+  function handleSubmit(event) {
+    event.preventDefault();
+    const url = "http://192.168.11.94:90/api/OrdemProducao";
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", file.name);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    Api.post(url, formData, config).then((response) => {
+      console.log(response.data);
+      alert('Arquivo enviado com sucesso!');
+      window.location.assign('importacaoordemproducao');
+    });
   }
 
   return (
@@ -230,7 +249,8 @@ function ImportacaoOrdemProducao() {
             name="frmupload"
             method="post"
             enctype="multipart/form-data"
-            action="http://192.168.11.94:90/api/OrdemProducao"
+            onSubmit={handleSubmit}
+            //action="http://192.168.11.94:90/api/OrdemProducao"
           >
             <div className="row">
               <div className="col-md-6 col-lg-6 col-sm-12">
@@ -248,6 +268,7 @@ function ImportacaoOrdemProducao() {
                     id="filexml"
                     name="filexml"
                     aria-describedby="filexmlinfo"
+                    onChange={handleChange}
                   />
                   <small
                     id="filexmlinfo"
@@ -261,6 +282,7 @@ function ImportacaoOrdemProducao() {
                   type="submit"
                   className="botaoImportar"
                   variant="success"
+                  //onClick={() => uploadXml()}
                 >
                   <FaFileImport Style="color:#fff!important; width:220px!important" />
                   Importar
@@ -335,7 +357,10 @@ function ImportacaoOrdemProducao() {
                       </Button>
                     </div>
                     <div className="col-6">
-                      <Button variant="primary" onClick={() => handleDeleteImportacao(idUser)}>
+                      <Button
+                        variant="primary"
+                        onClick={() => handleDeleteImportacao(idUser)}
+                      >
                         Sim
                       </Button>
                     </div>

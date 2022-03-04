@@ -92,7 +92,7 @@ function OrdensProducao() {
       },
     ], // A numeric array is also available. the purpose of above example is custom the text
   };
-
+  const [user, setUser] = useState();
   const [idUser, setIdUser] = useState(null);
   const [show, setShow] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -100,7 +100,7 @@ function OrdensProducao() {
 
   //Pegando o ID da LA via URL
   var baseUrl = window.location.href;
-  var ordemIdGet = baseUrl.substring(baseUrl.lastIndexOf("=") + 1);
+  var ordemLaGet = baseUrl.substring(baseUrl.lastIndexOf("=") + 1);
 
   const columns = [
     {
@@ -236,8 +236,12 @@ function OrdensProducao() {
               className="spanTabela"
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer"
-              onClick={() => {funcaoAbrirModal(row) }}
-              data-toggle="tooltip" data-placement="left" title="Editar"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Editar"
             >
               <VscEdit />
             </span>
@@ -246,7 +250,9 @@ function OrdensProducao() {
               id={row.ordemProducaoElementoId}
               Style="cursor:pointer; border: none; background: none"
               onClick={() => handleDeleteModal(row.ordemProducaoElementoId)}
-              data-toggle="tooltip" data-placement="left" title="Deletar"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Deletar"
             >
               <RiDeleteBinFill />
             </button>
@@ -256,9 +262,13 @@ function OrdensProducao() {
     },
   ];
 
+  function handleRegister(e) {
+    // e.preventDefault();
+    handleRegister(user);
+  }
+
   ///Modal PUT
   function funcaoAbrirModal(row) {
-    console.log("Abriu MODAL!", row)
     setShowModalPut(true);
     Api.get(`OrdemProducaoElemento/GetById/${row.ordemProducaoElementoId}`, {
       ordemProducaoElementoId,
@@ -282,7 +292,7 @@ function OrdensProducao() {
       gondola,
       roteiro,
     }).then(() => {
-      console.log("Get Feito: ", row.ordemProducaoElementoId)
+      console.log("Get Feito: ", row.ordemProducaoElementoId);
       setOrdemProducaoElementoId(row.ordemProducaoElementoId);
       setLa(row.la);
       setVg(row.vg);
@@ -306,9 +316,101 @@ function OrdensProducao() {
     });
   }
 
+  //Criar Relação Automatica
+  function criarRelacaoAutomatica() {
+    console.log("mostrar o LA: ", ordemLaGet);
+
+    Api.post(`OrdemProducaoLote/CriarRelacaoAutomatica/`, ordemLaGet)
+      .then((response) => {
+        console.log(response.data);
+        alert("Processo Efetuado com sucesso!");
+        window.location.assign(
+          `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
+        );
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro!!!:", error);
+        alert("Ops! Ocorreu um erro!!!:", error);
+      });
+  }
+
+  //Criar Relação Única
+  function criarRelacaoUnica() {
+    Api.post(`OrdemProducaoLote/CriarRelacaoUnica`, ordemLaGet)
+      .then((response) => {
+        console.log(response.data);
+        alert("Processo Efetuado com sucesso!");
+        window.location.assign(
+          `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
+        );
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro!!!:", error);
+        alert("Ops! Ocorreu um erro!!!:", error);
+      });
+  }
+
+  //Cancelar Relação
+  function cancelarRelacao() {
+    Api.put(`OrdemProducaoLote/CancelarRelacao/${ordemLaGet}`, {
+      la,
+    })
+      .then((response) => {
+        setLa(la);
+        console.log("Esse é o console do Put: ", response);
+        alert("Alteração Efetuado com sucesso!");
+        window.location.assign(
+          `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
+        );
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
+
+  //PUT Informações Header
+  function putHeader() {
+    Api.put(`OrdemProducao/${ordemLaGet}`, {
+      la,
+      ordem,
+      statusId,
+      status,
+      titulo,
+      familia,
+      semana,
+      origem,
+      ordenacao,
+      verificada,
+      dataImportacao,
+      dataInicio,
+      dataFim,
+    })
+      .then((response) => {
+        setLa(la);
+        setOrdem();
+        setStatusId();
+        setTitulo();
+        setFamilia();
+        setSemana();
+        setOrigem();
+        setOrdenacao();
+        setVerificada();
+        setDataImportacao();
+        setDataInicio();
+        setDataFim();
+        console.log("Esse é o console do Put: ", response);
+        alert("Put Efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
+
   //GET
   useEffect(() => {
-    Api.get(`OrdemProducao/${ordemIdGet}`)
+    Api.get(`OrdemProducao/${ordemLaGet}`)
       .then((response) => {
         //Input Data Fim
         var data = new Date(response.data.dataFim);
@@ -317,7 +419,7 @@ function OrdensProducao() {
         //Input Data Inicio
         var dataInicio = new Date(response.data.dataInicio);
         var dataInicioForm = dataInicio.toLocaleDateString();
-
+        
         var obj = {
           la: response.data.la,
           ordem: response.data.ordem,
@@ -332,14 +434,17 @@ function OrdensProducao() {
           dataInicio: dataInicioForm,
           dataFim: dataFimForm,
         };
-        setOrdemProducao(obj);        
+        setOrdemProducao(obj);
+        
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
         alert("Ops! Ocorreu um erro1:", error);
       });
 
-    Api.get(`OrdemProducaoElemento/GetByLa/${ordemIdGet}`).then((response) => {
+    
+
+    Api.get(`OrdemProducaoElemento/GetByLa/${ordemLaGet}`).then((response) => {
       console.log("get elemento: ", response);
       setGetOrdem(
         response.data.map((ordemGet) => {
@@ -367,10 +472,11 @@ function OrdensProducao() {
           };
         })
       );
+      console.log('Sou VGGGGG: ', ordemProducao.vg);
     });
   }, []);
 
-  //PUT
+  //PUT da Tabela
   function handlePut() {
     Api.put(`OrdemProducaoElemento/${ordemProducaoElementoId}`, {
       ordemProducaoElementoId,
@@ -393,7 +499,6 @@ function OrdensProducao() {
       tipoDeEstoque,
       gondola,
       roteiro,
-     
     })
       .then((response) => {
         setOrdemProducaoElementoId(ordemProducaoElementoId);
@@ -418,7 +523,9 @@ function OrdensProducao() {
         setRoteiro();
 
         alert("Alteração Efetuada com sucesso!");
-        window.location.assign(`/planejamento/ordensproducao?ordemProducaoElementoId=${ordemIdGet}`);
+        window.location.assign(
+          `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro2: " + error);
@@ -455,6 +562,12 @@ function OrdensProducao() {
     },
   };
 
+  if(vg === 0){
+    console.log('VG ZERAAAAAAAAAADA')
+    var element = window.location.getElementById('btnCancelarRelacao');
+
+    element.className.add("disabled");
+  }
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -465,7 +578,7 @@ function OrdensProducao() {
                 <h2 className="titulosPrincipais">Ordens de Produção</h2>
               </div>
             </div>
-            <div className="col-md-6 col-sm-12" Style='margin-top: 1.6rem'>
+            <div className="col-md-6 col-sm-12" Style="margin-top: 1.6rem">
               <div className="alignButtons">
                 <Link to="/planejamento/importacaoordemproducao">
                   <Button
@@ -481,35 +594,35 @@ function OrdensProducao() {
             </div>
           </div>
 
-          <form>
+          <form onSubmit={handleRegister}>
             <div class="row">
               <div class="col-md-3 mt-3">
                 <label>LA</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  placeholder="First name"
-                  value={ordemProducao.la}
+                  defaultValue={ordemProducao.la}
+                  onChange={(e) => setLa(parseInt(e.target.value))}
                   readOnly
                 />
               </div>
               <div class="col-md-3 mt-3">
                 <label>Ordem</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  placeholder="Last name"
-                  value={ordemProducao.ordem}
+                  defaultValue={ordemProducao.ordem}
+                  onChange={(e) => setOrdem(parseInt(e.target.value))}
                   readOnly
                 />
               </div>
               <div class="col-md-3 mt-3">
                 <label>Status</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  placeholder="First name"
-                  value={ordemProducao.status}
+                  defaultValue={ordemProducao.status}
+                  onChange={(e) => setStatus(parseInt(e.target.value))}
                   readOnly
                 />
               </div>
@@ -518,8 +631,7 @@ function OrdensProducao() {
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Last name"
-                  value={ordemProducao.titulo}
+                  defaultValue={ordemProducao.titulo}
                   onChange={(e) => setTitulo(e.target.value)}
                 />
               </div>
@@ -528,18 +640,17 @@ function OrdensProducao() {
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Last name"
-                  value={ordemProducao.familia}
+                  defaultValue={ordemProducao.familia}
                   onChange={(e) => setFamilia(e.target.value)}
                 />
               </div>
               <div class="col-md-3 mt-3">
                 <label>Semana</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  placeholder="Last name"
-                  value={ordemProducao.semana}
+                  defaultValue={ordemProducao.semana}
+                  onChange={(e) => setSemana(parseInt(e.target.value))}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -547,17 +658,17 @@ function OrdensProducao() {
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Last name"
-                  value={ordemProducao.origem}
+                  defaultValue={ordemProducao.origem}
+                  onChange={(e) => setOrigem(e.target.value)}
                 />
               </div>
               <div class="col-md-3 mt-3">
                 <label>Ordenação</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  placeholder="Last name"
-                  value={ordemProducao.ordenacao}
+                  defaultValue={ordemProducao.ordenacao}
+                  onChange={(e) => setOrdenacao(parseInt(e.target.value))}
                 />
               </div>
               <div class="col-md-3 mt-3">
@@ -566,8 +677,8 @@ function OrdensProducao() {
                   id="dataInicio"
                   type="text"
                   class="form-control"
-                  placeholder="Last name"
                   value={ordemProducao.dataInicio}
+                  onChange={(e) => setDataInicio(parseInt(e.target.value))}
                   readOnly
                 />
               </div>
@@ -579,18 +690,19 @@ function OrdensProducao() {
                   class="form-control"
                   placeholder="Last name"
                   value={ordemProducao.dataFim}
+                  onChange={(e) => setDataFim(parseInt(e.target.value))}
                   readOnly
                 />
               </div>
             </div>
-            <div className="col-md-12 col-sm-12" Style='margin-top: -2.4rem'>
+            <div className="col-md-12 col-sm-12" Style="margin-top: -2.4rem">
               <div className="alignButtons">
-                <Link to="/planejamento/importacaoordemproducao">
-                </Link>
                 <Button
                   className="botaoImportar"
                   variant="success"
-                  onClick={() => setShow(true)}
+                  onClick={(ordem) => {
+                    putHeader(ordem.ordemLaGet);
+                  }}
                 >
                   <AiFillSave Style="color:#fff!important; width:220px!important" />
                   Salvar
@@ -620,13 +732,30 @@ function OrdensProducao() {
         <div className="container mb150">
           <div className="row botoesOrdemProducao">
             <div className="col-md-4 mt-3">
-              <Button variant="success">Criar Relação Automática</Button>
+              <Button
+                variant="success"
+                value={ordemLaGet}
+                onClick={(e) => criarRelacaoAutomatica(ordemLaGet)}
+              >
+                Criar Relação Automática
+              </Button>
             </div>
             <div className="col-md-4 mt-3">
-              <Button variant="success">Criar Relação Única</Button>
+              <Button
+                variant="success"
+                onClick={(e) => criarRelacaoUnica(ordemLaGet)}
+              >
+                Criar Relação Única
+              </Button>
             </div>
             <div className="col-md-4 mt-3">
-              <Button variant="success">Cancelar Relação</Button>
+              <Button
+                variant="success"
+                id="btnCancelarRelacao"
+                onClick={(e) => cancelarRelacao(ordemLaGet)}
+              >
+                Cancelar Relação
+              </Button>
             </div>
             <div className="col-md-4 mt-3">
               <Button variant="success">Verificar</Button>
@@ -665,8 +794,7 @@ function OrdensProducao() {
                     onChange={(e) => setVg(parseInt(e.target.value))}
                   />
                 </div>
-              
-                
+
                 <div className="col-md-3 col-sm-6">
                   <label>Item</label>
                   <input
@@ -691,7 +819,7 @@ function OrdensProducao() {
                     type="text"
                     name="material"
                     value={material}
-                     onChange={(e) => setMaterial(e.target.value)}
+                    onChange={(e) => setMaterial(e.target.value)}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -700,7 +828,7 @@ function OrdensProducao() {
                     type="number"
                     name="quantidade"
                     value={quantidade}
-                   onChange={(e) => setQuantidade(parseInt(e.target.value))}
+                    onChange={(e) => setQuantidade(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -709,7 +837,7 @@ function OrdensProducao() {
                     type="number"
                     name="programa"
                     value={programa}
-                   onChange={(e) => setPrograma(parseInt(e.target.value))}
+                    onChange={(e) => setPrograma(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -718,7 +846,7 @@ function OrdensProducao() {
                     type="number"
                     name="comprimento"
                     value={comprimento}
-                   onChange={(e) => setComprimento(parseInt(e.target.value))}
+                    onChange={(e) => setComprimento(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -727,17 +855,17 @@ function OrdensProducao() {
                     type="number"
                     name="largura"
                     value={largura}
-                   onChange={(e) => setLargura(parseInt(e.target.value))}
+                    onChange={(e) => setLargura(parseInt(e.target.value))}
                   />
                 </div>
-               
+
                 <div className="col-md-3 col-sm-6">
                   <label>OP</label>
                   <input
                     type="number"
                     name="op"
                     value={op}
-                   onChange={(e) => setOp(parseInt(e.target.value))}
+                    onChange={(e) => setOp(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -746,7 +874,7 @@ function OrdensProducao() {
                     type="number"
                     name="ovm"
                     value={ovm}
-                  onChange={(e) => setOvm(parseInt(e.target.value))}
+                    onChange={(e) => setOvm(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
