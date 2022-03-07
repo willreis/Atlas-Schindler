@@ -392,44 +392,41 @@ function OrdensProducao() {
     Api.put(`OrdemProducao/${ordemLaGet}`, {
       la,
       ordem,
-      statusId,
       status,
+      verificada,
       titulo,
       familia,
       semana,
       origem,
       ordenacao,
-      verificada,
-      dataImportacao,
       dataInicio,
-      dataFim,
+      dataFim
     })
       .then((response) => {
         setLa(la);
         setOrdem(ordem);
-        setStatusId(status);
+        setStatus(status);
+        setVerificada(verificada);
         setTitulo();
         setFamilia();
         setSemana();
         setOrigem();
-        setOrdenacao();
-        setVerificada(verificada);
-        setDataImportacao(dataImportacao);
+        ordenacao();
         setDataInicio(dataInicio);
         setDataFim(dataFim);
-        console.log("Esse é o console do Put: ", response);
-        alert("Put Efetuado com sucesso!");
+        console.log("Esse é o console do Put Header: ", response);
+        alert("Put HeaderEfetuado com sucesso!");
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro: " + error);
-        alert("Ops! Ocorreu um erro: " + error);
+        console.log("Ops! Ocorreu um erro Header: " + error);
+        alert("Ops! Ocorreu um erro Header: " + error);
       });
   }
 
   //GET
   useEffect(() => {
     Api.get(`OrdemProducao/${ordemLaGet}`)
-    
+
       .then((response) => {
         //Input Data Fim
         var data = new Date(response.data.dataFim);
@@ -448,20 +445,20 @@ function OrdensProducao() {
           semana: response.data.semana,
           origem: response.data.origem,
           ordenacao: response.data.ordenacao,
-          verificada: response.data.verificada? "Verficada" : "Não Verificada",
+          verificada: response.data.verificada ? "Verficada" : "Não Verificada",
           dataImportacao: response.data.dataImportacao,
           dataInicio: dataInicioForm,
           dataFim: dataFimForm,
         };
         setOrdemProducao(obj);
-        if(response.data.verificada){
+        if (response.data.verificada) {
           var btn = document.querySelector("#btnCancelarRelacao");
           btn.classList.add("disabled")
-        }else{
+        } else {
           console.log('Não tem Relação')
         }
         console.log("verficaaaado: ", response.data.verificada)
-      
+
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -470,15 +467,15 @@ function OrdensProducao() {
 
     Api.get(`OrdemProducaoElemento/GetByLa/${ordemLaGet}`).then((response) => {
       console.log("get elementooooo: ", response.data[0].vg);
-      
-        if(response.data[0].vg === 0){
-          var btn = document.querySelector("#btnCancelarRelacao");
-          btn.classList.add("disabled")
-        }else{
-          console.log('tem Vg setada')
-        }
-        
-      
+
+      if (response.data[0].vg === 0) {
+        var btn = document.querySelector("#btnCancelarRelacao");
+        btn.classList.add("disabled")
+      } else {
+        console.log('tem Vg setada')
+      }
+
+
       setGetOrdem(
         response.data.map((ordemGet) => {
           return {
@@ -698,7 +695,7 @@ function OrdensProducao() {
                 />
               </div>
               <div class="col-md-3 mt-3">
-                <label>Ordenação</label>
+                <label>ordenação</label>
                 <input
                   type="number"
                   class="form-control"
@@ -735,9 +732,7 @@ function OrdensProducao() {
                 <Button
                   className="botaoImportar"
                   variant="success"
-                  onClick={(ordem) => {
-                    putHeader(ordem.ordemLaGet);
-                  }}
+                  onClick={() => putHeader(ordemLaGet)}
                 >
                   <AiFillSave Style="color:#fff!important; width:220px!important" />
                   Salvar
