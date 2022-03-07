@@ -388,17 +388,17 @@ function OrdensProducao() {
     })
       .then((response) => {
         setLa(la);
-        setOrdem();
-        setStatusId();
+        setOrdem(ordem);
+        setStatusId(status);
         setTitulo();
         setFamilia();
         setSemana();
         setOrigem();
         setOrdenacao();
-        setVerificada();
-        setDataImportacao();
-        setDataInicio();
-        setDataFim();
+        setVerificada(verificada);
+        setDataImportacao(dataImportacao);
+        setDataInicio(dataInicio);
+        setDataFim(dataFim);
         console.log("Esse é o console do Put: ", response);
         alert("Put Efetuado com sucesso!");
       })
@@ -445,9 +445,11 @@ function OrdensProducao() {
     
 
     Api.get(`OrdemProducaoElemento/GetByLa/${ordemLaGet}`).then((response) => {
-      console.log("get elemento: ", response);
+      console.log("get elementooooo: ", response.data[0].vg);
       setGetOrdem(
+        
         response.data.map((ordemGet) => {
+          
           return {
             ordemProducaoElementoId: ordemGet.ordemProducaoElementoId,
             la: ordemGet.la,
@@ -472,7 +474,6 @@ function OrdensProducao() {
           };
         })
       );
-      console.log('Sou VGGGGG: ', ordemProducao.vg);
     });
   }, []);
 
@@ -562,12 +563,7 @@ function OrdensProducao() {
     },
   };
 
-  if(vg === 0){
-    console.log('VG ZERAAAAAAAAAADA')
-    var element = window.location.getElementById('btnCancelarRelacao');
-
-    element.className.add("disabled");
-  }
+  
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -769,7 +765,7 @@ function OrdensProducao() {
           </div>
         </div>
 
-        {/* Modal importar arquivo */}
+        {/* Modal Put Tabela */}
         <Modal
           size="lg"
           show={showModalPut}
