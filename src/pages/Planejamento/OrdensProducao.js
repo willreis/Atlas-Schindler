@@ -43,7 +43,7 @@ function OrdensProducao() {
   const [gondola, setGondola] = useState();
   const [roteiro, setRoteiro] = useState();
   const [ordem, setOrdem] = useState();
-  const [statusId, setStatusId] = useState();
+  const [statusId, setStatusId] = useState(0);
   const [status, setStatus] = useState();
   const [titulo, setTitulo] = useState();
   const [familia, setFamilia] = useState();
@@ -55,6 +55,8 @@ function OrdensProducao() {
   const [dataInicio, setDataInicio] = useState();
   const [dataFim, setDataFim] = useState();
   const [ordemProducaoElementos, setOrdemProducaoElementos] = useState([]);
+
+  const [getLaHeader, setGetLaHeader] = useState({});
 
   const [ordemProducao, setOrdemProducao] = useState({});
 
@@ -390,32 +392,34 @@ function OrdensProducao() {
   //PUT Informações Header
   function putHeader() {
     Api.put(`OrdemProducao/${ordemLaGet}`, {
-      la,
-      ordem,
-      status,
-      verificada,
+      la: getLaHeader.la,
+      ordem: getLaHeader.ordem,
+      statusId,
       titulo,
       familia,
       semana,
       origem,
       ordenacao,
-      dataInicio,
-      dataFim
+      dataImportacao: getLaHeader.dataImportacao,
+      dataInicio: getLaHeader.dataInicio,
+      dataFim: getLaHeader.dataFim,
     })
       .then((response) => {
-        setLa(la);
-        setOrdem(ordem);
-        setStatus(status);
-        setVerificada(verificada);
-        setTitulo();
-        setFamilia();
-        setSemana();
-        setOrigem();
-        ordenacao();
-        setDataInicio(dataInicio);
-        setDataFim(dataFim);
-        console.log("Esse é o console do Put Header: ", response);
-        alert("Put HeaderEfetuado com sucesso!");
+        setLa(response.la);
+        setOrdem(response.ordem);
+        setStatusId(response.statusId)
+        setTitulo(response.titulo);
+        setFamilia(response.familia);
+        setSemana(response.semana);
+        setOrigem(response.origem);
+        setOrdenacao(response.ordenacao);
+        setDataImportacao(response.dataImportacao);
+        setDataInicio(response.dataInicio);
+        setDataFim(response.dataFim);
+        alert("Dados editados com sucesso!");
+        window.location.assign(
+          `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
+        );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro Header: " + error);
@@ -447,18 +451,18 @@ function OrdensProducao() {
           ordenacao: response.data.ordenacao,
           verificada: response.data.verificada ? "Verficada" : "Não Verificada",
           dataImportacao: response.data.dataImportacao,
-          dataInicio: dataInicioForm,
-          dataFim: dataFimForm,
+          dataInicio: response.data.dataInicio,
+          dataFim: response.data.dataFim,
         };
+        setGetLaHeader(obj);
         setOrdemProducao(obj);
         if (response.data.verificada) {
           var btn = document.querySelector("#btnCancelarRelacao");
-          btn.classList.add("disabled")
+          btn.classList.add("disabled");
         } else {
-          console.log('Não tem Relação')
+          console.log("Não tem Relação");
         }
-        console.log("verficaaaado: ", response.data.verificada)
-
+        console.log("verficaaaado: ", response.data.verificada);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
@@ -470,11 +474,10 @@ function OrdensProducao() {
 
       if (response.data[0].vg === 0) {
         var btn = document.querySelector("#btnCancelarRelacao");
-        btn.classList.add("disabled")
+        btn.classList.add("disabled");
       } else {
-        console.log('tem Vg setada')
+        console.log("tem Vg setada");
       }
-
 
       setGetOrdem(
         response.data.map((ordemGet) => {
@@ -642,10 +645,10 @@ function OrdensProducao() {
               <div class="col-md-3 mt-3">
                 <label>Status</label>
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
                   defaultValue={ordemProducao.status}
-                  onChange={(e) => setStatus(parseInt(e.target.value))}
+                  onChange={(e) => setStatus(e.target.value)}
                   readOnly
                 />
               </div>
