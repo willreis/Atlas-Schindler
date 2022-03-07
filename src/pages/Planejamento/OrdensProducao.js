@@ -334,6 +334,24 @@ function OrdensProducao() {
       });
   }
 
+  //Verificar Relação
+  function verificarRelacao() {
+    console.log("mostrar o LA: ", ordemLaGet);
+
+    Api.post(`OrdemProducaoLote/VerificarRelacao/${ordemLaGet}`)
+      .then((response) => {
+        console.log(response.data);
+        alert("Processo Efetuado com sucesso!");
+        window.location.assign(
+          `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
+        );
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro!!!:", error);
+        alert("Ops! Ocorreu um erro!!!:", error);
+      });
+  }
+
   //Criar Relação Única
   function criarRelacaoUnica() {
     Api.post(`OrdemProducaoLote/CriarRelacaoUnica`, ordemLaGet)
@@ -411,6 +429,7 @@ function OrdensProducao() {
   //GET
   useEffect(() => {
     Api.get(`OrdemProducao/${ordemLaGet}`)
+    
       .then((response) => {
         //Input Data Fim
         var data = new Date(response.data.dataFim);
@@ -419,7 +438,7 @@ function OrdensProducao() {
         //Input Data Inicio
         var dataInicio = new Date(response.data.dataInicio);
         var dataInicioForm = dataInicio.toLocaleDateString();
-        
+
         var obj = {
           la: response.data.la,
           ordem: response.data.ordem,
@@ -429,27 +448,39 @@ function OrdensProducao() {
           semana: response.data.semana,
           origem: response.data.origem,
           ordenacao: response.data.ordenacao,
-          verificada: response.data.verificada,
+          verificada: response.data.verificada? "Verficada" : "Não Verificada",
           dataImportacao: response.data.dataImportacao,
           dataInicio: dataInicioForm,
           dataFim: dataFimForm,
         };
         setOrdemProducao(obj);
-        
+        if(response.data.verificada){
+          var btn = document.querySelector("#btnCancelarRelacao");
+          btn.classList.add("disabled")
+        }else{
+          console.log('Não tem Relação')
+        }
+        console.log("verficaaaado: ", response.data.verificada)
+      
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
         alert("Ops! Ocorreu um erro1:", error);
       });
 
-    
-
     Api.get(`OrdemProducaoElemento/GetByLa/${ordemLaGet}`).then((response) => {
       console.log("get elementooooo: ", response.data[0].vg);
-      setGetOrdem(
+      
+        if(response.data[0].vg === 0){
+          var btn = document.querySelector("#btnCancelarRelacao");
+          btn.classList.add("disabled")
+        }else{
+          console.log('tem Vg setada')
+        }
         
+      
+      setGetOrdem(
         response.data.map((ordemGet) => {
-          
           return {
             ordemProducaoElementoId: ordemGet.ordemProducaoElementoId,
             la: ordemGet.la,
@@ -563,7 +594,6 @@ function OrdensProducao() {
     },
   };
 
-  
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -619,6 +649,15 @@ function OrdensProducao() {
                   class="form-control"
                   defaultValue={ordemProducao.status}
                   onChange={(e) => setStatus(parseInt(e.target.value))}
+                  readOnly
+                />
+              </div>
+              <div class="col-md-3 mt-3">
+                <label>Verificado</label>
+                <input
+                  class="form-control"
+                  defaultValue={ordemProducao.verificada}
+                  onChange={(e) => setStatus(e.target.value)}
                   readOnly
                 />
               </div>
@@ -754,7 +793,12 @@ function OrdensProducao() {
               </Button>
             </div>
             <div className="col-md-4 mt-3">
-              <Button variant="success">Verificar</Button>
+              <Button
+                variant="success"
+                onClick={(e) => verificarRelacao(ordemLaGet)}
+              >
+                Verificar Relação
+              </Button>
             </div>
             <div className="col-md-4 mt-3">
               <Button variant="success">Imprimir</Button>
