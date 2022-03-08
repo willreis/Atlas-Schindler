@@ -340,7 +340,7 @@ function OrdensProducao() {
   function verificarRelacao() {
     console.log("mostrar o LA: ", ordemLaGet);
 
-    Api.post(`OrdemProducaoLote/VerificarRelacao/${ordemLaGet}`)
+    Api.post(`OrdemProducaoLote/VerificarRelacao?LA=${ordemLaGet}`)
       .then((response) => {
         console.log(response.data);
         alert("Processo Efetuado com sucesso!");
@@ -394,8 +394,8 @@ function OrdensProducao() {
     Api.put(`OrdemProducao/${ordemLaGet}`, {
       la: getLaHeader.la,
       ordem: getLaHeader.ordem,
-      statusId,
-      titulo,
+      statusId: getLaHeader.statusId,
+      titulo: getLaHeader.titulo,
       familia,
       semana,
       origem,
@@ -407,7 +407,7 @@ function OrdensProducao() {
       .then((response) => {
         setLa(response.la);
         setOrdem(response.ordem);
-        setStatusId(response.statusId)
+        setStatusId(response.statusId);
         setTitulo(response.titulo);
         setFamilia(response.familia);
         setSemana(response.semana);
@@ -417,9 +417,10 @@ function OrdensProducao() {
         setDataInicio(response.dataInicio);
         setDataFim(response.dataFim);
         alert("Dados editados com sucesso!");
-        window.location.assign(
-          `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
-        );
+
+        // window.location.assign(
+        //   `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
+        // );
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro Header: " + error);
@@ -458,10 +459,14 @@ function OrdensProducao() {
         setOrdemProducao(obj);
         if (response.data.verificada) {
           var btn = document.querySelector("#btnCancelarRelacao");
+          var btnCancelRel = document.querySelector("#btnVerificarRelacao");
+
           btn.classList.add("disabled");
+          btnCancelRel.classList.add("disabled");
         } else {
           console.log("Não tem Relação");
         }
+
         console.log("verficaaaado: ", response.data.verificada);
       })
       .catch((error) => {
@@ -474,6 +479,8 @@ function OrdensProducao() {
 
       if (response.data[0].vg === 0) {
         var btn = document.querySelector("#btnCancelarRelacao");
+        var btnCancelRel = document.querySelector("#btnVerificarRelacao");
+        btnCancelRel.classList.add("disabled");
         btn.classList.add("disabled");
       } else {
         console.log("tem Vg setada");
@@ -794,6 +801,7 @@ function OrdensProducao() {
               <Button
                 variant="success"
                 onClick={(e) => verificarRelacao(ordemLaGet)}
+                id="btnVerificarRelacao"
               >
                 Verificar Relação
               </Button>

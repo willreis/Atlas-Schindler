@@ -9,6 +9,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import Api from "../../services/Api";
 
 export default function ProblemaProducao() {
+  const [getProblemas, setGetProblemas] = useState();
   const colunasProblemas = [
     {
       dataField: "la",
@@ -110,7 +111,9 @@ export default function ProblemaProducao() {
               className="spanTabela"
               id=""
               Style="cursor:pointer"
-              data-toggle="tooltip" data-placement="left" title="Editar"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Editar"
             >
               <VscEdit />
             </span>
@@ -118,7 +121,9 @@ export default function ProblemaProducao() {
               className="spanTabela"
               id=""
               Style="cursor:pointer; border: none; background: none"
-              data-toggle="tooltip" data-placement="left" title="Deletar"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Deletar"
             >
               <RiDeleteBinFill />
             </button>
@@ -176,8 +181,29 @@ export default function ProblemaProducao() {
       diasEmProducao: 243,
       opcoes: "Detalhes",
     },
-
   ];
+
+  //GET Processos
+  useEffect(() => {
+    Api.get("Processo/")
+      .then((response) => {
+        console.log("aqui um console", response.data[2].nome);
+        response.data.map((item) => item.nome);
+        setGetProblemas(
+          response.data.map((problemas) => {
+            return {
+              processoId: problemas.processoId,
+              nome: problemas.nome,
+              ordenacao: problemas.ordenacao,
+            };
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("Deu erro aqui", error);
+      });
+  }, []);
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -185,7 +211,12 @@ export default function ProblemaProducao() {
           <div className="row">
             <div className="col-md-12 col-sm-12">
               <div className="tituloInterno">
-                <h2 className="titulosPrincipais" Style="margin-top: 30px!important;">Problemas de Produção</h2>
+                <h2
+                  className="titulosPrincipais"
+                  Style="margin-top: 30px!important;"
+                >
+                  Problemas de Produção
+                </h2>
               </div>
             </div>
           </div>
@@ -223,7 +254,6 @@ export default function ProblemaProducao() {
               </div>
             </div>
           </div>
-
 
           {/* Produtos Kanban */}
           <div className="ordemProducaoBox">
