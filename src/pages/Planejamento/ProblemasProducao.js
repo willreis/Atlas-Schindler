@@ -26,17 +26,27 @@ export default function ProblemaProducao() {
   const [origem, setOrigem] = useState();
   const [origem2, setOrigem2] = useState();
 
+  const [listaNomes, setListaNomes] = useState([]);
+
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
-      // let tesouraNome = urlProcesso.filter((tesouraN) => tesouraN.nome === 'Tesoura')
       .then((response) => {
-        console.log('asasa', response.data);
-        // setTesouraId(tesouraNome);
+        console.log('Lista:', response.data);
       })
       .catch((error) => {
         console.log("Error:", error);
       }, []);
+
+    let distinct = Array.from(new Set(temp1.map(m => m.nome)))
+
+    distinct.map(m => {
+      return {
+        tabela: m,
+        data: temp1.filter(f => f.nome == m)
+      }
+    })
+    
   })
 
   const colunasProblemas = [
