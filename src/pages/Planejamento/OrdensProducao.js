@@ -810,7 +810,9 @@ function OrdensProducao() {
               <Button variant="success">Imprimir</Button>
             </div>
             <div className="col-md-4 mt-3">
+            <Link to="/planejamento/detalhesvgs">
               <Button variant="success">Detalhes da VG</Button>
+              </Link>
             </div>
           </div>
         </div>

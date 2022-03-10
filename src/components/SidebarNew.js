@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import fotoPerfil from "../assets/img/userimg.png";
 import atlasLogo from "../assets/img/atlas_logo.png";
 import { Link } from "react-router-dom";
-import spiLogo from '../assets/img/spi_logo.jpg' 
+import spiLogo from '../assets/img/spi_logo2.png' 
 
 //react pro sidebar components
 import {

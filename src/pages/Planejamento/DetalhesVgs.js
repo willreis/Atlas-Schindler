@@ -4,7 +4,10 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Button } from "react-bootstrap";
 import { IconContext } from "react-icons/lib";
 import { AiFillSave } from "react-icons/ai";
+import { MdKeyboardReturn } from "react-icons/md";
 import BootstrapTable from "react-bootstrap-table-next";
+import DynamicTree from "react-dynamic-animated-tree";
+import { Link } from "react-router-dom";
 
 import Api from "../../services/Api";
 
@@ -53,7 +56,22 @@ const products = [
   },
 ];
 
+var data = [
+  {
+    title: "1345789",
+    id: "1",
+    childNodes: [],
+  },
+  {
+    title: "1348900",
+    id: "2",
+    childNodes: [],
+  },
+];
+
 export default function DetalhesVgs() {
+  const [node, setSelectedNode] = useState();
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -71,12 +89,17 @@ export default function DetalhesVgs() {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-4 col-sm-12" Style="border:1px solid">
-              <div
-                className="boxVgs"
-                Style="width: 180px; height: 300px; border: 1px solid #000"
-              ></div>
-              <div className="boxMesas">
+            <div className="col-md-4 col-sm-12">
+              <div className="boxVgs">
+                <DynamicTree
+                  key="root"
+                  id="root"
+                  data={[...data]}
+                  title="134568"
+                  onClick={(node) => setSelectedNode(node)}
+                />
+              </div>
+              <div className="boxMesas mt-3">
                 <form action="">
                   <div className="row">
                     <div className="col">
@@ -85,17 +108,23 @@ export default function DetalhesVgs() {
                         id="mesaEntrada"
                         type="text"
                         class="form-control"
+                        value="312"
                       />
                     </div>
                     <div className="col">
                       <label htmlFor="mesaSaida">Mesa Saída</label>
-                      <input id="mesaSaida" type="text" class="form-control" />
+                      <input
+                        id="mesaSaida"
+                        type="text"
+                        class="form-control"
+                        value="245"
+                      />
                     </div>
                   </div>
                 </form>
               </div>
             </div>
-            <div className="col-md-8 col-sm-12" Style="border:1px solid">
+            <div className="col-md-8 col-sm-12">
               <div className="row">
                 <form>
                   <div className="row">
@@ -105,6 +134,7 @@ export default function DetalhesVgs() {
                         id="gondolaFisica"
                         type="text"
                         class="form-control"
+                        value="312"
                       />
                     </div>
                     <div className="col">
@@ -113,11 +143,17 @@ export default function DetalhesVgs() {
                         id="maquinaAtual"
                         type="text"
                         class="form-control"
+                        value="245"
                       />
                     </div>
                     <div className="col">
                       <label htmlFor="vgInput">VG</label>
-                      <input id="vgInput" type="text" class="form-control" />
+                      <input
+                        id="vgInput"
+                        type="text"
+                        class="form-control"
+                        value="134066"
+                      />
                     </div>
                     <div className="col">
                       <label htmlFor="statusInput">Status</label>
@@ -125,20 +161,22 @@ export default function DetalhesVgs() {
                         id="statusInput"
                         type="text"
                         class="form-control"
+                        value="ERRO"
                       />
                     </div>
                   </div>
-                  <div className="row">
+                  <div className="row mt-4">
                     <div className="col">
                       <label htmlFor="statusInput">Problema Relado</label>
                       <input
                         id="statusInput"
                         type="text"
                         class="form-control"
+                        value="Problema 55143"
                       />
                     </div>
                   </div>
-                  <div className="row">
+                  <div className="row mt-4">
                     <div className="col">
                       <label htmlFor="avisoAdmInput">
                         Aviso do Administrador
@@ -147,10 +185,11 @@ export default function DetalhesVgs() {
                         id="avisoAdmInput"
                         type="text"
                         class="form-control"
+                        value="Aviso 11466"
                       />
                     </div>
                   </div>
-                  <div className="row">
+                  <div className="row mt-4">
                     <div className="col">
                       <BootstrapTable
                         keyField="la"
@@ -161,12 +200,14 @@ export default function DetalhesVgs() {
                       ></BootstrapTable>
                     </div>
                   </div>
-                  <div className="row">
+                  <div className="row mt-5">
                     <div className="btnsDetalhesVgs">
-                      <Button className="botaoImportar" variant="success">
-                        <AiFillSave Style="color:#fff!important; width:220px!important" />
-                        Salvar
-                      </Button>
+                      <Link to="/planejamento/ordensproducao?ordemProducaoElementoId=203">
+                        <Button className="botaoImportar" variant="primary">
+                          <MdKeyboardReturn Style="color:#fff!important; width:220px!important" />
+                          Voltar
+                        </Button>
+                      </Link>
                       <Button className="botaoImportar" variant="success">
                         <AiFillSave Style="color:#fff!important; width:220px!important" />
                         Salvar

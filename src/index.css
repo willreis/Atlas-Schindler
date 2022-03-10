@@ -15,7 +15,7 @@ h4 {
     padding: 0 !important;
 }
 
-.mb150{
+.mb150 {
     margin-bottom: 150px;
 }
 
@@ -60,7 +60,8 @@ select {
 .margin-0 {
     margin: 0 !important;
 }
-.margin-bottom50{
+
+.margin-bottom50 {
     margin-bottom: 50px;
 }
 
@@ -162,7 +163,8 @@ select {
 .tabelaOrdem .react-bootstrap-table {
     overflow-x: scroll;
 }
-.tabelaOrdem table.table.table-striped.table-hover.table-bordered{
+
+.tabelaOrdem table.table.table-striped.table-hover.table-bordered {
     width: max-content;
 }
 
@@ -587,12 +589,24 @@ span.pro-item-content {
     width: calc(100vw - 200px)
 }
 
-.ordemProducaoBox{
+.ordemProducaoBox {
     padding: 0 10px;
     margin-top: 20px;
 }
-.ordemProducaoBox p{
+
+.ordemProducaoBox p {
     color: #555;
     font-weight: bold;
     font-size: 22px;
+}
+
+.btnsDetalhesVgs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.boxVgs {
+    min-height: 300px;
+    border: 1px solid #cbbfbf;
+    padding: 30px;
 }

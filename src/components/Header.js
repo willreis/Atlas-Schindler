@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'                           //styled-components faz com que o CSS vire um Componente.
-import spiLogo from '../assets/img/spi_logo.jpg'                 //Na img tem css inline
+import spiLogo from '../assets/img/spi_logo2.png'                 //Na img tem css inline
 
 const Nav = styled.div`
     background-color: #999;
