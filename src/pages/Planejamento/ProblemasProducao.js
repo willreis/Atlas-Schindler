@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Api from '../../services/Api';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { IconContext } from "react-icons/lib";
@@ -6,10 +7,38 @@ import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
-import Api from "../../services/Api";
 
 export default function ProblemaProducao() {
-  const [getProblemas, setGetProblemas] = useState();
+  // const [getProblemas, setGetProblemas] = useState();
+
+  const urlProcesso = 'Processo';
+  const [tesouraId, setTesouraId] = useState([]);
+  const [puncionadeiraId, setPuncionadeiraId] = useState([]);
+  const [dobradeiraId, setDobradeiraId] = useState([]);
+
+  const [la, setLa] = useState();
+  const [ordem, setOrdem] = useState();
+  const [familia, setFamilia] = useState();
+  const [status, setStatus] = useState();
+  const [semana, setSemana] = useState();
+  const [titulo, setTitulo] = useState();
+  const [motivo, setMotivo] = useState();
+  const [origem, setOrigem] = useState();
+  const [origem2, setOrigem2] = useState();
+
+  //GET Problemas Producao Tesoura
+  useEffect(() => {
+    Api.get(`${urlProcesso}`)
+      // let tesouraNome = urlProcesso.filter((tesouraN) => tesouraN.nome === 'Tesoura')
+      .then((response) => {
+        console.log('asasa', response.data);
+        // setTesouraId(tesouraNome);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      }, []);
+  })
+
   const colunasProblemas = [
     {
       dataField: "la",
@@ -132,6 +161,7 @@ export default function ProblemaProducao() {
       },
     },
   ];
+
   const productsPendentes = [
     {
       la: 101544,
@@ -145,64 +175,7 @@ export default function ProblemaProducao() {
       diasEmProducao: 243,
       opcoes: "Detalhes",
     },
-    {
-      la: 101544,
-      ordem: 7000158,
-      familia: "Urgente",
-      status: "Erro",
-      semana: 135,
-      titulo: "COP Coroa",
-      motivo: 79989,
-      origem: "SAP",
-      diasEmProducao: 243,
-      opcoes: "Detalhes",
-    },
-    {
-      la: 101544,
-      ordem: 7000158,
-      familia: "Urgente",
-      status: "Erro",
-      semana: 135,
-      titulo: "COP Coroa",
-      motivo: 79989,
-      origem: "SAP",
-      diasEmProducao: 243,
-      opcoes: "Detalhes",
-    },
-    {
-      la: 101544,
-      ordem: 7000158,
-      familia: "Urgente",
-      status: "Erro",
-      semana: 135,
-      titulo: "COP Coroa",
-      motivo: 79989,
-      origem: "SAP",
-      diasEmProducao: 243,
-      opcoes: "Detalhes",
-    },
   ];
-
-  //GET Processos
-  useEffect(() => {
-    Api.get("Processo/")
-      .then((response) => {
-        console.log("aqui um console", response.data[2].nome);
-        response.data.map((item) => item.nome);
-        setGetProblemas(
-          response.data.map((problemas) => {
-            return {
-              processoId: problemas.processoId,
-              nome: problemas.nome,
-              ordenacao: problemas.ordenacao,
-            };
-          })
-        );
-      })
-      .catch((error) => {
-        console.log("Deu erro aqui", error);
-      });
-  }, []);
 
   return (
     <>
@@ -227,7 +200,7 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Tesoura</p>
                 <BootstrapTable
-                  keyField="matricula"
+                  keyField={tesouraId}
                   hover
                   striped
                   data={productsPendentes}
@@ -244,7 +217,7 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Puncionadeira</p>
                 <BootstrapTable
-                  keyField="matricula"
+                  keyField={puncionadeiraId}
                   hover
                   striped
                   data={productsPendentes}
@@ -261,7 +234,7 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Dobradeira</p>
                 <BootstrapTable
-                  keyField="matricula"
+                  keyField={dobradeiraId}
                   hover
                   striped
                   data={productsPendentes}
