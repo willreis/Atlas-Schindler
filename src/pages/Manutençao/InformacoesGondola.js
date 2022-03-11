@@ -2,6 +2,11 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
+import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import { VscEdit } from "react-icons/vsc";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { IconContext } from "react-icons/lib";
 import { IoOptionsSharp } from "react-icons/io5";
 import { Button } from "react-bootstrap";
@@ -69,49 +74,139 @@ function InformacoesGondola() {
     {
       dataField: "numeroGondola",
       text: "Número da Gôndola",
+      sort: true,
+      filter: textFilter({
+        placeholder: "Filtrar por Ordenação",
+      }),
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
-      dataField: "codigoMaterial", //dataField é oq vai estar por trás de cada Coluna. Ele pega as propriedades do Array de objetos 'products' mas só no Código.
-      text: "Código do Material", //text é o th(table head). Nome de cada Coluna. Vai aparecer na tela.
+      dataField: "codigoMaterial", 
+      text: "Código do Material",
+      sort: true,
+      filter: textFilter({
+        placeholder: "Filtrar por Ordenação",
+      }),
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
       dataField: "ordem",
       text: "Ordem",
+      sort: true,
+      filter: textFilter({
+        placeholder: "Filtrar por Ordenação",
+      }),
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
       dataField: "localizacao",
       text: "Localização",
+      sort: true,
+      filter: textFilter({
+        placeholder: "Filtrar por Ordenação",
+      }),
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
       dataField: "quantidadePç",
       text: "Quantidade (Pç)",
+      sort: true,
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
       dataField: "quantidadeKg",
       text: "Quantidade (Kg)",
+      sort: true,
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
       dataField: "vg",
       text: "VG",
+      sort: true,
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
       dataField: "statusGondola",
       text: "Status da Gôndola",
+      sort: true,
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
-      dataField: "opcoes",
-      text: "Opções (Editar)",
+      dataField: "editar",
+      isDummyField: true,
+      text: "Editar / Deletar",
+      headerAlign: "center",
+      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <span
+              className="spanTabela"
+              id=""
+              Style="cursor:pointer"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Editar"
+            >
+              <VscEdit />
+            </span>
+            <button
+              className="spanTabela"
+              id=""
+              Style="cursor:pointer; border: none; background: none"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Deletar"
+            >
+              <RiDeleteBinFill />
+            </button>
+          </>
+        );
+      },
     },
   ];
 
+  const customTotal = (from, to, size) => (
+    <span className="react-bootstrap-table-pagination-total">
+      Mostrando de {from} a {to} do total de {size} Resultados
+    </span>
+  );
+  const options = {
+    paginationSize: 4,
+    pageStartIndex: 0,
+    //alwaysShowAllBtns: true, // Always show next and previous button
+    withFirstAndLast: false, // Hide the going to First and Last page button
+    hideSizePerPage: true, // Hide the sizePerPage dropdown always
+    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+    firstPageText: "Primeiro",
+    prePageText: "Voltar",
+    nextPageText: "Próxima",
+    lastPageText: "Última",
+    nextPageTitle: "Primeira Página",
+    prePageTitle: "Pre page",
+    firstPageTitle: "Próxima Página",
+    lastPageTitle: "Última Página",
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    disablePageTitle: true,
+    sizePerPageList: [
+      {
+        text: "10",
+        value: 10,
+      },
+      {
+        text: "All",
+      },
+    ],
+  };
   return (
     <>
-      <IconContext.Provider value={{ color: "green", size: "1.4rem" }}>
-        <div className="container paddingContainer">
+      <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
+        <div className="paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
               <div className="tituloInterno">
-                <h2 Style="color:#555;">Informações da Gôndola</h2>
+                <h2 className="titulosPrincipais">Informações da Gôndola</h2>
               </div>
             </div>
           </div>
@@ -143,6 +238,7 @@ function InformacoesGondola() {
                   striped
                   data={products}
                   columns={columns}
+                  filter={filterFactory()}
                 />
               </div>
             </div>

@@ -472,41 +472,43 @@ function MapaArmazem() {
   return (
     <>
       <IconContext.Provider value={{ color: "#555", size: "1.4rem" }}>
-        <div className="container paddingContainer">
+        <div className="paddingContainer">
           <div className="row">
             <div className="col-md-6 col-sm-12">
               <div className="tituloInterno">
-                <h2 Style="color:#555;">Mapa do Armazém</h2>
+                <h2 className="titulosPrincipais">Mapa do Armazém</h2>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-md-8 col-sm-12">
-              <label Style="font-size: 22px;">Produto</label>
-              <select Style="background-color: rgb(248, 247, 155); border: 1px solid #000; border-radius: 10px; outline:none; width: 300px; padding: 5px; margin: 0 15px">
-                <option></option>
-                <option>aaa</option>
-                <option>bbb</option>
-                <option>ccc</option>
-              </select>
-              <Button variant="secondary">Todas</Button>
+              <form className="row g-3 formPadrao" action="">
+                <div className="col-md-3 col-sm-6">
+                  <label>Número da Gôndola</label>
+                  <select Style="">
+                    <option></option>
+                    <option>aaa</option>
+                    <option>bbb</option>
+                    <option>ccc</option>
+                  </select>
+                </div>
+                <div className="col-md-3" Style="position: relative">
+                  <Button variant="primary" Style="position: absolute; bottom:0">Buscar Todas</Button>
+                </div>
+              </form>
             </div>
           </div>
-          <div className="row" Style="padding: 20px 0">
-            <div className="col-md-6 col-sm-12">
+          <div className="row mt-4" Style="padding: 20px 0">
+            <div className="col-md-12 col-sm-12">
               <div>
-                <Button variant="success">Lado Esquerdo</Button>
-                <Button variant="success" Style="margin-left: 1rem">
+                <Button variant="success" Style="width:200px">Lado Esquerdo</Button>
+                <Button variant="success" Style="margin-left: 1rem; width:200px">
                   Lado Direito
                 </Button>
-              </div>
-            </div>
-            <div className="col-md-6 col-sm-12">
-            <div className="alignButtons">
-              <Button variant="success" Style="margin-right: 1rem">
-                Legenda
-              </Button>
-              <Button variant="success">Estados</Button>
+                <Button variant="success" Style="margin-left: 1rem; width:200px">
+                  Legenda
+                </Button>
+                <Button variant="success" Style="margin-left: 1rem; width:200px">Estados</Button>
               </div>
             </div>
           </div>
