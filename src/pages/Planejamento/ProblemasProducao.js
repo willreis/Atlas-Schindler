@@ -32,21 +32,12 @@ export default function ProblemaProducao() {
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        console.log('Lista:', response.data);
+        let nomeFerramenta = Array.from(new Set(response.data.map(m => m.nome)))
+        console.log('nomeFerramenta:', nomeFerramenta);
       })
       .catch((error) => {
         console.log("Error:", error);
       }, []);
-
-    let distinct = Array.from(new Set(temp1.map(m => m.nome)))
-
-    distinct.map(m => {
-      return {
-        tabela: m,
-        data: temp1.filter(f => f.nome == m)
-      }
-    })
-    
   })
 
   const colunasProblemas = [
