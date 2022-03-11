@@ -32,7 +32,7 @@ export default function ProblemaProducao() {
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        let nomeFerramenta = Array.from(new Set(response.data.map(m => m.nome)))
+        let nomeFerramenta = Array.from(new Set(response.data.map(param => param.nome)))
         console.log('nomeFerramenta:', nomeFerramenta);
       })
       .catch((error) => {
