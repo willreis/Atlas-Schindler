@@ -210,7 +210,7 @@ export default function Usuarios() {
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro1:", error);
-        alert("Ops! Ocorreu um erro1:", error);
+        alert("Ops! Ocorreu um erro:", error);
       });
 
     Api.get("/GrupoDeAcesso")
@@ -222,8 +222,8 @@ export default function Usuarios() {
         console.log("resultadoId!!!:", resultadoId);
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro1:", error);
-        alert("Ops! Ocorreu um erro1:", error);
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
 
@@ -249,8 +249,8 @@ export default function Usuarios() {
         alert("Cadastro Efetuado com sucesso!");
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro2:" + error);
-        alert("Ops! Ocorreu um erro2" + error);
+        console.log("Ops! Ocorreu um erro:" + error);
+        alert("Ops! Ocorreu um erro" + error);
       });
   }
 
@@ -264,7 +264,7 @@ export default function Usuarios() {
       alert("Deletado com sucesso");
       window.location.reload();
     } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
+      alert("Erro ao deletar caso, tente novamente");
     }
   }
 
@@ -297,10 +297,9 @@ export default function Usuarios() {
         setGrupoDeAcesso();
         setStatus();
         console.log("Esse é o console do Put: ", response);
-        alert("Put Efetuado com sucesso!");
+        alert("Alterações efetuadas com sucesso!");
       })
       .catch((error) => {
-        alert('aquiiiiiiiiiiii', usuarioId)
         console.log("Ops! Ocorreu um erro: " + error);
         alert("Ops! Ocorreu um erro: " + error);
       });
@@ -331,8 +330,8 @@ export default function Usuarios() {
         setStatus(row.status);
       })
       .catch((error) => {
-        console.log("Ops! Ocorreu um erro1:", error);
-        alert("Ops! Ocorreu um erro1:", error);
+        console.log("Ops! Ocorreu um erro: ", error);
+        alert("Ops! Ocorreu um erro: ", error);
       });
   }
 
@@ -511,6 +510,7 @@ export default function Usuarios() {
                     variant="success"
                     className="align-self-baseline"
                     onClick={createPost}
+                    Style="margin-top:24px"
                   >
                     Salvar
                   </Button>
@@ -583,8 +583,9 @@ export default function Usuarios() {
                     onChange={(e) => {
                       setGrupoDeAcessoId(parseInt(e.target.value));
                     }}
+                    required
                   >
-                    <option>Escolha uma opção</option>
+                    <option value="">Escolha uma opção</option>
                     {userGrupoAcesso.map((nome) => (
                       <option
                         name={nome.nomeDoGrupo}
@@ -624,8 +625,9 @@ export default function Usuarios() {
                     name="status"
                     value={status}
                     onChange={() => setStatus(!status)}
+                    required
                   >
-                    <option>Escolha uma opção</option>
+                    <option value="">Escolha uma opção</option>
                     <option name="ativo" value={true}>
                       Ativo
                     </option>
