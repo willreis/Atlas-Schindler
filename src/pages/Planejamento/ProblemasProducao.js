@@ -55,7 +55,7 @@ export default function ProblemaProducao() {
             
           })
         )
-        console.log('qqqqqq: ', tesouraId)
+        console.log('qqqqqqqqqqqqqq: ', tesouraId)
         console.log('tetetetetete: ', response.data[2].nome, response.data[2].processoId, response.data[1].nome, response.data[0].nome, response.data[0].processoId)
       })
       .catch((error) => {
