@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
-import Api from '../../services/Api';
+import Api from "../../services/Api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { IconContext } from "react-icons/lib";
 import BootstrapTable from "react-bootstrap-table-next";
+import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from "react-bootstrap-table2-paginator";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 
 export default function ProblemaProducao() {
   // const [getProblemas, setGetProblemas] = useState();
 
-  const urlProcesso = 'Processo';
+  const urlProcesso = "Processo";
   const [tesouraId, setTesouraId] = useState([]);
+  const[tesouraNome, setTesouraNome] = useState([])
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
 
@@ -32,13 +35,35 @@ export default function ProblemaProducao() {
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        let nomeFerramenta = Array.from(new Set(response.data.map(param => param.nome)))
-        console.log('nomeFerramenta:', nomeFerramenta);
+        setTesouraId(
+          response.data[0].map((tesoura) => {
+            return {
+              processoId: tesoura.processoId,
+              nome: tesoura.nome,
+              ordemProducao: [
+                {
+                  la,
+                  ordem,
+                  titulo,
+                  familia,
+                  status,
+                  semana,
+                  origem,
+                },
+              ],
+            };
+            
+          })
+        )
+        console.log('qqqqqq: ', tesouraId)
+        console.log('tetetetetete: ', response.data[2].nome, response.data[2].processoId, response.data[1].nome, response.data[0].nome, response.data[0].processoId)
       })
       .catch((error) => {
         console.log("Error:", error);
       }, []);
-  })
+  });
+
+
 
   const colunasProblemas = [
     {
