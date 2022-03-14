@@ -11,11 +11,10 @@ import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 
 export default function ProblemaProducao() {
-  // const [getProblemas, setGetProblemas] = useState();
-
   const urlProcesso = "Processo";
+  const [processoId, setProcessoId] = useState();
   const [tesouraId, setTesouraId] = useState([]);
-  const[tesouraNome, setTesouraNome] = useState([])
+  const [tesouraNome, setTesouraNome] = useState([]);
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
 
@@ -35,35 +34,37 @@ export default function ProblemaProducao() {
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
+        console.log("estudar cobol: ", response);
         setTesouraId(
-          response.data[0].map((tesoura) => {
+          response.data.map((maquina) => {
             return {
-              processoId: tesoura.processoId,
-              nome: tesoura.nome,
-              ordemProducao: [
-                {
-                  la,
-                  ordem,
-                  titulo,
-                  familia,
-                  status,
-                  semana,
-                  origem,
-                },
-              ],
+              processoId: maquina.processoId,
+              nome: maquina.nome,
+              ordenacao: maquina.ordenacao,
+              ordemProducao: maquina.ordemProducao.map((ordemProd) => {
+                console.log('agora vaaaaai: ', ordemProd)
+                return [
+                  {
+                    la: ordemProd.la,
+                    ordem: ordemProd.ordem,
+                    titulo: ordemProd.titulo,
+                    familia: ordemProd.familia,
+                    status: ordemProd.status,
+                    semana: ordemProd.semana,
+                    origem: ordemProd.origem,
+                  },
+                ];
+              }),
             };
-            
           })
-        )
-        console.log('qqqqqqqqqqqqqq: ', tesouraId)
-        console.log('tetetetetete: ', response.data[2].nome, response.data[2].processoId, response.data[1].nome, response.data[0].nome, response.data[0].processoId)
+        );
       })
       .catch((error) => {
         console.log("Error:", error);
       }, []);
   });
 
-
+  console.log('Tesoura ID: ', tesouraId)
 
   const colunasProblemas = [
     {
@@ -226,12 +227,12 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Tesoura</p>
                 <BootstrapTable
-                  keyField={tesouraId}
-                  hover
-                  striped
-                  data={productsPendentes}
+                  keyField="ordemProducao.la"
+                  data={tesouraId}
                   columns={colunasProblemas}
                   filter={filterFactory()}
+                  hover
+                  striped
                 />
               </div>
             </div>
