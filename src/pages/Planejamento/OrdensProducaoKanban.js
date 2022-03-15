@@ -9,6 +9,37 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import Api from "../../services/Api";
 
 export default function OrdensProducaoKanban() {
+
+  const urlKanban = 'Kanban';
+
+  const [la, setLa] = useState();
+  const [tabelas, setTabelas] = useState([]);
+  const [ordem, setOrdem] = useState();
+  const [familia, setFamilia] = useState();
+  const [status, setStatus] = useState();
+  const [semana, setSemana] = useState();
+  const [titulo, setTitulo] = useState();
+  const [motivo, setMotivo] = useState();
+  const [origem, setOrigem] = useState();
+  const [diasEmProducao, setDiasEmProducao] = useState();
+
+  useEffect(() => {
+    Api.get(`${urlKanban}`)
+      .then((response) => {
+        setTabelas(
+          response.data.map((param) => {
+            console.log('Chegou aqui:', param);
+            return {
+
+            }
+          })
+        )
+      })
+      .catch((error) => {
+        alert("Error", JSON.stringify(error));
+      })
+  }, []);
+
   const colunasPendentes = [
     {
       dataField: "la",
@@ -155,6 +186,8 @@ export default function OrdensProducaoKanban() {
       opcoes: "Detalhes",
     },
   ];
+
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
