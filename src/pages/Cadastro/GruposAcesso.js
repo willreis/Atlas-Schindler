@@ -15,6 +15,14 @@ import "../../../src/grupo.css";
 import Api from "../../services/Api";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { Row, Col, Form } from "react-bootstrap";
+import CustomTabs from "../../components/CustomTabs/CustomTabs.js";
+import Card from "../../components/Card/Card.js";
+import CardHeader from "../../components/Card/CardHeader.js";
+import CardBody from "../../components/Card/CardBody.js";
+import GridItem from "../../components/Grid/GridItem.js";
+import GridContainer from "../../components/Grid/GridContainer.js";
+
 
 export default function GruposAcesso() {
 
@@ -53,33 +61,39 @@ export default function GruposAcesso() {
     ], // A numeric array is also available. the purpose of above example is custom the text
   };
 
+  var url = "GrupoDeAcesso";
+
   const [getTela, setGetTela] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [telaId, setTelaId] = useState();
+  const [usuarioId, seUsuarioId] = useState();
   const [nome, setNome] = useState();
+  const [nomeUsuario, setNomeUsuario] = useState();
   const [idGrupo, setIdGrupo] = useState();
   const [liberarBotao, setLiberarBotao] = useState(true);
-  const [telasPermitidas, setTelasPermitidas] = useState();
+  const [telasPermitidas, setTelasPermitidas] = useState([]);
   const [idNaoAssociado, setIdNaoAssociado] = useState(null);
   const [idAssociado, setIdAssociado] = useState(null);
-
-  //GET
+  const [idAssociadoUser, setIdAssociadoUser] = useState(null);
+  const [mudaTabela, setMudaTabela] = useState(true);
+  const [showModalCadastro, setShowModalCadastro] = useState(false);
+  const [grupoDeAcessoId, setGrupoDeAcessoId] = useState();
+  const [nomeDoGrupo, setNomeDoGrupo] = useState();
+  const [descricaoDoGrupo, setDescricaoDoGrupo] = useState();
+  const [usuariosCadastrados, setUsuarios] = useState();
+  const [telas, setTelas] = useState();
+  const [quantidadeTelasPermitidas, setQuantidadeTelasPermitidas] = useState(0);
+  const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState(0);
   const [user, setUser] = useState([]);
-
-  //Get Tela:
-  const columnsSemPermissao = [
-    {
-      text: "telaId",
-      dataField: "telas id",
-      hidden: true,
-    },
-    {
-      dataField: "nome",
-      text: "Telas Sem Permissão!",
-    },
-  ];
-
   const [productsSemPermissao, setProductsSemPermissao] = useState([]);
+  const [show, setShow] = useState(false);
+  const [grupoAcessoGet, setGrupoAcessoGet] = useState([]);
+
+  useEffect(() => {
+    getGrupos();
+  }, []);
+
+  // --------------------------------------------------------------------------------------------------------------------------------//
 
   function funcaoAbrirModal() {
     setShowModal(true);
@@ -93,10 +107,6 @@ export default function GruposAcesso() {
             telasPermitidas.find((d) => d.telaId === e.telaId) == null &&
             e.telaId !== idGrupo
         );
-        // filterNaoAssociados.forEach((element, index) => {
-        //     //    if(element.idTipoVeiculoAssociado == "")
-        //     element.telaId = (index + 1) * -1
-        // });
         console.log(telasSemPermissao);
         setProductsSemPermissao(telasSemPermissao);
       })
@@ -105,7 +115,9 @@ export default function GruposAcesso() {
         alert("Ops! Ocorreu um erro:", error);
       });
   }
-
+  function funcaoAbrirModalCadastro() {
+    setShowModalCadastro(true);
+  }
   function onClickLinhaTabela() {
     Api.get("Tela/", {
       telaId,
@@ -119,12 +131,73 @@ export default function GruposAcesso() {
         alert("Ops! Ocorreu um erro:", error);
       });
   }
+  // --------------------------------------------------------------------------------------------------------------------------------//
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  const columns = [
+  function handleRegister(e) {
+    // e.preventDefault();
+    handleRegister(user);
+  }
+  function createPost() {
+    Api.post(`/${url}`, {
+      nomeDoGrupo: nomeDoGrupo,
+      descricaoDoGrupo: descricaoDoGrupo,
+      telas: [],
+      usuarios: [],
+      quantidadeTelasPermitidas: 0,
+      quantidadeDeUsuarios: 0,
+    })
+      .then((response) => {
+        console.log(response.data);
+        getGrupos();
+        alert("Cadastro efetuado com sucesso!");
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro!!!:", error);
+        alert("Ops! Ocorreu um erro!!!:", error);
+      });
+  }
+  function handlePut() {
+    Api.put(`${url}/${idGrupo}`, {
+      grupoDeAcessoId: idGrupo,
+      nomeDoGrupo: nomeDoGrupo,
+      descricaoDoGrupo: descricaoDoGrupo,
+      telas: telasPermitidas,
+      usuarios: usuariosCadastrados
+    })
+      .then((response) => {
+        setIdGrupo(idGrupo);
+        console.log("Esse é o console do Put: ", response);
+        alert("Alteração Realizada com sucesso!");
+        getGrupos();
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro: " + error);
+        alert("Ops! Ocorreu um erro: " + error);
+      });
+  }
+  async function handleDeleteGrupoAcesso(grupoDeAcessoId) {
+    try {
+      await Api.delete(`/${url}/${grupoDeAcessoId}`);
+      setUser(
+        user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId)
+      );
+      alert("Deletado com sucesso");
+      getGrupos();
+    } catch (err) {
+      alert("erro ao deletar caso, tente novamente");
+    }
+  }
+    // --------------------------------------------------------------------------------------------------------------------------------//
+
+  const columnsSemPermissao = [
     {
-      text: "Telas Permitidas!",
-      dataField: "telas",
+      text: "telaId",
+      dataField: "telas id",
+      hidden: true,
+    },
+    {
+      dataField: "nome",
+      text: "Telas Sem Permissão!",
     },
   ];
   const columnsPermitidas = [
@@ -138,63 +211,6 @@ export default function GruposAcesso() {
       text: "Telas Permitidas!",
     },
   ];
-
-  const products = [
-    {
-      telas: "Usuario",
-    },
-    {
-      telas: "Usuario",
-    },
-    {
-      telas: "Usuario",
-    },
-    {
-      telas: "Usuario",
-    },
-  ];
-
-  const selectRowGrupos = {
-    mode: "radio",
-    clickToSelect: true,
-    onSelect: (row) => {
-      setLiberarBotao(false);
-      setIdGrupo(row.grupoDeAcessoId);
-      setTelasPermitidas(row.telas);
-    },
-  };
-  var url = "GrupoDeAcesso";
-
-  //Modal const
-  const [show, setShow] = useState(false);
-
-  //GET Grupo Acesso
-  const [grupoAcessoGet, setGrupoAcessoGet] = useState([]);
-
-  useEffect(() => {
-    Api.get(`${url}`)
-      .then((response) => {
-        console.log(response);
-        // setUser(response.data);
-        setGrupoAcessoGet(
-          response.data.map((grupoAcesso) => {
-            return {
-              grupoDeAcessoId: grupoAcesso.grupoDeAcessoId,
-              nomeDoGrupo: grupoAcesso.nomeDoGrupo,
-              descricaoDoGrupo: grupoAcesso.descricaoDoGrupo,
-              telas: grupoAcesso.telas,
-              quantidadeTelasPermitidas: grupoAcesso.quantidadeTelasPermitidas,
-              quantidadeDeUsuarios: grupoAcesso.quantidadeDeUsuarios,
-            };
-          })
-        );
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro:", error);
-        alert("Ops! Ocorreu um erro:", error);
-      });
-  }, []);
-
   const columnsGrupoAcesso = [
     {
       headerAlign: 'center',
@@ -247,7 +263,7 @@ export default function GruposAcesso() {
               className="spanTabela"
               id={row.grupoDeAcessoId}
               Style="cursor:pointer"
-              onClick={() => { funcaoAbrirModal(row) }}
+              onClick={() => { funcaoAbrirModal(idGrupo) }}
               data-toggle="tooltip" data-placement="left" title="Editar"
             >
               <VscEdit />
@@ -267,54 +283,42 @@ export default function GruposAcesso() {
       },
     },
   ];
+  const usuariosPermitidos = [
+    {
+      dataField: "usuarioId",
+      text: "ID DO USUARIO",
+      hidden: true,
+    },
+    {
+      dataField: "nome",
+      text: "Usuários Permitidos!",
+    },
+  ];
+  // --------------------------------------------------------------------------------------------------------------------------------//
 
-  // POST
-  const [grupoDeAcessoId, setGrupoDeAcessoId] = useState();
-  const [nomeDoGrupo, setNomeDoGrupo] = useState();
-  const [descricaoDoGrupo, setDescricaoDoGrupo] = useState();
-  const [usuarios, setUsuarios] = useState(null);
-  const [telas, setTelas] = useState();
-  const [quantidadeTelasPermitidas, setQuantidadeTelasPermitidas] = useState(0);
-  const [quantidadeDeUsuarios, setQuantidadeDeUsuarios] = useState(0);
+  const selectRowUsuarioPermitido = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log(row);
+      setIdAssociadoUser(row.usuarioId);
+    },
+  };
+  const selectRowGrupos = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
 
-  function handleRegister(e) {
-    // e.preventDefault();
-    handleRegister(user);
-  }
+      setLiberarBotao(false);
+      setIdGrupo(row.grupoDeAcessoId);
+      setNomeDoGrupo(row.nomeDoGrupo);
+      setDescricaoDoGrupo(row.descricaoDoGrupo);
+      setTelasPermitidas(row.telas);
+      setUsuarios(row.usuarios);
+      console.log(row);
 
-  function createPost() {
-    Api.post(`/${url}`, {
-      nomeDoGrupo,
-      descricaoDoGrupo,
-      usuarios,
-      telas: [telasPermitidas],
-      quantidadeTelasPermitidas,
-      quantidadeDeUsuarios,
-      // telas: [telasPermitidas],
-    })
-      .then((response) => {
-        console.log(response.data);
-        alert("Cadastro efetuado com sucesso!");
-      })
-      .catch((error) => {
-        console.log("Ops! Ocorreu um erro!!!:", error);
-        alert("Ops! Ocorreu um erro!!!:", error);
-      });
-  }
-
-  //Delete
-  async function handleDeleteGrupoAcesso(grupoDeAcessoId) {
-    try {
-      await Api.delete(`/${url}/${grupoDeAcessoId}`);
-      setUser(
-        user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId)
-      );
-      alert("Deletado com sucesso");
-    } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
-    }
-  }
-
+    },
+  };
   const selectRowSemPermissao = {
     mode: "radio",
     clickToSelect: true,
@@ -323,7 +327,6 @@ export default function GruposAcesso() {
       setIdNaoAssociado(row.telaId);
     },
   };
-
   const selectRowComPermissao = {
     mode: "radio",
     clickToSelect: true,
@@ -332,7 +335,33 @@ export default function GruposAcesso() {
       setIdAssociado(row.telaId);
     },
   };
+  // --------------------------------------------------------------------------------------------------------------------------------//
 
+  const getGrupos = (e) => {
+    Api.get(`${url}`)
+      .then((response) => {
+        console.log(response);
+        // setUser(response.data);
+        setGrupoAcessoGet(
+          response.data.map((grupoAcesso) => {
+            return {
+              grupoDeAcessoId: grupoAcesso.grupoDeAcessoId,
+              nomeDoGrupo: grupoAcesso.nomeDoGrupo,
+              descricaoDoGrupo: grupoAcesso.descricaoDoGrupo,
+              telas: grupoAcesso.telas,
+              usuarios: grupoAcesso.usuarios,
+              quantidadeTelasPermitidas: grupoAcesso.quantidadeTelasPermitidas,
+              quantidadeDeUsuarios: grupoAcesso.quantidadeDeUsuarios,
+            };
+          })
+        );
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+
+  }
   const associarTelas = (e) => {
     var findAssociados = productsSemPermissao.find(
       (e) => e.telaId === idNaoAssociado
@@ -354,7 +383,6 @@ export default function GruposAcesso() {
     );
     setProductsSemPermissao(naoAssociadosFilter);
   };
-
   const desassociarTiposVeiculos = (e) => {
     var findNaoAssociados = telasPermitidas.find(
       (e) => e.telaId === idAssociado
@@ -374,6 +402,7 @@ export default function GruposAcesso() {
     );
     setTelasPermitidas(associadosFilter);
   };
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -391,9 +420,8 @@ export default function GruposAcesso() {
                   className="botaoCadastrar"
                   variant="success"
                   onClick={(props) => {
-                    funcaoAbrirModal(idGrupo);
+                    funcaoAbrirModalCadastro();
                   }}
-                  disabled={liberarBotao}
                 >
                   <HiPlus Style="color:#fff!important" />Cadastrar
                 </Button>
@@ -428,7 +456,7 @@ export default function GruposAcesso() {
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-vcenter">
-                Cadastro de Grupo de Acesso
+                Edição de Grupo de Acesso
               </Modal.Title>
             </Modal.Header>
 
@@ -436,7 +464,7 @@ export default function GruposAcesso() {
               <div
                 className="formCadastro"
                 id="formCadastro"
-                Style="margin-bottom: 30px"
+                Style="margin-bottom: 30px;height:500px"
               >
                 <form className="row formPadrao">
                   <div className="row">
@@ -461,68 +489,150 @@ export default function GruposAcesso() {
                       />
                     </div>
                   </div>
+                  <CustomTabs
+                    headerColor="primary"
+                    tabs={[
+                      {
+                        tabName: "Geral",
+                        tabIcon: null,
+                        tabContent: (
+                          <GridContainer>
+                            <GridItem
+                              xs={12}
+                              sm={12}
+                              md={18}
+                            >
+                              {/*1ª Quadrado*/}
+                              <div className="row mt-3">
+                                <div
+                                  className="col-5 ultimaTabela" Style="height: 300px!important"
+                                  onClick={onClickLinhaTabela}
+                                >
+                                  <BootstrapTable
+                                    bootstrap4
+                                    keyField="telaId"
+                                    data={productsSemPermissao}
+                                    columns={columnsSemPermissao}
+                                    selectRow={selectRowSemPermissao}
+                                    bordered={false}
+                                    hidden={!mudaTabela}
+                                  />
+                                </div>
 
-                  <div
-                    className="row"
-                    Style="margin-top: 1rem; margin-bottom: 1rem"
-                  >
-                    <div className="col-3">
-                      <Button variant="success" Style="width:100%">
-                        Telas
-                      </Button>
-                    </div>
-                    <div className="col-3">
-                      <Button variant="success" Style="width:100%">
-                        Usuarios
-                      </Button>
-                    </div>
-                  </div>
+                                <div className="col-2 text-center">
+                                  <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer">
+                                    <TiArrowForward onClick={associarTelas} hidden={!mudaTabela} />
+                                  </div>
+                                  <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;">
+                                    <TiArrowBack onClick={desassociarTiposVeiculos} hidden={!mudaTabela} />
+                                  </div>
+                                </div>
 
-                  {/*1ª Quadrado*/}
-                  <div className="row mt-3">
-                    <div
-                      className="col-5 ultimaTabela" Style="height: 200px!important"
-                      onClick={onClickLinhaTabela}
-                    >
-                      <BootstrapTable
-                        keyField="telaId"
-                        data={productsSemPermissao}
-                        columns={columnsSemPermissao}
-                        selectRow={selectRowSemPermissao}
-                        bordered={false}
+                                {/*2ª Quadrado*/}
+                                <div className="col-5" Style="border: 1px solid green; height: 300px">
+                                  <BootstrapTable
+                                    bootstrap4
+                                    keyField="telaId"
+                                    data={telasPermitidas}
+                                    columns={columnsPermitidas}
+                                    selectRow={selectRowComPermissao}
+                                    bordered={false}
+                                    hidden={!mudaTabela}
+                                  />
+                                </div>
+                              </div>
+                            </GridItem>
+                          </GridContainer>
+                        ),
+                      },
+                      {
+                        tabName: "Direitos grupo de usuarios",
+                        tabIcon: null,
+                        tabContent: (
+                          <GridContainer>
+                            <GridItem
+                              xs={12}
+                              sm={12}
+                              md={18}
+                            >
+                              {/*1ª Quadrado*/}
+                              <div className="row mt-3">
+                                <div className="col-5" Style="border: 1px solid green; height: 300px">
+                                  <BootstrapTable
+                                    bootstrap4
+                                    keyField="usuarioId"
+                                    data={usuariosCadastrados}
+                                    columns={usuariosPermitidos}
+                                    selectRow={selectRowUsuarioPermitido}
+                                    bordered={false}
+                                  />
+                                </div>
+
+                              </div>
+                            </GridItem>
+                          </GridContainer>
+                        ),
+                      },
+                    ]}
+                  />
+                </form>
+              </div>
+              <div className="row mt-4">
+                <div className="col-6" Style="text-align:right">
+                  <Button variant="success" onClick={() => handlePut()}>Salvar</Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+          <Modal
+            size="lg"
+            show={showModalCadastro}
+            onHide={() => setShowModalCadastro(false)}
+            dialogClassName="modal-90w cadastroGPAcesso"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                Cadastro de Grupo de Acesso
+              </Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+              <div
+                className="formCadastro"
+                id="formCadastro"
+                Style="margin-bottom: 30px;height:150px"
+              >
+                <form className="row formPadrao">
+                  <div className="row">
+                    <div className="col-6">
+                      <label>Nome</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Nome"
+                        value={nomeDoGrupo}
+                        onChange={(e) => setNomeDoGrupo(e.target.value)}
                       />
                     </div>
-
-                    <div className="col-2 text-center">
-                      <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer">
-                        <TiArrowForward onClick={associarTelas} />
-                      </div>
-                      <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;">
-                        <TiArrowBack onClick={desassociarTiposVeiculos} />
-                      </div>
-                    </div>
-
-                    {/*2ª Quadrado*/}
-                    <div className="col-5" Style="border: 1px solid green; height: 200px">
-                      <BootstrapTable
-                        keyField="telaId"
-                        data={telasPermitidas}
-                        columns={columnsPermitidas}
-                        selectRow={selectRowComPermissao}
-                        bordered={false}
+                    <div className="col-6">
+                      <label>Descrição</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Descrição"
+                        value={descricaoDoGrupo}
+                        onChange={(e) => setDescricaoDoGrupo(e.target.value)}
                       />
-                    </div>
-
-                    <div className="row mt-4">
-                      <div className="col-6">
-                        <Button variant="secondary">Voltar</Button>
-                      </div>
-                      <div className="col-6" Style="text-align:right">
-                        <Button variant="success" onClick={() => createPost()}>Salvar</Button>
-                      </div>
                     </div>
                   </div>
                 </form>
+              </div>
+              <div className="row mt-4">
+                <div className="col-6" Style="text-align:right">
+                  <Button variant="success" onClick={() => createPost()}>Salvar</Button>
+                </div>
               </div>
             </Modal.Body>
           </Modal>
