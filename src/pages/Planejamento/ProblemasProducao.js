@@ -28,41 +28,51 @@ export default function ProblemaProducao() {
   const [origem, setOrigem] = useState();
   const [origem2, setOrigem2] = useState();
 
+  const [ordemProcesso, setOrdemProcesso] = useState([]);
+
   const [listaNomes, setListaNomes] = useState([]);
 
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        console.log("estudar cobol: ", response);
-        setTesouraId(
-          response.data.map((maquina) => {
-            return {
-              processoId: maquina.processoId,
-              nome: maquina.nome,
-              ordenacao: maquina.ordenacao,
-              ordemProducao: maquina.ordemProducao.map((ordemProd) => {
-                console.log('agora vaaaaai: ', ordemProd)
-                return [
-                  {
-                    la: ordemProd.la,
-                    ordem: ordemProd.ordem,
-                    titulo: ordemProd.titulo,
-                    familia: ordemProd.familia,
-                    status: ordemProd.status,
-                    semana: ordemProd.semana,
-                    origem: ordemProd.origem,
-                  },
-                ];
-              }),
-            };
+        var lista = new [];
+        console.log("it is what it is", response.data);
+        response.data.map((maquina) => {
+          console.log("maquiaaa", maquina)
+          lista.push(maquina);
+          setTesouraId([
+            maquina
+            //processoId: maquina.processoId,
+            //nome: maquina.nome,
+            //ordenacao: maquina.ordenacao,
+            //ordemProducao: maquina.ordemProducao,
+          ]);
+          maquina.ordemProducao.map((ordem) => {
+            console.log("ordem ordem", ordem.ordemProducao);
+            setOrdemProcesso([
+              {
+                la: ordem.la,
+                ordem: ordem.ordem,
+                status: ordem.status,
+                titulo: ordem.titulo,
+                familia: ordem.familia,
+                semana: ordem.semana,
+                origem: ordem.origem,
+                ordenacao: ordem.ordenacao,
+                verificada: ordem.verificada,
+                dataImportacao: ordem.dataImportacao,
+                dataInicio: ordem.dataInicio,
+                dataFim: ordem.dataFim,
+              }
+            ])
           })
-        );
+        })
       })
       .catch((error) => {
         console.log("Error:", error);
-      }, []);
-  });
+      });
+  }, []);
 
   console.log('Tesoura ID: ', tesouraId)
 
@@ -227,8 +237,8 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Tesoura</p>
                 <BootstrapTable
-                  keyField="ordemProducao.la"
-                  data={tesouraId}
+                  keyField="ordemProcesso.la"
+                  data={ordemProcesso}
                   columns={colunasProblemas}
                   filter={filterFactory()}
                   hover
