@@ -11,11 +11,10 @@ import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 
 export default function ProblemaProducao() {
-  // const [getProblemas, setGetProblemas] = useState();
-
   const urlProcesso = "Processo";
+  const [processoId, setProcessoId] = useState();
   const [tesouraId, setTesouraId] = useState([]);
-  const[tesouraNome, setTesouraNome] = useState([])
+  const [tesouraNome, setTesouraNome] = useState([]);
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
 
@@ -29,41 +28,33 @@ export default function ProblemaProducao() {
   const [origem, setOrigem] = useState();
   const [origem2, setOrigem2] = useState();
 
+  const [ordemProcesso, setOrdemProcesso] = useState([]);
+
   const [listaNomes, setListaNomes] = useState([]);
 
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        setTesouraId(
-          response.data[0].map((tesoura) => {
-            return {
-              processoId: tesoura.processoId,
-              nome: tesoura.nome,
-              ordemProducao: [
-                {
-                  la,
-                  ordem,
-                  titulo,
-                  familia,
-                  status,
-                  semana,
-                  origem,
-                },
-              ],
-            };
-            
-          })
-        )
-        console.log('qqqqqqqqqqqqqq: ', tesouraId)
-        console.log('tetetetetete: ', response.data[2].nome, response.data[2].processoId, response.data[1].nome, response.data[0].nome, response.data[0].processoId)
+        console.log("it is what it is", response.data);
+        response.data.map((maquina) => {
+          console.log("maquiaaa", maquina.ordemProducao)
+          setTesouraId([{
+            processoId: maquina.processoId,
+            nome: maquina.nome,
+            ordenacao: maquina.ordenacao,
+            ordemProducao: maquina.ordemProducao,
+          }]);
+          setOrdemProcesso([tesouraId.ordemProducao]);
+        })
       })
       .catch((error) => {
         console.log("Error:", error);
-      }, []);
-  });
+      });
+  }, []);
 
-
+  console.log("asdfsdf", tesouraId.ordemProducao)
+  console.log('Tesoura ID: ', tesouraId)
 
   const colunasProblemas = [
     {
@@ -226,12 +217,12 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Tesoura</p>
                 <BootstrapTable
-                  keyField={tesouraId}
-                  hover
-                  striped
-                  data={productsPendentes}
+                  keyField="la"
+                  data={ordemProcesso}
                   columns={colunasProblemas}
                   filter={filterFactory()}
+                  hover
+                  striped
                 />
               </div>
             </div>
