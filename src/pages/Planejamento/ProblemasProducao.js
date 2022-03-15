@@ -36,11 +36,9 @@ export default function ProblemaProducao() {
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        var lista = new [];
         console.log("it is what it is", response.data);
         response.data.map((maquina) => {
           console.log("maquiaaa", maquina)
-          lista.push(maquina);
           setTesouraId([
             maquina
             //processoId: maquina.processoId,
