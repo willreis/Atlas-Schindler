@@ -36,37 +36,16 @@ export default function ProblemaProducao() {
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        var lista = new [];
         console.log("it is what it is", response.data);
         response.data.map((maquina) => {
-          console.log("maquiaaa", maquina)
-          lista.push(maquina);
-          setTesouraId([
-            maquina
-            //processoId: maquina.processoId,
-            //nome: maquina.nome,
-            //ordenacao: maquina.ordenacao,
-            //ordemProducao: maquina.ordemProducao,
-          ]);
-          maquina.ordemProducao.map((ordem) => {
-            console.log("ordem ordem", ordem.ordemProducao);
-            setOrdemProcesso([
-              {
-                la: ordem.la,
-                ordem: ordem.ordem,
-                status: ordem.status,
-                titulo: ordem.titulo,
-                familia: ordem.familia,
-                semana: ordem.semana,
-                origem: ordem.origem,
-                ordenacao: ordem.ordenacao,
-                verificada: ordem.verificada,
-                dataImportacao: ordem.dataImportacao,
-                dataInicio: ordem.dataInicio,
-                dataFim: ordem.dataFim,
-              }
-            ])
-          })
+          console.log("maquiaaa", maquina.ordemProducao)
+          setTesouraId([{
+            processoId: maquina.processoId,
+            nome: maquina.nome,
+            ordenacao: maquina.ordenacao,
+            ordemProducao: maquina.ordemProducao,
+          }]);
+          setOrdemProcesso([tesouraId.ordemProducao]);
         })
       })
       .catch((error) => {
@@ -74,6 +53,7 @@ export default function ProblemaProducao() {
       });
   }, []);
 
+  console.log("asdfsdf", tesouraId.ordemProducao)
   console.log('Tesoura ID: ', tesouraId)
 
   const colunasProblemas = [
@@ -237,7 +217,7 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Tesoura</p>
                 <BootstrapTable
-                  keyField="ordemProcesso.la"
+                  keyField="la"
                   data={ordemProcesso}
                   columns={colunasProblemas}
                   filter={filterFactory()}
