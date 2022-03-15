@@ -498,35 +498,33 @@ function MapaArmazem() {
               </form>
             </div>
           </div>
-          <div className="row mt-4" Style="padding: 20px 0">
-            <div className="col-md-12 col-sm-12">
-              <div>
+          <div className="row mt-4">
+            <div className="col-md-12 col-sm-12" Style='display: flex; justify-content: space-between'>
+              <div Style='display: flex '>
                 <Button variant="success" Style="width:200px">Lado Esquerdo</Button>
-                <Button variant="success" Style="margin-left: 1rem; width:200px">
-                  Lado Direito
-                </Button>
-                <Button variant="success" Style="margin-left: 1rem; width:200px">
-                  Legenda
-                </Button>
-                <Button variant="success" Style="margin-left: 1rem; width:200px">Estados</Button>
+                <Button variant="success" Style="width:200px">Lado Direito</Button>
+              </div>
+              <div Style='display: flex'>
+                <Button variant="success" Style="width:200px">Legenda</Button>
+                <Button variant="success" Style="width:200px;">Estados</Button>
               </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12 col-sm-12">
-              <div Style="text-align: center" className="textTable">
-                <BootstrapTable
-                  keyField="nomeGrupo"
-                  hover
-                  striped
-                  data={products}
-                  columns={columns}
-                />
+            <div className="row">
+              <div className="col-md-12 col-sm-12">
+                <div Style="text-align: center" className="textTable">
+                  <BootstrapTable
+                    keyField="nomeGrupo"
+                    hover
+                    striped
+                    data={products}
+                    columns={columns}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </IconContext.Provider>
+      </IconContext.Provider >
     </>
   );
 }

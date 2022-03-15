@@ -85,7 +85,7 @@ select {
 }
 
 .paddingContainer {
-    padding: 30px 15px !important;
+    padding: 3rem 1rem !important;
 }
 
 .iconEye {
@@ -97,7 +97,16 @@ select {
     padding: 2px 5px;
 }
 
+.blockButtons button {
+    display: block;
+    margin-bottom: 10px;
+}
 
+@media(max-width: 767px) {
+    .blockButtons button {
+        width: 100%;
+    }
+}
 
 .formPadrao input,
 .formPadrao select {

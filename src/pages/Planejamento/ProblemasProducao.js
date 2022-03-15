@@ -18,57 +18,34 @@ export default function ProblemaProducao() {
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
 
-  const [la, setLa] = useState();
-  const [ordem, setOrdem] = useState();
-  const [familia, setFamilia] = useState();
-  const [status, setStatus] = useState();
-  const [semana, setSemana] = useState();
-  const [titulo, setTitulo] = useState();
-  const [motivo, setMotivo] = useState();
-  const [origem, setOrigem] = useState();
-  const [origem2, setOrigem2] = useState();
-
+  const [la, setLa] = useState([]);
+  const [ordem, setOrdem] = useState([]);
+  const [familia, setFamilia] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [semana, setSemana] = useState([]);
+  const [titulo, setTitulo] = useState([]);
+  const [motivo, setMotivo] = useState([]);
+  const [origem, setOrigem] = useState([]);
+  const [diasEmProducao, setDiasEmProducao] = useState([]);
   const [listaNomes, setListaNomes] = useState([]);
 
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        console.log("estudar cobol: ", response);
         setTesouraId(
           response.data.map((maquina) => {
-            return {
-              processoId: maquina.processoId,
-              nome: maquina.nome,
-              ordenacao: maquina.ordenacao,
-              ordemProducao: maquina.ordemProducao.map((ordemProd) => {
-                console.log('agora vaaaaai: ', ordemProd)
-                return [
-                  {
-                    la: ordemProd.la,
-                    ordem: ordemProd.ordem,
-                    titulo: ordemProd.titulo,
-                    familia: ordemProd.familia,
-                    status: ordemProd.status,
-                    semana: ordemProd.semana,
-                    origem: ordemProd.origem,
-                  },
-                ];
-              }),
-            };
-          })
-        );
+            console.log("response", maquina);
+          }));
       })
       .catch((error) => {
-        console.log("Error:", error);
-      }, []);
-  });
-
-  console.log('Tesoura ID: ', tesouraId)
+        console.log('Error!!!:', JSON.stringify(error))
+      });
+  }, []);
 
   const colunasProblemas = [
     {
-      dataField: "la",
+      dataField: "processoId",
       text: "LA",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -78,7 +55,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordem",
+      dataField: "nome",
       text: "Ordem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -88,7 +65,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "familia",
+      dataField: "ordenacao",
       text: "Família",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -98,7 +75,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "status",
+      dataField: "ordemProducao",
       text: "Status",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -108,7 +85,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "semana",
+      dataField: "",
       text: "Semana",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -118,7 +95,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "titulo",
+      dataField: "",
       text: "Titulo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -128,7 +105,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "motivo",
+      dataField: "",
       text: "Motivo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -138,7 +115,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "origem",
+      dataField: "",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -148,11 +125,14 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "diasEmProducao",
-      text: "Origem",
+      dataField: "",
+      text: "Dias em Produção",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
+      filter: textFilter({
+        placeholder: "Filtrar Dias em Produção",
+      }),
     },
     {
       dataField: "editar",
@@ -189,21 +169,6 @@ export default function ProblemaProducao() {
     },
   ];
 
-  const productsPendentes = [
-    {
-      la: 101544,
-      ordem: 7000158,
-      familia: "Urgente",
-      status: "Erro",
-      semana: 135,
-      titulo: "COP Coroa",
-      motivo: 79989,
-      origem: "SAP",
-      diasEmProducao: 243,
-      opcoes: "Detalhes",
-    },
-  ];
-
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -227,7 +192,7 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Tesoura</p>
                 <BootstrapTable
-                  keyField="ordemProducao.la"
+                  keyField='la'
                   data={tesouraId}
                   columns={colunasProblemas}
                   filter={filterFactory()}
@@ -244,12 +209,12 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Puncionadeira</p>
                 <BootstrapTable
-                  keyField={puncionadeiraId}
-                  hover
-                  striped
-                  data={productsPendentes}
+                  keyField='la'
+                  data={puncionadeiraId}
                   columns={colunasProblemas}
                   filter={filterFactory()}
+                  hover
+                  striped
                 />
               </div>
             </div>
@@ -261,12 +226,12 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Dobradeira</p>
                 <BootstrapTable
-                  keyField={dobradeiraId}
-                  hover
-                  striped
-                  data={productsPendentes}
+                  keyField='la'
+                  data={dobradeiraId}
                   columns={colunasProblemas}
                   filter={filterFactory()}
+                  hover
+                  striped
                 />
               </div>
             </div>

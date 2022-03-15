@@ -66,28 +66,24 @@ function InformacoesTransevelevador() {
               <label>Origem</label>
               <input type="text" />
             </div>
-        
-            <div className="col-md-4 align-center">
-              <Button variant="primary">Começar Pick</Button>
+
+            <div className="col-sm-4 col-md-4 col-lg-4 blockButtons">
+              <Button variant="success">Começar Pick</Button>
+              <Button variant="success">Começar Drop</Button>
             </div>
-            <div className="col-md-4 align-center">
-              <Button variant="primary">Começar Pick</Button>
+
+            <div className="col-sm-4 col-md-4 col-lg-6 blockButtons">
+              <Button variant="success">Pick/Drop Finalizado</Button>
+              <Button variant="success">Acionar Giroflex</Button>
             </div>
-            <div className="col-md-4 align-center">
-              <Button variant="primary">Começar Pick</Button>
-            </div>
-            <div className="col-md-4 align-center">
-              <Button variant="primary">Começar Pick</Button>
-            </div>
-            <div className="col-md-4 align-center">
-              <Button variant="primary">Começar Pick</Button>
-            </div>
-            <div className="col-md-4">
-              <Button variant="primary" className="align-text-center">Começar Pick</Button>
+
+            <div className="col-sm-4 col-md-4 col-lg-2 blockButtons">
+              <Button variant="success">Apagar Falha</Button>
+              <Button variant="success">Eliminar Ordem</Button>
             </div>
           </form>
         </div>
-      </IconContext.Provider>
+      </IconContext.Provider >
     </>
   );
 }
