@@ -41,16 +41,6 @@ export default function ProblemaProducao() {
             ordemProducao: maquina.ordemProducao,
           };
         });
-        console.log("aaa", ordem);
-        // console.log(
-        //   "aqui",
-        //  ordem.forEach = function(fn,scope){
-        //    for(var i = 0,len=this.length; i < len ; ++i){
-        //     setTesouraId(tesouraId.push(ordem[i].ordemProducao))
-        //    }
-        //  }
-
-        // );
       })
       .catch((error) => {
         console.log("Error:", error);
@@ -59,7 +49,7 @@ export default function ProblemaProducao() {
 
   const colunasProblemas = [
     {
-      dataField: "ordemProducao.la",
+      dataField: "la",
       text: "LA",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -69,7 +59,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.ordem",
+      dataField: "ordem",
       text: "Ordem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -79,7 +69,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.familia",
+      dataField: "familia",
       text: "Família",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -89,7 +79,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.status",
+      dataField: "status",
       text: "Status",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -99,7 +89,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.semana",
+      dataField: "semana",
       text: "Semana",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -109,7 +99,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.titulo",
+      dataField: "titulo",
       text: "Titulo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -119,7 +109,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.motivo",
+      dataField: "motivo",
       text: "Motivo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -129,7 +119,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.origem",
+      dataField: "origem",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -139,7 +129,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.diasEmProducao",
+      dataField: "diasEmProducao",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -247,6 +237,7 @@ export default function ProblemaProducao() {
                   hover
                   striped
                   data={productsPendentes}
+                  selectRow={selectRow}
                   columns={colunasProblemas}
                   filter={filterFactory()}
                 />
