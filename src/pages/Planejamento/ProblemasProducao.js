@@ -14,6 +14,8 @@ export default function ProblemaProducao() {
   const urlProcesso = "Processo";
   const [processoId, setProcessoId] = useState();
   const [tesouraId, setTesouraId] = useState([]);
+  const [nome, setNome] = useState([]);
+  const [tabelas, setTabelas] = useState([]);
   const [tesouraNome, setTesouraNome] = useState([]);
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
@@ -28,10 +30,12 @@ export default function ProblemaProducao() {
   const [origem2, setOrigem2] = useState();
   const [ordemProcesso, setOrdemProcesso] = useState([]);
   const [listaNomes, setListaNomes] = useState([]);
+  
 
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
+    
       .then((response) => {
         var ordem = response.data.map((maquina) => {
           return {
@@ -41,25 +45,20 @@ export default function ProblemaProducao() {
             ordemProducao: maquina.ordemProducao,
           };
         });
-        console.log("aaa", ordem);
-        // console.log(
-        //   "aqui",
-        //  ordem.forEach = function(fn,scope){
-        //    for(var i = 0,len=this.length; i < len ; ++i){
-        //     setTesouraId(tesouraId.push(ordem[i].ordemProducao))
-        //    }
-        //  }
-
-        // );
+        setTabelas(ordem.map ((tabela) => tabela).flat());
+        setTesouraId(ordem.map((o) => o.ordemProducao).flat());
+        // setNome(ordem.map((i) => i.nome).flat());
       })
       .catch((error) => {
         console.log("Error:", error);
       });
   }, []);
 
+  console.log('tabelas: ',tabelas)
+
   const colunasProblemas = [
     {
-      dataField: "ordemProducao.la",
+      dataField: "la",
       text: "LA",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -69,7 +68,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.ordem",
+      dataField: "ordem",
       text: "Ordem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -79,7 +78,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.familia",
+      dataField: "familia",
       text: "Família",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -89,7 +88,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.status",
+      dataField: "status",
       text: "Status",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -99,7 +98,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.semana",
+      dataField: "semana",
       text: "Semana",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -109,7 +108,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.titulo",
+      dataField: "titulo",
       text: "Titulo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -119,7 +118,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.motivo",
+      dataField: "motivo",
       text: "Motivo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -129,7 +128,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.origem",
+      dataField: "origem",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -139,7 +138,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao.diasEmProducao",
+      dataField: "diasEmProducao",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -198,9 +197,11 @@ export default function ProblemaProducao() {
     mode: "radio",
     clickToSelect: true,
     onSelect: (row) => {
-      console.log('select row: ', tesouraId);
+      console.log("select row: ", tesouraId);
     },
   };
+
+ const [nomeMaquinas, setNomesMaquina] = useState([]);
 
   return (
     <>
@@ -219,57 +220,25 @@ export default function ProblemaProducao() {
             </div>
           </div>
 
-          {/* Produtos Pendentes */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Tesoura</p>
-                <BootstrapTable
-                  keyField="la"
-                  data={tesouraId}
-                  columns={colunasProblemas}
-                  selectRow={selectRow}
-                  filter={filterFactory()}
-                  hover
-                  striped
-                />
+          {tabelas.map((n) => 
+          
+            <div key={processoId} className="ordemProducaoBox">
+              <div className="row">
+                <div className="col-md-12">
+                  <p>{n.nome}</p>
+                  <BootstrapTable
+                    keyField="la"
+                    data={tesouraId}
+                    columns={colunasProblemas}
+                    selectRow={selectRow}
+                    filter={filterFactory()}
+                    hover
+                    striped
+                  />
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Produtos Customizada */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Puncionadeira</p>
-                <BootstrapTable
-                  keyField={puncionadeiraId}
-                  hover
-                  striped
-                  data={productsPendentes}
-                  columns={colunasProblemas}
-                  filter={filterFactory()}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Produtos Kanban */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Dobradeira</p>
-                <BootstrapTable
-                  keyField={dobradeiraId}
-                  hover
-                  striped
-                  data={productsPendentes}
-                  columns={colunasProblemas}
-                  filter={filterFactory()}
-                />
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </IconContext.Provider>
     </>

@@ -127,7 +127,7 @@ export default function Processo() {
           <>
             <span
               className="spanTabela"
-              id={row.processoId}
+              id={row.gondolaId}
               Style="cursor:pointer"
               onClick={() => { funcaoAbrirModal(row) }}
               data-toggle="tooltip" data-placement="left" title="Editar"
