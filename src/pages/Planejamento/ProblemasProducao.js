@@ -30,12 +30,11 @@ export default function ProblemaProducao() {
   const [origem2, setOrigem2] = useState();
   const [ordemProcesso, setOrdemProcesso] = useState([]);
   const [listaNomes, setListaNomes] = useState([]);
-  
 
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
-    
+
       .then((response) => {
         var ordem = response.data.map((maquina) => {
           return {
@@ -45,7 +44,7 @@ export default function ProblemaProducao() {
             ordemProducao: maquina.ordemProducao,
           };
         });
-        setTabelas(ordem.map ((tabela) => tabela).flat());
+        setTabelas(ordem.map((tabela) => tabela).flat());
         setTesouraId(ordem.map((o) => o.ordemProducao).flat());
         // setNome(ordem.map((i) => i.nome).flat());
       })
@@ -54,7 +53,7 @@ export default function ProblemaProducao() {
       });
   }, []);
 
-  console.log('tabelas: ',tabelas)
+  console.log("tabelas: ", tabelas);
 
   const colunasProblemas = [
     {
@@ -201,7 +200,7 @@ export default function ProblemaProducao() {
     },
   };
 
- const [nomeMaquinas, setNomesMaquina] = useState([]);
+  const [nomeMaquinas, setNomesMaquina] = useState([]);
 
   return (
     <>
@@ -220,8 +219,7 @@ export default function ProblemaProducao() {
             </div>
           </div>
 
-          {tabelas.map((n) => 
-          
+          {tabelas.map((n) => (
             <div key={processoId} className="ordemProducaoBox">
               <div className="row">
                 <div className="col-md-12">
@@ -238,7 +236,7 @@ export default function ProblemaProducao() {
                 </div>
               </div>
             </div>
-          )}
+          ))}
         </div>
       </IconContext.Provider>
     </>
