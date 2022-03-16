@@ -10,14 +10,13 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 
-  export default function ProblemaProducao() {
+export default function ProblemaProducao() {
   const urlProcesso = "Processo";
   const [processoId, setProcessoId] = useState();
   const [tesouraId, setTesouraId] = useState([]);
   const [tesouraNome, setTesouraNome] = useState([]);
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
-
   const [la, setLa] = useState();
   const [ordem, setOrdem] = useState();
   const [familia, setFamilia] = useState();
@@ -27,40 +26,40 @@ import { RiDeleteBinFill } from "react-icons/ri";
   const [motivo, setMotivo] = useState();
   const [origem, setOrigem] = useState();
   const [origem2, setOrigem2] = useState();
-
   const [ordemProcesso, setOrdemProcesso] = useState([]);
-
   const [listaNomes, setListaNomes] = useState([]);
 
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
       .then((response) => {
-        console.log("it is what it is", response.data);
-        response.data.map((maquina) => {
-          console.log("maquiaaa", maquina.ordemProducao)
-          setTesouraId([{
+        var ordem = response.data.map((maquina) => {
+          return {
             processoId: maquina.processoId,
             nome: maquina.nome,
             ordenacao: maquina.ordenacao,
             ordemProducao: maquina.ordemProducao,
-            ...maquina,
-          }]);
-          //setOrdemProcesso([tesouraId.ordemProducao]);
+          };
+        });
+        console.log("aaa", ordem);
+        // console.log(
+        //   "aqui",
+        //  ordem.forEach = function(fn,scope){
+        //    for(var i = 0,len=this.length; i < len ; ++i){
+        //     setTesouraId(tesouraId.push(ordem[i].ordemProducao))
+        //    }
+        //  }
 
-        })
+        // );
       })
       .catch((error) => {
         console.log("Error:", error);
       });
   }, []);
 
-  console.log("asdfsdf", tesouraId.ordemProducao)
-  console.log('Tesoura ID: ', tesouraId)
-
   const colunasProblemas = [
     {
-      dataField: "la",
+      dataField: "ordemProducao.la",
       text: "LA",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -70,7 +69,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "ordem",
+      dataField: "ordemProducao.ordem",
       text: "Ordem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -80,7 +79,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "familia",
+      dataField: "ordemProducao.familia",
       text: "Família",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -90,7 +89,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "status",
+      dataField: "ordemProducao.status",
       text: "Status",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -100,7 +99,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "semana",
+      dataField: "ordemProducao.semana",
       text: "Semana",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -110,7 +109,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "titulo",
+      dataField: "ordemProducao.titulo",
       text: "Titulo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -120,7 +119,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "motivo",
+      dataField: "ordemProducao.motivo",
       text: "Motivo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -130,7 +129,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "origem",
+      dataField: "ordemProducao.origem",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -140,7 +139,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
       }),
     },
     {
-      dataField: "diasEmProducao",
+      dataField: "ordemProducao.diasEmProducao",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -180,7 +179,6 @@ import { RiDeleteBinFill } from "react-icons/ri";
       },
     },
   ];
-
   const productsPendentes = [
     {
       la: 101544,
@@ -195,6 +193,14 @@ import { RiDeleteBinFill } from "react-icons/ri";
       opcoes: "Detalhes",
     },
   ];
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log('select row: ', tesouraId);
+    },
+  };
 
   return (
     <>
@@ -222,6 +228,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
                   keyField="la"
                   data={tesouraId}
                   columns={colunasProblemas}
+                  selectRow={selectRow}
                   filter={filterFactory()}
                   hover
                   striped
