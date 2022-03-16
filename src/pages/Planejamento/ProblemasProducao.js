@@ -10,23 +10,26 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 
-export default function ProblemaProducao() {
+  export default function ProblemaProducao() {
   const urlProcesso = "Processo";
   const [processoId, setProcessoId] = useState();
   const [tesouraId, setTesouraId] = useState([]);
   const [tesouraNome, setTesouraNome] = useState([]);
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
+
+  const [la, setLa] = useState();
+  const [ordem, setOrdem] = useState();
+  const [familia, setFamilia] = useState();
+  const [status, setStatus] = useState();
+  const [semana, setSemana] = useState();
+  const [titulo, setTitulo] = useState();
+  const [motivo, setMotivo] = useState();
+  const [origem, setOrigem] = useState();
+  const [origem2, setOrigem2] = useState();
+
   const [ordemProcesso, setOrdemProcesso] = useState([]);
-  const [la, setLa] = useState([]);
-  const [ordem, setOrdem] = useState([]);
-  const [familia, setFamilia] = useState([]);
-  const [status, setStatus] = useState([]);
-  const [semana, setSemana] = useState([]);
-  const [titulo, setTitulo] = useState([]);
-  const [motivo, setMotivo] = useState([]);
-  const [origem, setOrigem] = useState([]);
-  const [diasEmProducao, setDiasEmProducao] = useState([]);
+
   const [listaNomes, setListaNomes] = useState([]);
 
   //GET Problemas Producao Tesoura
@@ -35,33 +38,15 @@ export default function ProblemaProducao() {
       .then((response) => {
         console.log("it is what it is", response.data);
         response.data.map((maquina) => {
-          console.log("maquiaaa", maquina)
-          setTesouraId([
-            maquina
-            //processoId: maquina.processoId,
-            //nome: maquina.nome,
-            //ordenacao: maquina.ordenacao,
-            //ordemProducao: maquina.ordemProducao,
-          ]);
-          maquina.ordemProducao.map((ordem) => {
-            console.log("ordem ordem", ordem.ordemProducao);
-            setOrdemProcesso([
-              {
-                la: ordem.la,
-                ordem: ordem.ordem,
-                status: ordem.status,
-                titulo: ordem.titulo,
-                familia: ordem.familia,
-                semana: ordem.semana,
-                origem: ordem.origem,
-                ordenacao: ordem.ordenacao,
-                verificada: ordem.verificada,
-                dataImportacao: ordem.dataImportacao,
-                dataInicio: ordem.dataInicio,
-                dataFim: ordem.dataFim,
-              }
-            ])
-          })
+          console.log("maquiaaa", maquina.ordemProducao)
+          setTesouraId([{
+            processoId: maquina.processoId,
+            nome: maquina.nome,
+            ordenacao: maquina.ordenacao,
+            ordemProducao: maquina.ordemProducao,
+            ...maquina,
+          }]);
+          //setOrdemProcesso([tesouraId.ordemProducao]);
         })
       })
       .catch((error) => {
@@ -69,11 +54,12 @@ export default function ProblemaProducao() {
       });
   }, []);
 
+  console.log("asdfsdf", tesouraId.ordemProducao)
   console.log('Tesoura ID: ', tesouraId)
 
   const colunasProblemas = [
     {
-      dataField: "processoId",
+      dataField: "la",
       text: "LA",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -83,7 +69,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "nome",
+      dataField: "ordem",
       text: "Ordem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -93,7 +79,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordenacao",
+      dataField: "familia",
       text: "Família",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -103,7 +89,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "ordemProducao",
+      dataField: "status",
       text: "Status",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -113,7 +99,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "",
+      dataField: "semana",
       text: "Semana",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -123,7 +109,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "",
+      dataField: "titulo",
       text: "Titulo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -133,7 +119,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "",
+      dataField: "motivo",
       text: "Motivo",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -143,7 +129,7 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "",
+      dataField: "origem",
       text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
@@ -153,14 +139,11 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "",
-      text: "Dias em Produção",
+      dataField: "diasEmProducao",
+      text: "Origem",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar Dias em Produção",
-      }),
     },
     {
       dataField: "editar",
@@ -197,6 +180,21 @@ export default function ProblemaProducao() {
     },
   ];
 
+  const productsPendentes = [
+    {
+      la: 101544,
+      ordem: 7000158,
+      familia: "Urgente",
+      status: "Erro",
+      semana: 135,
+      titulo: "COP Coroa",
+      motivo: 79989,
+      origem: "SAP",
+      diasEmProducao: 243,
+      opcoes: "Detalhes",
+    },
+  ];
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -220,9 +218,7 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Tesoura</p>
                 <BootstrapTable
-                  keyField="ordemProcesso.la"
-                  data={ordemProcesso}
-                  keyField='la'
+                  keyField="la"
                   data={tesouraId}
                   columns={colunasProblemas}
                   filter={filterFactory()}
@@ -239,12 +235,12 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Puncionadeira</p>
                 <BootstrapTable
-                  keyField='la'
-                  data={puncionadeiraId}
-                  columns={colunasProblemas}
-                  filter={filterFactory()}
+                  keyField={puncionadeiraId}
                   hover
                   striped
+                  data={productsPendentes}
+                  columns={colunasProblemas}
+                  filter={filterFactory()}
                 />
               </div>
             </div>
@@ -256,12 +252,12 @@ export default function ProblemaProducao() {
               <div className="col-md-12">
                 <p>Dobradeira</p>
                 <BootstrapTable
-                  keyField='la'
-                  data={dobradeiraId}
-                  columns={colunasProblemas}
-                  filter={filterFactory()}
+                  keyField={dobradeiraId}
                   hover
                   striped
+                  data={productsPendentes}
+                  columns={colunasProblemas}
+                  filter={filterFactory()}
                 />
               </div>
             </div>
