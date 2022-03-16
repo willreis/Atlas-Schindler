@@ -44,14 +44,10 @@ import { RiDeleteBinFill } from "react-icons/ri";
             nome: maquina.nome,
             ordenacao: maquina.ordenacao,
             ordemProducao: maquina.ordemProducao,
-<<<<<<< HEAD
             ...maquina,
           }]);
           //setOrdemProcesso([tesouraId.ordemProducao]);
-=======
-          }]);
-          setOrdemProcesso([tesouraId.ordemProducao]);
->>>>>>> aee6ae19adc7647c2ed520419baaf09a83a99259
+
         })
       })
       .catch((error) => {
@@ -224,11 +220,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
                 <p>Tesoura</p>
                 <BootstrapTable
                   keyField="la"
-<<<<<<< HEAD
                   data={tesouraId}
-=======
-                  data={ordemProcesso}
->>>>>>> aee6ae19adc7647c2ed520419baaf09a83a99259
                   columns={colunasProblemas}
                   filter={filterFactory()}
                   hover
