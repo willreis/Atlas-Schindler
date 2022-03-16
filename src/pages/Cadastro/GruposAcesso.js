@@ -22,7 +22,7 @@ import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
-
+import Swal2 from 'sweetalert2';
 
 export default function GruposAcesso() {
 
@@ -147,9 +147,14 @@ export default function GruposAcesso() {
       quantidadeDeUsuarios: 0,
     })
       .then((response) => {
+        Swal2.fire({
+          text: "Ação Concluída",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2500
+        });
         console.log(response.data);
         getGrupos();
-        alert("Cadastro efetuado com sucesso!");
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
@@ -165,9 +170,13 @@ export default function GruposAcesso() {
       usuarios: usuariosCadastrados
     })
       .then((response) => {
+        Swal2.fire({
+          text: "Ação Concluída",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2500
+        });
         setIdGrupo(idGrupo);
-        console.log("Esse é o console do Put: ", response);
-        alert("Alteração Realizada com sucesso!");
         getGrupos();
       })
       .catch((error) => {
@@ -181,13 +190,18 @@ export default function GruposAcesso() {
       setUser(
         user.filter((grupo) => grupo.grupoDeAcessoId !== grupoDeAcessoId)
       );
-      alert("Deletado com sucesso");
+      Swal2.fire({
+        text: "Ação Concluída",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2500
+      });
       getGrupos();
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
   }
-    // --------------------------------------------------------------------------------------------------------------------------------//
+  // --------------------------------------------------------------------------------------------------------------------------------//
 
   const columnsSemPermissao = [
     {
@@ -505,7 +519,7 @@ export default function GruposAcesso() {
                               {/*1ª Quadrado*/}
                               <div className="row mt-3">
                                 <div
-                                  className="col-5 ultimaTabela" Style="height: 300px!important"
+                                  className="col-5 ultimaTabela" Style="height: 300px!important;overflow-x:auto"
                                   onClick={onClickLinhaTabela}
                                 >
                                   <BootstrapTable
@@ -529,7 +543,7 @@ export default function GruposAcesso() {
                                 </div>
 
                                 {/*2ª Quadrado*/}
-                                <div className="col-5" Style="border: 1px solid green; height: 300px">
+                                <div className="col-5" Style="border: 1px solid green; height: 300px; height: 300px">
                                   <BootstrapTable
                                     bootstrap4
                                     keyField="telaId"
@@ -557,7 +571,7 @@ export default function GruposAcesso() {
                             >
                               {/*1ª Quadrado*/}
                               <div className="row mt-3">
-                                <div className="col-5" Style="border: 1px solid green; height: 300px">
+                                <div className="col-5" Style="border: 1px solid green; height: 300px; height: 300px">
                                   <BootstrapTable
                                     bootstrap4
                                     keyField="usuarioId"
