@@ -499,18 +499,17 @@ function MapaArmazem() {
             </div>
           </div>
           <div className="row mt-4">
-            <div className="col-md-12 col-sm-12" Style='display: flex; justify-content: space-between'>
-              <div Style='display: flex '>
+            <div className="col-md-12 col-sm-12">
+              <div className="armazemBotoes">
                 <Button variant="success" Style="width:200px">Lado Esquerdo</Button>
                 <Button variant="success" Style="width:200px">Lado Direito</Button>
-              </div>
-              <div Style='display: flex'>
+              
                 <Button variant="success" Style="width:200px">Legenda</Button>
                 <Button variant="success" Style="width:200px;">Estados</Button>
               </div>
             </div>
             <div className="row">
-              <div className="col-md-12 col-sm-12">
+              <div className="col-md-12 col-sm-12 mt-5">
                 <div Style="text-align: center" className="textTable">
                   <BootstrapTable
                     keyField="nomeGrupo"

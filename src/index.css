@@ -619,3 +619,7 @@ span.pro-item-content {
     border: 1px solid #cbbfbf;
     padding: 30px;
 }
+
+.armazemBotoes button{
+    margin-right: 15px
+}
