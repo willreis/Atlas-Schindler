@@ -619,3 +619,9 @@ span.pro-item-content {
     border: 1px solid #cbbfbf;
     padding: 30px;
 }
+
+/*TRANSELEVADOR*/
+.formPadrao div button {
+    width: 300px;
+    height: 40px;
+}
