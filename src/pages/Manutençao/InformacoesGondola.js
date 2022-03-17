@@ -14,7 +14,7 @@ import { IoOptionsSharp } from "react-icons/io5";
 
 import Api from "../../services/Api";
 
-function InformacoesGondola() {
+export default function InformacoesGondola() {
   const url = "Gondola";
   const [idUser, setIdUser] = useState(null);
   const [user, setUser] = useState();
@@ -69,7 +69,7 @@ function InformacoesGondola() {
     onSelect: (row) => {
       console.log("selecionado");
       console.log(row.gondolaId);
-      setIdGondola(row.gondolaId);
+      setIdUser(row.gondolaId);
     },
   };
 
@@ -293,6 +293,7 @@ function InformacoesGondola() {
 
   //Delete
   function handleDeleteUsuario(idUser) {
+    console.log("Id Pego", idUser);
     try {
       Api.delete(`/${url}/${idUser}`);
       console.log("delete id", idUser);
@@ -487,7 +488,7 @@ function InformacoesGondola() {
                     <div className="col-6">
                       <Button
                         variant="primary"
-                        onClick={() => handleDeleteUsuario(gondolaId)}
+                        onClick={() => handleDeleteUsuario(idUser)}
                       >
                         Sim
                       </Button>
@@ -503,4 +504,4 @@ function InformacoesGondola() {
   );
 }
 
-export default InformacoesGondola;
+
