@@ -625,3 +625,7 @@ span.pro-item-content {
     width: 300px;
     height: 40px;
 }
+
+.armazemBotoes button {
+    margin-right: 15px
+}
