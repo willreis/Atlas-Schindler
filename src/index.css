@@ -629,3 +629,7 @@ span.pro-item-content {
 .armazemBotoes button {
     margin-right: 15px
 }
+
+form.g-3.formPadrao .row div {
+    margin-bottom: 15px;
+}

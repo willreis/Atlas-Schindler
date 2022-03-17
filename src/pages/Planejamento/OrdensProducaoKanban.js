@@ -10,35 +10,23 @@ import Api from "../../services/Api";
 
 export default function OrdensProducaoKanban() {
 
-  const urlKanban = 'Kanban';
-
+  const [user, setUser] = useState();
+  const [getKanban, setGetKanban] = useState([]);
   const [la, setLa] = useState();
-  const [tabelas, setTabelas] = useState([]);
-  const [ordem, setOrdem] = useState();
+  const [item, setItem] = useState([]);
   const [familia, setFamilia] = useState();
-  const [status, setStatus] = useState();
-  const [semana, setSemana] = useState();
-  const [titulo, setTitulo] = useState();
-  const [motivo, setMotivo] = useState();
-  const [origem, setOrigem] = useState();
-  const [diasEmProducao, setDiasEmProducao] = useState();
+  const [quantidade, setQuantidade] = useState();
+  const [roteiro1, setRoteiro1] = useState()
+  const [roteiro2, setRoteiro2] = useState()
+  const [roteiro3, setRoteiro3] = useState()
+  const [roteiro4, setRoteiro4] = useState()
 
-  useEffect(() => {
-    Api.get(`${urlKanban}`)
-      .then((response) => {
-        setTabelas(
-          response.data.map((param) => {
-            console.log('Chegou aqui:', param);
-            return {
+  function handleRegister(e) {
+    // e.preventDefault();
+    handleRegister(user);
+  }
 
-            }
-          })
-        )
-      })
-      .catch((error) => {
-        alert("Error", JSON.stringify(error));
-      })
-  }, []);
+ 
 
   const colunasPendentes = [
     {
@@ -67,9 +55,6 @@ export default function OrdensProducaoKanban() {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar Família",
-      }),
     },
     {
       dataField: "status",
@@ -77,29 +62,21 @@ export default function OrdensProducaoKanban() {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar Status",
-      }),
     },
+    
     {
       dataField: "semana",
       text: "Semana",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar Semana",
-      }),
     },
     {
       dataField: "titulo",
-      text: "Titulo",
+      text: "Título",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar Título",
-      }),
     },
     {
       dataField: "origem",
@@ -107,20 +84,14 @@ export default function OrdensProducaoKanban() {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar Origem",
-      }),
     },
     {
       dataField: "ordenacao",
-      text: "Ordenação",
+      text: "Ordenacao",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar Ordenação",
-      }),
-    },
+    },   
     {
       dataField: "editar",
       isDummyField: true,
@@ -134,7 +105,9 @@ export default function OrdensProducaoKanban() {
               className="spanTabela"
               id=""
               Style="cursor:pointer"
-              data-toggle="tooltip" data-placement="left" title="Editar"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Editar"
             >
               <VscEdit />
             </span>
@@ -142,7 +115,9 @@ export default function OrdensProducaoKanban() {
               className="spanTabela"
               id=""
               Style="cursor:pointer; border: none; background: none"
-              data-toggle="tooltip" data-placement="left" title="Deletar"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Deletar"
             >
               <RiDeleteBinFill />
             </button>
@@ -187,6 +162,23 @@ export default function OrdensProducaoKanban() {
     },
   ];
 
+  useEffect(() => {
+    Api.get(`OrdemProducao/`)
+    .then((response) => {
+      console.log('aaaaaaaa', response.data)
+      setGetKanban(response.data.map((kanban) => {
+        return {
+          la: kanban.la,
+          ordem: kanban.ordem,
+          familia: kanban.familia,
+          semana: kanban.semana,
+          titulo: kanban.titulo,
+          origem: kanban.origem,
+          ordenacao: kanban.ordenacao,
+        };
+      }))
+    })
+  }, []);
 
   return (
     <>
@@ -195,58 +187,26 @@ export default function OrdensProducaoKanban() {
           <div className="row">
             <div className="col-md-12 col-sm-12">
               <div className="tituloInterno">
-                <h2 className="titulosPrincipais" Style="margin-top: 30px!important;">Ordens De Produção Kanban</h2>
+                <h2
+                  className="titulosPrincipais"
+                  Style="margin-top: 30px!important;"
+                >
+                  Gerenciamento De Kanban
+                </h2>
               </div>
             </div>
           </div>
 
-          {/* Produtos Pendentes */}
           <div className="ordemProducaoBox">
             <div className="row">
               <div className="col-md-12">
-                <p>Pendentes</p>
                 <BootstrapTable
-                  keyField="matricula"
-                  hover
-                  striped
-                  data={productsPendentes}
+                  keyField="la"
+                  data={getKanban}
                   columns={colunasPendentes}
                   filter={filterFactory()}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Produtos Customizada */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Customizada</p>
-                <BootstrapTable
-                  keyField="matricula"
                   hover
                   striped
-                  data={productsPendentes}
-                  columns={colunasPendentes}
-                  filter={filterFactory()}
-                />
-              </div>
-            </div>
-          </div>
-
-
-          {/* Produtos Kanban */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Kanban</p>
-                <BootstrapTable
-                  keyField="matricula"
-                  hover
-                  striped
-                  data={productsPendentes}
-                  columns={colunasPendentes}
-                  filter={filterFactory()}
                 />
               </div>
             </div>
