@@ -44,6 +44,11 @@ export default function ProblemaProducao() {
             ordemProducao: maquina.ordemProducao,
           };
         });
+        console.log("aqui",ordem.map((tabela) => tabela).flat());
+
+        var tabelas = ordem.map((tabela) => tabela).flat()
+        var maquinas = ordem.map((o) => o.ordemProducao).flat()
+
         setTabelas(ordem.map((tabela) => tabela).flat());
         setTesouraId(ordem.map((o) => o.ordemProducao).flat());
         // setNome(ordem.map((i) => i.nome).flat());
@@ -52,8 +57,6 @@ export default function ProblemaProducao() {
         console.log("Error:", error);
       });
   }, []);
-
-  console.log("tabelas: ", tabelas);
 
   const colunasProblemas = [
     {
@@ -226,7 +229,7 @@ export default function ProblemaProducao() {
                   <p>{n.nome}</p>
                   <BootstrapTable
                     keyField="la"
-                    data={tesouraId}
+                    data={n.ordemProducao}
                     columns={colunasProblemas}
                     selectRow={selectRow}
                     filter={filterFactory()}
