@@ -10,14 +10,15 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 
-  export default function ProblemaProducao() {
+export default function ProblemaProducao() {
   const urlProcesso = "Processo";
   const [processoId, setProcessoId] = useState();
   const [tesouraId, setTesouraId] = useState([]);
+  const [nome, setNome] = useState([]);
+  const [tabelas, setTabelas] = useState([]);
   const [tesouraNome, setTesouraNome] = useState([]);
   const [puncionadeiraId, setPuncionadeiraId] = useState([]);
   const [dobradeiraId, setDobradeiraId] = useState([]);
-
   const [la, setLa] = useState();
   const [ordem, setOrdem] = useState();
   const [familia, setFamilia] = useState();
@@ -27,36 +28,32 @@ import { RiDeleteBinFill } from "react-icons/ri";
   const [motivo, setMotivo] = useState();
   const [origem, setOrigem] = useState();
   const [origem2, setOrigem2] = useState();
-
   const [ordemProcesso, setOrdemProcesso] = useState([]);
-
   const [listaNomes, setListaNomes] = useState([]);
 
   //GET Problemas Producao Tesoura
   useEffect(() => {
     Api.get(`${urlProcesso}`)
+
       .then((response) => {
-        console.log("it is what it is", response.data);
-        response.data.map((maquina) => {
-          console.log("maquiaaa", maquina.ordemProducao)
-          setTesouraId([{
+        var ordem = response.data.map((maquina) => {
+          return {
             processoId: maquina.processoId,
             nome: maquina.nome,
             ordenacao: maquina.ordenacao,
             ordemProducao: maquina.ordemProducao,
-            ...maquina,
-          }]);
-          //setOrdemProcesso([tesouraId.ordemProducao]);
-
-        })
+          };
+        });
+        setTabelas(ordem.map((tabela) => tabela).flat());
+        setTesouraId(ordem.map((o) => o.ordemProducao).flat());
+        // setNome(ordem.map((i) => i.nome).flat());
       })
       .catch((error) => {
         console.log("Error:", error);
       });
   }, []);
 
-  console.log("asdfsdf", tesouraId.ordemProducao)
-  console.log('Tesoura ID: ', tesouraId)
+  console.log("tabelas: ", tabelas);
 
   const colunasProblemas = [
     {
@@ -180,7 +177,6 @@ import { RiDeleteBinFill } from "react-icons/ri";
       },
     },
   ];
-
   const productsPendentes = [
     {
       la: 101544,
@@ -195,6 +191,16 @@ import { RiDeleteBinFill } from "react-icons/ri";
       opcoes: "Detalhes",
     },
   ];
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("select row: ", tesouraId);
+    },
+  };
+
+  const [nomeMaquinas, setNomesMaquina] = useState([]);
 
   return (
     <>
@@ -213,56 +219,24 @@ import { RiDeleteBinFill } from "react-icons/ri";
             </div>
           </div>
 
-          {/* Produtos Pendentes */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Tesoura</p>
-                <BootstrapTable
-                  keyField="la"
-                  data={tesouraId}
-                  columns={colunasProblemas}
-                  filter={filterFactory()}
-                  hover
-                  striped
-                />
+          {tabelas.map((n) => (
+            <div key={processoId} className="ordemProducaoBox">
+              <div className="row">
+                <div className="col-md-12">
+                  <p>{n.nome}</p>
+                  <BootstrapTable
+                    keyField="la"
+                    data={tesouraId}
+                    columns={colunasProblemas}
+                    selectRow={selectRow}
+                    filter={filterFactory()}
+                    hover
+                    striped
+                  />
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Produtos Customizada */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Puncionadeira</p>
-                <BootstrapTable
-                  keyField={puncionadeiraId}
-                  hover
-                  striped
-                  data={productsPendentes}
-                  columns={colunasProblemas}
-                  filter={filterFactory()}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Produtos Kanban */}
-          <div className="ordemProducaoBox">
-            <div className="row">
-              <div className="col-md-12">
-                <p>Dobradeira</p>
-                <BootstrapTable
-                  keyField={dobradeiraId}
-                  hover
-                  striped
-                  data={productsPendentes}
-                  columns={colunasProblemas}
-                  filter={filterFactory()}
-                />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </IconContext.Provider>
     </>
