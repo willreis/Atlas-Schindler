@@ -7,8 +7,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { VscEdit } from "react-icons/vsc";
-import { RiDeleteBinFill } from "react-icons/ri";
+import { BiCommentDetail } from "react-icons/bi";
 
 export default function ProblemaProducao() {
   const urlProcesso = "Processo";
@@ -37,7 +36,7 @@ export default function ProblemaProducao() {
     getProcessos();
   }, []);
 
-// ------------------------------------------------------------------------//
+  // ------------------------------------------------------------------------//
   const colunasProblemas = [
     {
       dataField: "la",
@@ -120,38 +119,53 @@ export default function ProblemaProducao() {
       }),
     },
     {
-      dataField: "diasEmProducao",
-      text: "Origem",
+      dataField: "detalhes",
+      text: "Detalhes",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
+      formatter: (cellContent, row) => {
+        return (
+          <>
+            <button
+              className="spanTabela"
+              id={row.la}
+              Style="cursor:pointer; border: none; background: none"
+              // onClick={() => handleDeleteUsuario(row.la)}
+              data-toggle="tooltip" data-placement="left" title="Detalhes"
+            >
+              <BiCommentDetail />
+            </button>
+          </>
+        );
+      }
     },
   ];
-// ------------------------------------------------------------------------//
+  // ------------------------------------------------------------------------//
   const getProcessos = (e) => {
     Api.get(`${urlProcesso}`)
 
-    .then((response) => {
-      var ordem = response.data.map((maquina) => {
-        return {
-          processoId: maquina.processoId,
-          nome: maquina.nome,
-          ordenacao: maquina.ordenacao,
-          ordemProducao: maquina.ordemProducao,
-        };
+      .then((response) => {
+        var ordem = response.data.map((maquina) => {
+          return {
+            processoId: maquina.processoId,
+            nome: maquina.nome,
+            ordenacao: maquina.ordenacao,
+            ordemProducao: maquina.ordemProducao,
+          };
+        });
+        console.log("aqui", ordem.map((tabela) => tabela).flat());
+
+        var tabelas = ordem.map((tabela) => tabela).flat()
+        var maquinas = ordem.map((o) => o.ordemProducao).flat()
+
+        setTabelas(ordem.map((tabela) => tabela).flat());
+        setTesouraId(ordem.map((o) => o.ordemProducao).flat());
+        // setNome(ordem.map((i) => i.nome).flat());
+      })
+      .catch((error) => {
+        console.log("Error:", error);
       });
-      console.log("aqui",ordem.map((tabela) => tabela).flat());
-
-      var tabelas = ordem.map((tabela) => tabela).flat()
-      var maquinas = ordem.map((o) => o.ordemProducao).flat()
-
-      setTabelas(ordem.map((tabela) => tabela).flat());
-      setTesouraId(ordem.map((o) => o.ordemProducao).flat());
-      // setNome(ordem.map((i) => i.nome).flat());
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
   }
 
   return (
