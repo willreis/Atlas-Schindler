@@ -30,34 +30,14 @@ export default function ProblemaProducao() {
   const [origem2, setOrigem2] = useState();
   const [ordemProcesso, setOrdemProcesso] = useState([]);
   const [listaNomes, setListaNomes] = useState([]);
+  const [nomeMaquinas, setNomesMaquina] = useState([]);
 
-  //GET Problemas Producao Tesoura
+
   useEffect(() => {
-    Api.get(`${urlProcesso}`)
-
-      .then((response) => {
-        var ordem = response.data.map((maquina) => {
-          return {
-            processoId: maquina.processoId,
-            nome: maquina.nome,
-            ordenacao: maquina.ordenacao,
-            ordemProducao: maquina.ordemProducao,
-          };
-        });
-        console.log("aqui",ordem.map((tabela) => tabela).flat());
-
-        var tabelas = ordem.map((tabela) => tabela).flat()
-        var maquinas = ordem.map((o) => o.ordemProducao).flat()
-
-        setTabelas(ordem.map((tabela) => tabela).flat());
-        setTesouraId(ordem.map((o) => o.ordemProducao).flat());
-        // setNome(ordem.map((i) => i.nome).flat());
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
+    getProcessos();
   }, []);
 
+// ------------------------------------------------------------------------//
   const colunasProblemas = [
     {
       dataField: "la",
@@ -146,64 +126,33 @@ export default function ProblemaProducao() {
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
     },
-    {
-      dataField: "editar",
-      isDummyField: true,
-      text: "Editar / Deletar",
-      headerAlign: "center",
-      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-      formatter: (cellContent, row) => {
-        return (
-          <>
-            <span
-              className="spanTabela"
-              id=""
-              Style="cursor:pointer"
-              data-toggle="tooltip"
-              data-placement="left"
-              title="Editar"
-            >
-              <VscEdit />
-            </span>
-            <button
-              className="spanTabela"
-              id=""
-              Style="cursor:pointer; border: none; background: none"
-              data-toggle="tooltip"
-              data-placement="left"
-              title="Deletar"
-            >
-              <RiDeleteBinFill />
-            </button>
-          </>
-        );
-      },
-    },
   ];
-  const productsPendentes = [
-    {
-      la: 101544,
-      ordem: 7000158,
-      familia: "Urgente",
-      status: "Erro",
-      semana: 135,
-      titulo: "COP Coroa",
-      motivo: 79989,
-      origem: "SAP",
-      diasEmProducao: 243,
-      opcoes: "Detalhes",
-    },
-  ];
+// ------------------------------------------------------------------------//
+  const getProcessos = (e) => {
+    Api.get(`${urlProcesso}`)
 
-  const selectRow = {
-    mode: "radio",
-    clickToSelect: true,
-    onSelect: (row) => {
-      console.log("select row: ", tesouraId);
-    },
-  };
+    .then((response) => {
+      var ordem = response.data.map((maquina) => {
+        return {
+          processoId: maquina.processoId,
+          nome: maquina.nome,
+          ordenacao: maquina.ordenacao,
+          ordemProducao: maquina.ordemProducao,
+        };
+      });
+      console.log("aqui",ordem.map((tabela) => tabela).flat());
 
-  const [nomeMaquinas, setNomesMaquina] = useState([]);
+      var tabelas = ordem.map((tabela) => tabela).flat()
+      var maquinas = ordem.map((o) => o.ordemProducao).flat()
+
+      setTabelas(ordem.map((tabela) => tabela).flat());
+      setTesouraId(ordem.map((o) => o.ordemProducao).flat());
+      // setNome(ordem.map((i) => i.nome).flat());
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+    });
+  }
 
   return (
     <>
@@ -231,7 +180,6 @@ export default function ProblemaProducao() {
                     keyField="la"
                     data={n.ordemProducao}
                     columns={colunasProblemas}
-                    selectRow={selectRow}
                     filter={filterFactory()}
                     hover
                     striped
