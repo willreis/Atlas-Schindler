@@ -167,7 +167,7 @@ const SidebarNew = () => {
                 >
                   <Link
                     className="link"
-                    to="planejamento/importacaoordemproducao"
+                    to="/planejamento/importacaoordemproducao"
                   >
                     Importação de Ordem Produção
                   </Link>

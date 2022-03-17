@@ -13,7 +13,7 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { BiCommentDetail } from "react-icons/bi";
 
-function ImportacaoOrdemProducao() {
+export default function ImportacaoOrdemProducao() {
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -375,4 +375,3 @@ function ImportacaoOrdemProducao() {
   );
 }
 
-export default ImportacaoOrdemProducao;

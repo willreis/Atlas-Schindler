@@ -85,10 +85,10 @@ function Login() {
             <div className="loginBox">
               <Form >
                 <Form.Group size="lg" controlId="email">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Matricula</Form.Label>
                   <Form.Control
                     autoFocus
-                    type="email"
+                    type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />

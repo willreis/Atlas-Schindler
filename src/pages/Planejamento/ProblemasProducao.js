@@ -8,6 +8,7 @@ import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { BiCommentDetail } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 export default function ProblemaProducao() {
   const urlProcesso = "Processo";
@@ -30,7 +31,6 @@ export default function ProblemaProducao() {
   const [ordemProcesso, setOrdemProcesso] = useState([]);
   const [listaNomes, setListaNomes] = useState([]);
   const [nomeMaquinas, setNomesMaquina] = useState([]);
-
 
   useEffect(() => {
     getProcessos();
@@ -123,22 +123,24 @@ export default function ProblemaProducao() {
       text: "Detalhes",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-      sort: true,
       formatter: (cellContent, row) => {
         return (
           <>
-            <button
-              className="spanTabela"
-              id={row.la}
-              Style="cursor:pointer; border: none; background: none"
-              // onClick={() => handleDeleteUsuario(row.la)}
-              data-toggle="tooltip" data-placement="left" title="Detalhes"
-            >
-              <BiCommentDetail />
-            </button>
+            <Link to="/planejamento/detalhesvgs">
+              <button
+                className="spanTabela"
+                id={row.la}
+                Style="cursor:pointer; border: none; background: none"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Detalhes"
+              >
+                <BiCommentDetail />
+              </button>
+            </Link>
           </>
         );
-      }
+      },
     },
   ];
   // ------------------------------------------------------------------------//
@@ -156,8 +158,8 @@ export default function ProblemaProducao() {
         });
         console.log("aqui", ordem.map((tabela) => tabela).flat());
 
-        var tabelas = ordem.map((tabela) => tabela).flat()
-        var maquinas = ordem.map((o) => o.ordemProducao).flat()
+        var tabelas = ordem.map((tabela) => tabela).flat();
+        var maquinas = ordem.map((o) => o.ordemProducao).flat();
 
         setTabelas(ordem.map((tabela) => tabela).flat());
         setTesouraId(ordem.map((o) => o.ordemProducao).flat());
@@ -166,7 +168,7 @@ export default function ProblemaProducao() {
       .catch((error) => {
         console.log("Error:", error);
       });
-  }
+  };
 
   return (
     <>
