@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Routes } from 'react-router-dom';
 
 import Usuarios from './pages/Cadastro/Usuarios'
 import GruposAcesso from './pages/Cadastro/GruposAcesso'
@@ -70,61 +70,59 @@ function Rotas(props) {
     return (
         <div {...props}>
             <div>
-                <Switch >
-                    <Route path='/cadastro/usuarios' exact element={<Usuarios />}></Route>
-                    <Route path='/cadastro/gruposdeacesso' exact element={<GruposAcesso />}></Route>
-                    <Route path='/cadastro/impressora' exact element={<Impressora />}></Route>
-                    <Route path='/cadastro/processo' exact element={<Processo />}></Route>
-                    <Route path='/cadastro/maquina' exact element={<Maquina />}></Route>
-                    <Route path='/cadastro/material' exact element={<Material />}></Route>
+                    <Route path='/cadastro/usuarios' component={Usuarios}></Route>
+                    <Route path='/cadastro/gruposdeacesso' component={GruposAcesso}></Route>
+                    <Route path='/cadastro/impressora' component={Impressora}></Route>
+                    <Route path='/cadastro/processo' component={Processo}></Route>
+                    <Route path='/cadastro/maquina' component={Maquina}></Route>
+                    <Route path='/cadastro/material' component={Material}></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
-                    <Route path='/cadastro/motivoproblema' exact element={<MotivoProblema />}></Route>
-                    <Route path='/cadastro/novoeditarmaterial' exact element={<NovoEditarMaterial />}></Route>
-                    <Route path='/planejamento/importacaoordemproducao' exact element={<ImportacaoOrdemProducao />}></Route>
-                    <Route path='/planejamento/ordensproducao' exact element={<OrdensProducao />}></Route>
-                    <Route path='/planejamento/ordensproducaokanban' exact element={<OrdensProducaoKanban />}></Route>
-                    <Route path='/planejamento/problemasproducao' exact element={<ProblemasProducao />}></Route>
+                    <Route path='/cadastro/motivoproblema' component={MotivoProblema}></Route>
+                    <Route path='/cadastro/novoeditarmaterial' component={NovoEditarMaterial}></Route>
+                    <Route path='/planejamento/importacaoordemproducao' component={ImportacaoOrdemProducao}></Route>
+                    <Route path='/planejamento/ordensproducao' component={OrdensProducao}></Route>
+                    <Route path='/planejamento/ordensproducaokanban' component={OrdensProducaoKanban}></Route>
+                    <Route path='/planejamento/problemasproducao' component={ProblemasProducao }></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
-                    <Route path='/planejamento/detalhesitemproducao' exact element={<DetalhesItemProducao />}></Route>
-                    <Route path='/planejamento/detalhesvgs' exact element={<DetalhesVgs />}></Route>
-                    <Route path='/planejamento/gerenciamentokanban' exact element={<GerenciamentoKanban />}></Route>
-                    <Route path='/manutencao/mapadeposicoes' exact element={<MapaDePosicoes />}></Route>
-                    <Route path='/manutencao/informacoesgondola' exact element={<InformacoesGondola />}></Route>
-                    <Route path='/manutencao/ocupacaodoarmazem' exact element={<OcupacaoArmazem />}></Route>
-                    <Route path='/manutencao/informacoesdotranselevador' exact element={<InformacoesTranselevador />}></Route>
+                    <Route path='/planejamento/detalhesitemproducao' component={DetalhesItemProducao }></Route>
+                    <Route path='/planejamento/detalhesvgs' component={DetalhesVgs }></Route>
+                    <Route path='/planejamento/gerenciamentokanban' component={GerenciamentoKanban }></Route>
+                    <Route path='/manutencao/mapadeposicoes' component={MapaDePosicoes }></Route>
+                    <Route path='/manutencao/informacoesgondola' component={InformacoesGondola }></Route>
+                    <Route path='/manutencao/ocupacaodoarmazem' component={OcupacaoArmazem }></Route>
+                    <Route path='/manutencao/informacoesdotranselevador' component={InformacoesTranselevador }></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
-                    <Route path='/manutencao/alarmes' exact element={<Alarmes />}></Route>
-                    <Route path='/manutencao/gerenciamentokanbanmanutencao' exact element={<GerenciamentoKanbanManutencao />}></Route>
-                    <Route path='/manutencao/informacoeslocalizacao' exact element={<InformacoesLocalizacao />}></Route>
-                    <Route path='/manutencao/informacoesmesa' exact element={<InformacoesMesa />}></Route>
-                    <Route path='/manutencao/testetranslacao' exact element={<TesteTranslacao />}></Route>
-                    <Route path='/operacao/producao' exact element={<Producao />}></Route>
-                    <Route path='/operacao/recebimentoarmazem' exact element={<RecebimentoArmazem />}></Route>
-                    <Route path='/operacao/configuracao' exact element={<ConfiguracaoEstacaoTrabalho />}></Route>
+                    <Route path='/manutencao/alarmes' component={Alarmes }></Route>
+                    <Route path='/manutencao/gerenciamentokanbanmanutencao' component={GerenciamentoKanbanManutencao }></Route>
+                    <Route path='/manutencao/informacoeslocalizacao' component={InformacoesLocalizacao }></Route>
+                    <Route path='/manutencao/informacoesmesa' component={InformacoesMesa }></Route>
+                    <Route path='/manutencao/testetranslacao' component={TesteTranslacao }></Route>
+                    <Route path='/operacao/producao' component={Producao }></Route>
+                    <Route path='/operacao/recebimentoarmazem' component={RecebimentoArmazem }></Route>
+                    <Route path='/operacao/configuracao' component={ConfiguracaoEstacaoTrabalho }></Route>
                     {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
-                    <Route path='/operacao/detalhesprodpuncionadeira' exact element={<DetalhesProdPuncionadeira />}></Route>
-                    <Route path='/operacao/detalhesproducao' exact element={<DetalhesProducao />}></Route>
-                    <Route path='/movimentos/filademovimentos' exact element={<ListaMovimentos />}></Route>
-                    <Route path='/movimentos/movimentomesadesaida' exact element={<LancarSaidaGondola />}></Route>
-                    <Route path='/movimentos/movimentoparaarmazem' exact element={<RetornarGondolaArmazem />}></Route>
-                    <Route path='/movimentos/entradagondolavazia' exact element={<EntradaGondolaVazia />}></Route>
-                    <Route path='/movimentos/enviarcomandos' exact element={<EnviarComandosPlc />}></Route>
-                    <Route path='/dashboard/acompanhamentodeproducao' exact element={<AcompanhamentoProducao />}></Route>
-                    <Route path='/dashboard/acompanhamentodeestoque' exact element={<AcompanhamentoEstoque />}></Route>
-                    <Route path='/dashboard/acompanhametodefabrica' exact element={<AcompanhamentoFabrica />}></Route>
-                    <Route path='/dashboard/acompanhamentodeproducaokanban' exact element={<AcompanhamentoProdKanban />}></Route>
-                    <Route path='/dashboard/acompanhamentodeproducaoproduto' exact element={<AcompanhamentoProdProduto />}></Route>
-                    <Route path='/relatorios/historicodeordemproducao' exact element={<DadosProducao />}></Route>
-                    <Route path='/relatorios/historicodemovimentacao' exact element={<HistoricoMovimentacao />}></Route>
-                    <Route path='/relatorios/estoquedeproduto' exact element={<EstoqueMaterial />}></Route>
-                    <Route path='/relatorios/historicodegondola' exact element={<HistoricoGondola />}></Route>
-                    <Route path='/relatorios/encerramentodeordemproducao' exact element={<EncerramentoOrdem />}></Route>
-                    <Route path='/relatorios/historicodeentradaproduto' exact element={<HistoricoEntradaMaterial />}></Route>
-                    <Route path='/relatorios/producaopormaquina' exact element={<ProducaoMaquina />}></Route>
-                    <Route path='/relatorios/analisedefalhas' exact element={<AnaliseFalhas />}></Route>
-                    <Route path='*' exact element={<Pagina404 />}></Route>
-                    <Route path='/home' exact element={<Home />}></Route>
-               </Switch>
+                    <Route path='/operacao/detalhesprodpuncionadeira' component={DetalhesProdPuncionadeira }></Route>
+                    <Route path='/operacao/detalhesproducao' component={DetalhesProducao }></Route>
+                    <Route path='/movimentos/filademovimentos' component={ListaMovimentos }></Route>
+                    <Route path='/movimentos/movimentomesadesaida' component={LancarSaidaGondola }></Route>
+                    <Route path='/movimentos/movimentoparaarmazem' component={RetornarGondolaArmazem }></Route>
+                    <Route path='/movimentos/entradagondolavazia' component={EntradaGondolaVazia }></Route>
+                    <Route path='/movimentos/enviarcomandos' component={EnviarComandosPlc }></Route>
+                    <Route path='/dashboard/acompanhamentodeproducao' component={AcompanhamentoProducao }></Route>
+                    <Route path='/dashboard/acompanhamentodeestoque' component={AcompanhamentoEstoque }></Route>
+                    <Route path='/dashboard/acompanhametodefabrica' component={AcompanhamentoFabrica }></Route>
+                    <Route path='/dashboard/acompanhamentodeproducaokanban' component={AcompanhamentoProdKanban }></Route>
+                    <Route path='/dashboard/acompanhamentodeproducaoproduto' component={AcompanhamentoProdProduto }></Route>
+                    <Route path='/relatorios/historicodeordemproducao' component={DadosProducao }></Route>
+                    <Route path='/relatorios/historicodemovimentacao' component={HistoricoMovimentacao }></Route>
+                    <Route path='/relatorios/estoquedeproduto' component={EstoqueMaterial }></Route>
+                    <Route path='/relatorios/historicodegondola' component={HistoricoGondola }></Route>
+                    <Route path='/relatorios/encerramentodeordemproducao' component={EncerramentoOrdem }></Route>
+                    <Route path='/relatorios/historicodeentradaproduto' component={HistoricoEntradaMaterial }></Route>
+                    <Route path='/relatorios/producaopormaquina' component={ProducaoMaquina }></Route>
+                    <Route path='/relatorios/analisedefalhas' component={AnaliseFalhas }></Route>
+                    <Route path='*' component={Pagina404 }></Route>
+                    <Route path='/home' component={Home }></Route>
             </div>
         </div >
     )
