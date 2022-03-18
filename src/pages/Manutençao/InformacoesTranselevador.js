@@ -69,7 +69,7 @@ function InformacoesTransevelevador() {
               </div>
             </div>
 
-            <div className="row mt-4">
+            <div className="row mt-4 btnTranselevador">
               <div className="col-sm-4 col-md-4 col-lg-4 blockButtons">
                 <Button variant="success">Começar Pick</Button>
                 <Button variant="success">Acionar Giroflex</Button>

@@ -110,6 +110,7 @@ function OrdensProducao() {
       text: "Ordem Id",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+      hidden:true,
     },
     {
       dataField: "vg",

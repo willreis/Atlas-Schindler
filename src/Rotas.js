@@ -219,7 +219,7 @@ function Rotas(props) {
           <Route path="*" exact>
             <Pagina404 />
           </Route>
-          <Route path="/" exact>
+          <Route path="/home" exact>
             <Home />
           </Route>
         </Switch>

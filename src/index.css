@@ -412,6 +412,10 @@ span.pro-item-content {
     font-weight: 500;
 }
 
+span.pro-item-content a.link {
+    font-size: 13px;
+}
+
 .pro-sidebar .pro-menu.shaped .pro-menu-item>.pro-inner-item>.pro-icon-wrapper {
     background: none !important;
 }
@@ -621,7 +625,7 @@ span.pro-item-content {
 }
 
 /*TRANSELEVADOR*/
-.formPadrao div button {
+.btnTranselevador div button {
     width: 300px;
     height: 40px;
 }
