@@ -1,10 +1,19 @@
-.ultimaTabela .react-bootstrap-table {
-    padding: 16px;
+.segundaTabela .react-bootstrap-table {
+    padding: 0 16px 16px 16px;
     border: 1px solid rgb(2, 116, 26);
+    border-radius: 5px;
+    height: 300px;
+    margin-top: 20px;
+    overflow-x: auto
 }
 
 .ultimaTabela .react-bootstrap-table {
+    padding: 0 16px 16px 16px;
     border: 1px solid red;
+    border-radius: 5px;
+    height: 300px;
+    margin-top: 20px;
+    overflow-x: auto;
 }
 
 .table.table-bordered {
@@ -18,4 +27,46 @@
 .ultimaTabela .react-bootstrap-table table tr td:hover {
     color: #ccc;
     cursor: pointer;
+}
+
+.react-bootstrap-table th[data-row-selection] {
+    width: 30px;
+    display: none;
+}
+
+.arrowForward {
+    border: 1px solid black;
+    padding: 6px;
+    border-radius: 1rem;
+    margin-top: 7rem;
+    cursor: pointer
+}
+
+.arrowBack {
+    border: 1px solid black;
+    padding: 6px;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+.tabelaUsuariosPermitidos{
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.MuiTabs-flexContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.makeStyles-card-5 {
+    background: #f5f1f1!important;
+    padding-bottom: 40px;
+    padding: 0 40px 40px;
+}
+
+.formGrupoAcesso{
+    padding: 0 16px;
 }

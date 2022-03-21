@@ -504,6 +504,7 @@ export default function GruposAcesso() {
                     </div>
                   </div>
                   <CustomTabs
+                  class="tabsGrupo"
                     headerColor="primary"
                     tabs={[
                       {
@@ -519,7 +520,7 @@ export default function GruposAcesso() {
                               {/*1ª Quadrado*/}
                               <div className="row mt-3">
                                 <div
-                                  className="col-5 ultimaTabela" Style="height: 300px!important;overflow-x:auto"
+                                  className="col-5 ultimaTabela"
                                   onClick={onClickLinhaTabela}
                                 >
                                   <BootstrapTable
@@ -530,20 +531,21 @@ export default function GruposAcesso() {
                                     selectRow={selectRowSemPermissao}
                                     bordered={false}
                                     hidden={!mudaTabela}
+                                    Style="height: 300px"
                                   />
                                 </div>
 
                                 <div className="col-2 text-center">
-                                  <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 4rem; cursor: pointer">
-                                    <TiArrowForward onClick={associarTelas} hidden={!mudaTabela} />
+                                  <div className="arrowForward" onClick={associarTelas} hidden={!mudaTabela} Style="display:block">
+                                    <TiArrowForward />
                                   </div>
-                                  <div Style="border: 1px solid black; padding: 6px; border-radius: 1rem; margin-top: 2rem; cursor: pointer;">
-                                    <TiArrowBack onClick={desassociarTiposVeiculos} hidden={!mudaTabela} />
+                                  <div className="arrowBack" onClick={desassociarTiposVeiculos} hidden={!mudaTabela} >
+                                    <TiArrowBack />
                                   </div>
                                 </div>
 
                                 {/*2ª Quadrado*/}
-                                <div className="col-5" Style="border: 1px solid green; height: 300px; height: 300px">
+                                <div className="col-5 segundaTabela">
                                   <BootstrapTable
                                     bootstrap4
                                     keyField="telaId"
@@ -570,8 +572,8 @@ export default function GruposAcesso() {
                               md={18}
                             >
                               {/*1ª Quadrado*/}
-                              <div className="row mt-3">
-                                <div className="col-5" Style="border: 1px solid green; height: 300px; height: 300px">
+                              <div className="row mt-3" Style="justify-content: center">
+                                <div className="col-5 tabelaUsuariosPermitidos">
                                   <BootstrapTable
                                     bootstrap4
                                     keyField="usuarioId"
@@ -592,7 +594,7 @@ export default function GruposAcesso() {
                 </form>
               </div>
               <div className="row mt-4">
-                <div className="col-6" Style="text-align:right">
+                <div className="col-12" Style="text-align:center">
                   <Button variant="success" onClick={() => handlePut()}>Salvar</Button>
                 </div>
               </div>
@@ -618,7 +620,7 @@ export default function GruposAcesso() {
                 id="formCadastro"
                 Style="margin-bottom: 30px;height:150px"
               >
-                <form className="row formPadrao">
+                <form className="row formPadrao formGrupoAcesso" Style="padding: 0 16px!important;">
                   <div className="row">
                     <div className="col-6">
                       <label>Nome</label>
@@ -644,7 +646,7 @@ export default function GruposAcesso() {
                 </form>
               </div>
               <div className="row mt-4">
-                <div className="col-6" Style="text-align:right">
+                <div className="col-12">
                   <Button variant="success" onClick={() => createPost()}>Salvar</Button>
                 </div>
               </div>
