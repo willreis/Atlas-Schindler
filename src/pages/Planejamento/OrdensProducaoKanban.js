@@ -258,7 +258,7 @@ export default function OrdensProducaoKanban() {
 
           <div className="ordemProducaoBox">
             <div className="row">
-              <div className="col-md-12">
+              <div className="col-md-12 tabelaUsuario">
                 <BootstrapTable
                   keyField="la"
                   data={getKanban}
