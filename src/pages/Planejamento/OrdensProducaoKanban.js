@@ -7,26 +7,35 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import { VscEdit } from "react-icons/vsc";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Api from "../../services/Api";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
 
 export default function OrdensProducaoKanban() {
 
+  const urlOrdemProducaoKanban = 'OrdemProducao';
   const [user, setUser] = useState();
   const [getKanban, setGetKanban] = useState([]);
-  const [la, setLa] = useState();
   const [item, setItem] = useState([]);
-  const [familia, setFamilia] = useState();
   const [quantidade, setQuantidade] = useState();
   const [roteiro1, setRoteiro1] = useState()
   const [roteiro2, setRoteiro2] = useState()
   const [roteiro3, setRoteiro3] = useState()
   const [roteiro4, setRoteiro4] = useState()
+  const [la, setLa] = useState();
+  const [ordem, setOrdem] = useState();
+  const [familia, setFamilia] = useState();
+  const [status, setStatus] = useState();
+  const [semana, setSemana] = useState();
+  const [titulo, setTitulo] = useState();
+  const [origem, setOrigem] = useState();
+  const [ordenacao, setOrdenacao] = useState();
+  const [idUser, setIdUser] = useState(null);
+  const [modalDelete, setModalDelete] = useState(false);
 
   function handleRegister(e) {
     // e.preventDefault();
     handleRegister(user);
   }
-
- 
 
   const colunasPendentes = [
     {
@@ -63,7 +72,7 @@ export default function OrdensProducaoKanban() {
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
     },
-    
+
     {
       dataField: "semana",
       text: "Semana",
@@ -91,7 +100,7 @@ export default function OrdensProducaoKanban() {
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
       sort: true,
-    },   
+    },
     {
       dataField: "editar",
       isDummyField: true,
@@ -105,9 +114,8 @@ export default function OrdensProducaoKanban() {
               className="spanTabela"
               id=""
               Style="cursor:pointer"
-              data-toggle="tooltip"
-              data-placement="left"
-              title="Editar"
+              data-toggle="tooltip" data-placement="left" title="Editar"
+              onClick={putGerenciamentoKanban(row.la)}
             >
               <VscEdit />
             </span>
@@ -115,9 +123,8 @@ export default function OrdensProducaoKanban() {
               className="spanTabela"
               id=""
               Style="cursor:pointer; border: none; background: none"
-              data-toggle="tooltip"
-              data-placement="left"
-              title="Deletar"
+              data-toggle="tooltip" data-placement="left" title="Deletar"
+              onClick={abreDelete}
             >
               <RiDeleteBinFill />
             </button>
@@ -164,21 +171,73 @@ export default function OrdensProducaoKanban() {
 
   useEffect(() => {
     Api.get(`OrdemProducao/`)
-    .then((response) => {
-      console.log('aaaaaaaa', response.data)
-      setGetKanban(response.data.map((kanban) => {
-        return {
-          la: kanban.la,
-          ordem: kanban.ordem,
-          familia: kanban.familia,
-          semana: kanban.semana,
-          titulo: kanban.titulo,
-          origem: kanban.origem,
-          ordenacao: kanban.ordenacao,
-        };
-      }))
-    })
+      .then((response) => {
+        console.log('aaaaaaaa', response.data)
+        setGetKanban(response.data.map((kanban) => {
+          return {
+            la: kanban.la,
+            ordem: kanban.ordem,
+            familia: kanban.familia,
+            semana: kanban.semana,
+            titulo: kanban.titulo,
+            origem: kanban.origem,
+            ordenacao: kanban.ordenacao,
+          };
+        }))
+      })
   }, []);
+
+  function putGerenciamentoKanban() {
+    Api.put(`${urlOrdemProducaoKanban}`, {
+      la,
+      ordem,
+      familia,
+      status,
+      semana,
+      titulo,
+      origem,
+      ordenacao,
+    })
+      .then((response) => {
+        setLa(la);
+        setOrdem();
+        setFamilia();
+        setStatus();
+        setSemana();
+        setTitulo();
+        setOrigem();
+        setOrdenacao();
+        console.log("Atualizando os 7 estados", response);
+      })
+  }
+
+  const selectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    onSelect: (row) => {
+      console.log("Linha selecionada:", row.la);
+      setIdUser(row.la);
+    },
+  }
+
+  function deleteGerenciamentoKanban(idUser) {
+    try {
+      Api.delete(`${urlOrdemProducaoKanban}/${idUser}`);
+      setModalDelete(false);
+      window.location.reload();
+      alert("Deletado com sucesso!");
+    } catch (error) {
+      alert("Não foi possível deletar:", error);
+    }
+  }
+
+  function abreDelete() {
+    setModalDelete(true);
+  }
+
+  function fechaDelete() {
+    setModalDelete(false);
+  }
 
   return (
     <>
@@ -207,11 +266,42 @@ export default function OrdensProducaoKanban() {
                   filter={filterFactory()}
                   hover
                   striped
+                  selectRow={selectRow}
                 />
               </div>
             </div>
           </div>
         </div>
+
+        {/*Modal Delete*/}
+        <Modal
+          show={modalDelete}
+          onHide={() => setModalDelete(false)}>
+          <Modal.Header>
+            <Modal.Title><h3>Atenção</h3></Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div Style="margin-bottom: 30px; text-align: center">
+              <div className='row'>
+                <div className='col-12'>
+                  <h5>Deseja realmente excluir?</h5>
+                </div>
+              </div>
+              <div className='row mt-3'>
+                <div className="col-12">
+                  <div className='row'>
+                    <div className='col-6'>
+                      <Button variant="primary" onClick={fechaDelete} Style='width: 150px; height: 40px'>Não</Button>
+                    </div>
+                    <div className='col-6'>
+                      <Button variant="danger" onClick={() => deleteGerenciamentoKanban(idUser)} Style='width: 150px; height: 40px'>Sim</Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
       </IconContext.Provider>
     </>
   );
