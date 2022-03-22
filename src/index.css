@@ -16,10 +16,10 @@ h4 {
 }
 
 .mb150 {
-    margin-bottom: 150px;
+    margin-bottom: 4rem;
 }
 
-.mt-40{
+.mt-40 {
     margin-top: 40px;
 }
 
@@ -88,8 +88,19 @@ select {
 }
 
 .paddingContainer {
-    padding: 3rem 1rem !important;
+    padding: 2rem !important;
 }
+
+.react-bootstrap-table {
+    margin-top: 4px;
+    margin-bottom: -10px;
+}
+
+/* .row react-bootstrap-table-pagination span {
+    display: flex;
+    justify-content: flex-end;
+    text-align: end;
+} */
 
 .iconEye {
     border-top: 1px solid #999;
@@ -182,6 +193,13 @@ select {
 
 .botoesOrdemProducao button {
     height: 45px;
+    margin: 0;
+}
+
+.botoesOrdemProducao {
+    text-align: end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 button.spanTabela path:hover,
@@ -564,7 +582,7 @@ span.pro-item-content a.link {
 
 @media only screen and (mix-width: 1740px) {
     .paddingContainer {
-        max-width: 1740px
+        max-width: 1740px;
     }
 }
 

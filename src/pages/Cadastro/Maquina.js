@@ -583,7 +583,7 @@ export default function Maquina() {
             <div Style="margin-bottom: 30px; text-align: center">
               <div className="row">
                 <div className="col-12">
-                  <p>Deseja Realmente Excluir!</p>
+                  <p>Deseja Realmente Excluir?</p>
                 </div>
               </div>
               <div className="row mt-3">

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
-import { IconContext } from "react-icons/lib";
 import { AiFillSave } from "react-icons/ai";
 
 import Api from "../../services/Api";
 export default function ConfiguracaoEstacaoTrabalho() {
   return (
     <>
-      <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
         <div className="paddingContainer">
           <div className="row">
             <div className="col-md-12 col-sm-12">
@@ -67,7 +65,6 @@ export default function ConfiguracaoEstacaoTrabalho() {
             </div>
           </form>
         </div>
-      </IconContext.Provider>
     </>
   );
 }

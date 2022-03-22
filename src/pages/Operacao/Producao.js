@@ -7,7 +7,7 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
 import { IconContext } from "react-icons/lib";
-import { VscEdit } from "react-icons/vsc";
+import { BiCommentDetail } from "react-icons/bi";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { AiFillSave } from "react-icons/ai";
 import { MdKeyboardReturn } from "react-icons/md";
@@ -16,7 +16,7 @@ import Api from "../../services/Api";
 
 //Paginação - paginationFactory
 const customTotal = (from, to, size) => (
-    <span className="react-bootstrap-table-pagination-total">
+    <span>
         Mostrando de {from} a {to} do total de {size} Resultados
     </span>
 );
@@ -139,9 +139,9 @@ const columns = [
                         // onClick={() => { funcaoAbrirModal(row) }}
                         data-toggle="tooltip"
                         data-placement="left"
-                        title="Editar"
+                        title="Detalhes"
                     >
-                        <VscEdit />
+                        <BiCommentDetail />
                     </span>
                     <button
                         className="spanTabela"
@@ -252,37 +252,38 @@ function Producao() {
                             </div>
                         </div>
                     </form>
-                </div>
-                {/*Tabela*/}
-                <div className="section">
-                    <div className="row mt-4" Style="margin: auto; padding: 0; display: flex; justify-content: center; align-items: center">
-                        <div className="col-md-12 tabelaUsuario">
-                            <BootstrapTable
-                                keyField="ordemProducaoElementoId"
-                                hover
-                                striped
-                                data={products}
-                                // selectRow={selectRow}
-                                columns={columns}
-                                filter={filterFactory()}
-                                pagination={paginationFactory(options)}
-                                Style="margin-bottom: 2rem"
-                            />
+                    {/*Tabela*/}
+                    <div Style='margin-top: 2rem'>
+                        <div className="row">
+                            <div className="col-md-12 tabelaUsuario" Style='margin-top: 1rem;'>
+                                <h4 Style='color: #555; margin-bottom: 4rem'>Customizado</h4>
+                                <BootstrapTable
+                                    keyField="ordemProducaoElementoId"
+                                    hover
+                                    striped
+                                    data={products}
+                                    // selectRow={selectRow}
+                                    columns={columns}
+                                    filter={filterFactory()}
+                                    pagination={paginationFactory(options)}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="row mt-5" Style="margin: 0; padding: 0; display: flex; justify-content: center; align-items: center">
-                        <div className="col-md-12 tabelaUsuario">
-                            <BootstrapTable
-                                keyField="ordemProducaoElementoId"
-                                hover
-                                striped
-                                data={products}
-                                // selectRow={selectRow}
-                                columns={columns}
-                                filter={filterFactory()}
-                                pagination={paginationFactory(options)}
-                                Style="margin-bottom: 2rem"
-                            />
+                        <div className="row" Style='margin-top: 1   rem'>
+                            <div className="col-md-12 tabelaUsuario" >
+                                <h4 Style='color: #555; margin-bottom: 1rem'>Ordens Kanban</h4>
+                                <BootstrapTable
+                                    keyField="ordemProducaoElementoId"
+                                    hover
+                                    striped
+                                    data={products}
+                                    // selectRow={selectRow}
+                                    columns={columns}
+                                    filter={filterFactory()}
+                                    pagination={paginationFactory(options)}
+                                    Style='margin-top: 1rem;'
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
