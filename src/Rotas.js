@@ -7,16 +7,13 @@ import Impressora from "./pages/Cadastro/Impressora";
 import Processo from "./pages/Cadastro/Processo";
 import Maquina from "./pages/Cadastro/Maquina";
 import Material from "./pages/Cadastro/Material";
-
-//Páginas Internas cadastro
 import MotivoProblema from "./pages/Cadastro/MotivoProblema";
 import NovoEditarMaterial from "./pages/Cadastro/NovoEditarMaterial";
+
 import ImportacaoOrdemProducao from "./pages/Planejamento/ImportacaoOrdemProducao";
 import OrdensProducao from "./pages/Planejamento/OrdensProducao";
 import OrdensProducaoKanban from "./pages/Planejamento/OrdensProducaoKanban";
 import ProblemasProducao from "./pages/Planejamento/ProblemasProducao";
-
-//Páginas Internas Planejamento
 import DetalhesItemProducao from "./pages/Planejamento/DetalhesItemProducao";
 import DetalhesVgs from "./pages/Planejamento/DetalhesVgs";
 import GerenciamentoKanban from "./pages/Planejamento/GerenciamentoKanban";
@@ -25,18 +22,15 @@ import MapaDePosicoes from "./pages/Manutençao/MapaArmazem";
 import InformacoesGondola from "./pages/Manutençao/InformacoesGondola";
 import OcupacaoArmazem from "./pages/Manutençao/OcupacaoArmazem";
 import InformacoesTranselevador from "./pages/Manutençao/InformacoesTranselevador";
-
-//Páginas Internas Manutencao
 import Alarmes from "./pages/Manutençao/Alarmes";
 import GerenciamentoKanbanManutencao from "./pages/Manutençao/GerenciamentoKanbanManutencao";
 import InformacoesLocalizacao from "./pages/Manutençao/InformacoesLocalizacao";
 import InformacoesMesa from "./pages/Manutençao/InformacoesMesa";
 import TesteTranslacao from "./pages/Manutençao/TesteTranslacao";
+
 import Producao from "./pages/Operacao/Producao";
 import RecebimentoArmazem from "./pages/Operacao/RecebimentoArmazem";
 import ConfiguracaoEstacaoTrabalho from "./pages/Operacao/ConfiguracaoEstacaoTrabalho";
-
-//Páginas Internas Operacao
 import DetalhesProdPuncionadeira from "./pages/Operacao/DetalhesProdPuncionadeira";
 import DetalhesProducao from "./pages/Operacao/DetalhesProducao";
 
@@ -88,13 +82,13 @@ function Rotas(props) {
           <Route path="/cadastro/material" exact>
             <Material />
           </Route>
-          {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
           <Route path="/cadastro/motivoproblema" exact>
             <MotivoProblema />
           </Route>
           <Route path="/cadastro/novoeditarmaterial" exact>
             <NovoEditarMaterial />
           </Route>
+
           <Route path="/planejamento/importacaoordemproducao" exact>
             <ImportacaoOrdemProducao />
           </Route>
@@ -107,7 +101,6 @@ function Rotas(props) {
           <Route path="/planejamento/problemasproducao" exact>
             <ProblemasProducao />
           </Route>
-          {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
           <Route path="/planejamento/detalhesitemproducao" exact>
             <DetalhesItemProducao />
           </Route>
@@ -117,6 +110,7 @@ function Rotas(props) {
           <Route path="/planejamento/gerenciamentokanban" exact>
             <GerenciamentoKanban />
           </Route>
+
           <Route path="/manutencao/mapadeposicoes" exact>
             <MapaDePosicoes />
           </Route>
@@ -129,8 +123,6 @@ function Rotas(props) {
           <Route path="/manutencao/informacoesdotranselevador" exact>
             <InformacoesTranselevador />
           </Route>
-
-          {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
           <Route path="/manutencao/alarmes" exact>
             <Alarmes />
           </Route>
@@ -146,22 +138,23 @@ function Rotas(props) {
           <Route path="/manutencao/testetranslacao" exact>
             <TesteTranslacao />
           </Route>
-          <Route path="/operacao/producao" exact>
+
+          <Route path="/Operacao/Producao" exact>
             <Producao />
           </Route>
-          <Route path="/operacao/recebimentoarmazem" exact>
+          <Route path="/Operacao/RecebimentoArmazem" exact>
             <RecebimentoArmazem />
           </Route>
-          <Route path="/operacao/configuracao" exact>
+          <Route path="/Operacao/ConfiguracaoEstacaoTrabalho" exact>
             <ConfiguracaoEstacaoTrabalho />
           </Route>
-          {/*Esses Route path='' abaixo das págs Internas ñ tem o Link to='' ainda*/}
           <Route path="/operacao/detalhesprodpuncionadeira" exact>
             <DetalhesProdPuncionadeira />
           </Route>
           <Route path="/operacao/detalhesproducao" exact>
             <DetalhesProducao />
           </Route>
+
           <Route path="/movimentos/filademovimentos" exact>
             <ListaMovimentos />
           </Route>
@@ -177,6 +170,7 @@ function Rotas(props) {
           <Route path="/movimentos/enviarcomandos" exact>
             <EnviarComandosPlc />
           </Route>
+
           <Route path="/dashboard/acompanhamentodeproducao" exact>
             <AcompanhamentoProducao />
           </Route>
@@ -192,6 +186,7 @@ function Rotas(props) {
           <Route path="/dashboard/acompanhamentodeproducaoproduto" exact>
             <AcompanhamentoProdProduto />
           </Route>
+
           <Route path="/relatorios/historicodeordemproducao" exact>
             <DadosProducao />
           </Route>

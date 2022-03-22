@@ -81,7 +81,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 const SidebarNew = () => {
   const [menuCollapse, setMenuCollapse] = useState(false);
   const history = useHistory();
-  
+
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
@@ -116,7 +116,7 @@ const SidebarNew = () => {
                 <MenuItem title="Dados Pessoais" icon={<RiLockPasswordLine />}>
                   Alterar Senha
                 </MenuItem>
-                <MenuItem icon={<FiLogOut />} onClick={logout }>Logout</MenuItem>
+                <MenuItem icon={<FiLogOut />} onClick={logout}>Logout</MenuItem>
               </SubMenu>
             </Menu>
           </SidebarHeader>
@@ -233,16 +233,19 @@ const SidebarNew = () => {
             <Menu>
               <SubMenu title="Operação" icon={<FaUserCog />}>
                 <MenuItem title="Produção" icon={<FaUsers />}>
-                  Produção
+                  <Link className="link" to="/Operacao/Producao">
+                    Produção
+                  </Link>
                 </MenuItem>
-                <MenuItem
-                  title="Recebimento Armazém"
-                  icon={<BsMenuButtonFill />}
-                >
-                  Recebimento Armazém
+                <MenuItem title="Recebimento Armazém" icon={<BsMenuButtonFill />}>
+                  <Link className="link" to="/operacao/recebimentoarmazem">
+                    Recebimento Armazém
+                  </Link>
                 </MenuItem>
                 <MenuItem title="Configuração" icon={<BsFillGearFill />}>
-                  Configuração
+                  <Link className="link" to="/operacao/ConfiguracaoEstacaoTrabalho">
+                    Configuração
+                  </Link>
                 </MenuItem>
               </SubMenu>
             </Menu>
