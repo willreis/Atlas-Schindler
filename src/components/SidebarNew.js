@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import fotoPerfil from "../assets/img/userimg.png";
 import atlasLogo from "../assets/img/atlas_logo.png";
 import { Link } from "react-router-dom";
-import spiLogo from '../assets/img/spi_logo2.png'
-import { useHistory } from 'react-router-dom';
+import spiLogo from "../assets/img/spi_logo2.png";
+import { useHistory } from "react-router-dom";
 
 //react pro sidebar components
 import {
@@ -87,7 +87,7 @@ const SidebarNew = () => {
   };
   const logout = () => {
     window.location.href = "/login";
-  }
+  };
   return (
     <>
       <div className="sideBar" Style="grid-area:sidebar">
@@ -116,7 +116,9 @@ const SidebarNew = () => {
                 <MenuItem title="Dados Pessoais" icon={<RiLockPasswordLine />}>
                   Alterar Senha
                 </MenuItem>
-                <MenuItem icon={<FiLogOut />} onClick={logout}>Logout</MenuItem>
+                <MenuItem icon={<FiLogOut />} onClick={logout}>
+                  Logout
+                </MenuItem>
               </SubMenu>
             </Menu>
           </SidebarHeader>
@@ -237,13 +239,16 @@ const SidebarNew = () => {
                     Produção
                   </Link>
                 </MenuItem>
-                <MenuItem title="Recebimento Armazém" icon={<BsMenuButtonFill />}>
+                <MenuItem
+                  title="Recebimento Armazém"
+                  icon={<BsMenuButtonFill />}
+                >
                   <Link className="link" to="/operacao/recebimentoarmazem">
                     Recebimento Armazém
                   </Link>
                 </MenuItem>
                 <MenuItem title="Configuração" icon={<BsFillGearFill />}>
-                  <Link className="link" to="/operacao/ConfiguracaoEstacaoTrabalho">
+                  <Link className="link" to="/operacao/configuracao">
                     Configuração
                   </Link>
                 </MenuItem>
@@ -256,7 +261,9 @@ const SidebarNew = () => {
                   title="Fila de Movimentos"
                   icon={<GiMovementSensor />}
                 >
-                  Fila de Movimentos
+                  <Link className="link" to="/movimentos/filademovimentos">
+                    Fila de Movimentos
+                  </Link>
                 </MenuItem>
                 <MenuItem
                   title="Movimento Mesa de Saída"
@@ -369,7 +376,11 @@ const SidebarNew = () => {
           </SidebarContent>
           <SidebarFooter>
             <div Style="text-align:center; padding:30px 0">
-              <img src={spiLogo} alt='spi-logo' Style='width:80%; border-radius: 10px' />
+              <img
+                src={spiLogo}
+                alt="spi-logo"
+                Style="width:80%; border-radius: 10px"
+              />
             </div>
           </SidebarFooter>
         </ProSidebar>

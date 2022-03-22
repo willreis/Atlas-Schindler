@@ -24,7 +24,7 @@ export default function InformacoesGondola() {
   const [nome, setNome] = useState();
   const [codMaterial, setCodMaterial] = useState();
   const [ordem, setOrdem] = useState();
-  const [statusId, setStatusId] = useState();
+  const [status, setStatus] = useState();
   const [vg, setVg] = useState();
   const [quantidadePc, setQuantidadePc] = useState();
   const [quantidadeKg, setQuantidadeKg] = useState();
@@ -48,7 +48,7 @@ export default function InformacoesGondola() {
               nome: gondola.nome,
               codMaterial: gondola.codMaterial,
               ordem: gondola.ordem,
-              statusId: gondola.statusId,
+              status: gondola.status,
               vg: gondola.vg,
               quantidadePc: gondola.quantidadePc,
               quantidadeKg: gondola.quantidadeKg,
@@ -98,15 +98,6 @@ export default function InformacoesGondola() {
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
-      dataField: "codMaterial",
-      text: "Código do Material",
-      sort: true,
-      filter: textFilter({
-        placeholder: "Filtrar por Ordenação",
-      }),
-      headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-    },
-    {
       dataField: "ordem",
       text: "Ordem",
       sort: true,
@@ -143,8 +134,8 @@ export default function InformacoesGondola() {
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
     {
-      dataField: "statusId",
-      text: "Status da Gôndola",
+      dataField: "status",
+      text: "Status",
       sort: true,
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
     },
@@ -234,7 +225,7 @@ export default function InformacoesGondola() {
       nome,
       codMaterial,
       ordem,
-      statusId,
+      status,
       vg,
       quantidadePc,
       quantidadeKg,
@@ -247,7 +238,7 @@ export default function InformacoesGondola() {
         setNome(row.nome);
         setCodMaterial(row.codMaterial);
         setOrdem(row.ordem);
-        setStatusId(row.statusId);
+        setStatus(row.status);
         setVg(row.vg);
         setQuantidadePc(row.quantidadePc);
         setQuantidadeKg(row.quantidadeKg);
@@ -265,7 +256,7 @@ export default function InformacoesGondola() {
       nome,
       codMaterial,
       ordem,
-      statusId,
+      status,
       vg,
       quantidadePc,
       quantidadeKg,
@@ -276,7 +267,7 @@ export default function InformacoesGondola() {
         setNome();
         setCodMaterial();
         setOrdem();
-        setStatusId(statusId);
+        setStatus(status);
         setVg();
         setQuantidadePc();
         setQuantidadeKg();
@@ -379,15 +370,6 @@ export default function InformacoesGondola() {
                   />
                 </div>
                 <div className="col-md-3 col-sm-6">
-                  <label>Codigo Material</label>
-                  <input
-                    type="number"
-                    name="codMaterial"
-                    value={codMaterial}
-                    onChange={(e) => setCodMaterial(parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="col-md-3 col-sm-6">
                   <label>Ordem</label>
                   <input
                     type="number"
@@ -436,13 +418,13 @@ export default function InformacoesGondola() {
                   <label>Status Gondola</label>
                   <input
                     type="number"
-                    name="statusId"
-                    value={statusId}
-                    onChange={(e) => setStatusId(parseInt(e.target.value))}
+                    name="status"
+                    value={status}
+                    onChange={(e) => setStatus(parseInt(e.target.value))}
                   />
                 </div>
 
-                <div className="col-md-2 col-sm-6">
+                <div className="col-md-2 col-sm-6 mt-40">
                   <Button
                     type="submit"
                     variant="success"

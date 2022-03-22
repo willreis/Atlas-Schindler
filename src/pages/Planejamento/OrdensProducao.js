@@ -379,7 +379,7 @@ function OrdensProducao() {
       .then((response) => {
         setLa(la);
         console.log("Esse é o console do Put: ", response);
-        alert("Alteração Efetuado com sucesso!");
+        alert("Relação cancelada com sucesso!");
         window.location.assign(
           `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
         );
@@ -562,8 +562,9 @@ function OrdensProducao() {
         setGondola();
         setRoteiro();
 
-        alert("Alteração Efetuada com sucesso!");
-        window.location.assign(
+        
+        alert("Alteração Efetuada com sucesso!!");
+        window.location.reload(
           `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
         );
       })
