@@ -139,13 +139,13 @@ function Rotas(props) {
             <TesteTranslacao />
           </Route>
 
-          <Route path="/Operacao/Producao" exact>
+          <Route path="/operacao/producao" exact>
             <Producao />
           </Route>
-          <Route path="/Operacao/RecebimentoArmazem" exact>
+          <Route path="/operacao/recebimentoarmazem" exact>
             <RecebimentoArmazem />
           </Route>
-          <Route path="/Operacao/ConfiguracaoEstacaoTrabalho" exact>
+          <Route path="/operacao/configuracaoestacaotrabalho" exact>
             <ConfiguracaoEstacaoTrabalho />
           </Route>
           <Route path="/operacao/detalhesprodpuncionadeira" exact>

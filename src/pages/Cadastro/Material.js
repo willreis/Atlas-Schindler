@@ -358,7 +358,7 @@ export default function Material() {
           </div>
           <div className="section tabelaMaterial">
             <div className="row">
-              <div className="col-md-12 tabelaOrdem tabelaUsuario">
+              <div className="col-md-12 tabelaUsuario">
                 <BootstrapTable
                   keyField="materialId"
                   data={materialGet}
@@ -640,7 +640,7 @@ export default function Material() {
             <div Style="margin-bottom: 30px; text-align: center">
               <div className="row">
                 <div className="col-12">
-                  <p>Deseja Realmente Excluir!</p>
+                  <p>Deseja Realmente Excluir?</p>
                 </div>
               </div>
               <div className="row mt-3">

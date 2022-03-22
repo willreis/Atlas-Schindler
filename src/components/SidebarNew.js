@@ -235,7 +235,7 @@ const SidebarNew = () => {
             <Menu>
               <SubMenu title="Operação" icon={<FaUserCog />}>
                 <MenuItem title="Produção" icon={<FaUsers />}>
-                  <Link className="link" to="/Operacao/Producao">
+                  <Link className="link" to="/operacao/producao">
                     Produção
                   </Link>
                 </MenuItem>
@@ -248,7 +248,7 @@ const SidebarNew = () => {
                   </Link>
                 </MenuItem>
                 <MenuItem title="Configuração" icon={<BsFillGearFill />}>
-                  <Link className="link" to="/operacao/configuracao">
+                  <Link className="link" to="/operacao/configuracaoestacaotrabalho">
                     Configuração
                   </Link>
                 </MenuItem>
