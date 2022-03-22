@@ -11,6 +11,7 @@ import MotivoProblema from "./pages/Cadastro/MotivoProblema";
 import NovoEditarMaterial from "./pages/Cadastro/NovoEditarMaterial";
 
 import ImportacaoOrdemProducao from "./pages/Planejamento/ImportacaoOrdemProducao";
+import OrdensParaProducao from "./pages/Planejamento/OrdensParaProducao";
 import OrdensProducao from "./pages/Planejamento/OrdensProducao";
 import OrdensProducaoKanban from "./pages/Planejamento/OrdensProducaoKanban";
 import ProblemasProducao from "./pages/Planejamento/ProblemasProducao";
@@ -92,6 +93,9 @@ function Rotas(props) {
           <Route path="/planejamento/importacaoordemproducao" exact>
             <ImportacaoOrdemProducao />
           </Route>
+          <Route path="/planejamento/ordensparaproducao" exact>
+            <OrdensParaProducao />
+          </Route>
           <Route path="/planejamento/ordensproducao" exact>
             <OrdensProducao />
           </Route>
@@ -139,13 +143,13 @@ function Rotas(props) {
             <TesteTranslacao />
           </Route>
 
-          <Route path="/Operacao/Producao" exact>
+          <Route path="/operacao/producao" exact>
             <Producao />
           </Route>
-          <Route path="/Operacao/RecebimentoArmazem" exact>
+          <Route path="/operacao/recebimentoArmazem" exact>
             <RecebimentoArmazem />
           </Route>
-          <Route path="/Operacao/ConfiguracaoEstacaoTrabalho" exact>
+          <Route path="/operacao/configuracaoEstacaoTrabalho" exact>
             <ConfiguracaoEstacaoTrabalho />
           </Route>
           <Route path="/operacao/detalhesprodpuncionadeira" exact>

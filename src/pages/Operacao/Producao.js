@@ -254,8 +254,8 @@ function Producao() {
                     </form>
                 </div>
                 {/*Tabela*/}
-                <div className="section tabelaOrdem">
-                    <div className="row" Style="margin: auto; padding: 0; display: flex; justify-content: center; align-items: center">
+                <div className="section">
+                    <div className="row mt-4" Style="margin: auto; padding: 0; display: flex; justify-content: center; align-items: center">
                         <div className="col-md-12 tabelaUsuario">
                             <BootstrapTable
                                 keyField="ordemProducaoElementoId"
@@ -270,7 +270,7 @@ function Producao() {
                             />
                         </div>
                     </div>
-                    <div className="row" Style="margin: 0; padding: 0; display: flex; justify-content: center; align-items: center">
+                    <div className="row mt-5" Style="margin: 0; padding: 0; display: flex; justify-content: center; align-items: center">
                         <div className="col-md-12 tabelaUsuario">
                             <BootstrapTable
                                 keyField="ordemProducaoElementoId"
