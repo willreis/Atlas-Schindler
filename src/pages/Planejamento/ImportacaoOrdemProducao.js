@@ -12,6 +12,8 @@ import { FaFileImport } from "react-icons/fa";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { BiCommentDetail } from "react-icons/bi";
+import swal from 'sweetalert';
+
 
 export default function ImportacaoOrdemProducao() {
   //Paginação
@@ -55,7 +57,7 @@ export default function ImportacaoOrdemProducao() {
   const [modalDelete, setModalDelete] = useState(false);
   const [ordemProdGet, setOrdemProdGet] = useState([]);
   const [user, setUser] = useState();
-  const [file, setFile] = useState();
+  const [file, setFile] = useState({});
   const url = "OrdemProducao";
 
   const fecharModal = () => setModalDelete(false);
@@ -218,15 +220,18 @@ export default function ImportacaoOrdemProducao() {
   }
 
   function handleChange(event) {
-    setFile(event.target.files[0]);
+    setFile(event.target.files);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     const url = "http://192.168.11.94:90/api/OrdemProducao";
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("fileName", file.name);
+
+    for (var i = 0; i < file.length; i++) {
+      formData.append(`xml[${i}]`, file[i])
+    }
+
     const config = {
       headers: {
         "content-type": "multipart/form-data",
@@ -234,8 +239,11 @@ export default function ImportacaoOrdemProducao() {
     };
     Api.post(url, formData, config).then((response) => {
       console.log(response.data);
-      alert('Arquivo enviado com sucesso!');
-      window.location.assign('importacaoordemproducao');
+      console.log('nome: ', file)
+      swal("Enviado com Sucesso", "", "success")
+      .then(() => {
+        window.location.assign('importacaoordemproducao');
+      });
     });
   }
 
@@ -269,6 +277,7 @@ export default function ImportacaoOrdemProducao() {
                     name="filexml"
                     aria-describedby="filexmlinfo"
                     onChange={handleChange}
+                    multiple
                   />
                   <small
                     id="filexmlinfo"

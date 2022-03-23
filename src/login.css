@@ -33,6 +33,15 @@
     margin-right: 5px;
 }
 
+.btnLogin button {
+    width: 200px;
+    /* margin-right: 15px; */
+}
+.btnLogin {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 1200px) {
     .logoAtlaslogin {
         margin-top: 6rem;

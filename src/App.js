@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components'
 import { IconContext } from 'react-icons/lib'
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/Header';
 import Rotas from './Rotas';
-import SidebarNew from './components/SidebarNew'
+import SidebarNew from './components/SidebarNew';
 
 //2ª grid-template-areas.
 const Container = styled.div` 

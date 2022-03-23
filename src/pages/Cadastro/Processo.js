@@ -14,6 +14,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 export default function Processo() {
 
+
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -248,6 +249,7 @@ export default function Processo() {
   };
 
   return (
+    
     <>
       <IconContext.Provider value={{ color: "#000", size: "1.6rem" }}>
         <div className="paddingContainer">
