@@ -219,19 +219,17 @@ export default function ImportacaoOrdemProducao() {
 
   function handleChange(event) {
     setFile(event.target.files);
-    console.log('event: ', event.target.files[1])
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     const url = "http://192.168.11.94:90/api/OrdemProducao";
     const formData = new FormData();
-    console.log('maooooeee', file)
-    file.entries.forEach(arq=>{
-      formData.append("FileList", arq);
-      console.log('fiiiile: ', arq)
-    });
-    console.log('aeee :', file);
+
+    for (var i = 0; i < file.length; i++) {
+      formData.append(`xml[${i}]`, file[i])
+    }
+
     const config = {
       headers: {
         "content-type": "multipart/form-data",
