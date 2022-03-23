@@ -20,7 +20,7 @@ h4 {
 }
 
 .mt-40 {
-    margin-top: 40px!important;
+    margin-top: 40px;
 }
 
 .text-right {
@@ -46,11 +46,6 @@ h4 {
 
 select {
     height: 32px !important;
-}
-
-.form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgb(0 0 0 / 25%) !important;
-    border: none;
 }
 
 .titulosPrincipais {
@@ -120,7 +115,6 @@ select {
         width: 100%;
     }
 }
-
 .row.react-bootstrap-table-pagination {
     margin-top: 20px;
 }
@@ -644,28 +638,4 @@ span.pro-item-content a.link {
 
 form.g-3.formPadrao .row div {
     margin-bottom: 15px;
-}
-
-/*Produção*/
-.btnDetalhesProd button {
-    width: 100%;
-    font-size: 14px;
-    padding: 10px 0;
-}
-
-.btnVoltarDetalhesProd {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.btnAbrirProducao{
-    width: 120px;
-    padding: 5px 0!important;
-}
-
-.tituloBoxProd p{
-    color: #555;
-    font-weight: bold;
-    font-size: 22px;
 }
