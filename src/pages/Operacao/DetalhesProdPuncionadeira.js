@@ -51,22 +51,28 @@ export default function DetalhesProdPuncionadeira() {
     //Passando os dados na mão!
     const products = [
         {
-            filaDeProducaoMaquina: 1,
-            ordem: "P3",
-            titulo: "15/03/2022",
-            semana: "20/03/2022",
-            vg: 666,
-            prioridade: 'Urgente',
-            diasEmProducao: 10,
+            item: 111,
+            codigoDoMaterial: 222,
+            quantidade: 3333,
+            programa: 4444,
+            comprimento: 666,
+            largura: 777,
+            status: 88,
+            op: 99,
+            ovm: 10,
+            sequencia: 11
         },
         {
-            filaDeProducaoMaquina: 1,
-            ordem: "P3",
-            titulo: "15/03/2022",
-            semana: "20/03/2022",
-            vg: 666,
-            prioridade: 'Urgente2',
-            diasEmProducao: 10,
+            item: 111,
+            codigoDoMaterial: 222,
+            quantidade: 3333,
+            programa: 4444,
+            comprimento: 666,
+            largura: 777,
+            status: 88,
+            op: 99,
+            ovm: 10,
+            sequencia: 11
         },
     ]
 
@@ -267,26 +273,27 @@ export default function DetalhesProdPuncionadeira() {
                                 // onChange={(e) => setSemana(parseInt(e.target.value))}
                                 />
                             </div>
-
-                            <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
-                                <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
-                                    Chamar Gôndola Entrada
-                                </Button>
-                            </div>
-                            <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
-                                <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
-                                    Chamar Gôndola Saída
-                                </Button>
-                            </div>
-                            <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
-                                <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
-                                    Devolver Gôndola Entrada
-                                </Button>
-                            </div>
-                            <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
-                                <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
-                                    Agrupar Lista
-                                </Button>
+                            <div Style='display:flex; justify-content: space-evenly'>
+                                <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
+                                    <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
+                                        Chamar Gôndola Entrada
+                                    </Button>
+                                </div>
+                                <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
+                                    <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
+                                        Chamar Gôndola Saída
+                                    </Button>
+                                </div>
+                                <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
+                                    <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
+                                        Devolver Gôndola Entrada
+                                    </Button>
+                                </div>
+                                <div class="col-md-3 col-sm-12" Style="margin-top: 30px">
+                                    <Button variant="success" Style="width:220px!important; height: 46px; font-size: 14px">
+                                        Agrupar Lista
+                                    </Button>
+                                </div>
                             </div>
                             <div Style='display:flex; justify-content: space-between'>
                                 <div class="col-md-2 col-sm-12" Style="margin-top: 30px">
