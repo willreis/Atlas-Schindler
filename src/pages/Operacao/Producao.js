@@ -143,7 +143,9 @@ export default function Producao() {
                             data-placement="left"
                             title="Detalhes"
                         >
-                            <BiCommentDetail />
+                            <Link to='/operacao/detalhesprodpuncionadeira'>
+                                <BiCommentDetail />
+                            </Link>
                         </span>
                         <button
                             className="spanTabela"
@@ -199,7 +201,7 @@ export default function Producao() {
                 )
             })
             .catch((error) => {
-                alert("Erro: ", error);
+                alert("Erro Get: ", error);
             })
     }, []);
 
