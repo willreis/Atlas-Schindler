@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -14,153 +14,195 @@ import { MdKeyboardReturn } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import Api from "../../services/Api";
 
-//Paginação - paginationFactory
-const customTotal = (from, to, size) => (
-    <span>
-        Mostrando de {from} a {to} do total de {size} Resultados
-    </span>
-);
+export default function Producao() {
 
-//Paginação - paginationFactory
-const options = {
-    paginationSize: 4,
-    pageStartIndex: 0,
-    //alwaysShowAllBtns: true, // Always show next and previous button
-    withFirstAndLast: false, // Hide the going to First and Last page button
-    hideSizePerPage: true, // Hide the sizePerPage dropdown always
-    hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-    firstPageText: "Primeiro",
-    prePageText: "Voltar",
-    nextPageText: "Próxima",
-    lastPageText: "Última",
-    nextPageTitle: "Primeira Página",
-    prePageTitle: "Pre page",
-    firstPageTitle: "Próxima Página",
-    lastPageTitle: "Última Página",
-    showTotal: true,
-    paginationTotalRenderer: customTotal,
-    disablePageTitle: true,
-    sizePerPageList: [
+    //Paginação - paginationFactory
+    const customTotal = (from, to, size) => (
+        <span>
+            Mostrando de {from} a {to} do total de {size} Resultados
+        </span>
+    );
+
+    //Paginação - paginationFactory
+    const options = {
+        paginationSize: 4,
+        pageStartIndex: 0,
+        //alwaysShowAllBtns: true, // Always show next and previous button
+        withFirstAndLast: false, // Hide the going to First and Last page button
+        hideSizePerPage: true, // Hide the sizePerPage dropdown always
+        hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+        firstPageText: "Primeiro",
+        prePageText: "Voltar",
+        nextPageText: "Próxima",
+        lastPageText: "Última",
+        nextPageTitle: "Primeira Página",
+        prePageTitle: "Pre page",
+        firstPageTitle: "Próxima Página",
+        lastPageTitle: "Última Página",
+        showTotal: true,
+        paginationTotalRenderer: customTotal,
+        disablePageTitle: true,
+        sizePerPageList: [
+            {
+                text: "10",
+                value: 10,
+            },
+            {
+                text: "All",
+            },
+        ], // A numeric array is also available. the purpose of above example is custom the text
+    };
+
+    //Passando os dados na mão!
+    const products = [
         {
-            text: "10",
-            value: 10,
+            filaDeProducaoMaquina: 1,
+            ordem: "P3",
+            titulo: "15/03/2022",
+            semana: "20/03/2022",
+            vg: 666,
+            prioridade: 'Urgente',
+            diasEmProducao: 10,
         },
         {
-            text: "All",
+            filaDeProducaoMaquina: 1,
+            ordem: "P3",
+            titulo: "15/03/2022",
+            semana: "20/03/2022",
+            vg: 666,
+            prioridade: 'Urgente2',
+            diasEmProducao: 10,
         },
-    ], // A numeric array is also available. the purpose of above example is custom the text
-};
+    ]
 
-//Passando os dados na mão!
-const products = [
-    {
-        filaDeProducaoMaquina: 1,
-        ordem: "P3",
-        titulo: "15/03/2022",
-        semana: "20/03/2022",
-        vg: 666,
-        prioridade: 'Urgente',
-        diasEmProducao: 10,
-    },
-    {
-        filaDeProducaoMaquina: 1,
-        ordem: "P3",
-        titulo: "15/03/2022",
-        semana: "20/03/2022",
-        vg: 666,
-        prioridade: 'Urgente2',
-        diasEmProducao: 10,
-    },
-]
-
-const columns = [
-    {
-        dataField: "filaDeProducaoMaquina",
-        text: "Fila de Produção Máquina",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        sort: true,
-    },
-    {
-        dataField: "ordem",
-        text: "Ordem",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        sort: true,
-    },
-    {
-        dataField: "titulo",
-        text: "Título",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        sort: true,
-    },
-    {
-        dataField: "semana",
-        text: "Semana",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        sort: true,
-    },
-    {
-        dataField: "vg",
-        text: "VG",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        sort: true,
-    },
-    {
-        dataField: "prioridade",
-        text: "Prioridade",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        sort: true,
-    },
-    {
-        dataField: "diasEmProducao",
-        text: "Dias em Produção",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        sort: true,
-    },
-    {
-        dataField: "editar",
-        isDummyField: true,
-        text: "Opções (Editar)",
-        headerAlign: "center",
-        headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-        formatter: (cellContent, row) => {
-            return (
-                <>
-                    <span
-                        className="spanTabela"
-                        id={row.ordemProducaoElementoId}
-                        Style="cursor:pointer"
-                        // onClick={() => { funcaoAbrirModal(row) }}
-                        data-toggle="tooltip"
-                        data-placement="left"
-                        title="Detalhes"
-                    >
-                        <BiCommentDetail />
-                    </span>
-                    <button
-                        className="spanTabela"
-                        id={row.ordemProducaoElementoId}
-                        Style="cursor:pointer; border: none; background: none"
-                        // onClick={() => handleDeleteModal(row.ordemProducaoElementoId)}
-                        data-toggle="tooltip"
-                        data-placement="left"
-                        title="Deletar"
-                    >
-                        <RiDeleteBinFill />
-                    </button>
-                </>
-            );
+    const columns = [
+        {
+            dataField: "filaDeProducaoMaquina",
+            text: "Fila de Produção Máquina",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            sort: true,
         },
-    },
-];
+        {
+            dataField: "ordem",
+            text: "Ordem",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            sort: true,
+        },
+        {
+            dataField: "titulo",
+            text: "Título",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            sort: true,
+        },
+        {
+            dataField: "semana",
+            text: "Semana",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            sort: true,
+        },
+        {
+            dataField: "vg",
+            text: "VG",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            sort: true,
+        },
+        {
+            dataField: "prioridade",
+            text: "Prioridade",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            sort: true,
+        },
+        {
+            dataField: "diasEmProducao",
+            text: "Dias em Produção",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            sort: true,
+        },
+        {
+            dataField: "editar",
+            isDummyField: true,
+            text: "Opções (Editar)",
+            headerAlign: "center",
+            headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
+            formatter: (cellContent, row) => {
+                return (
+                    <>
+                        <span
+                            className="spanTabela"
+                            id={row.ordemProducaoElementoId}
+                            Style="cursor:pointer"
+                            // onClick={() => { funcaoAbrirModal(row) }}
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Detalhes"
+                        >
+                            <BiCommentDetail />
+                        </span>
+                        <button
+                            className="spanTabela"
+                            id={row.ordemProducaoElementoId}
+                            Style="cursor:pointer; border: none; background: none"
+                            // onClick={() => handleDeleteModal(row.ordemProducaoElementoId)}
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="Deletar"
+                        >
+                            <RiDeleteBinFill />
+                        </button>
+                    </>
+                );
+            },
+        },
+    ];
 
-function Producao() {
+    // const [producaoId, setProducaoId] = useState();
+    // const [nome, setNome] = useState();
+    // const [ordem, setOrdem] = useState();
+    // const [titulo, setTitulo] = useState();
+    // const [semana, setSemana] = useState();
+    // const [semanaAtual, setSemanaAtual] = useState();
+    // const [vg, setVg] = useState();
+    // const [mensagemPriorizacao, setMensagemPriorizacao] = useState();
+    // const [avisoDoAdministrador, setAvisoDoAdministrador] = useState();
+    // const [ordensCustomizadas, setOrdensCustomizadas] = useState();
+    // const [ordensKanban, setOrdensKanban] = useState();
+    const [getProducao, setGetProducao] = useState([]);
+    const urlProducao = 'Producao';
+
+    useEffect(() => {
+        Api.get(`${urlProducao}`)
+            .then((response) => {
+                setGetProducao(
+                    response.data.map((producao) => {
+                        console.log("Dados producao:", producao);
+                        return {
+                            producaoId: producao.producaoId,
+                            nome: producao.nome,
+                            ordem: producao.ordem,
+                            titulo: producao.titulo,
+                            semana: producao.semana,
+                            semanaAtual: producao.semanaAtual,
+                            vg: producao.vg,
+                            mensagemPriorizacao: producao.mensagemPriorizacao,
+                            avisoDoAdministrador: producao.avisoDoAdministrador,
+                            ordensCustomizadas: producao.ordensCustomizadas,
+                            ordensKanban: producao.ordensKanban,
+                        };
+                    })
+                )
+            })
+            .catch((error) => {
+                alert("Erro: ", error);
+            })
+    }, []);
+
     return (
         <>
             <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -261,7 +303,7 @@ function Producao() {
                                     keyField="ordemProducaoElementoId"
                                     hover
                                     striped
-                                    data={products}
+                                    data={getProducao}
                                     // selectRow={selectRow}
                                     columns={columns}
                                     filter={filterFactory()}
@@ -276,7 +318,7 @@ function Producao() {
                                     keyField="ordemProducaoElementoId"
                                     hover
                                     striped
-                                    data={products}
+                                    data={getProducao}
                                     // selectRow={selectRow}
                                     columns={columns}
                                     filter={filterFactory()}
@@ -291,5 +333,3 @@ function Producao() {
         </>
     )
 }
-
-export default Producao

@@ -15,7 +15,7 @@ export default function RecebimentoArmazem() {
                         </div>
                     </div>
                 </div>
-                <div className="container mb150">
+                <div className="container mb4rem">
                     <form>
                         <div class="row">
                             <div class="col-md-3 mt-3">
