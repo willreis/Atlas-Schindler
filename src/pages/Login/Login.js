@@ -105,16 +105,18 @@ function Login() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </Form.Group>
-                  <Button
-                    block
-                    size="lg"
-                    type="submit"
-                    onClick={postLogin}
-                    className="mt-4"
-                  >
-                    <RiLoginBoxLine className="btnEntrarLogin" />
-                    Entrar
-                  </Button>
+                  <div className="btnLogin">
+                    <Button
+                      block
+                      size="lg"
+                      type="submit"
+                      onClick={postLogin}
+                      className="mt-4"
+                    >
+                      <RiLoginBoxLine className="btnEntrarLogin" />
+                      Entrar
+                    </Button>
+                  </div>
                 </Form>
               </div>
             </div>

@@ -96,12 +96,6 @@ select {
     margin-bottom: -10px;
 }
 
-/* .row react-bootstrap-table-pagination span {
-    display: flex;
-    justify-content: flex-end;
-    text-align: end;
-} */
-
 .iconEye {
     border-top: 1px solid #999;
     border-right: 1px solid #999;
@@ -120,6 +114,9 @@ select {
     .blockButtons button {
         width: 100%;
     }
+}
+.row.react-bootstrap-table-pagination {
+    margin-top: 20px;
 }
 
 .formPadrao input,

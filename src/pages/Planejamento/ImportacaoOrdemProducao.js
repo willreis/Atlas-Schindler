@@ -55,7 +55,7 @@ export default function ImportacaoOrdemProducao() {
   const [modalDelete, setModalDelete] = useState(false);
   const [ordemProdGet, setOrdemProdGet] = useState([]);
   const [user, setUser] = useState();
-  const [file, setFile] = useState();
+  const [file, setFile] = useState({});
   const url = "OrdemProducao";
 
   const fecharModal = () => setModalDelete(false);
@@ -218,15 +218,20 @@ export default function ImportacaoOrdemProducao() {
   }
 
   function handleChange(event) {
-    setFile(event.target.files[0]);
+    setFile(event.target.files);
+    console.log('event: ', event.target.files[1])
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     const url = "http://192.168.11.94:90/api/OrdemProducao";
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("fileName", file.name);
+    console.log('maooooeee', file)
+    file.entries.forEach(arq=>{
+      formData.append("FileList", arq);
+      console.log('fiiiile: ', arq)
+    });
+    console.log('aeee :', file);
     const config = {
       headers: {
         "content-type": "multipart/form-data",
@@ -234,6 +239,7 @@ export default function ImportacaoOrdemProducao() {
     };
     Api.post(url, formData, config).then((response) => {
       console.log(response.data);
+      console.log('nome: ', file)
       alert('Arquivo enviado com sucesso!');
       window.location.assign('importacaoordemproducao');
     });
@@ -269,6 +275,7 @@ export default function ImportacaoOrdemProducao() {
                     name="filexml"
                     aria-describedby="filexmlinfo"
                     onChange={handleChange}
+                    multiple
                   />
                   <small
                     id="filexmlinfo"
