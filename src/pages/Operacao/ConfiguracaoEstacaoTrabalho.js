@@ -68,7 +68,7 @@ export default function ConfiguracaoEstacaoTrabalho() {
 
     function validadacaoMesa() {
         if (mesaEntradaVar.value === mesaSaidaVar.value) {
-            alert("Mesa de Entrada deve ser diferente de Mesa de Saída.");
+            alert("Mesa de Entrada deve ser diferente da Mesa de Saída.");
             buttonConfigurarVar.classList.add("disabled");
         } else {
             buttonConfigurarVar.classList.remove("disabled");
@@ -135,9 +135,7 @@ export default function ConfiguracaoEstacaoTrabalho() {
                             </select>
                         </div>
                     </div>
-                    <div
-                        className="row botoesOrdemProducao"
-                    >
+                    <div className="row botoesOrdemProducao">
                         <div className="col-md-3 mt-5">
                             <Button id='buttonConfigurar' variant="success" Style="width: 140px">Configurar</Button>
                         </div>
