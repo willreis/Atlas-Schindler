@@ -12,6 +12,8 @@ import { FaFileImport } from "react-icons/fa";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { BiCommentDetail } from "react-icons/bi";
+import swal from 'sweetalert';
+
 
 export default function ImportacaoOrdemProducao() {
   //Paginação
@@ -238,8 +240,10 @@ export default function ImportacaoOrdemProducao() {
     Api.post(url, formData, config).then((response) => {
       console.log(response.data);
       console.log('nome: ', file)
-      alert('Arquivo enviado com sucesso!');
-      window.location.assign('importacaoordemproducao');
+      swal("Enviado com Sucesso", "", "success")
+      .then(() => {
+        window.location.assign('importacaoordemproducao');
+      });
     });
   }
 

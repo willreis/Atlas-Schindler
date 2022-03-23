@@ -10,6 +10,7 @@ import Api from "../../services/Api";
 import Modal from "react-bootstrap/Modal";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import swal from 'sweetalert';
 
 export default function Usuarios() {
 
@@ -246,7 +247,11 @@ export default function Usuarios() {
     })
       .then((response) => {
         console.log(response.data);
-        alert("Cadastro Efetuado com sucesso!");
+        console.log('cadastro sucesso')
+        swal("Cadastro Efetuado com sucesso!", "", "success")
+        .then(() => {
+          window.location.reload();
+        });
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:" + error);
@@ -258,11 +263,11 @@ export default function Usuarios() {
   function handleDeleteUsuario(idUser) {
     try {
       Api.delete(`/${url}/${idUser}`);
-      console.log("delete id", idUser);
-
       setModalDelete(false);
-      alert("Deletado com sucesso");
-      window.location.reload();
+      swal("Deletado com Sucesso", "", "success")
+      .then(() => {
+        window.location.reload();
+      });
     } catch (err) {
       alert("Erro ao deletar caso, tente novamente");
     }
@@ -296,14 +301,18 @@ export default function Usuarios() {
         setEmail();
         setGrupoDeAcesso();
         setStatus();
-        console.log("Esse é o console do Put: ", response);
-        alert("Alterações efetuadas com sucesso!");
+        
+        swal("Alterado com Sucesso", "", "success")
+        .then(() => {
+          window.location.reload();
+        });
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro: " + error);
         alert("Ops! Ocorreu um erro: " + error);
       });
   }
+
 
   function funcaoAbrirModal(row) {
     setShowModalPut(true);
