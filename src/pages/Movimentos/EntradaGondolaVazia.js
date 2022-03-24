@@ -1,11 +1,41 @@
-import React from 'react'
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
+import Api from "../../services/Api";
 
-function EntradaGondolaVazia() {
+export default function EntradaGondolaVazia() {
+
     return (
-        <div Style='display:flex; justify-content:center; align-items: center'>
-            Entrada Gondola Vazia!
-        </div>
-    )
-}
+        <>
+            <div className="paddingContainer">
+                <div className="row">
+                    <div className="col-md-6 col-sm-12">
+                        <div className="tituloInterno">
+                            <h2 className="titulosPrincipais">Retornar Gôndola ao Armazém</h2>
+                        </div>
+                    </div>
+                </div>
 
-export default EntradaGondolaVazia
+                <div className="container twoButtons" >
+                    <div class="row">
+                        <div className='col-md-4' Style='margin-top: -24px'>
+                            <p>Mesa</p>
+                            <div>
+                                <input type="text" class="form-control" Style='width: 160px; height: 50px; ' />
+                            </div>
+                        </div>
+                        <div className='col-md-4' Style='margin-top: -48px'>
+                            <p>Posição Gôndola (Origem)</p>
+                            <div>
+                                <input type="text" class="form-control" Style='width: 160px; height: 50px; ' />
+                            </div>
+                        </div>
+                        <div className='col-md-4'>
+                            <Button variant="success" Style='width: 160px; height: 50px'>Enviar</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
