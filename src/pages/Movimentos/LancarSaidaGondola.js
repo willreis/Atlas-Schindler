@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { BiCommentDetail } from "react-icons/bi";
+import { IconContext } from "react-icons/lib";
 import Api from "../../services/Api";
 
 export default function LancarSaidaGondola() {
@@ -112,7 +113,7 @@ export default function LancarSaidaGondola() {
                             id={row.la}
                             Style="cursor:pointer"
                             // onClick={() => detalhesOrdemProducao(row.la)}
-                            data-toggle="tooltip" data-placement="left" title="Detalhes"
+                            data-toggle="tooltip" data-placement="left" title="Movimentar"
                         >
                             <BiCommentDetail />
                         </span>
@@ -142,54 +143,56 @@ export default function LancarSaidaGondola() {
 
     return (
         <>
-            <div className="paddingContainer">
-                <div className="row">
-                    <div className="col-md-6 col-sm-12">
-                        <div className="tituloInterno">
-                            <h2 className="titulosPrincipais">Lançar Saída Gôndola</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="container mb4rem">
-                    <form>
-                        <div class="row" Style='display: flex; align-items: center'>
-                            <div className='col-md-1'>
-                                <label>Número da Gôndola</label>
-                            </div>
-                            <div className='col-md-1'>
-                                <input type="number" class="form-control" />
-                            </div>
-                            <div className='col-md-1'>
-                                <label>Código do Material</label>
-                            </div>
-                            <div className='col-md-1'>
-                                <input type="number" class="form-control" />
-                            </div>
-                            <div className='col-md-1'>
-                                <Button variant="success">Gerar</Button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div className="container-fluid">
+            <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
+                <div className="paddingContainer">
                     <div className="row">
-                        <div className="col-md-12 mt-4 tabelaUsuario">
-                            <BootstrapTable
-                                keyField="la"
-                                hover
-                                striped
-                                data={products}
-                                columns={columns}
-                                // selectRow={selectRow}
-                                filter={filterFactory()}
-                                pagination={paginationFactory(options)}
-                            />
+                        <div className="col-md-6 col-sm-12">
+                            <div className="tituloInterno">
+                                <h2 className="titulosPrincipais">Lançar Saída Gôndola</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="container mb4rem">
+                        <form>
+                            <div class="row" Style='display: flex; align-items: center'>
+                                <div className='col-md-1'>
+                                    <label>Número da Gôndola</label>
+                                </div>
+                                <div className='col-md-1'>
+                                    <input type="number" class="form-control" />
+                                </div>
+                                <div className='col-md-1'>
+                                    <label>Código do Material</label>
+                                </div>
+                                <div className='col-md-1'>
+                                    <input type="number" class="form-control" />
+                                </div>
+                                <div className='col-md-1'>
+                                    <Button variant="success">Gerar</Button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-md-12 tabelaUsuario">
+                                <BootstrapTable
+                                    keyField="la"
+                                    hover
+                                    striped
+                                    data={products}
+                                    columns={columns}
+                                    // selectRow={selectRow}
+                                    filter={filterFactory()}
+                                    pagination={paginationFactory(options)}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </IconContext.Provider>
         </>
     );
 }

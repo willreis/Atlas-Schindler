@@ -178,15 +178,15 @@ export default function Producao() {
     const [getProducao, setGetProducao] = useState([]);
     const urlProducao = 'Producao';
 
-  var cookiePg = document.cookie.split(";").reduce((cookies, cookie) => {
-    const [name, value] = cookie.split("=").map((c) => c.trim());
-    cookies[name] = value;
-    return cookies;
-  }, {});
+    var cookiePg = document.cookie.split(";").reduce((cookies, cookie) => {
+        const [name, value] = cookie.split("=").map((c) => c.trim());
+        cookies[name] = value;
+        return cookies;
+    }, {});
 
-  console.log("Cookie!!!", cookiePg.NomeMaquina);
-  var nomeMaquina = cookiePg.NomeMaquina;
-  var idMaquina = cookiePg.IDMaquina;
+    console.log("Cookie!!!", cookiePg.NomeMaquina);
+    var nomeMaquina = cookiePg.NomeMaquina;
+    var idMaquina = cookiePg.IDMaquina;
 
     return (
         <>

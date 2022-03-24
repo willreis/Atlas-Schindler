@@ -115,6 +115,7 @@ select {
         width: 100%;
     }
 }
+
 .row.react-bootstrap-table-pagination {
     margin-top: 20px;
 }
@@ -638,9 +639,6 @@ span.pro-item-content a.link {
 
 form.g-3.formPadrao .row div {
     margin-bottom: 15px;
-<<<<<<< HEAD
-}
-=======
 }
 
 /*Produção*/
@@ -656,19 +654,25 @@ form.g-3.formPadrao .row div {
     justify-content: flex-end;
 }
 
-.btnAbrirProducao{
+.btnAbrirProducao {
     width: 120px;
-    padding: 5px 0!important;
+    padding: 5px 0 !important;
 }
 
-.tituloBoxProd p{
+.tituloBoxProd p {
     color: #555;
     font-weight: bold;
     font-size: 22px;
 }
 
 /*Configuração de Estação de Trabalho*/
-.configuracaoTrabalho select{
+.configuracaoTrabalho select {
     padding: 5px 0 1px 10px;
 }
->>>>>>> 505b3bb31d55d270479e931953d2b9c80ecb3f79
+
+.twoButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 180px;
+}
