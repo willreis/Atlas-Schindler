@@ -1,6 +1,7 @@
 import React from "react";
-import { Route, Routes, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
+//Cadastro
 import Usuarios from "./pages/Cadastro/Usuarios";
 import GruposAcesso from "./pages/Cadastro/GruposAcesso";
 import Impressora from "./pages/Cadastro/Impressora";
@@ -10,6 +11,7 @@ import Material from "./pages/Cadastro/Material";
 import MotivoProblema from "./pages/Cadastro/MotivoProblema";
 import NovoEditarMaterial from "./pages/Cadastro/NovoEditarMaterial";
 
+//Planejamento
 import ImportacaoOrdemProducao from "./pages/Planejamento/ImportacaoOrdemProducao";
 import OrdensParaProducao from "./pages/Planejamento/OrdensParaProducao";
 import OrdensProducao from "./pages/Planejamento/OrdensProducao";
@@ -19,6 +21,7 @@ import DetalhesItemProducao from "./pages/Planejamento/DetalhesItemProducao";
 import DetalhesVgs from "./pages/Planejamento/DetalhesVgs";
 import GerenciamentoKanban from "./pages/Planejamento/GerenciamentoKanban";
 
+//Manutenção
 import MapaDePosicoes from "./pages/Manutençao/MapaArmazem";
 import InformacoesGondola from "./pages/Manutençao/InformacoesGondola";
 import OcupacaoArmazem from "./pages/Manutençao/OcupacaoArmazem";
@@ -29,24 +32,28 @@ import InformacoesLocalizacao from "./pages/Manutençao/InformacoesLocalizacao";
 import InformacoesMesa from "./pages/Manutençao/InformacoesMesa";
 import TesteTranslacao from "./pages/Manutençao/TesteTranslacao";
 
+//Produção
 import Producao from "./pages/Operacao/Producao";
 import RecebimentoArmazem from "./pages/Operacao/RecebimentoArmazem";
 import ConfiguracaoEstacaoTrabalho from "./pages/Operacao/ConfiguracaoEstacaoTrabalho";
 import DetalhesProdPuncionadeira from "./pages/Operacao/DetalhesProdPuncionadeira";
 import DetalhesProducao from "./pages/Operacao/DetalhesProducao";
 
+//Movimentos
 import ListaMovimentos from "./pages/Movimentos/ListaMovimentos";
 import LancarSaidaGondola from "./pages/Movimentos/LancarSaidaGondola";
 import RetornarGondolaArmazem from "./pages/Movimentos/RetornarGondolaArmazem";
 import EntradaGondolaVazia from "./pages/Movimentos/EntradaGondolaVazia";
 import EnviarComandosPlc from "./pages/Movimentos/EnviarComandosPlc";
 
+//Dashboard
 import AcompanhamentoProducao from "./pages/Dashboard/AcompanhamentoProducao";
 import AcompanhamentoEstoque from "./pages/Dashboard/AcompanhamentoEstoque";
 import AcompanhamentoFabrica from "./pages/Dashboard/AcompanhamentoFabrica";
 import AcompanhamentoProdKanban from "./pages/Dashboard/AcompanhamentoProdKanban";
 import AcompanhamentoProdProduto from "./pages/Dashboard/AcompanhamentoProdProduto";
 
+//Relatórios
 import DadosProducao from "./pages/Relatorios/DadosProducao";
 import HistoricoMovimentacao from "./pages/Relatorios/HistoricoMovimentacao";
 import EstoqueMaterial from "./pages/Relatorios/EstoqueMaterial";
@@ -56,6 +63,7 @@ import HistoricoEntradaMaterial from "./pages/Relatorios/HistoricoEntradaMateria
 import ProducaoMaquina from "./pages/Relatorios/ProducaoMaquina";
 import AnaliseFalhas from "./pages/Relatorios/AnaliseFalhas";
 
+//Outros
 import Pagina404 from "./pages/404/404";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -65,6 +73,7 @@ function Rotas(props) {
     <div {...props}>
       <div>
         <Switch>
+          {/*Cadastro*/}
           <Route path="/cadastro/usuarios" exact>
             <Usuarios />
           </Route>
@@ -90,6 +99,7 @@ function Rotas(props) {
             <NovoEditarMaterial />
           </Route>
 
+          {/*Planejamento*/}
           <Route path="/planejamento/importacaoordemproducao" exact>
             <ImportacaoOrdemProducao />
           </Route>
@@ -115,6 +125,7 @@ function Rotas(props) {
             <GerenciamentoKanban />
           </Route>
 
+          {/*Manutenção*/}
           <Route path="/manutencao/mapadeposicoes" exact>
             <MapaDePosicoes />
           </Route>
@@ -143,6 +154,7 @@ function Rotas(props) {
             <TesteTranslacao />
           </Route>
 
+          {/*Operação*/}
           <Route path="/operacao/producao" exact>
             <Producao />
           </Route>
@@ -159,6 +171,7 @@ function Rotas(props) {
             <DetalhesProducao />
           </Route>
 
+          {/*Movimentos*/}
           <Route path="/movimentos/filademovimentos" exact>
             <ListaMovimentos />
           </Route>
@@ -175,6 +188,7 @@ function Rotas(props) {
             <EnviarComandosPlc />
           </Route>
 
+          {/*Dashboard*/}
           <Route path="/dashboard/acompanhamentodeproducao" exact>
             <AcompanhamentoProducao />
           </Route>
@@ -191,6 +205,7 @@ function Rotas(props) {
             <AcompanhamentoProdProduto />
           </Route>
 
+          {/*Relatórios*/}
           <Route path="/relatorios/historicodeordemproducao" exact>
             <DadosProducao />
           </Route>
@@ -215,6 +230,8 @@ function Rotas(props) {
           <Route path="/relatorios/analisedefalhas" exact>
             <AnaliseFalhas />
           </Route>
+
+          {/*Outros*/}
           <Route path="*" exact>
             <Pagina404 />
           </Route>
