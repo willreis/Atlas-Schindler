@@ -638,4 +638,37 @@ span.pro-item-content a.link {
 
 form.g-3.formPadrao .row div {
     margin-bottom: 15px;
+<<<<<<< HEAD
 }
+=======
+}
+
+/*Produção*/
+.btnDetalhesProd button {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.btnVoltarDetalhesProd {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btnAbrirProducao{
+    width: 120px;
+    padding: 5px 0!important;
+}
+
+.tituloBoxProd p{
+    color: #555;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+/*Configuração de Estação de Trabalho*/
+.configuracaoTrabalho select{
+    padding: 5px 0 1px 10px;
+}
+>>>>>>> 505b3bb31d55d270479e931953d2b9c80ecb3f79

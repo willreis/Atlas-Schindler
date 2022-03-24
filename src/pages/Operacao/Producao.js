@@ -178,32 +178,15 @@ export default function Producao() {
     const [getProducao, setGetProducao] = useState([]);
     const urlProducao = 'Producao';
 
-    useEffect(() => {
-        Api.get(`${urlProducao}`)
-            .then((response) => {
-                setGetProducao(
-                    response.data.map((producao) => {
-                        console.log("Dados producao:", producao);
-                        return {
-                            producaoId: producao.producaoId,
-                            nome: producao.nome,
-                            ordem: producao.ordem,
-                            titulo: producao.titulo,
-                            semana: producao.semana,
-                            semanaAtual: producao.semanaAtual,
-                            vg: producao.vg,
-                            mensagemPriorizacao: producao.mensagemPriorizacao,
-                            avisoDoAdministrador: producao.avisoDoAdministrador,
-                            ordensCustomizadas: producao.ordensCustomizadas,
-                            ordensKanban: producao.ordensKanban,
-                        };
-                    })
-                )
-            })
-            .catch((error) => {
-                alert("Erro Get: ", error);
-            })
-    }, []);
+  var cookiePg = document.cookie.split(";").reduce((cookies, cookie) => {
+    const [name, value] = cookie.split("=").map((c) => c.trim());
+    cookies[name] = value;
+    return cookies;
+  }, {});
+
+  console.log("Cookie!!!", cookiePg.NomeMaquina);
+  var nomeMaquina = cookiePg.NomeMaquina;
+  var idMaquina = cookiePg.IDMaquina;
 
     return (
         <>
