@@ -123,7 +123,19 @@ export default function ConfiguracaoEstacaoTrabalho() {
     document.cookie = `NomeMesaSaida=${mesaSaidaNome}; expires=${data}; path=/`;
   }
 
-  // Cria uma nova data no futuro 01/01/2020
+  //Usando os dados do Cookie
+  var cookiePg = document.cookie.split(";").reduce((cookies, cookie) => {
+    const [name, value] = cookie.split("=").map((c) => c.trim());
+    cookies[name] = value;
+    return cookies;
+  }, {});
+
+  console.log("Cookie!!!", cookiePg.NomeMaquina);
+  var nomeMaquina = cookiePg.NomeMaquina;
+  var idMaquina = cookiePg.IDMaquina;
+
+  console.log(nomeMaquina);
+  console.log(idMaquina)
 
   return (
     <>
