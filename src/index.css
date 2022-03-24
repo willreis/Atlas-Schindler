@@ -44,13 +44,18 @@ h4 {
     justify-content: flex-end;
 }
 
+.alinharBottom{
+    display: flex; 
+    align-items: end;
+}
+
 select {
     height: 32px !important;
 }
 
 .titulosPrincipais {
     color: #555;
-    padding: 20px 0 0 10px !important;
+    padding: 20px 0 0 0!important;
     font-size: 36px;
     font-weight: bold;
 }
@@ -666,13 +671,38 @@ form.g-3.formPadrao .row div {
 }
 
 /*Configuração de Estação de Trabalho*/
-.configuracaoTrabalho select {
-    padding: 5px 0 1px 10px;
-}
-
 .twoButtons {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 180px;
+}
+
+.listaMaquinasConfiguradas p{
+    padding: 10px 0!important;
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+}
+
+.listaMaquinasConfiguradas ul li{
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    list-style: circle;
+}
+
+.listaMaquinasConfiguradas ul li span{
+    color: #000;
+    padding-left:10px;
+    text-decoration: underline;
+}
+
+/*Movimento saída*/
+.tabelaMovimentoSaida .boxBtn{
+    display: flex;
+    align-items: flex-end;
+}
+.tabelaMovimentoSaida .boxBtn button{
+    padding: 6px 50px;
 }

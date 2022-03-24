@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import Api from "../../services/Api";
 
+import swal from 'sweetalert';
+
 export default function ConfiguracaoEstacaoTrabalho() {
   const urlMesa = "Mesa";
   const urlImpressora = "Impressora";
@@ -101,26 +103,31 @@ export default function ConfiguracaoEstacaoTrabalho() {
     var idMaquina = storeMaquina.options[storeMaquina.selectedIndex].value;
 
     var mesaEntradaNome =
-    storeMesaEntrada.options[storeMesaEntrada.selectedIndex].text;
+      storeMesaEntrada.options[storeMesaEntrada.selectedIndex].text;
     var IdMesaEntrada =
-    storeMesaEntrada.options[storeMesaEntrada.selectedIndex].value;
+      storeMesaEntrada.options[storeMesaEntrada.selectedIndex].value;
 
     var mesaSaidaNome =
-    storeMesaSaida.options[storeMesaSaida.selectedIndex].text;
+      storeMesaSaida.options[storeMesaSaida.selectedIndex].text;
     var idMesaSaidaNome =
-    storeMesaSaida.options[storeMesaSaida.selectedIndex].value;
+      storeMesaSaida.options[storeMesaSaida.selectedIndex].value;
 
     var data = new Date(2999, 0, 1);
     data = data.toGMTString();
     // Cria o cookie
     document.cookie = `nomeImpressora=${impressoraNome}; expires=${data}; path=/`;
-    document.cookie = `IdImpressora=${idImpressora}; expires=${data}; path=/`;
-    document.cookie = `IdMaquina=${idMaquina}; expires=${data}; path=/`;
-    document.cookie = `NomeMaquina=${maquinaNome}; expires=${data}; path=/`;
-    document.cookie = `IdMesaEntrada=${IdMesaEntrada}; expires=${data}; path=/`;
-    document.cookie = `NomeMesaEntrada=${mesaEntradaNome}; expires=${data}; path=/`;
-    document.cookie = `IDMesaSaida=${idMesaSaidaNome}; expires=${data}; path=/`;
-    document.cookie = `NomeMesaSaida=${mesaSaidaNome}; expires=${data}; path=/`;
+    document.cookie = `idImpressora=${idImpressora}; expires=${data}; path=/`;
+    document.cookie = `idMaquina=${idMaquina}; expires=${data}; path=/`;
+    document.cookie = `nomeMaquina=${maquinaNome}; expires=${data}; path=/`;
+    document.cookie = `idMesaEntrada=${IdMesaEntrada}; expires=${data}; path=/`;
+    document.cookie = `nomeMesaEntrada=${mesaEntradaNome}; expires=${data}; path=/`;
+    document.cookie = `idMesaSaida=${idMesaSaidaNome}; expires=${data}; path=/`;
+    document.cookie = `nomeMesaSaida=${mesaSaidaNome}; expires=${data}; path=/`;
+
+    swal("Dados Salvos com Sucesso", "", "success")
+      .then(() => {
+        window.location.reload();
+      });
   }
 
   //Usando os dados do Cookie
@@ -130,12 +137,18 @@ export default function ConfiguracaoEstacaoTrabalho() {
     return cookies;
   }, {});
 
-  console.log("Cookie!!!", cookiePg.NomeMaquina);
-  var nomeMaquina = cookiePg.NomeMaquina;
-  var idMaquina = cookiePg.IDMaquina;
+  console.log("Cookie!!!", cookiePg.nomeMaquina);
+  var nomeMaquina = cookiePg.nomeMaquina;
+  var idMaquina = cookiePg.IdMaquina;
+  var nomeImpressora = cookiePg.nomeImpressora;
+  var idImpressora = cookiePg.idImpressora;
+  var nomeMesaSaida = cookiePg.nomeMesaSaida;
+  var idMesaSaida = cookiePg.idMesaSaida;
+  var nomeMesaEntrada = cookiePg.nomeMesaEntrada;
+  var idMesaEntrada = cookiePg.idMesaEntrada;
 
   console.log(nomeMaquina);
-  console.log(idMaquina)
+  console.log(idMaquina);
 
   return (
     <>
@@ -150,16 +163,23 @@ export default function ConfiguracaoEstacaoTrabalho() {
           </div>
         </div>
 
-        <form className="configuracaoTrabalho">
+        <div className="row listaMaquinasConfiguradas">
+          <div className="col-md-6">
+            <p>Configurações atuais para essa maquina</p>
+            <ul>
+              <li>Maquina: <span>{nomeMaquina}</span> </li>
+              <li>Impressora: <span>{nomeImpressora}</span> </li>
+              <li>Mesa de Entrada: <span>{nomeMesaEntrada}</span> </li>
+              <li>Mesa de Saída: <span>{nomeMesaSaida}</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <form className="formPadrao configuracaoTrabalho">
           <div class="row">
             <div class="col-md-3 mt-3">
               <label for="maquina">Maquina</label>
-              <select
-                id="maquina"
-                type="text"
-                value={maquinaId}
-                class="form-control"
-              >
+              <select id="maquina" type="text" value={maquinaId}>
                 <option>Escolha uma opção abaixo</option>
                 {getMaquina.map((mapSelectOptions) => (
                   <option value={mapSelectOptions.maquinaId}>
@@ -173,7 +193,6 @@ export default function ConfiguracaoEstacaoTrabalho() {
               <select
                 id="impressora"
                 type="text"
-                class="form-control"
                 value={impressoraId}
                 name={impressoraNome}
               >
@@ -190,7 +209,6 @@ export default function ConfiguracaoEstacaoTrabalho() {
               <select
                 id="mesaEntrada"
                 type="text"
-                class="form-control"
                 value={mesaEntradaId}
                 name={mesaEntradaNome}
                 onChange={validadacaoMesa}
@@ -208,7 +226,6 @@ export default function ConfiguracaoEstacaoTrabalho() {
               <select
                 id="mesaSaida"
                 type="text"
-                class="form-control"
                 value={mesaSaidaId}
                 onChange={validadacaoMesa}
               >
