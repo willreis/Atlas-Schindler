@@ -669,3 +669,8 @@ form.g-3.formPadrao .row div {
     font-weight: bold;
     font-size: 22px;
 }
+
+/*Configuração de Estação de Trabalho*/
+.configuracaoTrabalho select{
+    padding: 5px 0 1px 10px;
+}

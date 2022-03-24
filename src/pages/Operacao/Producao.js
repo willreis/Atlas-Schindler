@@ -204,6 +204,16 @@ export default function Producao() {
       });
   }, []);
 
+  var cookiePg = document.cookie.split(";").reduce((cookies, cookie) => {
+    const [name, value] = cookie.split("=").map((c) => c.trim());
+    cookies[name] = value;
+    return cookies;
+  }, {});
+
+  console.log("Cookie!!!", cookiePg.NomeMaquina);
+  var nomeMaquina = cookiePg.NomeMaquina;
+  var idMaquina = cookiePg.IDMaquina;
+
   return (
     <>
       <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -218,7 +228,7 @@ export default function Producao() {
           <form>
             <div class="row">
               <div className="ordemProducaoBox mb-3 text-center">
-                <h3>Maquina: Produção - Puncionadeira (P3)</h3>
+                <h3>Maquina: {nomeMaquina}</h3>
               </div>
               <div class="row">
                 <div class="col-md-3 col-sm-12 mt-3">
