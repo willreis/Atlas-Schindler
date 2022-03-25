@@ -213,8 +213,8 @@ export default function Producao() {
   }, {});
 
   console.log("Cookie!!!", cookiePg.NomeMaquina);
-  var nomeMaquina = cookiePg.NomeMaquina;
-  var idMaquina = cookiePg.IDMaquina;
+  var nomeMaquina = cookiePg.nomeMaquina;
+  var idMaquina = cookiePg.idMaquina;
 
   return (
     <>

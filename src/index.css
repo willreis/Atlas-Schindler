@@ -706,3 +706,46 @@ form.g-3.formPadrao .row div {
 .tabelaMovimentoSaida .boxBtn button{
     padding: 6px 50px;
 }
+
+/*Dashboard*/
+.tituloMaquinas{
+    text-align: center;
+    background: #979797;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 3px 0!important;
+}
+
+.tituloMaquinasInterno{
+    padding: 20px 0 0 0!important;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+}
+
+.acompanhamentoEstoqueRow{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold; 
+    margin-top: 30px!important;
+}
+
+.bgVermelho{
+    background: red;
+    color: #000;
+}
+.bgAmarelo{
+    background: rgb(255, 238, 1);
+    color: #000;
+}
+.bgAzul{
+    background: rgb(26, 1, 255);
+    color: #fff;
+}
+.bgAzul svg {
+    color: #fff!important;
+}
