@@ -264,7 +264,7 @@ const SidebarNew = () => {
                 </MenuItem>
                 <MenuItem title="Encerramento de Ordem de Produção" icon={<VscGitPullRequestClosed />} >
                   <Link className='link' to='/relatorios/historicodeentradaproduto'>
-                    HIstórico de Entrada de Produto
+                    Histórico de Entrada de Produto
                   </Link>
                 </MenuItem>
                 <MenuItem title="Histórico de Entrada Produto" icon={<MdHistoryToggleOff />} >

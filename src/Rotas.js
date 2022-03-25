@@ -54,14 +54,14 @@ import AcompanhamentoProdKanban from "./pages/Dashboard/AcompanhamentoProdKanban
 import AcompanhamentoProdProduto from "./pages/Dashboard/AcompanhamentoProdProduto";
 
 //Relatórios
-import DadosProducao from "./pages/Relatorios/DadosProducao";
-import HistoricoMovimentacao from "./pages/Relatorios/HistoricoMovimentacao";
-import EstoqueMaterial from "./pages/Relatorios/EstoqueMaterial";
-import HistoricoGondola from "./pages/Relatorios/HistoricoGondola";
-import EncerramentoOrdem from "./pages/Relatorios/EncerramentoOrdem";
-import HistoricoEntradaMaterial from "./pages/Relatorios/HistoricoEntradaMaterial";
-import ProducaoMaquina from "./pages/Relatorios/ProducaoMaquina";
-import AnaliseFalhas from "./pages/Relatorios/AnaliseFalhas";
+import { DadosProducao } from "./pages/Relatorios/DadosProducao";
+import { HistoricoMovimentacao } from "./pages/Relatorios/HistoricoMovimentacao";
+import { EstoqueMaterial } from "./pages/Relatorios/EstoqueMaterial";
+import { HistoricoGondola } from "./pages/Relatorios/HistoricoGondola";
+import { EncerramentoOrdem } from "./pages/Relatorios/EncerramentoOrdem";
+import { HistoricoEntradaMaterial } from "./pages/Relatorios/HistoricoEntradaMaterial";
+import { ProducaoMaquina } from "./pages/Relatorios/ProducaoMaquina";
+import { AnaliseFalhas } from "./pages/Relatorios/AnaliseFalhas";
 
 //Outros
 import Pagina404 from "./pages/404/404";
