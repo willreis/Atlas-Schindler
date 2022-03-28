@@ -5,23 +5,8 @@ import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
-import { Bar } from 'react-chartjs-2';
 
 export const AnaliseFalhas = () => {
-
-    const state = {
-        labels: ['January', 'February', 'March',
-            'April', 'May'],
-        datasets: [
-            {
-                label: 'Rainfall',
-                backgroundColor: 'rgba(75,192,192,1)',
-                borderColor: 'rgba(0,0,0,1)',
-                borderWidth: 2,
-                data: [65, 59, 80, 81, 56]
-            }
-        ]
-    }
 
     //paginationFactory (Essa parte tem que ficar acima para ñ dar branco na tela)
     const customTotal = (from, to, size) => (
@@ -135,23 +120,7 @@ export const AnaliseFalhas = () => {
                     </div>
                 </form>
 
-                {/*Gráfico*/}
-                <div>
-                    <Bar
-                        data={state}
-                        options={{
-                            title: {
-                                display: true,
-                                text: 'Average Rainfall per month',
-                                fontSize: 20
-                            },
-                            legend: {
-                                display: true,
-                                position: 'right'
-                            }
-                        }}
-                    />
-                </div>
+                {/* Gráfico
 
                 {/*Tabela*/}
                 <div className="mt-4 tituloBoxProd">
