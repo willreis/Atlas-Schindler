@@ -48,6 +48,7 @@ export default function AcompanhamentoEstoque() {
         </div>
         <div className="row">
           <div className="col-md-12 acompanhamentoEstoqueRow bgAmarelo">
+            <div>Id: 45</div>
             <div>COD: 27390</div>
             <div>Quantidade: 80 pçs</div>
             <div>Sem Movimentação: 9 dias</div>
