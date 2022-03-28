@@ -148,32 +148,32 @@ export const HistoricoGondola = () => {
                     </div>
                 </div>
                 <form>
-                    <div class="row">
-                        <div class="col-md-2 col-sm-12 mt-3">
+                    <div className="row">
+                        <div className="col-md-2 col-sm-12 mt-3">
                             <label for='numeroGondola'>Número da Gôndola</label>
-                            <input id='numeroGondola' type="number" class="form-control"
+                            <input id='numeroGondola' type="number" className="form-control"
                             // Value={ordemProducao.la}
                             // onChange={(e) => setLa(parseInt(e.target.value))}
                             // readOnly
                             />
                         </div>
-                        <div class="col-md-2 col-sm-12 mt-3">
+                        <div className="col-md-2 col-sm-12 mt-3">
                             <label for='dataInicio'>Data Início</label>
-                            <input id='dataInicio' type="date" class="form-control"
+                            <input id='dataInicio' type="date" className="form-control"
                             // Value={ordemProducao.la}
                             // onChange={(e) => setLa(parseInt(e.target.value))}
                             // readOnly
                             />
                         </div>
-                        <div class="col-md-2 col-sm-12 mt-3">
+                        <div className="col-md-2 col-sm-12 mt-3">
                             <label for='dataFim'>Data Fim</label>
-                            <input id='dataFim' type="date" class="form-control"
+                            <input id='dataFim' type="date" className="form-control"
                             // Value={ordemProducao.la}
                             // onChange={(e) => setLa(parseInt(e.target.value))}
                             // readOnly
                             />
                         </div>
-                        <div class="col-md-2 col-sm-12 mt-40 alinharBottom">
+                        <div className="col-md-2 col-sm-12 mt-40 alinharBottom">
                             <Button variant="success" className="btnAbrirProducao" Style='width: 200px'>
                                 Gerar
                             </Button>
@@ -199,12 +199,12 @@ export const HistoricoGondola = () => {
                 </div>
                 {/*2 botões*/}
                 <div className="row" Style='display: flex; justify-content: flex-end'>
-                    <div class="col-md-2 col-sm-12 mt-40 alinharBottom">
+                    <div className="col-md-2 col-sm-12 mt-40 alinharBottom">
                         <Button variant="secondary" className="btnAbrirProducao" Style='width: 200px; background-color: #999'>
                             Exportar PDF
                         </Button>
                     </div>
-                    <div class="col-md-2 col-sm-12 mt-40 alinharBottom">
+                    <div className="col-md-2 col-sm-12 mt-40 alinharBottom">
                         <Button variant="secondary" className="btnAbrirProducao" Style='width: 200px; background-color: #999'>
                             Exportar Excel
                         </Button>

@@ -55,6 +55,42 @@ export const DadosProducao = () => {
             dataFimDoProcesso: "20/03/2022",
         },
         {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
             ordem: 564,
             nomedaMaquina: "P4",
             dataInicioDoProcesso: "17/03/2022",
@@ -65,6 +101,48 @@ export const DadosProducao = () => {
             nomedaMaquina: "P5",
             dataInicioDoProcesso: "07/08/2022",
             dataFimDoProcesso: "04/09/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
+        },
+        {
+            ordem: 132,
+            nomedaMaquina: "P3",
+            dataInicioDoProcesso: "15/03/2022",
+            dataFimDoProcesso: "20/03/2022",
         },
     ];
 
@@ -122,53 +200,53 @@ export const DadosProducao = () => {
                     </div>
                 </div>
                 <form>
-                    <div class="row">
-                        <div class="col-md-3 col-sm-12 mt-3">
+                    <div className="row">
+                        <div className="col-md-3 col-sm-12 mt-3">
                             <label for='dataHoraInicio'>Data/Hora Início</label>
-                            <input id='dataHoraInicio' type="date" class="form-control"
+                            <input id='dataHoraInicio' type="date" className="form-control"
                             // Value={ordemProducao.la}
                             // onChange={(e) => setLa(parseInt(e.target.value))}
                             // readOnly
                             />
                         </div>
-                        <div class="col-md-3 col-sm-12 mt-3">
+                        <div className="col-md-3 col-sm-12 mt-3">
                             <label for='dataHoraFim'>Data/Hora Fim</label>
-                            <input id='dataHoraFim' type="date" class="form-control"
+                            <input id='dataHoraFim' type="date" className="form-control"
                             // Value={ordemProducao.ordem}
                             // onChange={(e) => setOrdem(parseInt(e.target.value))}
                             />
                         </div>
-                        <div class="col-md-3 col-sm-12 mt-3">
+                        <div className="col-md-3 col-sm-12 mt-3">
                             <label for='ordem'>Ordem</label>
-                            <input id='ordem' type="text" class="form-control"
+                            <input id='ordem' type="text" className="form-control"
                             // Value={ordemProducao.status}
                             // onChange={(e) => setStatus(e.target.value)}
                             />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3 col-sm-12 mt-3">
+                    <div className="row">
+                        <div className="col-md-3 col-sm-12 mt-3">
                             <label for='item'>Item</label>
-                            <input id='item' type="text" class="form-control"
+                            <input id='item' type="text" className="form-control"
                             // Value={ordemProducao.verificada}
                             // onChange={(e) => setStatus(e.target.value)}
                             />
                         </div>
-                        <div class="col-md-3 col-sm-12 mt-3">
+                        <div className="col-md-3 col-sm-12 mt-3">
                             <label for='ovm'>OVM</label>
-                            <input id='ovm' type="text" class="form-control"
+                            <input id='ovm' type="text" className="form-control"
                             // Value={ordemProducao.titulo}
                             // onChange={(e) => setTitulo(e.target.value)}
                             />
                         </div>
-                        <div class="col-md-3 col-sm-12 mt-3">
+                        <div className="col-md-3 col-sm-12 mt-3">
                             <label for='op'>OP</label>
-                            <input id='op' type="text" class="form-control"
+                            <input id='op' type="text" className="form-control"
                             // Value={ordemProducao.familia}
                             // onChange={(e) => setFamilia(e.target.value)}
                             />
                         </div>
-                        <div class="col-md-3 col-sm-12 mt-40 alinharBottom" Style='display: flex; justify-content: flex-end'>
+                        <div className="col-md-3 col-sm-12 mt-40 alinharBottom" Style='display: flex; justify-content: flex-end'>
                             <Button variant="success" className="btnAbrirProducao" Style='width: 200px'>
                                 Gerar
                             </Button>
@@ -194,12 +272,12 @@ export const DadosProducao = () => {
                 </div>
                 {/*2 botões*/}
                 <div className="row" Style='display: flex; justify-content: flex-end'>
-                    <div class="col-md-2 col-sm-12 mt-40 alinharBottom">
+                    <div className="col-md-2 col-sm-12 mt-40 alinharBottom">
                         <Button variant="secondary" className="btnAbrirProducao" Style='width: 200px; background-color: #999'>
                             Exportar PDF
                         </Button>
                     </div>
-                    <div class="col-md-2 col-sm-12 mt-40 alinharBottom">
+                    <div className="col-md-2 col-sm-12 mt-40 alinharBottom">
                         <Button variant="secondary" className="btnAbrirProducao" Style='width: 200px; background-color: #999'>
                             Exportar Excel
                         </Button>
