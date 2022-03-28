@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
+import BarChart from "../../components/libraries/BarChart";
+import { Data } from "../../components/libraries/Data";
 
 export const AnaliseFalhas = () => {
+
+    const [userDataState, setUserDataState] = useState({
+        labels: Data.map((data) => data.numbersBelow),
+        datasets: [
+            {
+                label: "Atlas Schindler Chart",
+                data: Data.map((data) => data.value),
+                backgroundColor: [
+                    'red',
+                    'orange',
+                    'yellow',
+                    'green',
+                    'blue',
+                    'purple',
+                ],
+                borderColor: "#000",
+                borderWidth: 2,
+            },
+        ],
+    });
 
     //paginationFactory (Essa parte tem que ficar acima para ñ dar branco na tela)
     const customTotal = (from, to, size) => (
@@ -120,12 +142,17 @@ export const AnaliseFalhas = () => {
                     </div>
                 </form>
 
-                {/* Gráfico
+                {/*Gráficos*/}
+                <div Style='display: flex; justify-content: center; margin: 3rem 0 2rem 0'>
+                    <div style={{ width: 700 }}>
+                        <BarChart chartData={userDataState} />
+                    </div>
+                </div>
 
                 {/*Tabela*/}
-                <div className="mt-4 tituloBoxProd">
+                <div className="tituloBoxProd">
                     <div className="row">
-                        <div className="mt-5 col-md-6 tabelaUsuario mx-auto">
+                        <div className="col-md-6 tabelaUsuario mx-auto">
                             <BootstrapTable
                                 keyField="inserirUmKeyfieldDepois"
                                 hover
