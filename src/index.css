@@ -746,22 +746,22 @@ form.g-3.formPadrao .row div {
     cursor: pointer;
 }
 
-.bgVermelho {
+.danger {
     background: red;
     color: #000;
 }
 
-.bgAmarelo {
+.warning {
     background: rgb(255, 238, 1);
     color: #000;
 }
 
-.bgAzul {
+.ok {
     background: rgb(26, 1, 255);
     color: #fff;
 }
 
-.bgAzul svg {
+.ok svg {
     color: #fff !important;
 }
 
