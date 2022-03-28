@@ -741,6 +741,11 @@ form.g-3.formPadrao .row div {
     margin-top: 30px !important;
 }
 
+.acompanhamentoEstoqueRow:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
 .bgVermelho {
     background: red;
     color: #000;
@@ -774,7 +779,7 @@ form.g-3.formPadrao .row div {
     width: 150px;
 }
 
-.tituloTabelaAcompanhamento td{ 
+.tituloTabelaAcompanhamento td {
     text-align: center;
     font-weight: bold;
 }
