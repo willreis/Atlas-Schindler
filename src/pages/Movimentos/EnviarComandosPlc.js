@@ -8,7 +8,7 @@ function EnviarComandosPlc() {
     <>
       <div className="paddingContainer">
         <div className="row">
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-12 col-sm-12">
             <div className="tituloInterno">
               <h2 className="titulosPrincipais">Enviar Comandos ao PLC</h2>
             </div>
