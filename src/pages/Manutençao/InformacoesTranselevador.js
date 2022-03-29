@@ -35,7 +35,7 @@ function InformacoesTransevelevador() {
                 <label>Modo de Operação</label>
                 <input type="text" />
               </div>
-              <div className="col-md-9 col-sm-12">
+              <div className="col-md-3 col-sm-12">
                 <label>Falha</label>
                 <input type="text" />
               </div>
@@ -43,27 +43,27 @@ function InformacoesTransevelevador() {
                 <label>Falha</label>
                 <input type="text" />
               </div>
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-3 col-sm-6">
                 <label>Direção X</label>
                 <input type="text" />
               </div>
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-3 col-sm-6">
                 <label>Direção Y</label>
                 <input type="text" />
               </div>
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-3 col-sm-6">
                 <label>Direção Z</label>
                 <input type="text" />
               </div>
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-3 col-sm-6">
                 <label>Extensão do Garfo</label>
                 <input type="text" />
               </div>
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-3 col-sm-6">
                 <label>Destino</label>
                 <input type="text" />
               </div>
-              <div className="col-md-4 col-sm-6">
+              <div className="col-md-3 col-sm-6">
                 <label>Origem</label>
                 <input type="text" />
               </div>
