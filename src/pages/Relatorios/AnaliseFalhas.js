@@ -7,6 +7,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Button } from "react-bootstrap";
 import BarChart from "../../components/libraries/BarChart";
 import { Data } from "../../components/libraries/Data";
+// import Api from '../../services/Api/';
 
 export const AnaliseFalhas = () => {
 
@@ -29,6 +30,26 @@ export const AnaliseFalhas = () => {
             },
         ],
     });
+
+    //********** SINTAXE GET GRÁFICO **********
+    // const urlAnaliseFalhas = 'EsperarEnpoint';
+    // const [getAnaliseFalhas, setGetAnaliseFalhas] = useState([]);
+
+    // useEffect(() => {
+    //     Api.get(`${urlAnaliseFalhas}`)
+    //         .then((response) => {
+    //             setGetAnaliseFalhas(
+    //                 response.data.map((paramget) => {
+    //                     return {
+    //                         elementoEndpoint1: paramget.elementoEndpoint1,
+    //                         elementoEndpoint2: paramget.elementoEndpoint2,
+    //                     }
+    //                 }))
+    //         })
+    //         .catch((error) => {
+    //             alert("Erro Get: ", error);
+    //         })
+    // }, []);
 
     //paginationFactory (Essa parte tem que ficar acima para ñ dar branco na tela)
     const customTotal = (from, to, size) => (
