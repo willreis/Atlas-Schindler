@@ -84,7 +84,7 @@ export default function AcompanhamentoEstoque() {
                 <ImArrowDown />
               </div>
             </div>
-          </div>
+          </div> 
         ))}
       </div>
     </IconContext.Provider>
