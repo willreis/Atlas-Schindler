@@ -144,19 +144,19 @@ function OcupacaoArmazem() {
           <form className="row g-3 formPadrao" action="">
             <div className="col-md-3 col-sm-6">
               <label>Qtd. Gôndolas Vazias</label>
-              <input type="text" />
+              <input type="text" className="form-control"/>
             </div>
             <div className="col-md-3 col-sm-6">
               <label>Gôndolas com Material</label>
-              <input type="text" />
+              <input type="text" className="form-control"/>
             </div>
             <div className="col-md-3 col-sm-6">
               <label>Gôndolas em Produção</label>
-              <input type="text" />
+              <input type="text" className="form-control"/>
             </div>
             <div className="col-md-3 col-sm-6">
               <label>Qtd. Total Gondolas</label>
-              <input type="text" />
+              <input type="text" className="form-control"/>
             </div>
           </form>
           <div className="row">
