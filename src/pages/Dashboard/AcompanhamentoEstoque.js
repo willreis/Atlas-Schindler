@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { ImArrowDown } from "react-icons/im";
@@ -17,6 +17,7 @@ export default function AcompanhamentoEstoque() {
       maxEstoque: 80,
       estoqueAtual: 70,
       statusAtual: "danger",
+      piscar: "piscarSim",
     },
     {
       id: 2,
@@ -27,6 +28,7 @@ export default function AcompanhamentoEstoque() {
       maxEstoque: 580,
       estoqueAtual: 370,
       statusAtual: "warning",
+      piscar: "piscarNao",
     },
     {
       id: 3,
@@ -37,6 +39,7 @@ export default function AcompanhamentoEstoque() {
       maxEstoque: 560,
       estoqueAtual: 300,
       statusAtual: "ok",
+      piscar: "piscarNao",
     },
     {
       id: 4,
@@ -47,6 +50,7 @@ export default function AcompanhamentoEstoque() {
       maxEstoque: 3333,
       estoqueAtual: 90,
       statusAtual: "danger",
+      piscar: "piscarSim",
     },
     {
       id: 5,
@@ -57,6 +61,7 @@ export default function AcompanhamentoEstoque() {
       maxEstoque: 333223,
       estoqueAtual: 90,
       statusAtual: "warning",
+      piscar: "piscarNao",
     },
   ];
 
@@ -70,24 +75,29 @@ export default function AcompanhamentoEstoque() {
 
   const [estoque, setEstoque] = useState([]);
 
+  // useEffect(() => {
+  //   var produtosFilter = produtos.filter(function(produto){
+  //     return produto.id === id;
+  //   });
+  //   setEstoque(produtosFilter[0]);
+  //var piscarE = document.getElementById("boxAcompEstoque");
+  //console.log("adsfa1qqqq: ", estoque.piscar);
+  // if (estoque.piscar === 0) {
+  //   console.log("pisca");
+  //   piscarE.classList.add("piscar");
+  // } else {
+  //   console.log("n pisca");
+  // }
+  //}, []);
+
   function mostrarEstoque(id) {
     setShow(true);
 
-    console.log("id: ", id);
-    console.log(produtos[id - 1].maxEstoque);
-
     var produtosFilter = produtos.filter(function (produto) {
-      var produtoIdF = produto.id === id;
-      setEstoque(produtoIdF);
-      return produtoIdF;
+      return produto.id === id;
     });
 
-    console.log("aaaa: ", produtosFilter[0]);
-    setEstoque(produtosFilter);
-    console.log("min: ", produtosFilter[0].minEstoque);
-    console.log("atual: ", produtosFilter[0].estoqueAtual);
-
-    console.log('estoque: ', estoque);
+    setEstoque(produtosFilter[0]);
   }
 
   return (
@@ -100,7 +110,6 @@ export default function AcompanhamentoEstoque() {
             </div>
           </div>
         </div>
-
         {
           produtos.map((prod) => (
             <div className="row" key={prod.id}>
@@ -142,24 +151,23 @@ export default function AcompanhamentoEstoque() {
         centered
       >
         <Modal.Header closeButton Style="position:relative">
-          <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
+          <h3 Style="position: absolute; left: 30%;">Estoque</h3>
         </Modal.Header>
         <Modal.Body>
           <div Style="margin-bottom: 30px; text-align: center">
-            <div className="row">
-              <div className="col-12">
-                <p>Estoque</p>
-              </div>
-            </div>
             <div className="row mt-3">
               <div className="col-12">
-                <div className="row">
-                  <div className="col-6">
-                    <ul>
-                      {/* <li>{estoque.maxEstoque}</li> */}
-                    </ul>
-                  </div>
-                </div>
+                <ul className="listaEstoqueModal">
+                  <li key={estoque.id}>
+                    Estoque Atual: <span>{estoque.estoqueAtual}</span>
+                  </li>
+                  <li key={estoque.id}>
+                    Estoque Mínimo: <span>{estoque.minEstoque}</span>
+                  </li>
+                  <li key={estoque.id}>
+                    Estoque Máximo: <span>{estoque.maxEstoque}</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
