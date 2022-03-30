@@ -1,6 +1,22 @@
 import React from "react";
 
 function AcompanhamentoProdProduto() {
+  // const produto = [
+  //   {
+  //     semanaId: 1,
+  //     semana: 2234,
+  //     semanaArray: [{
+  //       maquina:[{
+  //         nome: "Salvagnini",
+  //         maquinaArray:[{
+  //           maquinaArrayNome:[{
+
+  //           }]
+  //         }]
+  //       }]
+  //     }],
+  //   },
+  // ];
   return (
     <>
       <div className="paddingContainer">

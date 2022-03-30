@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { ImArrowDown } from "react-icons/im";
 import { ImArrowUp } from "react-icons/im";
 import { FaMinus } from "react-icons/fa";
+import Modal from "react-bootstrap/Modal";
 
 export default function AcompanhamentoEstoque() {
   const produtos = [
@@ -59,7 +60,20 @@ export default function AcompanhamentoEstoque() {
     },
   ];
 
-  // document.querySelector('#boxAcompEstoque').classList.add(produtos.map((e) =>(e.statusAtual)));
+  const [show, setShow] = useState(false);
+  const fecharModal = () => setShow(false);
+
+  const [id, setId] = useState();
+  const [minEstoque, setMinEstoque] = useState();
+  const [maxEstoque, setMaxEstoque] = useState();
+  const [estoqueAtual, setEstoqueAtual] = useState();
+
+  function mostrarEstoque(id) {
+    setShow(true);
+
+    console.log(id);
+    console.log(id.produtos.minEstoque);
+  }
 
   return (
     <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
@@ -76,6 +90,7 @@ export default function AcompanhamentoEstoque() {
             <div
               id="boxAcompEstoque"
               className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual}`}
+              onClick={() => mostrarEstoque(prod.id)}
             >
               <div>COD: {prod.cod}</div>
               <div>Quantidade: {prod.qtd} pçs</div>
@@ -84,9 +99,41 @@ export default function AcompanhamentoEstoque() {
                 <ImArrowDown />
               </div>
             </div>
-          </div> 
+          </div>
         ))}
       </div>
+      {/* Modal Delete */}
+      <Modal
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        show={show}
+        onHide={() => setShow(false)}
+        centered
+      >
+        <Modal.Header closeButton Style="position:relative">
+          <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <div Style="margin-bottom: 30px; text-align: center">
+            <div className="row">
+              <div className="col-12">
+                <p>Estoque</p>
+              </div>
+            </div>
+            <div className="row mt-3">
+              <div className="col-12">
+                <div className="row">
+                  <div className="col-6">
+                    <ul>
+                      <li>{id}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </IconContext.Provider>
   );
 }
