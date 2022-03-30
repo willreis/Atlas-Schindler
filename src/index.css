@@ -23,6 +23,18 @@ h4 {
     margin-top: 40px;
 }
 
+.mb-30{
+    margin-bottom: 30px; 
+}
+
+.br-20{
+    border-radius: 20px
+}
+
+.bgBranco{
+    background: #fff!important;
+}
+
 .text-right {
     text-align: right;
 }
@@ -758,17 +770,20 @@ form.g-3.formPadrao .row div {
     background: red;
     color: #000;
 }
-.piscarSim{
+
+.piscarSim {
     animation: pulse 1s infinite;
 }
-@keyframes pulse{
+
+@keyframes pulse {
     0% {
-      background-color: #f69393;
+        background-color: #f69393;
     }
+
     100% {
-      background-color: red;
+        background-color: red;
     }
-  }
+}
 
 .warning {
     background: rgb(255, 238, 1);
@@ -804,10 +819,33 @@ form.g-3.formPadrao .row div {
 }
 
 ul.listaEstoqueModal {
-    text-align: left;
-    list-style: circle;
-    font-size: 18px;
+    text-align: center;
+    list-style: none;
+    font-size: 25px;
+    width: 300px;
+    margin: 0 auto;
+    padding: 80px 0;
+    line-height: 2;
 }
-ul.listaEstoqueModal span{
+
+ul.listaEstoqueModal span {
     font-weight: bold;
+}
+
+.tituloEstoqueModal {
+    font-weight: bold;
+    font-size: 40px;
+    padding-bottom: 20px !important
+}
+
+.modalBodyEstoque {
+    background: #f7f7f7!important;
+    padding: 0px 80px 50px 80px!important;
+}
+
+.modalHeaderEstoque {
+    position: relative;
+    background: #f7f7f7!important;
+    border-bottom: 0!important;
+    border-radius: 10px
 }

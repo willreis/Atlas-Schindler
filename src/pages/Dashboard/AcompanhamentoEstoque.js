@@ -3,8 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { ImArrowDown } from "react-icons/im";
 import Modal from "react-bootstrap/Modal";
-import { GrSubtract } from 'react-icons/gr';
-import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
+import { GrSubtract } from "react-icons/gr";
+import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
+import { Button } from "react-bootstrap";
 
 export default function AcompanhamentoEstoque() {
   const produtos = [
@@ -65,25 +66,14 @@ export default function AcompanhamentoEstoque() {
     },
     {
       id: 6,
-      cod: 26713,
-      qtd: 30,
-      semMovi: 25,
-      minEstoque: 30,
-      maxEstoque: 80,
-      estoqueAtual: 70,
-      statusAtual: "danger",
-      piscar: "piscarSim",
-    },
-    {
-      id: 7,
-      cod: 26713,
-      qtd: 30,
-      semMovi: 25,
-      minEstoque: 30,
-      maxEstoque: 80,
-      estoqueAtual: 70,
-      statusAtual: "danger",
-      piscar: "piscarSim",
+      cod: 6543,
+      qtd: 3544,
+      semMovi: 222,
+      minEstoque: 454335,
+      maxEstoque: 333223,
+      estoqueAtual: 90,
+      statusAtual: "ok",
+      piscar: "piscarNao",
     },
   ];
 
@@ -117,53 +107,50 @@ export default function AcompanhamentoEstoque() {
             </div>
           </div>
         </div>
-        {
-          produtos.map((prod) => (
-            <div className="row" key={prod.id}>
-              <div
-                id="boxAcompEstoque"
-                className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual} ${prod.piscar}`}
-                onClick={() => mostrarEstoque(prod.id)}
-              >
-                <div>COD: {prod.cod}</div>
-                <div>Quantidade: {prod.qtd} pçs</div>
-                <div>Sem Movimentação: {prod.semMovi} dias</div>
-                if{prod.statusAtual === "danger"}{
-                  <div>
-                    <AiOutlineArrowDown />
-                  </div>
-                }
-                else if{prod.statusAtual === "warning"}{
-                  <div>
-                    <GrSubtract />
-                  </div>
-                }
-                else{prod.statusAtual === "ok"}{
-                  <div>
-                    <AiOutlineArrowUp />
-                  </div>
-                }
+        {produtos.map((prod) => (
+          <div className="row" key={prod.id}>
+            <div
+              id="boxAcompEstoque"
+              className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual} ${prod.piscar}`}
+              onClick={() => mostrarEstoque(prod.id)}
+            >
+              <div>COD: {prod.cod}</div>
+              <div>Quantidade: {prod.qtd} pçs</div>
+              <div>Sem Movimentação: {prod.semMovi} dias</div>
+
+              <div>
+                {prod.statusAtual === "danger" ? (
+                  <AiOutlineArrowDown />
+                ) : prod.statusAtual === "warning" ? (
+                  <GrSubtract />
+                ) : prod.statusAtual === "ok" ? (
+                  <AiOutlineArrowUp />
+                ) : (
+                  <p>Não tem status</p>
+                )}
               </div>
             </div>
-          ))
-        }
-
+          </div>
+        ))}
       </div>
       {/* Modal Estoque */}
       <Modal
-        size="sm"
+        size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         show={show}
         onHide={() => setShow(false)}
         centered
       >
-        <Modal.Header closeButton Style="position:relative">
-          <h3 Style="position: absolute; left: 30%;">Estoque</h3>
+        <Modal.Header closeButton className="modalHeaderEstoque">
+          {/* <h3>Estoque</h3> */}
         </Modal.Header>
-        <Modal.Body>
-          <div Style="margin-bottom: 30px; text-align: center">
+        <Modal.Body className="modalBodyEstoque">
+          <div className="row" Style="text-align: center">
+            <h2 className="tituloEstoqueModal">Estoque</h2>
+          </div>
+          <div className="text-center mb-30">
             <div className="row mt-3">
-              <div className="col-12">
+              <div className="col-12 bgBranco br-20">
                 <ul className="listaEstoqueModal">
                   <li key={estoque.id}>
                     Estoque Atual: <span>{estoque.estoqueAtual}</span>
@@ -176,6 +163,15 @@ export default function AcompanhamentoEstoque() {
                   </li>
                 </ul>
               </div>
+            </div>
+            <div className="row mt-3" Style="position: relative; right:0">
+              <Button
+                className="botaoCadastrar"
+                variant="primary"
+                Style="width: 200px; position: absolute; right:0"
+              >
+                Enviar
+              </Button>
             </div>
           </div>
         </Modal.Body>
