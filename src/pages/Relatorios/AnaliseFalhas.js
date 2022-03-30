@@ -99,7 +99,43 @@ export const AnaliseFalhas = () => {
             descricaoDasOcorrencias: "Fim de Curso Elevação",
         },
         {
-            quantidadeDeOcorrencias: 750,
+            quantidadeDeOcorrencias: 123432,
+            descricaoDasOcorrencias: "Proteção de Freio",
+        },
+        {
+            quantidadeDeOcorrencias: 122,
+            descricaoDasOcorrencias: "Cabo Solto",
+        },
+        {
+            quantidadeDeOcorrencias: 345,
+            descricaoDasOcorrencias: "Fim de Curso Elevação",
+        },
+        {
+            quantidadeDeOcorrencias: 123432,
+            descricaoDasOcorrencias: "Proteção de Freio",
+        },
+        {
+            quantidadeDeOcorrencias: 122,
+            descricaoDasOcorrencias: "Cabo Solto",
+        },
+        {
+            quantidadeDeOcorrencias: 345,
+            descricaoDasOcorrencias: "Fim de Curso Elevação",
+        },
+        {
+            quantidadeDeOcorrencias: 123432,
+            descricaoDasOcorrencias: "Proteção de Freio",
+        },
+        {
+            quantidadeDeOcorrencias: 122,
+            descricaoDasOcorrencias: "Cabo Solto",
+        },
+        {
+            quantidadeDeOcorrencias: 345,
+            descricaoDasOcorrencias: "Fim de Curso Elevação",
+        },
+        {
+            quantidadeDeOcorrencias: 123432,
             descricaoDasOcorrencias: "Proteção de Freio",
         },
     ];

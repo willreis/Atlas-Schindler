@@ -21,51 +21,51 @@ function InformacoesTransevelevador() {
             <div className="row">
               <div className="col-md-3 col-sm-6">
                 <label>Garfo</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Status</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Tipo de Movimento</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Modo de Operação</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-12">
                 <label>Falha</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-12">
                 <label>Falha</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Direção X</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Direção Y</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Direção Z</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Extensão do Garfo</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Destino</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
               <div className="col-md-3 col-sm-6">
                 <label>Origem</label>
-                <input type="text" />
+                <input type="text" className="form-control" />
               </div>
             </div>
 
