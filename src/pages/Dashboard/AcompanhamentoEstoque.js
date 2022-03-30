@@ -63,6 +63,28 @@ export default function AcompanhamentoEstoque() {
       statusAtual: "warning",
       piscar: "piscarNao",
     },
+    {
+      id: 6,
+      cod: 26713,
+      qtd: 30,
+      semMovi: 25,
+      minEstoque: 30,
+      maxEstoque: 80,
+      estoqueAtual: 70,
+      statusAtual: "danger",
+      piscar: "piscarSim",
+    },
+    {
+      id: 7,
+      cod: 26713,
+      qtd: 30,
+      semMovi: 25,
+      minEstoque: 30,
+      maxEstoque: 80,
+      estoqueAtual: 70,
+      statusAtual: "danger",
+      piscar: "piscarSim",
+    },
   ];
 
   const [show, setShow] = useState(false);
@@ -74,21 +96,6 @@ export default function AcompanhamentoEstoque() {
   const [estoqueAtual, setEstoqueAtual] = useState();
 
   const [estoque, setEstoque] = useState([]);
-
-  // useEffect(() => {
-  //   var produtosFilter = produtos.filter(function(produto){
-  //     return produto.id === id;
-  //   });
-  //   setEstoque(produtosFilter[0]);
-  //var piscarE = document.getElementById("boxAcompEstoque");
-  //console.log("adsfa1qqqq: ", estoque.piscar);
-  // if (estoque.piscar === 0) {
-  //   console.log("pisca");
-  //   piscarE.classList.add("piscar");
-  // } else {
-  //   console.log("n pisca");
-  // }
-  //}, []);
 
   function mostrarEstoque(id) {
     setShow(true);
@@ -115,7 +122,7 @@ export default function AcompanhamentoEstoque() {
             <div className="row" key={prod.id}>
               <div
                 id="boxAcompEstoque"
-                className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual}`}
+                className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual} ${prod.piscar}`}
                 onClick={() => mostrarEstoque(prod.id)}
               >
                 <div>COD: {prod.cod}</div>
