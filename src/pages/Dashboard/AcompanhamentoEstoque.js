@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
 import { ImArrowDown } from "react-icons/im";
-import { ImArrowUp } from "react-icons/im";
-import { FaMinus } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
+import { GrSubtract } from 'react-icons/gr';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 
 export default function AcompanhamentoEstoque() {
   const produtos = [
@@ -100,22 +100,38 @@ export default function AcompanhamentoEstoque() {
             </div>
           </div>
         </div>
-        {produtos.map((prod) => (
-          <div className="row" key={prod.id}>
-            <div
-              id="boxAcompEstoque"
-              className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual}`}
-              onClick={() => mostrarEstoque(prod.id)}
-            >
-              <div>COD: {prod.cod}</div>
-              <div>Quantidade: {prod.qtd} pçs</div>
-              <div>Sem Movimentação: {prod.semMovi} dias</div>
-              <div>
-                <ImArrowDown />
+
+        {
+          produtos.map((prod) => (
+            <div className="row" key={prod.id}>
+              <div
+                id="boxAcompEstoque"
+                className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual}`}
+                onClick={() => mostrarEstoque(prod.id)}
+              >
+                <div>COD: {prod.cod}</div>
+                <div>Quantidade: {prod.qtd} pçs</div>
+                <div>Sem Movimentação: {prod.semMovi} dias</div>
+                if{prod.statusAtual === "danger"}{
+                  <div>
+                    <AiOutlineArrowDown />
+                  </div>
+                }
+                else if{prod.statusAtual === "warning"}{
+                  <div>
+                    <GrSubtract />
+                  </div>
+                }
+                else{prod.statusAtual === "ok"}{
+                  <div>
+                    <AiOutlineArrowUp />
+                  </div>
+                }
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
+
       </div>
       {/* Modal Estoque */}
       <Modal
