@@ -68,11 +68,26 @@ export default function AcompanhamentoEstoque() {
   const [maxEstoque, setMaxEstoque] = useState();
   const [estoqueAtual, setEstoqueAtual] = useState();
 
+  const [estoque, setEstoque] = useState([]);
+
   function mostrarEstoque(id) {
     setShow(true);
 
-    console.log(id);
-    console.log(id.produtos.minEstoque);
+    console.log("id: ", id);
+    console.log(produtos[id - 1].maxEstoque);
+
+    var produtosFilter = produtos.filter(function (produto) {
+      var produtoIdF = produto.id === id;
+      setEstoque(produtoIdF);
+      return produtoIdF;
+    });
+
+    console.log("aaaa: ", produtosFilter[0]);
+    setEstoque(produtosFilter);
+    console.log("min: ", produtosFilter[0].minEstoque);
+    console.log("atual: ", produtosFilter[0].estoqueAtual);
+
+    console.log('estoque: ', estoque);
   }
 
   return (
@@ -102,7 +117,7 @@ export default function AcompanhamentoEstoque() {
           </div>
         ))}
       </div>
-      {/* Modal Delete */}
+      {/* Modal Estoque */}
       <Modal
         size="sm"
         aria-labelledby="contained-modal-title-vcenter"
@@ -125,7 +140,7 @@ export default function AcompanhamentoEstoque() {
                 <div className="row">
                   <div className="col-6">
                     <ul>
-                      <li>{id}</li>
+                      {/* <li>{estoque.maxEstoque}</li> */}
                     </ul>
                   </div>
                 </div>
