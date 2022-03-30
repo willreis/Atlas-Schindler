@@ -758,6 +758,17 @@ form.g-3.formPadrao .row div {
     background: red;
     color: #000;
 }
+.piscarSim{
+    animation: pulse 1s infinite;
+}
+@keyframes pulse{
+    0% {
+      background-color: #f69393;
+    }
+    100% {
+      background-color: red;
+    }
+  }
 
 .warning {
     background: rgb(255, 238, 1);
@@ -789,5 +800,14 @@ form.g-3.formPadrao .row div {
 
 .tituloTabelaAcompanhamento td {
     text-align: center;
+    font-weight: bold;
+}
+
+ul.listaEstoqueModal {
+    text-align: left;
+    list-style: circle;
+    font-size: 18px;
+}
+ul.listaEstoqueModal span{
     font-weight: bold;
 }
