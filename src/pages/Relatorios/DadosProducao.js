@@ -114,36 +114,6 @@ export const DadosProducao = () => {
             dataInicioDoProcesso: "15/03/2022",
             dataFimDoProcesso: "20/03/2022",
         },
-        {
-            ordem: 132,
-            nomedaMaquina: "P3",
-            dataInicioDoProcesso: "15/03/2022",
-            dataFimDoProcesso: "20/03/2022",
-        },
-        {
-            ordem: 132,
-            nomedaMaquina: "P3",
-            dataInicioDoProcesso: "15/03/2022",
-            dataFimDoProcesso: "20/03/2022",
-        },
-        {
-            ordem: 132,
-            nomedaMaquina: "P3",
-            dataInicioDoProcesso: "15/03/2022",
-            dataFimDoProcesso: "20/03/2022",
-        },
-        {
-            ordem: 132,
-            nomedaMaquina: "P3",
-            dataInicioDoProcesso: "15/03/2022",
-            dataFimDoProcesso: "20/03/2022",
-        },
-        {
-            ordem: 132,
-            nomedaMaquina: "P3",
-            dataInicioDoProcesso: "15/03/2022",
-            dataFimDoProcesso: "20/03/2022",
-        },
     ];
 
     const columns = [
