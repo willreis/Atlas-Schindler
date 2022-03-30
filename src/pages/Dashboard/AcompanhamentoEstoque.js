@@ -63,6 +63,18 @@ export default function AcompanhamentoEstoque() {
       statusAtual: "warning",
       piscar: "piscarNao",
     },
+    {
+      id: 6,
+      cod: 6543,
+      qtd: 3544,
+      semMovi: 222,
+      minEstoque: 454335,
+      maxEstoque: 333223,
+      estoqueAtual: 90,
+      statusAtual: "ok",
+      piscar: "piscarNao",
+    },
+
   ];
 
   const [show, setShow] = useState(false);
@@ -115,32 +127,25 @@ export default function AcompanhamentoEstoque() {
             <div className="row" key={prod.id}>
               <div
                 id="boxAcompEstoque"
-                className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual}`}
+                className={`col-md-12 acompanhamentoEstoqueRow ${prod.statusAtual} ${prod.piscar}`}
                 onClick={() => mostrarEstoque(prod.id)}
               >
                 <div>COD: {prod.cod}</div>
                 <div>Quantidade: {prod.qtd} pçs</div>
                 <div>Sem Movimentação: {prod.semMovi} dias</div>
-                if{prod.statusAtual === "danger"}{
-                  <div>
-                    <AiOutlineArrowDown />
-                  </div>
-                }
-                else if{prod.statusAtual === "warning"}{
-                  <div>
-                    <GrSubtract />
-                  </div>
-                }
-                else{prod.statusAtual === "ok"}{
-                  <div>
-                    <AiOutlineArrowUp />
-                  </div>
-                }
+
+                <div>
+                  {
+                    (prod.statusAtual === "danger") ? <AiOutlineArrowDown /> :
+                      (prod.statusAtual === "warning") ? <GrSubtract /> :
+                        (prod.statusAtual === "ok") ? < AiOutlineArrowUp /> :
+                          <p>Não tem status</p>
+                  }
+                </div>
               </div>
             </div>
           ))
         }
-
       </div>
       {/* Modal Estoque */}
       <Modal
