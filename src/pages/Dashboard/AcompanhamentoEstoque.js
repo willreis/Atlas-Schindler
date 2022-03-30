@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
-import { ImArrowDown } from "react-icons/im";
 import Modal from "react-bootstrap/Modal";
 import { GrSubtract } from "react-icons/gr";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
@@ -117,7 +116,6 @@ export default function AcompanhamentoEstoque() {
               <div>COD: {prod.cod}</div>
               <div>Quantidade: {prod.qtd} pçs</div>
               <div>Sem Movimentação: {prod.semMovi} dias</div>
-
               <div>
                 {prod.statusAtual === "danger" ? (
                   <AiOutlineArrowDown />

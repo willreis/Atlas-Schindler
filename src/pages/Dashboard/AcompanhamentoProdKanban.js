@@ -1,9 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { IconContext } from "react-icons/lib";
-import { ImArrowDown } from "react-icons/im";
-import { ImArrowUp } from "react-icons/im";
-import { FaMinus } from "react-icons/fa";
+import { GrSubtract } from "react-icons/gr";
+import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
+import { Button } from "react-bootstrap";
 
 export default function AcompanhamentoProdKanban() {
 
@@ -77,7 +77,17 @@ export default function AcompanhamentoProdKanban() {
               <div>Título: {paramMap.titulo}</div>
               <div>Família: {paramMap.familia}</div>
               <div>Dias em produção: {paramMap.diasEmProducao}</div>
-              <div><ImArrowDown /></div>
+              <div>
+                {paramMap.statusAtual === "danger" ? (
+                  <AiOutlineArrowDown />
+                ) : paramMap.statusAtual === "warning" ? (
+                  <GrSubtract />
+                ) : paramMap.statusAtual === "ok" ? (
+                  <AiOutlineArrowUp />
+                ) : (
+                  <p>Não tem status</p>
+                )}
+              </div>
             </div>
           </div>
         ))}
