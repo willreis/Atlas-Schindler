@@ -480,30 +480,28 @@ function MapaArmazem() {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-8 col-sm-12">
-              <form className="row g-3 formPadrao" action="">
-                <div className="col-md-3 col-sm-6">
-                  <label>Número da Gôndola</label>
-                  <select Style="">
-                    <option></option>
-                    <option>aaa</option>
-                    <option>bbb</option>
-                    <option>ccc</option>
-                  </select>
-                </div>
-                <div className="col-md-3" Style="position: relative">
-                  <Button variant="primary" Style="position: absolute; bottom:0">Buscar Todas</Button>
-                </div>
-              </form>
-            </div>
+          <div className="col-md-8 col-sm-12">
+            <form className="row g-3 formPadrao" action="">
+              <div className="col-md-3 col-sm-6">
+                <label>Número da Gôndola</label>
+                <select Style="">
+                  <option></option>
+                  <option>aaa</option>
+                  <option>bbb</option>
+                  <option>ccc</option>
+                </select>
+              </div>
+              <div className="col-md-3" Style="position: relative">
+                <Button variant="primary" Style="position: absolute; bottom:0">Buscar Todas</Button>
+              </div>
+            </form>
           </div>
           <div className="row mt-4">
             <div className="col-md-12 col-sm-12" >
               <div class="armazemBotoes">
                 <Button variant="success" Style="width:200px">Lado Esquerdo</Button>
                 <Button variant="success" Style="width:200px">Lado Direito</Button>
-              
+
                 <Button variant="success" Style="width:200px">Legenda</Button>
                 <Button variant="success" Style="width:200px;">Estados</Button>
               </div>
