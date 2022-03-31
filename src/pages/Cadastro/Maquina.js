@@ -10,6 +10,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import Api from "../../services/Api";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default function Maquina() {
 
@@ -83,6 +84,7 @@ export default function Maquina() {
             };
           })
         );
+        
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro111!:", error);
@@ -209,7 +211,11 @@ export default function Maquina() {
     })
       .then((response) => {
         console.log(response.data);
-        alert("Cadastro Efetuado com sucesso!");
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso!',
+          text: 'Maquina cadastrada com sucesso!',
+        })
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
@@ -224,6 +230,11 @@ export default function Maquina() {
       console.log("delete id", idUser);
 
       setModalDelete(false);
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: 'Enviado com sucesso!',
+      })
       alert("Deletado com sucesso");
       window.location.reload();
     } catch (err) {

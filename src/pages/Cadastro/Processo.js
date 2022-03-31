@@ -11,6 +11,7 @@ import Api from "../../services/Api";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default function Processo() {
 
@@ -168,8 +169,15 @@ export default function Processo() {
       ordenacao,
     })
       .then((response) => {
-        console.log(response.data);
-        alert("Processo cadastrado com sucesso!");
+        // console.log(response.data);
+        // Swal.fire({
+        //   icon: 'error',
+        //   title: 'Oops...',
+        //   text: 'Something went wrong!',
+        //   footer: '<a href="">Why do I have this issue?</a>'
+        // })
+        // alert("Processo cadastrado com sucesso!!!!!!");
+        
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro!!!:", error);
@@ -180,6 +188,7 @@ export default function Processo() {
   ///////PUT
   function funcaoAbrirModal(row) {
     setShowModalPut(true);
+    console.log('ID :', row.processoId)
     Api.get(`${url}/${row.processoId}`, {
       processoId,
       nome,
@@ -210,6 +219,13 @@ export default function Processo() {
         setOrdenacao();
         console.log("Esse é o console do Put: ", response);
         alert("Put Efetuado com sucesso!");
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso',
+          text: 'Processo deletado com sucesso',
+        }).then(() => {
+          window.location.reload();
+        });
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro: " + error);
@@ -224,8 +240,13 @@ export default function Processo() {
       console.log('delete id', idUser)
 
       setModalDelete(false);
-      alert("Deletado com sucesso");
-      window.location.reload();
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso',
+        text: 'Processo deletado com sucesso',
+      }).then(() => {
+        window.location.reload();
+      });
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }

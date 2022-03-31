@@ -849,3 +849,15 @@ ul.listaEstoqueModal span {
     border-bottom: 0!important;
     border-radius: 10px
 }
+
+button.swal2-confirm.swal2-styled {
+    background: #0b5ed7;
+}
+
+.pSweetAlert{
+    font-size: 24px;
+}
+
+.pSweetAlert span{
+    font-weight: bold;
+}

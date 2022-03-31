@@ -14,7 +14,8 @@ export default function AcompanhamentoProdKanban() {
       titulo: 'Demonstração 1',
       família: 'Dem Máquina p1',
       diasEmProducao: 1,
-      statusAtual: 'danger'
+      statusAtual: 'danger',
+      piscar: "piscarSim",
     },
     {
       item: 222,
@@ -22,7 +23,8 @@ export default function AcompanhamentoProdKanban() {
       titulo: 'Demonstração 2',
       família: 'Dem Máquina p2',
       diasEmProducao: 2,
-      statusAtual: 'warning'
+      statusAtual: 'warning',
+      piscar: "piscarNao",
     },
     {
       item: 333,
@@ -30,7 +32,8 @@ export default function AcompanhamentoProdKanban() {
       titulo: 'Demonstração 3',
       família: 'Dem Máquina p3',
       diasEmProducao: 3,
-      statusAtual: 'ok'
+      statusAtual: 'ok',
+      piscar: "piscarNao",
     },
     {
       item: 444,
@@ -38,7 +41,8 @@ export default function AcompanhamentoProdKanban() {
       titulo: 'Demonstração 4',
       família: 'Dem Máquina p4',
       diasEmProducao: 4,
-      statusAtual: 'danger'
+      statusAtual: 'danger',
+      piscar: "piscarSim",
     },
     {
       item: 555,
@@ -46,7 +50,8 @@ export default function AcompanhamentoProdKanban() {
       titulo: 'Demonstração 5',
       família: 'Dem Máquina p5',
       diasEmProducao: 5,
-      statusAtual: 'warning'
+      statusAtual: 'warning',
+      piscar: "piscarNao",
     },
     {
       item: 666,
@@ -54,7 +59,8 @@ export default function AcompanhamentoProdKanban() {
       titulo: 'Demonstração 6',
       família: 'Dem Máquina p6',
       diasEmProducao: 6,
-      statusAtual: 'ok'
+      statusAtual: 'ok',
+      piscar: "piscarNao",
     },
   ]
 
@@ -71,7 +77,7 @@ export default function AcompanhamentoProdKanban() {
 
         {produtosAcompProdKanban.map((paramMap, index) => (
           <div className="row" key={index}>
-            <div className={`col-md-12 acompanhamentoEstoqueRow ${paramMap.statusAtual}`}>
+            <div className={`col-md-12 acompanhamentoEstoqueRow ${paramMap.statusAtual} ${paramMap.piscar}`}>
               <div>Item: {paramMap.item}</div>
               <div>Ordem: {paramMap.ordem}</div>
               <div>Título: {paramMap.titulo}</div>

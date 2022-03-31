@@ -5,6 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import { GrSubtract } from "react-icons/gr";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { Button } from "react-bootstrap";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
 
 export default function AcompanhamentoEstoque() {
   const produtos = [
@@ -96,6 +98,16 @@ export default function AcompanhamentoEstoque() {
     setEstoque(produtosFilter[0]);
   }
 
+  function enviarStatus(id){
+    Swal.fire({
+      icon: 'success',
+      title: 'Sucesso!',
+      text: 'Enviado com sucesso!',
+    })
+    console.log('id: ', id);
+    setShow(false);
+  }
+
   return (
     <IconContext.Provider value={{ color: "#000000", size: "1.6rem" }}>
       <div className="paddingContainer">
@@ -167,6 +179,7 @@ export default function AcompanhamentoEstoque() {
                 className="botaoCadastrar"
                 variant="primary"
                 Style="width: 200px; position: absolute; right:0"
+                onClick={() => enviarStatus(estoque.id)}
               >
                 Enviar
               </Button>
