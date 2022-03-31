@@ -14,20 +14,23 @@ import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
 
 export default function RecebimentoArmazem() {
-  const [get, setGet] = useState([]);
-  const [codMaterial, setCodMaterial] = useState();
-  const [fornecedor, setFornecedor] = useState();
-  const [lote, setLote] = useState();
-  const [notaFiscal, setNotaFiscal] = useState();
-  const [observacao, setObservacao] = useState();
-  const [ordemDeCompra, setOrdemDeCompra] = useState();
-  const [posicao, setPosicao] = useState();
-  const [quantidadeEtiqueta, setQuantidadeEtiqueta] = useState();
-  const [recebimentoArmazemId, setRecebimentoArmazemId] = useState();
   const [gondolaVazia, setGondolaVazia] = useState();
   const [showModalPut, setShowModalPut] = useState(false);
   const [show, setShow] = useState(false);
   const [idUser, setIdUser] = useState(null);
+
+  //Endpoints Swagger
+  const [get, setGet] = useState([]);
+  const [recebimentoArmazemId, setRecebimentoArmazemId] = useState();
+  const [notaFiscal, setNotaFiscal] = useState();
+  const [codMaterial, setCodMaterial] = useState();
+  const [quantidadeEtiqueta, setQuantidadeEtiqueta] = useState();
+  const [ordemDeCompra, setOrdemDeCompra] = useState();
+  const [posicao, setPosicao] = useState();
+  const [lote, setLote] = useState();
+  const [observacao, setObservacao] = useState();
+  const [fornecedor, setFornecedor] = useState();
+  const [getModalPut, setGetModalPut] = useState([]);
 
   const columns = [
     {
@@ -95,7 +98,7 @@ export default function RecebimentoArmazem() {
           <>
             <span
               className="spanTabela"
-              id={row.processoId}
+              id={row.recebimentoArmazemId}
               Style="cursor:pointer"
               onClick={() => {
                 funcaoAbrirModal(row);
@@ -159,32 +162,97 @@ export default function RecebimentoArmazem() {
     ], // A numeric array is also available. the purpose of above example is custom the text
   };
 
-  function funcaoAbrirModal() {
-    console.log("modal");
+  const [user, setUser] = useState([]);
+
+  function handleRegister(e) {
+    // e.preventDefault();
+    handleRegister(user);
+  }
+
+  function funcaoAbrirModal(row) {
+    setShowModalPut(true)
+    console.log("TEXTO:", row.recebimentoArmazemId )
+    Api.get(`RecebimentoArmazem/${row.recebimentoArmazemId}`, {
+      recebimentoArmazemId,
+      notaFiscal,
+      codMaterial,
+      quantidadeEtiqueta,
+      ordemDeCompra,
+      posicao,
+      lote,
+      observacao,
+      fornecedor
+    })
+      .then(() => {
+        setRecebimentoArmazemId(recebimentoArmazemId);
+        setNotaFiscal(row.notaFiscal);
+        setCodMaterial(row.codMaterial);
+        setQuantidadeEtiqueta(row.quantidadeEtiqueta);
+        setOrdemDeCompra(row.ordemDeCompra);
+        setPosicao(row.posicao);
+        setLote(row.lote);
+        setObservacao(row.observacao);
+        setFornecedor(row.fornecedor);
+      })
+      .catch((error) => {
+        console.log("Ops! Ocorreu um erro:", error);
+        alert("Ops! Ocorreu um erro:", error);
+      });
+  }
+
+  function handlePut(row) {
+    Api.put(`/RecebimentoArmazem/${row.recebimentoArmazemId}`, {
+      recebimentoArmazemId,
+      notaFiscal,
+      codMaterial,
+      quantidadeEtiqueta,
+      ordemDeCompra,
+      posicao,
+      lote,
+      observacao,
+      fornecedor
+    })
+      .then(() => {
+        setRecebimentoArmazemId(recebimentoArmazemId);
+        setNotaFiscal();
+        setCodMaterial();
+        setQuantidadeEtiqueta();
+        setOrdemDeCompra();
+        setPosicao();
+        setLote();
+        setObservacao();
+        setFornecedor();
+        alert("Put efetuado com sucesso!");
+      })
+      .catch((error) => {
+        alert("Erro put: ", error);
+      })
   }
 
   function handleDeleteModal(idUser) {
     console.log('id: ', idUser)
 
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            Api.delete(`/RecebimentoArmazem/${idUser}`);
-          Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          ).then(() =>{})
+      title: 'Você tem certeza disso?',
+      text: "Não será possível reverter esta ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, pode deletar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Api.delete(`/RecebimentoArmazem/${idUser}`);
+        Swal.fire(
+          'Deletado!',
+          'Seu arquivo foi deletado com sucesso!',
+          'success'
+        ).then(() => {
           window.location.reload();
-        }
-      })
+        })
+      }
+    })
   }
 
   useEffect(() => {
@@ -225,7 +293,7 @@ export default function RecebimentoArmazem() {
         Swal.fire({
           icon: "success",
           title: "Sucesso",
-          text: "Processo deletado com sucesso",
+          text: "Processo cadastrado com sucesso",
         }).then(() => {
           window.location.reload();
         });
@@ -402,68 +470,128 @@ export default function RecebimentoArmazem() {
         </div>
         {/* Modal Put */}
 
-        {/* <Modal
+        <Modal
           size="lg"
           show={showModalPut}
           onHide={() => setShowModalPut(false)}
-          dialogClassName="modal-90w"
+          dialogClassName="modal-100w"
           aria-labelledby="example-custom-modal-styling-title"
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-custom-modal-styling-title">
-              Editar Dados
+              Editar Dados do Recebimento Armazém
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div
               className="formCadastro"
               id="formCadastro"
-              Style="margin-bottom: 30px"
             >
-              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
-                <div className="col-md-5 col-sm-6" Style="display:none">
-                  <label>Id</label>
-                  <input
-                    name="processoId"
-                    value={processoId}
-                    onChange={(e) => setProcessoId(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-5 col-sm-6">
-                  <label>Nome</label>
-                  <input
-                    type="text"
-                    name="nome"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-5 col-sm-6">
-                  <label>Ordenação</label>
-                  <input
-                    type="number"
-                    name="ordenacao"
-                    value={ordenacao}
-                    onChange={(e) => setOrdenacao(parseInt(e.target.value))}
-                  />
-                </div>
-
-                <div className="col-md-2 col-sm-6 btnCol">
-                  <Button
-                    type="submit"
-                    variant="success"
-                    className="align-self-baseline"
-                    onClick={(processo) => {
-                      handlePut(processo.processoId);
-                    }}
-                  >
-                    Salvar
-                  </Button>
-                </div>
-              </form>
+              <div className="container">
+                <form onSubmit={handleRegister}>
+                  <div class="row">
+                    <div class="col-md-3 mt-3" Style='display:none'>
+                      <label>Id</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        value={recebimentoArmazemId}
+                        onChange={(e) => setRecebimentoArmazemId(parseInt(e.target.value))}
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Nota Fiscal</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        value={notaFiscal}
+                        onChange={(e) => setNotaFiscal(e.target.value)}
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Código do Material</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        value={codMaterial}
+                        onChange={(e) => setCodMaterial(parseInt(e.target.value))}
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Quantidade Etiqueta</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        value={quantidadeEtiqueta}
+                        onChange={(e) =>
+                          setQuantidadeEtiqueta(parseInt(e.target.value))
+                        }
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Ordem de Compra</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        value={ordemDeCompra}
+                        onChange={(e) => setOrdemDeCompra(parseInt(e.target.value))}
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Posição</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        value={posicao}
+                        onChange={(e) => setPosicao(parseInt(e.target.value))}
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Lote</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        value={lote}
+                        onChange={(e) => setLote(parseInt(e.target.value))}
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Observação</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        value={observacao}
+                        onChange={(e) => setObservacao(e.target.value)}
+                      />
+                    </div>
+                    <div class="col-md-3 mt-3">
+                      <label>Fornecedor</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        value={fornecedor}
+                        onChange={(e) => setFornecedor(e.target.value)}
+                      />
+                    </div>
+                    <div className="col-md-3 offset-md-9 col-sm-6 mt-4">
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        Style="width: 100%; height: 36px"
+                        // className="align-self-baseline"
+                        onClick={(param) => {
+                          handlePut(param.recebimentoArmazemId);
+                        }}
+                      >
+                        Salvar
+                      </Button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </Modal.Body>
-        </Modal> */}
+        </Modal>
       </IconContext.Provider>
     </>
   );
