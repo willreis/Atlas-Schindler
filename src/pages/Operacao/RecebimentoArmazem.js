@@ -170,8 +170,8 @@ export default function RecebimentoArmazem() {
   }
 
   function funcaoAbrirModal(row) {
-    setShowModalPut(true)
-    console.log("TEXTO:", row.recebimentoArmazemId )
+    setShowModalPut(true);
+    console.log("TEXTO:", row.recebimentoArmazemId);
     Api.get(`RecebimentoArmazem/${row.recebimentoArmazemId}`, {
       recebimentoArmazemId,
       notaFiscal,
@@ -181,10 +181,10 @@ export default function RecebimentoArmazem() {
       posicao,
       lote,
       observacao,
-      fornecedor
+      fornecedor,
     })
       .then(() => {
-        setRecebimentoArmazemId(recebimentoArmazemId);
+        setRecebimentoArmazemId(row.recebimentoArmazemId);
         setNotaFiscal(row.notaFiscal);
         setCodMaterial(row.codMaterial);
         setQuantidadeEtiqueta(row.quantidadeEtiqueta);
@@ -210,7 +210,7 @@ export default function RecebimentoArmazem() {
       posicao,
       lote,
       observacao,
-      fornecedor
+      fornecedor,
     })
       .then(() => {
         setRecebimentoArmazemId(recebimentoArmazemId);
@@ -226,33 +226,33 @@ export default function RecebimentoArmazem() {
       })
       .catch((error) => {
         alert("Erro put: ", error);
-      })
+      });
   }
 
   function handleDeleteModal(idUser) {
-    console.log('id: ', idUser)
+    console.log("id: ", idUser);
 
     Swal.fire({
-      title: 'Você tem certeza disso?',
+      title: "Você tem certeza disso?",
       text: "Não será possível reverter esta ação!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, pode deletar!',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, pode deletar!",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         Api.delete(`/RecebimentoArmazem/${idUser}`);
         Swal.fire(
-          'Deletado!',
-          'Seu arquivo foi deletado com sucesso!',
-          'success'
+          "Deletado!",
+          "Seu arquivo foi deletado com sucesso!",
+          "success"
         ).then(() => {
           window.location.reload();
-        })
+        });
       }
-    })
+    });
   }
 
   useEffect(() => {
@@ -483,20 +483,19 @@ export default function RecebimentoArmazem() {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div
-              className="formCadastro"
-              id="formCadastro"
-            >
+            <div className="formCadastro" id="formCadastro">
               <div className="container">
                 <form onSubmit={handleRegister}>
                   <div class="row">
-                    <div class="col-md-3 mt-3" Style='display:none'>
+                    <div class="col-md-3 mt-3" Style="display:none">
                       <label>Id</label>
                       <input
                         type="number"
                         class="form-control"
                         value={recebimentoArmazemId}
-                        onChange={(e) => setRecebimentoArmazemId(parseInt(e.target.value))}
+                        onChange={(e) =>
+                          setRecebimentoArmazemId(parseInt(e.target.value))
+                        }
                       />
                     </div>
                     <div class="col-md-3 mt-3">
@@ -514,7 +513,9 @@ export default function RecebimentoArmazem() {
                         type="number"
                         class="form-control"
                         value={codMaterial}
-                        onChange={(e) => setCodMaterial(parseInt(e.target.value))}
+                        onChange={(e) =>
+                          setCodMaterial(parseInt(e.target.value))
+                        }
                       />
                     </div>
                     <div class="col-md-3 mt-3">
@@ -534,7 +535,9 @@ export default function RecebimentoArmazem() {
                         type="number"
                         class="form-control"
                         value={ordemDeCompra}
-                        onChange={(e) => setOrdemDeCompra(parseInt(e.target.value))}
+                        onChange={(e) =>
+                          setOrdemDeCompra(parseInt(e.target.value))
+                        }
                       />
                     </div>
                     <div class="col-md-3 mt-3">

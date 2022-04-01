@@ -14,7 +14,6 @@ import { MdKeyboardReturn } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Api from "../../services/Api";
 
-//Get aqui na tabela de Processo
 
 export default function Producao() {
     //Paginação - paginationFactory
@@ -214,9 +213,6 @@ export default function Producao() {
             })
     }, []);
 
-  console.log("Cookie!!!", cookiePg.NomeMaquina);
-  var nomeMaquina = cookiePg.nomeMaquina;
-  var idMaquina = cookiePg.idMaquina;
 
     var cookiePg = document.cookie.split(";").reduce((cookies, cookie) => {
         const [name, value] = cookie.split("=").map((c) => c.trim());
@@ -224,9 +220,8 @@ export default function Producao() {
         return cookies;
     }, {});
 
-    console.log("Cookie!!!", cookiePg.NomeMaquina);
-    var nomeMaquina = cookiePg.NomeMaquina;
-    var idMaquina = cookiePg.IDMaquina;
+    var nomeMaquina = cookiePg.nomeMaquina;
+    var idMaquina = cookiePg.idMaquina;
 
     return (
         <>
