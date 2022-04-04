@@ -10,10 +10,9 @@ import Api from "../../services/Api";
 import Modal from "react-bootstrap/Modal";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import swal from 'sweetalert';
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default function Usuarios() {
-
   //Paginação
   const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -165,8 +164,12 @@ export default function Usuarios() {
               className="spanTabela"
               id={row.usuarioId}
               Style="cursor:pointer"
-              onClick={() => { funcaoAbrirModal(row); }}
-              data-toggle="tooltip" data-placement="left" title="Editar"
+              onClick={() => {
+                funcaoAbrirModal(row);
+              }}
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Editar"
             >
               <VscEdit />
             </span>
@@ -175,7 +178,9 @@ export default function Usuarios() {
               id={row.usuarioId}
               Style="cursor:pointer; border: none; background: none"
               onClick={() => handleDeleteModal(row.usuarioId)}
-              data-toggle="tooltip" data-placement="left" title="Deletar"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Deletar"
             >
               <RiDeleteBinFill />
             </button>
@@ -219,19 +224,12 @@ export default function Usuarios() {
         setUserGrupoAcesso(response.data);
         const resultadoNome = userGrupoAcesso.map((nome) => nome.nomeDoGrupo);
         const resultadoId = userGrupoAcesso.map((nome) => nome.grupoDeAcessoId);
-        console.log("resultadoNome!!!:", resultadoNome);
-        console.log("resultadoId!!!:", resultadoId);
       })
       .catch((error) => {
         console.log("Ops! Ocorreu um erro:", error);
         alert("Ops! Ocorreu um erro:", error);
       });
   }, []);
-
-  function handleRegister(e) {
-    handleRegister(user);
-    // e.preventDefault();
-  }
 
   function createPost() {
     Api.post(`/${url}/`, {
@@ -247,9 +245,12 @@ export default function Usuarios() {
     })
       .then((response) => {
         console.log(response.data);
-        console.log('cadastro sucesso')
-        swal("Cadastro Efetuado com sucesso!", "", "success")
-        .then(() => {
+        console.log("cadastro sucesso");
+        Swal.fire({
+          icon: "success",
+          title: "Sucesso",
+          text: "Usuario cadastrado com sucesso",
+        }).then(() => {
           window.location.reload();
         });
       })
@@ -259,24 +260,28 @@ export default function Usuarios() {
       });
   }
 
-  //Delete
-  function handleDeleteUsuario(idUser) {
-    try {
-      Api.delete(`/${url}/${idUser}`);
-      setModalDelete(false);
-      swal("Deletado com Sucesso", "", "success")
-      .then(() => {
-        window.location.reload();
-      });
-    } catch (err) {
-      alert("Erro ao deletar caso, tente novamente");
-    }
-  }
-
   function handleDeleteModal(usuarioId) {
-    console.log("Modal Delete aberto!");
     console.log("delete id", usuarioId);
-    setModalDelete(true);
+    Swal.fire({
+      title: "Deseja deletar?",
+      text: "Você não poderá reverter esse processo!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Api.delete(`/Usuario/${usuarioId}`);
+        Swal.fire("Deletado!", "Usuario foi deletado com sucesso.", "success").then(
+          () => {
+            window.location.reload();
+          }
+        );
+       
+      }
+    });
   }
 
   function handlePut() {
@@ -301,9 +306,12 @@ export default function Usuarios() {
         setEmail();
         setGrupoDeAcesso();
         setStatus();
-        
-        swal("Alterado com Sucesso", "", "success")
-        .then(() => {
+
+        Swal.fire({
+          icon: "success",
+          title: "Sucesso",
+          text: "Usuario Alterado com sucesso!",
+        }).then(() => {
           window.location.reload();
         });
       })
@@ -312,7 +320,6 @@ export default function Usuarios() {
         alert("Ops! Ocorreu um erro: " + error);
       });
   }
-
 
   function funcaoAbrirModal(row) {
     setShowModalPut(true);
@@ -413,7 +420,7 @@ export default function Usuarios() {
               id="formCadastro"
               Style="margin-bottom: 30px"
             >
-              <form className="row g-3 formPadrao" onSubmit={handleRegister}>
+              <form className="row g-3 formPadrao">
                 <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
@@ -490,8 +497,9 @@ export default function Usuarios() {
                       <div className="input-group-addon iconEye">
                         <i
                           onClick={togglePassword}
-                          className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"
-                            }`}
+                          className={`fa ${
+                            showPassword ? "fa-eye" : "fa-eye-slash"
+                          }`}
                         ></i>
                       </div>
                     </div>
@@ -515,7 +523,6 @@ export default function Usuarios() {
                 </div>
                 <div className="col-md-2 col-sm-6">
                   <Button
-                    type="submit"
                     variant="success"
                     className="align-self-baseline"
                     onClick={createPost}
@@ -544,7 +551,7 @@ export default function Usuarios() {
               id="formCadastro"
               Style="margin-bottom: 30px"
             >
-              <form className="row g-3 formPadrao" onSubmit={handlePut}>
+              <form className="row g-3 formPadrao">
                 <div className="col-md-6 col-sm-6">
                   <label>Matricula</label>
                   <input
@@ -621,8 +628,9 @@ export default function Usuarios() {
                       <div className="input-group-addon iconEye">
                         <i
                           onClick={togglePassword}
-                          className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"
-                            }`}
+                          className={`fa ${
+                            showPassword ? "fa-eye" : "fa-eye-slash"
+                          }`}
                         ></i>
                       </div>
                     </div>
@@ -647,7 +655,6 @@ export default function Usuarios() {
                 </div>
                 <div className="col-md-2 col-sm-6">
                   <Button
-                    type="submit"
                     variant="success"
                     className="align-self-baseline"
                     onClick={(usuario) => {
@@ -692,7 +699,7 @@ export default function Usuarios() {
                     <div className="col-6">
                       <Button
                         variant="primary"
-                        onClick={() => handleDeleteUsuario(idUser)}
+                        onClick={() => handleDeleteModal(idUser)}
                       >
                         Sim
                       </Button>

@@ -1,20 +1,65 @@
 import React, { useState } from "react";
-import { ProSidebar, Menu, SubMenu, MenuItem, SidebarHeader, SidebarFooter, SidebarContent, } from "react-pro-sidebar";
+import {
+  ProSidebar,
+  Menu,
+  SubMenu,
+  MenuItem,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarContent,
+} from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { FaRegClock } from "react-icons/fa";
 import { FiHome, FiLogOut } from "react-icons/fi";
-import { FaUser, FaUsers, FaProductHunt, FaMap, FaUserCog } from "react-icons/fa";
-import { BsPrinterFill, BsFillPatchExclamationFill, BsGraphUp, BsFillGearFill, BsMenuButtonFill, BsArrowsMove, BsFillCalendarWeekFill, BsCalendar2EventFill, BsCalendar2RangeFill, BsFillExclamationOctagonFill, BsInboxesFill } from "react-icons/bs";
+import {
+  FaUser,
+  FaUsers,
+  FaProductHunt,
+  FaMap,
+  FaUserCog,
+} from "react-icons/fa";
+import {
+  BsPrinterFill,
+  BsFillPatchExclamationFill,
+  BsGraphUp,
+  BsFillGearFill,
+  BsMenuButtonFill,
+  BsArrowsMove,
+  BsFillCalendarWeekFill,
+  BsCalendar2EventFill,
+  BsCalendar2RangeFill,
+  BsFillExclamationOctagonFill,
+  BsInboxesFill,
+} from "react-icons/bs";
 import { IoIosPaper } from "react-icons/io";
 import { HiOutlineClock } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { VscGitPullRequestClosed } from "react-icons/vsc";
 import { BiImport, BiUserCheck } from "react-icons/bi";
 import { HiOutlineIdentification } from "react-icons/hi";
-import { RiStoreFill, RiStore2Line, RiChatFollowUpFill, RiChatFollowUpLine, RiUserFollowLine, RiAlertFill, RiRoadMapFill, RiTableFill} from "react-icons/ri";
+import {
+  RiStoreFill,
+  RiStore2Line,
+  RiChatFollowUpFill,
+  RiChatFollowUpLine,
+  RiUserFollowLine,
+  RiAlertFill,
+  RiRoadMapFill,
+  RiTableFill,
+} from "react-icons/ri";
 import { FiArrowDownLeft } from "react-icons/fi";
-import { MdOutlineSendToMobile, MdFollowTheSigns, MdHistoryToggleOff } from "react-icons/md";
-import { AiFillInfoCircle, AiOutlineDashboard, AiOutlineFileExclamation, AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
+import {
+  MdOutlineSendToMobile,
+  MdFollowTheSigns,
+  MdHistoryToggleOff,
+} from "react-icons/md";
+import {
+  AiFillInfoCircle,
+  AiOutlineDashboard,
+  AiOutlineFileExclamation,
+  AiOutlineMenuFold,
+  AiOutlineMenuUnfold,
+} from "react-icons/ai";
 import { GiMovementSensor } from "react-icons/gi";
 import atlasLogo from "../assets/img/atlas_logo.png";
 import spiLogo from "../assets/img/spi_logo2.png";
@@ -51,7 +96,10 @@ const SidebarNew = () => {
               </ul>
             </div>
             <Menu>
-              <SubMenu title="Dados Pessoais" icon={<HiOutlineIdentification />}>
+              <SubMenu
+                title="Dados Pessoais"
+                icon={<HiOutlineIdentification />}
+              >
                 <MenuItem title="Dados Pessoais" icon={<RiLockPasswordLine />}>
                   Alterar Senha
                 </MenuItem>
@@ -81,7 +129,10 @@ const SidebarNew = () => {
                     Impressora
                   </Link>
                 </MenuItem>
-                <MenuItem title="Processo" icon={<BsFillPatchExclamationFill />}>
+                <MenuItem
+                  title="Processo"
+                  icon={<BsFillPatchExclamationFill />}
+                >
                   <Link className="link" to="/cadastro/processo">
                     Processo
                   </Link>
@@ -102,8 +153,14 @@ const SidebarNew = () => {
             {/*Planejamento*/}
             <Menu>
               <SubMenu title="Planejamento" icon={<BsGraphUp />}>
-                <MenuItem title="Importação de Ordem Produção" icon={<BiImport />}>
-                  <Link className="link" to="/planejamento/importacaoordemproducao">
+                <MenuItem
+                  title="Importação de Ordem Produção"
+                  icon={<BiImport />}
+                >
+                  <Link
+                    className="link"
+                    to="/planejamento/importacaoordemproducao"
+                  >
                     Importação de Ordem Produção
                   </Link>
                 </MenuItem>
@@ -113,11 +170,17 @@ const SidebarNew = () => {
                   </Link>
                 </MenuItem>
                 <MenuItem title="Impressora" icon={<BsPrinterFill />}>
-                  <Link className="link" to="/planejamento/ordensproducaokanban">
+                  <Link
+                    className="link"
+                    to="/planejamento/ordensproducaokanban"
+                  >
                     Ordens de Produção KANBAN
                   </Link>
                 </MenuItem>
-                <MenuItem title="Problema de Produção" icon={<AiFillInfoCircle />}>
+                <MenuItem
+                  title="Problema de Produção"
+                  icon={<AiFillInfoCircle />}
+                >
                   <Link className="link" to="/planejamento/problemasproducao">
                     Problema de Produção
                   </Link>
@@ -138,28 +201,51 @@ const SidebarNew = () => {
                     Informações de Gôndola
                   </Link>
                 </MenuItem>
-                <MenuItem title="Ocupação do Armazém" icon={<BsMenuButtonFill />}>
+                <MenuItem
+                  title="Ocupação do Armazém"
+                  icon={<BsMenuButtonFill />}
+                >
                   <Link className="link" to="/manutencao/ocupacaodoarmazem">
                     Ocupação do Armazém
                   </Link>
                 </MenuItem>
-                <MenuItem title="Informações do Transelevador" icon={<BsFillPatchExclamationFill />} >
-                  <Link className="link" to="/manutencao/informacoesdotranselevador" >
+                <MenuItem
+                  title="Informações do Transelevador"
+                  icon={<BsFillPatchExclamationFill />}
+                >
+                  <Link
+                    className="link"
+                    to="/manutencao/informacoesdotranselevador"
+                  >
                     Informações do Transelevador
                   </Link>
                 </MenuItem>
-                <MenuItem title="Informações da Mesa" icon={<RiTableFill />} >
-                  <Link className="link" to="/manutencao/informacoesmesa" >
+                <MenuItem
+                  title="Teste Translação"
+                  icon={<BsFillPatchExclamationFill />}
+                >
+                  <Link className="link" to="/manutencao/testetranslacao">
+                    Teste Translação
+                  </Link>
+                </MenuItem>
+                <MenuItem title="Informações da Mesa" icon={<RiTableFill />}>
+                  <Link className="link" to="/manutencao/informacoesmesa">
                     Informações da Mesa
                   </Link>
                 </MenuItem>
-                <MenuItem title="Informações da Localização" icon={<RiRoadMapFill />} >
-                  <Link className="link" to="/manutencao/informacoeslocalizacao" >
+                <MenuItem
+                  title="Informações da Localização"
+                  icon={<RiRoadMapFill />}
+                >
+                  <Link
+                    className="link"
+                    to="/manutencao/informacoeslocalizacao"
+                  >
                     Informações da Localização
                   </Link>
                 </MenuItem>
-                <MenuItem title="Alarmes" icon={<RiAlertFill />} >
-                  <Link className="link" to="/manutencao/alarmes" >
+                <MenuItem title="Alarmes" icon={<RiAlertFill />}>
+                  <Link className="link" to="/manutencao/alarmes">
                     Alarmes
                   </Link>
                 </MenuItem>
@@ -174,13 +260,19 @@ const SidebarNew = () => {
                     Produção
                   </Link>
                 </MenuItem>
-                <MenuItem title="Recebimento Armazém" icon={<BsMenuButtonFill />}>
+                <MenuItem
+                  title="Recebimento Armazém"
+                  icon={<BsMenuButtonFill />}
+                >
                   <Link className="link" to="/operacao/recebimentoarmazem">
                     Recebimento Armazém
                   </Link>
                 </MenuItem>
                 <MenuItem title="Configuração" icon={<BsFillGearFill />}>
-                  <Link className="link" to="/operacao/configuracaoestacaotrabalho">
+                  <Link
+                    className="link"
+                    to="/operacao/configuracaoestacaotrabalho"
+                  >
                     Configuração
                   </Link>
                 </MenuItem>
@@ -190,28 +282,37 @@ const SidebarNew = () => {
             {/*Movimentos*/}
             <Menu>
               <SubMenu title="Movimentos" icon={<BsArrowsMove />}>
-                <MenuItem title="Fila de Movimentos" icon={<GiMovementSensor />} >
-                  <Link className='link' to='/movimentos/filademovimentos'>
+                <MenuItem
+                  title="Fila de Movimentos"
+                  icon={<GiMovementSensor />}
+                >
+                  <Link className="link" to="/movimentos/filademovimentos">
                     Fila de Movimentos
                   </Link>
                 </MenuItem>
-                <MenuItem title="Movimento Mesa de Saída" icon={<FiArrowDownLeft />}>
-                  <Link className='link' to='/movimentos/movimentomesadesaida' >
+                <MenuItem
+                  title="Movimento Mesa de Saída"
+                  icon={<FiArrowDownLeft />}
+                >
+                  <Link className="link" to="/movimentos/movimentomesadesaida">
                     Movimento Mesa de Saída
                   </Link>
                 </MenuItem>
                 <MenuItem title="Movimento para Armazém" icon={<RiStoreFill />}>
-                  <Link className='link' to='/movimentos/movimentoparaarmazem' >
+                  <Link className="link" to="/movimentos/movimentoparaarmazem">
                     Movimento para Armazém
                   </Link>
                 </MenuItem>
                 <MenuItem title="Entrada Gôndola Vazia" icon={<RiStore2Line />}>
-                  <Link className='link' to='/movimentos/entradagondolavazia' >
+                  <Link className="link" to="/movimentos/entradagondolavazia">
                     Entrada Gôndola Vazia
                   </Link>
                 </MenuItem>
-                <MenuItem title="Enviar Comandos" icon={<MdOutlineSendToMobile />} >
-                  <Link className='link' to='/movimentos/enviarcomandos' >
+                <MenuItem
+                  title="Enviar Comandos"
+                  icon={<MdOutlineSendToMobile />}
+                >
+                  <Link className="link" to="/movimentos/enviarcomandos">
                     Enviar Comandos
                   </Link>
                 </MenuItem>
@@ -221,28 +322,55 @@ const SidebarNew = () => {
             {/*Dashboard*/}
             <Menu>
               <SubMenu title="Dashboard" icon={<AiOutlineDashboard />}>
-                <MenuItem title="Acompanhamento de Produção" icon={<MdFollowTheSigns />} >
-                  <Link className='link' to='/dashboard/acompanhamentodeproducao'>
+                <MenuItem
+                  title="Acompanhamento de Produção"
+                  icon={<MdFollowTheSigns />}
+                >
+                  <Link
+                    className="link"
+                    to="/dashboard/acompanhamentodeproducao"
+                  >
                     Acopanhamento de Produção
                   </Link>
                 </MenuItem>
-                <MenuItem title="Acompanhamento de Estoque" icon={<RiChatFollowUpFill />}>
-                  <Link className='link' to='/dashboard/acompanhamentodeestoque'>
+                <MenuItem
+                  title="Acompanhamento de Estoque"
+                  icon={<RiChatFollowUpFill />}
+                >
+                  <Link
+                    className="link"
+                    to="/dashboard/acompanhamentodeestoque"
+                  >
                     Acompanhamento de Estoque
                   </Link>
                 </MenuItem>
-                <MenuItem title="Acompanhamento de Fábrica" icon={<RiChatFollowUpLine />}>
-                  <Link className='link' to='/dashboard/acompanhametodefabrica'>
+                <MenuItem
+                  title="Acompanhamento de Fábrica"
+                  icon={<RiChatFollowUpLine />}
+                >
+                  <Link className="link" to="/dashboard/acompanhametodefabrica">
                     Acompanhamento de Fábrica
                   </Link>
                 </MenuItem>
-                <MenuItem title="Acompanhamento de Produção KANBAN" icon={<BiUserCheck />}>
-                  <Link className='link' to='/dashboard/acompanhamentodeproducaokanban'>
+                <MenuItem
+                  title="Acompanhamento de Produção KANBAN"
+                  icon={<BiUserCheck />}
+                >
+                  <Link
+                    className="link"
+                    to="/dashboard/acompanhamentodeproducaokanban"
+                  >
                     Acompanhamento de Produção Kanban
                   </Link>
                 </MenuItem>
-                <MenuItem title="Acompanhamento de Produção Produto" icon={<RiUserFollowLine />} >
-                  <Link className='link' to='/dashboard/acompanhamentodeproducaoproduto'>
+                <MenuItem
+                  title="Acompanhamento de Produção Produto"
+                  icon={<RiUserFollowLine />}
+                >
+                  <Link
+                    className="link"
+                    to="/dashboard/acompanhamentodeproducaoproduto"
+                  >
                     Acompanhamento de Produção Produto
                   </Link>
                 </MenuItem>
@@ -252,43 +380,73 @@ const SidebarNew = () => {
             {/*Relatórios*/}
             <Menu>
               <SubMenu title="Relatórios" icon={<AiOutlineFileExclamation />}>
-                <MenuItem title="Acompanhamento de Produção" icon={<HiOutlineClock />}>
-                  <Link className='link' to='/relatorios/historicodeordemproducao'>
+                <MenuItem
+                  title="Acompanhamento de Produção"
+                  icon={<HiOutlineClock />}
+                >
+                  <Link
+                    className="link"
+                    to="/relatorios/historicodeordemproducao"
+                  >
                     Histórico de Ordem Produção
                   </Link>
                 </MenuItem>
-                <MenuItem title="Histórico de Movimentação" icon={<BsFillCalendarWeekFill />} >
-                  <Link className='link' to='/relatorios/historicodemovimentacao'>
+                <MenuItem
+                  title="Histórico de Movimentação"
+                  icon={<BsFillCalendarWeekFill />}
+                >
+                  <Link
+                    className="link"
+                    to="/relatorios/historicodemovimentacao"
+                  >
                     Histórico de Movimentação
                   </Link>
                 </MenuItem>
-                <MenuItem title="Histórico de Estoque" icon={<BsCalendar2EventFill />}>
-                  <Link className='link' to='/relatorios/estoquedeproduto'>
+                <MenuItem
+                  title="Histórico de Estoque"
+                  icon={<BsCalendar2EventFill />}
+                >
+                  <Link className="link" to="/relatorios/estoquedeproduto">
                     Estoque de Produto
                   </Link>
                 </MenuItem>
-                <MenuItem title="Estoque de Produto" icon={<BsCalendar2RangeFill />} >
-                  <Link className='link' to='/relatorios/historicodegondola'>
+                <MenuItem
+                  title="Estoque de Produto"
+                  icon={<BsCalendar2RangeFill />}
+                >
+                  <Link className="link" to="/relatorios/historicodegondola">
                     Histórico de Gôndola
                   </Link>
                 </MenuItem>
                 <MenuItem title="Histórico de Gondola" icon={<FaRegClock />}>
-                  <Link className='link' to='/relatorios/encerramentodeordemproducao'>
+                  <Link
+                    className="link"
+                    to="/relatorios/encerramentodeordemproducao"
+                  >
                     Encerramento de Ordem de Produção
                   </Link>
                 </MenuItem>
-                <MenuItem title="Encerramento de Ordem de Produção" icon={<VscGitPullRequestClosed />} >
-                  <Link className='link' to='/relatorios/historicodeentradaproduto'>
+                <MenuItem
+                  title="Encerramento de Ordem de Produção"
+                  icon={<VscGitPullRequestClosed />}
+                >
+                  <Link
+                    className="link"
+                    to="/relatorios/historicodeentradaproduto"
+                  >
                     Histórico de Entrada de Produto
                   </Link>
                 </MenuItem>
-                <MenuItem title="Histórico de Entrada Produto" icon={<MdHistoryToggleOff />} >
-                  <Link className='link' to='/relatorios/producaopormaquina'>
+                <MenuItem
+                  title="Histórico de Entrada Produto"
+                  icon={<MdHistoryToggleOff />}
+                >
+                  <Link className="link" to="/relatorios/producaopormaquina">
                     Produção por Máquina
                   </Link>
                 </MenuItem>
                 <MenuItem title="Produção por Máquina" icon={<FaProductHunt />}>
-                  <Link className='link' to='/relatorios/analisedefalhas'>
+                  <Link className="link" to="/relatorios/analisedefalhas">
                     Análise de Falhas
                   </Link>
                 </MenuItem>
@@ -298,7 +456,10 @@ const SidebarNew = () => {
 
           <SidebarFooter>
             <div Style="text-align:center; padding:30px 0">
-              <img src={spiLogo} alt="spi-logo" Style="width:80%; border-radius: 10px"
+              <img
+                src={spiLogo}
+                alt="spi-logo"
+                Style="width:80%; border-radius: 10px"
               />
             </div>
           </SidebarFooter>
