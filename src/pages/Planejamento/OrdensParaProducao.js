@@ -27,7 +27,7 @@ export default function OrdensParaProducao() {
       .then((response) => {
         console.log('AAAAAAAaaa', response.data);
         console.log('jj Junior', response.data[1].nome)
-        
+
         // setGetProducao(
         //   response.data.map((processo) => {
         //     return {

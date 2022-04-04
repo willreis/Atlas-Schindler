@@ -13,7 +13,7 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { BiCommentDetail } from "react-icons/bi";
 import swal from 'sweetalert';
-
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default function ImportacaoOrdemProducao() {
   //Paginação
@@ -163,8 +163,13 @@ export default function ImportacaoOrdemProducao() {
       Api.delete(`/${url}/${idUser}`);
       console.log("delete id la:", idUser);
       setModalDelete(false);
-      alert("Deletado com sucesso!");
-      window.location.reload();
+      Swal.fire({
+        icon: "success",
+        title: "Sucesso",
+        text: "Processo deletado com sucesso",
+      }).then(() => {
+        window.location.reload();
+      });
     } catch (err) {
       alert("erro ao deletar caso, tente novamente");
     }
@@ -241,9 +246,9 @@ export default function ImportacaoOrdemProducao() {
       console.log(response.data);
       console.log('nome: ', file)
       swal("Enviado com Sucesso", "", "success")
-      .then(() => {
-        window.location.assign('importacaoordemproducao');
-      });
+        .then(() => {
+          window.location.assign('importacaoordemproducao');
+        });
     });
   }
 
@@ -383,4 +388,3 @@ export default function ImportacaoOrdemProducao() {
     </>
   );
 }
-

@@ -14,6 +14,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import Api from "../../services/Api";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 function OrdensProducao() {
   const url = "OrdemProducaoElemento";
@@ -110,7 +111,7 @@ function OrdensProducao() {
       text: "Ordem Id",
       headerAlign: "center",
       headerStyle: { backgroundColor: "rgb(151 151 151)", fontSize: "14px" },
-      hidden:true,
+      hidden: true,
     },
     {
       dataField: "vg",
@@ -562,7 +563,7 @@ function OrdensProducao() {
         setGondola();
         setRoteiro();
 
-        
+
         alert("Alteração Efetuada com sucesso!!");
         window.location.reload(
           `/planejamento/ordensproducao?ordemProducaoElementoId=${ordemLaGet}`
@@ -812,8 +813,8 @@ function OrdensProducao() {
               <Button variant="success">Imprimir</Button>
             </div>
             <div className="col-md-4 mt-3">
-            <Link to="/planejamento/detalhesvgs">
-              <Button variant="success">Detalhes da VG</Button>
+              <Link to="/planejamento/detalhesvgs">
+                <Button variant="success">Detalhes da VG</Button>
               </Link>
             </div>
           </div>
