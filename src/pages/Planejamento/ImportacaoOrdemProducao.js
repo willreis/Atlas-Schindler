@@ -225,7 +225,7 @@ export default function ImportacaoOrdemProducao() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const url = "http://192.168.11.94:90/api/OrdemProducao";
+    const url = "http://win-29vph3at9e5:90/api/OrdemProducao";
     const formData = new FormData();
 
     for (var i = 0; i < file.length; i++) {
