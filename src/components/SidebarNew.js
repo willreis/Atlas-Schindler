@@ -11,7 +11,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { VscGitPullRequestClosed } from "react-icons/vsc";
 import { BiImport, BiUserCheck } from "react-icons/bi";
 import { HiOutlineIdentification } from "react-icons/hi";
-import { RiStoreFill, RiStore2Line, RiChatFollowUpFill, RiChatFollowUpLine, RiUserFollowLine } from "react-icons/ri";
+import { RiStoreFill, RiStore2Line, RiChatFollowUpFill, RiChatFollowUpLine, RiUserFollowLine, RiAlertFill, RiRoadMapFill, RiTableFill} from "react-icons/ri";
 import { FiArrowDownLeft } from "react-icons/fi";
 import { MdOutlineSendToMobile, MdFollowTheSigns, MdHistoryToggleOff } from "react-icons/md";
 import { AiFillInfoCircle, AiOutlineDashboard, AiOutlineFileExclamation, AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
@@ -146,6 +146,21 @@ const SidebarNew = () => {
                 <MenuItem title="Informações do Transelevador" icon={<BsFillPatchExclamationFill />} >
                   <Link className="link" to="/manutencao/informacoesdotranselevador" >
                     Informações do Transelevador
+                  </Link>
+                </MenuItem>
+                <MenuItem title="Informações da Mesa" icon={<RiTableFill />} >
+                  <Link className="link" to="/manutencao/informacoesmesa" >
+                    Informações da Mesa
+                  </Link>
+                </MenuItem>
+                <MenuItem title="Informações da Localização" icon={<RiRoadMapFill />} >
+                  <Link className="link" to="/manutencao/informacoeslocalizacao" >
+                    Informações da Localização
+                  </Link>
+                </MenuItem>
+                <MenuItem title="Alarmes" icon={<RiAlertFill />} >
+                  <Link className="link" to="/manutencao/alarmes" >
+                    Alarmes
                   </Link>
                 </MenuItem>
               </SubMenu>

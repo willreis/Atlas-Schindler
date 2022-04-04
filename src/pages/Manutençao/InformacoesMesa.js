@@ -191,9 +191,8 @@ export default function InformacoesMesa() {
           icon: "success",
           title: "Sucesso",
           text: "Gondola alterada com sucesso",
-        })
-        .then(() => {
-            window.location.reload();
+        }).then(() => {
+          window.location.reload();
         });
       })
       .catch((error) => {
@@ -255,53 +254,38 @@ export default function InformacoesMesa() {
           </div>
         </div>
       </div>
+
       <Modal
-        size="lg"
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
         show={showModalPut}
         onHide={() => setShowModalPut(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
+        centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Editar Dados
-          </Modal.Title>
-        </Modal.Header>
         <Modal.Body>
-          <div
-            className="formCadastro"
-            id="formCadastro"
-            Style="margin-bottom: 30px"
-          >
-            <form className="row g-3 formPadrao">
-              <div className="col-md-5 col-sm-6" Style="display:none">
-                <label>Id</label>
-                <input
-                  name="mesaId"
-                  value={mesaId}
-                  onChange={(e) => setMesaId(e.target.value)}
-                />
-              </div>
-              <div className="col-md-5 col-sm-6">
-                <label>Gondola</label>
-                <input
-                  name="gondolaId"
-                  value={gondolaId}
-                  onChange={(e) => setGondolaId(parseInt(e.target.value))}
-                />
-              </div>
-              <div className="col-md-2 col-sm-6 btnCol">
-                <Button
-                  variant="success"
-                  className="align-self-baseline"
-                  onClick={(mesa) => {
-                    handlePut(mesa.mesaId);
-                  }}
-                >
-                  Salvar
-                </Button>
-              </div>
-            </form>
+          <div className="row mt-3">
+            <div className="col-md-12 infoLocalizacao">
+              <label for="gondola">Gôndola</label>
+              <input
+                id="gondolaId"
+                type="number"
+                name="gondolaId"
+                value={gondolaId}
+                onChange={(e) => setGondolaId(parseInt(e.target.value))}
+                Gôndola
+              />
+            </div>
+            <div className="col-md-12 mt-3 mb-3">
+              <Button
+                Style="width: 100%; height: 36px"
+                variant="primary"
+                onClick={(mesa) => {
+                  handlePut(mesa.mesaId);
+                }}
+              >
+                Salvar
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
