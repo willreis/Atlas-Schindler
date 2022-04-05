@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
-import Modal from "react-bootstrap/Modal";
 import Api from "../../services/Api";
 import { Button } from "react-bootstrap";
 import { IconContext } from "react-icons/lib";
@@ -54,13 +53,10 @@ export default function ImportacaoOrdemProducao() {
   const [la, setLa] = useState(null);
   const [idUser, setIdUser] = useState(null);
   const [show, setShow] = useState(false);
-  const [modalDelete, setModalDelete] = useState(false);
   const [ordemProdGet, setOrdemProdGet] = useState([]);
   const [user, setUser] = useState();
   const [file, setFile] = useState({});
   const url = "OrdemProducao";
-
-  const fecharModal = () => setModalDelete(false);
 
   const columns = [
     {
@@ -158,27 +154,35 @@ export default function ImportacaoOrdemProducao() {
     },
   ];
 
-  function handleDeleteImportacao(idUser) {
-    try {
-      Api.delete(`/${url}/${idUser}`);
-      console.log("delete id la:", idUser);
-      setModalDelete(false);
-      Swal.fire({
-        icon: "success",
-        title: "Sucesso",
-        text: "Processo deletado com sucesso",
-      }).then(() => {
-        window.location.reload();
-      });
-    } catch (err) {
-      alert("erro ao deletar caso, tente novamente");
-    }
-  }
-
-  function handleDeleteUsuario(la) {
-    console.log("Modal Delete aberto!");
-    console.log("id modal", la);
-    setModalDelete(true);
+  function handleDeleteUsuario(idUser) {
+    Api.delete(`${url}/${idUser}`);
+    console.log('Pegou?', idUser);
+    Swal.fire({
+      title: 'Tem certeza que deseja excluir?',
+      text: "Não será capaz de recuperar os dados deletados...",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Pronto!',
+          'Dados excluídos com sucesso!',
+          'success'
+        )
+      }
+    }).then(() => {
+      window.location.reload();
+    }).catch(() => {
+      Swal.fire(
+        'Erro',
+        'Não foi possível completar a operação!',
+        'error'
+      )
+    })
   }
 
   const selectRow = {
@@ -322,68 +326,6 @@ export default function ImportacaoOrdemProducao() {
             </div>
           </div>
         </div>
-
-        {/* Modal importar arquivo */}
-        <Modal
-          Style="margin-top: 100px; margin-left: 500px"
-          size="lg"
-          show={show}
-          onHide={() => setShow(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Cadastro de Usuarios</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div
-              className="formCadastro"
-              id="formCadastro"
-              Style="margin-bottom: 30px"
-            >
-              <p>Vou ser um modal de Cadastro bora CODAR!</p>
-            </div>
-          </Modal.Body>
-        </Modal>
-
-        {/* Modal Delete */}
-        <Modal
-          size="sm"
-          aria-labelledby="contained-modal-title-vcenter"
-          show={modalDelete}
-          onHide={() => setModalDelete(false)}
-          centered
-        >
-          <Modal.Header closeButton Style="position:relative">
-            <h3 Style="position: absolute; left: 30%;">Atenção!</h3>
-          </Modal.Header>
-          <Modal.Body>
-            <div Style="margin-bottom: 30px; text-align: center">
-              <div className="row">
-                <div className="col-12">
-                  <p>Deseja Realmente Excluir?</p>
-                </div>
-              </div>
-              <div className="row mt-3">
-                <div className="col-12">
-                  <div className="row">
-                    <div className="col-6">
-                      <Button variant="danger" onClick={fecharModal}>
-                        Não
-                      </Button>
-                    </div>
-                    <div className="col-6">
-                      <Button
-                        variant="primary"
-                        onClick={() => handleDeleteImportacao(idUser)}
-                      >
-                        Sim
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
       </IconContext.Provider>
     </>
   );
